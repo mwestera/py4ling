@@ -3,8 +3,8 @@
 
 Title	Preparation (Python, PyCharm)
 
-MW  What do you think Python is? 
-MW  How do you think programming works, roughly?
+MW  Without searching the web, what do you think Python is?
+MW  Without searching the web, how do you think programming works, roughly?
 MW  What do you hope to learn or gain from this course? (Simply 'a diploma' is a totally valid answer, albeit somewhat uninspiring.) Write your answer down, and periodically look at it to keep you on track.
 MW  This course is for 5 EC. How many hours of study does this represent? Divided over around 15 weeks, how many hours a week does this represent?
 MW  Given the foregoing, and your personal goals, how many hours a week do you _want_ to spend on this course? 
