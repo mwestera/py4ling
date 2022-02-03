@@ -1,7 +1,7 @@
 # Python for linguists
 
 
-## 4. Basic types (`type`, and `int`, `str`, `float`, `bool`...)
+## 4. Types (`type`, and `int`, `str`, `float`, `bool`...)
 
 **4.1.** What does the built-in function `type` do? Apply it at least to the expressions `4`, `238`, `-6`, `5.3`, `3 ** 4`, `'apple'`, `'apple' * 5`, `True`, `False`, `'True'`, `'False'`, `'987'` (note the quotation marks), `print` and `max`.
 

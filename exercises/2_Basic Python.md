@@ -1,7 +1,7 @@
 # Python for linguists
 
 
-## 2. Basic Python (`print`, variables, `=`, `==`, `+`, ...)
+## 2. My first Python (`print`, variables, `=`, `==`, `+`, ...)
 
 **2.1.** In the Python console, enter a print statement such as `print('Hello, world!')`.
 

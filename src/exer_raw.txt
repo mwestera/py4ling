@@ -22,7 +22,7 @@ MW  In PyCharm, see if you can find the editor, the 'run' button, and the Python
 
 
 
-Title   Basic Python (`print`, variables, `=`, `==`, `+`, ...)
+Title   My first Python (`print`, variables, `=`, `==`, `+`, ...)
 
 MW	In the Python console, enter a print statement such as `print('Hello, world!')`.
 TP2	When executing a print statement, what happens if you leave out one of the parentheses, or both?
@@ -87,7 +87,7 @@ MW	In the interpreter enter `name = input('What is your name?')`. What does it d
 MW	In a Python script, write a program that asks for the user's name and prints the name three times (each can be on a separate line).
 
 
-Title	Basic string operations (`+`, `len`, comparison, slicing `[]`, `f'format strings'`)
+Title	String operations (`+`, `len`, `[]`, `f''`)
 
 MW	You know that Python can add and multiply numbers with `+` and `*`. Do these operations also work on strings? Try `'apple' + 'pear'`, `'apple' * 'pear'`, `'apple' * 5`, `'pear' + 5` and others. Which mathematical operations work on strings, and which ones don't? Which types of errors do you get?
 MW	How do you add two strings together with a dash "-" in between? And with a space in between? And with five spaces in between?
@@ -145,7 +145,7 @@ print(f'left {my_string:^20} right')
 ```
 
 
-Title	Basic types (`type`, and `int`, `str`, `float`, `bool`...)
+Title	Types (`type`, and `int`, `str`, `float`, `bool`...)
 
 MW	What does the built-in function `type` do? Apply it at least to the expressions `4`, `238`, `-6`, `5.3`, `3 ** 4`, `'apple'`, `'apple' * 5`, `True`, `False`, `'True'`, `'False'`, `'987'` (note the quotation marks), `print` and `max`.
 MW	You can _convert_ between types by using `int`, `str`, `float`, `bool`, for instance `int('400')` constructs a string `'400'` from the integer `400`, and `bool(0)` constructs the boolean `False` from the integer `0`. Try to convert between different types, and use `type` to check the result. What happens for conversions that don't make sense, e.g., `int('apple')`, `float('')`?
