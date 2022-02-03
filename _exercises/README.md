@@ -1,0 +1,1 @@
+Go to https://github.com/mwestera/py4ling/blob/main/exercises/ for a more readable version of the exercises!
