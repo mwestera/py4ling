@@ -1,7 +1,7 @@
 # Python for linguists
 
 
-## 3. Basic string operations (`+`, `len`, comparison, slicing `[]`, `f'format strings'`)
+## 3. String operations (`+`, `len`, `[]`, `f''`)
 
 **3.1.** You know that Python can add and multiply numbers with `+` and `*`. Do these operations also work on strings? Try `'apple' + 'pear'`, `'apple' * 'pear'`, `'apple' * 5`, `'pear' + 5` and others. Which mathematical operations work on strings, and which ones don't? Which types of errors do you get?
 
