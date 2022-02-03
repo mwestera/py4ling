@@ -2,7 +2,7 @@ import os
 
 separate_files = True
 out_dir = '../exercises'
-in_file = 'exercises.txt'
+in_file = 'exer_raw.txt'
 
 if __name__ == "__main__":
 

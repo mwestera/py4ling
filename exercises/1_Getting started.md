@@ -29,5 +29,5 @@
 **Something to keep in mind:** There are two main ways of executing Python code, i.e., of _applying the Python interpreter to your code_. The first is to use the _editor_ to write your Python code a file, and then 'run' the file as a whole. The second is to enter your code in an 'interactive Python interpreter', called **Python console** in PyCharm, executing each command directly.
 - - - - -
 
-**1.10.** In PyCharm, see if you can find the editor, the 'run' button, and the Python Console button. <p align="center"><img src="pycharm.png" width=35% height=35%></p>
+**1.10.** In PyCharm, see if you can find the editor, the 'run' button, and the Python Console button. <p align="center"><img src="https://github.com/mwestera/py4ling/blob/main/src/pycharm.png" width=35% height=35%></p>
 
