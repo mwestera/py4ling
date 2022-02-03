@@ -1,13 +1,8 @@
 import os
-import typing
 
-separate_files: bool = True
-out_dir: str = '../exercises'
-in_file: str = 'exer_raw.txt'
-
-
-def test_function(a: int, b: int) -> str:
-    return str(a + b)
+separate_files = True
+out_dir = '../exercises'
+in_file = 'exer_raw.txt'
 
 
 if __name__ == "__main__":
