@@ -174,7 +174,7 @@ MW  In a Python script, write a program that asks for the user's age in years an
 TP3 Write a program that uses `input` to ask the user for the time now (in hours), and subsequently asks for the number of hours to wait. Your program should store each user response in a variable, and print what the time will be on the clock when the alarm goes off.
 
 
-Title	Basic control flow (`if`, `elif`, `else`)
+Title	If-clauses (`if`, `elif`, `else`)
 
 MW	Create a python script containing `if 4+2 == 6: print('yes!')`, and execute it. Now try to break it by modifying different things, for example, what if you replace `==` by `=`? (Undo that.) What if you remove the colon `:`? 
 Mw	Now change the condition (`4+2 == 6`) into something that is always false, and execute it again. Did it print anything? 
@@ -285,7 +285,7 @@ MW	Similar to converting from e.g. `int` to `str`, you can convert various types
 MW	Recap: how do you select the first element of a list? How do you select the `n`th element of a list? What happens if `n` is larger than the list's length? How do you select the last element of a list? How do you select the pre-last element of a list?
 
 
-Title	More control flow: loops (`for`, `range`)
+Title	For-loops (`for`, `range`)
 
 MW	Another keyword that can create clauses, like `if`, is `for`. Try to understand what it does, with the following code. First make sure the variable `names` is still assigned the list of names `['Alf', 'Beth', 'Chris', 'Dave', 'Esra']`.\n```
 for name in names:

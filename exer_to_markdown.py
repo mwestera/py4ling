@@ -62,7 +62,7 @@ if __name__ == "__main__":
             string = f'\n\n## {titles}. {line["content"]}'
             if separate_files:
                 short_title = line["content"].split('(')[0].strip()
-                out_filename = f'{out_dir}/exer_{titles}_{short_title}.md'
+                out_filename = f'{out_dir}/{titles}_{short_title}.md'
                 with open(out_filename, 'w+') as outfile:
                     outfile.write("# Python for linguists\n")
         elif line['mode'] == 'note':
