@@ -1,7 +1,7 @@
 # Python for linguists
 
 
-## 1. Getting started (Python, PyCharm)
+## 1. Preparation (Python, PyCharm)
 
 **1.1.** What do you think Python is?
 
