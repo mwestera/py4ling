@@ -1,7 +1,7 @@
 import os
 
 separate_files = True
-out_dir = 'exercises'
+out_dir = '../exercises'
 in_file = 'exercises.txt'
 
 if __name__ == "__main__":
