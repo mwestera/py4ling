@@ -1,4 +1,8 @@
 # Exercises
+
+[Contribution guidelines for this project](pycharm.png)
+
+
 ### 1. Warming-up
 
 **1.1.** In the Python interpreter, enter a print statement such as `print('Hello, world!')`.
