@@ -1,8 +1,14 @@
 import os
+import typing
 
-separate_files = True
-out_dir = '../exercises'
-in_file = 'exer_raw.txt'
+separate_files: bool = True
+out_dir: str = '../exercises'
+in_file: str = 'exer_raw.txt'
+
+
+def test_function(a: int, b: int) -> str:
+    return str(a + b)
+
 
 if __name__ == "__main__":
 
@@ -12,13 +18,14 @@ if __name__ == "__main__":
 
     with open(in_file) as infile:
 
+        offset = 1
         for n, line in enumerate(infile):
             try:
                 line = line.strip()
                 if line == "":
                     continue
                 elif line.startswith("***"):
-                    print(n, line.strip('*'))
+                    print(n + offset, line.strip('*'))
                     continue
                 if line == "ENDFILE":
                     break
@@ -35,12 +42,13 @@ if __name__ == "__main__":
                 if content.endswith('```'):
                     content = content[:-3] + '\n```python\n'
                     for codeline in infile:
+                        offset += 1
                         content += codeline
                         if '```' in codeline:
                             break
                 lines.append({'content': content, 'mode': mode, 'source': source})
             except Exception as e:
-                print(n, line, e)
+                print(n + offset, line, e)
 
         # TODO read effort level
 
