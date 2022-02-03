@@ -1,7 +1,7 @@
 *** !! NOTE !! Please go to https://github.com/mwestera/py4ling/blob/main/exercises/ for a more readable version of the exercises!
 
 
-Title	Getting started (Python, PyCharm)
+Title	Preparation (Python, PyCharm)
 
 MW  What do you think Python is? 
 MW  How do you think programming works, roughly?
