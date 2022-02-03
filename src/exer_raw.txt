@@ -18,7 +18,7 @@ MW  Inside your newly created project, have a look at the file `main.py` (which,
 
 Note  There are two main ways of executing Python code, i.e., of _applying the Python interpreter to your code_. The first is to use the _editor_ to write your Python code a file, and then 'run' the file as a whole. The second is to enter your code in an 'interactive Python interpreter', called **Python console** in PyCharm, executing each command directly.
 
-MW  In PyCharm, see if you can find the editor, the 'run' button, and the Python Console button. <p align="center"><img src="https://github.com/mwestera/py4ling/blob/main/src/pycharm.png" width=35% height=35%></p>
+MW  In PyCharm, see if you can find the editor, the 'run' button, and the Python Console button. <p align="center"><img src="https://raw.githubusercontent.com/mwestera/py4ling/main/src/pycharm.png" width=35% height=35%></p>
 
 
 
