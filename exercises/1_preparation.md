@@ -3,9 +3,9 @@
 
 ## 1. Preparation (Python, PyCharm)
 
-**1.1.** What do you think Python is?
+**1.1.** Without searching the web, what do you think Python is?
 
-**1.2.** How do you think programming works, roughly?
+**1.2.** Without searching the web, how do you think programming works, roughly?
 
 **1.3.** What do you hope to learn or gain from this course? (Simply 'a diploma' is a totally valid answer, albeit somewhat uninspiring.) Write your answer down, and periodically look at it to keep you on track.
 
