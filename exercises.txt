@@ -1,0 +1,1102 @@
+Title	Getting started (Python, PyCharm)
+
+MW  What do you think Python is? 
+MW  How do you think programming works, roughly?
+MW  What do you hope to learn or gain from this course? (Simply 'a diploma' is a totally valid answer, albeit somewhat uninspiring.) Write your answer down, and periodically look at it to keep you on track.
+MW  This course is for 5 EC. How many hours of study does this represent? Divided over around 15 weeks, how many hours a week does this represent?
+MW  Given the foregoing, and your personal goals, how many hours a week do you _want_ to spend on this course? 
+MW  Go into your calendar and schedule regular, recurring blocks of time in which you will work on this course. Give the recurring calendar event a name that reflects your goal (e.g., `improve my programming` can be better than `Python homework`).
+
+Note    You can write Python programs in any plain text editor (or even with pen on paper!), but many tools exist to make programming easier, safer and more enjoyable. Most programmers work in an **IDE** ('Integrated Development Environment'), which typically contains a text editor with features such as _syntax highlighting_, _style checking_, coding help and auto-completion, as well as tools for running and debugging your programs, version management, even code sharing. 
+
+MW  For this course please install the **PyCharm IDE** on your computer: https://www.jetbrains.com/pycharm/ . The 'community edition' is open-source, available for every operating system, and more than sufficient for our needs. Installation is very user-friendly, and you can install it without changing any of the default settings (or tweak them if you know what they do).
+MW  Once you have installed PyCharm, execute it (e.g., launch it from the start menu) and on the PyCharm entry screen click the big '+' button to create a _new project_. Again, all the default settings are fine. If Python is not yet installed on your system, PyCharm offers to do this for you when you click "create". Please do so, and again, the default Python version is fine. (To clarify: Python is a programming language. PyCharm is a program to help you write Python programs.)
+MW  Inside your newly created project, have a look at the file `main.py` (which, on the default settings, PyCharm will have created for you) and try to run it.
+
+Note  There are two main ways of executing Python code, i.e., of _applying the Python interpreter to your code_. The first is to use the _editor_ to write your Python code a file, and then 'run' the file as a whole. The second is to enter your code in an 'interactive Python interpreter', called **Python console** in PyCharm, executing each command directly.
+
+MW  In PyCharm, see if you can find the editor, the 'run' button, and the Python Console button. <p align="center"><img src="pycharm.png" width=35% height=35%></p>
+
+
+
+Title   Basic Python (`print`, variables, `=`, `==`, `+`, ...)
+
+MW	In the Python console, enter a print statement such as `print('Hello, world!')`.
+TP2	When executing a print statement, what happens if you leave out one of the parentheses, or both?
+TP2	If you are trying to print a string, what happens if you leave out one of the quotation marks? What if you leave out both?
+MW	Try both single and double quotation marks around the string: `print('cheese')` and `print("cheese")`. What happens if you mix different types of quotation marks?
+MW  What happens if you use two single quotation marks, instead of a single double quotation mark, e.g., `print(''cheese'')`?
+
+Note	Whenever you learn something new, stick with it for a while, to explore different variants and _find ways to break it_. By consciously introducing errors and learning to recognize what happens, you will become good at diagnosing the problem when you make unintentional mistakes later.
+
+MW	What happens if you enter `primt('cheese')`? What happens if you enter `print('cheeze')`? Can you explain why?
+MW  What happens if you split a print statement over multiple lines, like below. Experiment with different places of putting the newline; which places give an error?\n```
+print(
+'Hello, world!')
+```
+MW	Try using the Python console as a calculator, using numbers and operators like + and -. Which operators does Python recognize? What does `**` do? What does `//` do? And `%`?
+TP2	What happens if you put a minus sign before a number? What happens if you put a plus sign before a number? What about `2++2`?
+TP2	In math notation, leading zeros are ok, as in `09`. What happens if you try this in Python?
+TP2	What happens if you have two values with no operator between them?
+TP2	How many seconds are there in 42 minutes 42 seconds?
+TP2	How many miles are there in 10 kilometers? Hint: there are 1.61 kilometers in a mile.
+TP2	If you run a 10 kilometer race in 42 minutes 42 seconds, what is your average pace (time per kilometer in minutes and seconds)? What is your average speed in kilometers per hour?
+TP2	We've seen that `n = 42` is legal. What about `42 = n`? And how about `x = y = 1`? If it is legal, what is the result (try printing the variables)?
+
+Note	Some of these exercises are about language, or at least about strings like words and sentences; but most aren't. The initial purpose for these exercises is for you to **learn a new language**, Python, and acquire a programmer's way of thinking. Later we will learn how to apply these skills specifically to natural language. 
+
+TP2	In math notation you can multiply variables _x_ and _y_ like this: _xy_. What happens if you try that in Python? Why?
+TP2	What is the area of a circle with radius 3? What is the volume of a sphere with radius 5?
+MW	First enter `n = 42`. Then try each of the following. Is it legal, and if so, what does it do? \n- `n = 100` \n- `n = n` \n- `n = n + 3` \n- `n -= 3` \n- `n = 'n'` \n- `'n' = n`
+MW	Create a Python script containing `print('Hello, world!')` and run it.
+P4L	Write and execute three lines of code that: (i) create a variable with the value 37; (ii) create another variable with the value 4; (iii) print out the result of multiplying those together.
+MW	Assign a string to a variable, then print it, and print it again. Now assign a different string to the same variable and print it again twice. What advantage of variables does this exercise illustrate?
+TP2	In some languages every statement ends with a semi-colon, `;`. What happens if you put a semi-colon at the end of a Python statement?
+TP2	What if you put a period at the end of a statement?
+MW	Print a string that contains single or double quotation marks, such as _She said: "Hello!"_ and _She said: 'Hello!'_. Can you get it to work? And how can you print a string that mixes single and double quotation marks?
+MW	Compare what happens in the Python console, vs. running a Python script containing the same code; try at least: \n- `print('cheese')` vs. `'cheese'` \n- `print(n)` vs. `n` (assuming `n` still has a value from before)
+MW	Take a statement that runs (e.g., `print('Hello, world!')`), add one or more spaces in front of it and try to run it again. What happens? Unlike in many other programming languages, in Python indentation (whitespace at the start of lines) is meaningful. Later we will see cases where you _must_ indent.
+TP3	Add parentheses to the expression `6 * 1 - 2` to change its value from `4` to `-6`.
+TP3	In the Python console enter `my_variable + 4`. What happens? Next, assign a value to `my_variable` so that `my_variable + 4` evaluates to `10`.
+TP2	Suppose the cover price of a book is €24.95, but bookstores get a 40% discount. Shipping costs €3 for the first copy and 75 cents for each additional copy. What is the total wholesale cost for 60 copies?
+TP2	If I leave my house at 6:52 am and run 1 km at an easy pace (6:15 per km), then 3 km at tempo (4:42 per km) and 1 km at easy pace again, what time do I get home for breakfast?
+TP3	`%` is the modulo operator, look it up if you need to. Evaluate each of the following numerical expressions in your head, then use the Python console to check your results. What happens in each case? Why? \n- `5 % 2` \n- `9 % 5` \n- `15 % 12` \n- `12 % 15` \n- `6 % 6` \n- `0 % 7` \n- `7 % 0`
+MW	What do the built-in functions `max` and `min` do? For example, try `max(3, 4, 5)`, `max(10)`, and `min(5, -11, -2, 99)`. 
+MW	In maths it is common to compare numbers or variables with _greater than_, _smaller than_, _not equal to_, and so on. Experiment with the operators `>`, `<`, `!=`, `>=`, `<=` to figure out what they do.
+MW	Put `not` in front of some of the expressions you tested, e.g., `not (3 >= 4)`. What does it do? What about `not True` and `not False`? Inspired by the operator `!=`, could you also use exclamation mark `!` instead of `not`?
+MW	Explore how boolean operators `and` and `or` work. Does `or` correspond to inclusive or exclusive _or_?
+MW	What is the difference between `not True or False` and `not (True or False)`, and why?
+MW	First enter `n = 42`, and then `n == 42`. What is the result? What about `n == 43`? What happens if you try to assign a new variable with `==`, e.g., `z == 123` (assuming you haven't used `z` before)?
+MW	Try to predict which one of these is legal, what the result is, and why: \n- `fruit = 'apple'` \n- `fruit = apple` \n- `'fruit' = 'apple'` \n- `fruit == apple` \n- `'fruit' == 'apple'` \n- `'fruit' == apple`.
+P4L	What does this code do: `a = 3 == 3`? What is the result and why? What’s the difference between that code snippet and this one: `a == 3 = 3`? Why does the latter produce an error?
+
+Note	Single `=` is used for assigning a value to a variable, while double `==` tests for equality. It matters how you read them, whether mentally or out loud. If you read both simply as _is_, you are prone to confuse yourself.
+
+TP3	What do these expressions evaluate to? \n- `3 == 3` \n- `3 != 3` \n- `3 >= 4` \n- `not (3 < 4)`
+TP3	Give the logical opposites of these conditions: \n- `a > b` \n- `a >= b` \n- `a >= 18 and day == 3` \n- `a >= 18 and day != 3`.
+TP3	Which of the following fail? Explain why. \n- `3 % 4 == 0` \n- `3 % 4 == 3` \n- `3 / 4 == 0` \n- `3 // 4 == 0` \n- `3+4 * 2 == 14` \n- `4-2+2 == 0` \n- `len("hello, world!") == 13`.
+TP3	You look at the clock and it is exactly 2pm. You set an alarm to go off in 51 hours. At what time does the alarm go off? (Whenever a value increases and then goes back to zero, again and again, like hours on the clock, modulo can be useful.)
+MW  Make sure that the variable `my_variable` from before still has `6` as its value. What happens if you now do `my_other_variable = my_variable`? And if you subsequently reassign `my_variable = 20`, can you predict what happens to the value of `my_other_variable`? Test your prediction.
+
+Note    Variabels are 're-assigned' independently of one another. Even if two variables are initially made to refer to the same thing, reassigning something to one variable doesn't automatically reassign the other.
+
+MW	In the interpreter enter `name = input('What is your name?')`. What does it do? Enter something in the interpreter and press enter. Next, look what's in the variable `name`.
+MW	In a Python script, write a program that asks for the user's name and prints the name three times (each can be on a separate line).
+
+
+Title	Basic string operations (`+`, `len`, comparison, slicing `[]`, `f'format strings'`)
+
+MW	You know that Python can add and multiply numbers with `+` and `*`. Do these operations also work on strings? Try `'apple' + 'pear'`, `'apple' * 'pear'`, `'apple' * 5`, `'pear' + 5` and others. Which mathematical operations work on strings, and which ones don't? Which types of errors do you get?
+MW	How do you add two strings together with a dash "-" in between? And with a space in between? And with five spaces in between?
+TP3	For the sentence _All work and no play makes Jack a dull boy_, first store each word in a separate variable, and, using these, print out the sentence on one line.
+MW	What happens if you try to create a string, but the string contains a new line, e.g.:\n```
+sentence = 'apples do not fall
+far from the tree'
+```
+MW	Newlines in your string are no longer a problem if you use triple quotation marks (`'''` or `"""`) at the start and end. Fix the previous code so it runs correctly. If you print the string, does the newline survive?
+MW	You can also add newlines to your string by typing `\n` as part of the string, e.g., `'apples do not fall\nfar from the tree'`. Here backslash `\` is used as an _escape operator_; it is used for various other special characters as well, e.g., `\t` for a tab. Very handy! But what should you do if you want to create a string that contains an actual backslash?
+MW	Do the comparison operators `>` and `<` work on strings, e.g., `'apple' < 'pear'`? What do they mean in this context? Can you explain `'300' > '4'`? What about `'300' > 4`?
+P4L	For each of the following, explain whether it's true or false (or neither...) and why: \n- `'hat' == "hat"` \n- `hat == 'hat'` \n- `1/3 == .33` \n- `'three' > 'two'` \n- `2 + 2 = 4`
+MW	What happens if you feed the built-in functions `max` and `min` a string as argument (e.g., `max('apple')`, `min('bonanza')`)? And what about multiple strings, `max('apple', 'aardvark', 'banana', 'zebra')`? Can you explain the result of `max('250')`? And `min('-852')`? And `max('123abc')`?
+
+Note    To get the most out of these exercises, try not to use any built-in methods other than the ones mentioned in the exercises that came before. Later on, we will learn about convenient shortcuts for some of the things you are asked to do, as well as familiarize ourselves with powerful natural language programming libraries.
+
+MW	What does `len('apple')` do? Apply `len` to diffrent strings.
+MW  Can you also get the length of a number, e.g., `len(3)`? What about a boolean? What about the length of the empty string?
+MW  What happens if you type `length` instead of `len`? What happens if you forget the quotation marks of the string, or a parenthesis?
+MW  In some programming languages, `len` is a method that 'belongs to' the string class, requiring you to type for example `'apple'.len()`. What happens if you do that in Python? What about the ugly `'apple'.__len__()`? Python's so-called _dunder_ (double underscore) methods will be explained later.
+MW	The `in` keyword does what you would expect: it checks if one thing is in another. Try `'p' in 'apple'`, and `'q' not in 'apple'`. Can you use `in` to check for larger substrings (e.g., `app`), or only single characters? According to `in`, does a string contain itself?
+MW	Suppose we have a single character assigned to the variable `char`. In ordinary English, describe what the following means: `char in 'aeoui'`. Does it work on capital letters?
+MW	Assign a variable `name = 'Michael'`. What do each of the following do: \n- `name[1]` \n- `name[2]` \n- `name[8]` \n- `name[-1]` \n- `name[-2]` \n- `name[1:3]` \n- `name[2:2]` \n- `name[-2:]` \n- `name[2:]` \n- `name[:2]` \n- `name[0]` \n- `name[2-4]` \n- `name[3-2]` \n- `name[1+1]`
+MW  You can also indicate the _step size_ when slicing, by adding another colon and a number. What does `name[::2]` do? What about `name[::-1]`? And `name[1:5:2]`?
+
+Note    The square brackets operator `[]` lets us select characters, contiguous substrings, and even non-contiguous substrings. This is called _slicing_ the string.
+
+MW  By using _only slicing_, extract only the odd-position characters from `michael` (assuming the `m` is at position 0, i.e., even). And can you also obtain the string `eh` from the string `michael` by using only slicing? What about the string `ehm`?
+MW	Perhaps you'd expect to be able to change the string in `name` by replacing a character like this: `name[2] = 'b'`, expecting the result `Mibhael`. But this doesn't work; what does the error message say? This is because strings are not _mutable_: once you create a string, you cannot change it, only create a new one that is different. We return to mutability later.
+MW	Can you predict what `'0123456'[3]` does? What about `'1234567'[3]`?
+MW	What does `name[len(name)]` do? What about `name[len(name)-1]`? Why?
+MW	Predict the outcomes of `len('apple' * 5)` and `len('apple') * 5`, then test your expectation.
+MW	Python's string class provides various methods, including `upper` and `lower`. What would you expect them to do? As methods of the string class, you call them like this: `'apple'.upper()`.
+MW	For some arbitrary string assigned to variable `s`, is the following true: `s == s.upper().lower()`.
+MW  In a Python script write a program that uses `input` to ask for the user's name, and subsequently print _Hi [name], how are you?_
+MW	In all of the Python scripts you create, add a _comment_ with the exercise number above the relevant chunk of code, e.g., `# Ex 1.23`, so that you can retrieve your own solutions later. Any text or code preceded by `#` is ignored by Python, as it represents a comment meant for humans.
+MW  Write an expression that, given a string `s`, gets rid of the last 4 characters.
+MW	Write an expression that, given a string `s`, evaluates to `True` if the first character of the string is a vowel, and `False` otherwise. Is your expression robust to capitalization differences? Can you improve this using `upper` or `lower`?
+MW	Write an expression that, given a string `s`, evaluates to `True` if the last character of the string is a consonant, and `False` otherwise. Did you use the boolean operator `not`?
+MW	Write a `print` statement that, given a string `s` and an integer `cut_at`, prints two substrings: the starting portion until the position indicated by `cut_at`, and the remainder.
+MW  Python's **format strings** can help you easily print stuff in a readable format. You can create a format string in many ways; an easy way is to prefix the string with an `f`, i.e., before the initial quotation mark. Inside a format string, curly braces can contain any Python expression, with some additional formatting options:\n```
+print(f'Hi, my name is {name}, which starts with "{name[0]}" and is {len(name)} characters long!')
+```
+MW  What happens if you forget the `f` prefix in the above example?
+MW  What happens if you want to print a format string, but it references a variable that does not exist?
+MW  Try printing the same stuff _without_ using a format string. You will need string concatenation instead, and explicitly convert the length to a string using `str(len(name))` (more about type conversion in the next section). Which version of the print statement do you find more readable?
+MW  Format strings have many more options; see what the following do:\n```
+my_number = 6.1239871
+print(f'{my_number} or {my_number:.6f} or {my_number:.4f} or {my_number:.2f}')')
+
+my_string = 'just testing'
+print(f'left {my_string:>20} right')
+print(f'left {my_string:<20} right')
+print(f'left {my_string:^20} right')
+```
+
+
+Title	Basic types (`type`, and `int`, `str`, `float`, `bool`...)
+
+MW	What does the built-in function `type` do? Apply it at least to the expressions `4`, `238`, `-6`, `5.3`, `3 ** 4`, `'apple'`, `'apple' * 5`, `True`, `False`, `'True'`, `'False'`, `'987'` (note the quotation marks), `print` and `max`.
+MW	You can _convert_ between types by using `int`, `str`, `float`, `bool`, for instance `int('400')` constructs a string `'400'` from the integer `400`, and `bool(0)` constructs the boolean `False` from the integer `0`. Try to convert between different types, and use `type` to check the result. What happens for conversions that don't make sense, e.g., `int('apple')`, `float('')`?
+MW	Try `bool('True')` and `bool('False')`. Is the result what you expected? Try to understand why this is. Can you guess what string do you need to feed to `bool` to get `False`?
+MW	What happens if you try to append a number to a string by doing `'apple' + 5`? Can you fix this by using `str`?
+MW	What happens if you try to divide an integer number such as `5` by a floating point number such as `3.14`?
+MW	Is `5.0000` a float or an int? What do you expect will be the value of `5.0000 == 5`?
+MW	If you get a user's input using `input`, what is the type of the resulting object? Does this depend on what the user enters?
+MW	In a Python script, write a program that gets a number from the user, multiplies it times 5, and prints the result.
+MW  While the Python console is useful for trying out a single command, writing longer programs is much more convenient to do in a file in the editor. Can you think of some reasons why?
+
+Note	When you are asked to 'write a program', you can either create a new `.py` file (and make sure you subsequently run the new file), or continue working in an existing file from a previous exercise. As long as the previous code doesn't give errors, take too long to run, etc., continuing in the same file is fine! Later we will learn how to better structure your files and code. For now, make sure to choose sensible file names, and always add a **comment** with the exercise number(s) above each chunk of code, e.g., `# Ex 1.23`.
+
+MW	Write a program that gets one number from the user, then another one, and prints the result of dividing the first by the second. Try it out a couple of times. What happens if you run the program, first enter 9 and then 0?
+MW	To test if an object is of a certain type, use `isinstance`, for instance `isinstance(500, int)` and `isinstance('apple', str)`. What is the type of `isinstance` itself?
+MW	Types form a hierarchy, as you would expect, e.g., just like a mammal is also an animal, a string (type `str`) is at the same time also an object (type `object`), which is a more general, super-type. Test this with `isinstance('apple', str)` and `isinstance('apple', object)`. When you use `type`, it looks only at its lowest type in the hierarchy. Verify this by comparing `isinstance('apple', object)` to `type('apple') == object`.
+P4L	What does this code do: `isinstance(bool == bool,bool)`? What is the output and why?
+MW	`help` is a built-in function that gives you information about other functions. Try `help(max)`, `help(min)` (pressing `q` lets you quit the help screen).
+P4L	Use the `help` function to find out about the `round` function. Explore how to use it, with one and with two arguments.
+MW	Use `type` to test whether `round` changes a float into an int. Does it always do this?
+MW	Note that `print` can take multiple arguments, e.g., `print('apple', 'pear', 'banana')`. Use `help` to learn more about the `print` function. You will likely not understanding everything, but you can play around with the parameters `sep` and `end`.
+MW	Why doesn't `print('Hello', 'world!')` print `Hello, world!`?
+MW	Now that you have used the Python console for a while, enter `dir()` in the interpreter to show the 'directory', a list of names of all objects currently available (at least those in the _global scope_, about which we will learn later). As you will see, any variables previously created still exist (alongside some automatically created variables like `__name__`, about which we will learn later).
+MW	If you mistype `primt('apple')` instead of `print('apple')`, you would normally get the informative error _Name is not defined_ to notify you of this mistake: the name `primt` does not appear in the `dir()`. But what if you defined a variable `primt = 5` long ago and you forgot about it? If you then make the typo `primt('apple')`, the error you get will be much harder to understand (unless you remember you still had the `primt` variable hanging around from earlier).
+
+Note	If you keep too many old names hanging around in the interpreter, this can make it more difficult to _detect mistakes_. To reduce this problem, occasionally restart your Python console (especially if you keep getting unexpected results). When you run code from python scripts (instead of the interpreter directly) this problem is less likely to occur, as each time you run a script, Python starts from scratch. However, if keep working in the same file for too long, the problem can reappear. (To help with the latter, programmers _encapsulate_ chunks of code; we will learn about this later.)
+
+MW  In a Python script, write a program that asks for the user's age in years and prints several things: their age in months, their age in weeks, their age in days, their age in hours, their age in minutes, and their age in seconds; you can ignore leap years (and make other simplifying approximations).
+TP3 Write a program that uses `input` to ask the user for the time now (in hours), and subsequently asks for the number of hours to wait. Your program should store each user response in a variable, and print what the time will be on the clock when the alarm goes off.
+
+
+Title	Basic control flow (`if`, `elif`, `else`)
+
+MW	Create a python script containing `if 4+2 == 6: print('yes!')`, and execute it. Now try to break it by modifying different things, for example, what if you replace `==` by `=`? (Undo that.) What if you remove the colon `:`? 
+Mw	Now change the condition (`4+2 == 6`) into something that is always false, and execute it again. Did it print anything? 
+
+Note  Some terminology: the `if`-clause consists of a **header** `if 4+2 == 6:` and a **suite** `print('yes!')`, also called the **body** of the if-clause. We will see various other types of clauses later, always consisting of a header and a suite, e.g., for-loops and function definitions. The header of a clause always ends with a colon `:`.
+
+Mw  After the header, the clause's suite/body is typically placed on a new line, where it _must_ be indented (i.e., spaces at the front). Change the previous program to make this the case, and run it again; e.g.:\n```
+if 4+2 == 6:
+    print('yes!')
+```
+MW	What happens if you remove the indentation, i.e., if header and suite start at the same level?
+MW	What is being printed by the following program:\n```
+if 1+1 == 5:
+    print('uuuuhm...')
+
+print('print this!')
+```
+MW	What happens if you indent the second print-statement to the same level as the first print statement? And what if you now make the condition true (e.g., `1+1 == 2`)? What happens if you remove the newline between the two statements? Or if you add five newlines? Play around!
+MW	In an if-clause, does it still work if you place the condition in parentheses right behind the `if`? (This goes against Python style.)
+MW	In your Python editor (or the interpreter), can you indent with the 'tab' key? Do these appear as proper tabs (large spaces) or are they replaced by sequences of multiple normal, narrow spaces? If the latter, you're safe; if the former, you need to pay extra attention: you can indent either with tabs or with spaces, but don't mix them!
+MW	Write a program that takes a variable `n`, tests if its value is odd, and if not, adds 1 to it and prints _I've made it even!_. Subsequently, regardless of whether it was originally even or odd, the program should always print the resulting value of `n`.
+MW	With variable `name` containing a string, write a program that tests if the first letter is `a`, and, if so, prints _The first letter is 'a'!_. Only if the first letter is 'a', it should additionally test if the second letter is 'b', and if so, print _The word starts with 'ab'!_. Your second `if` can be nested under the first `if` -- make sure the indentation reflects this. Apply your program to a number of strings to test, such as _able_, _apple_ and _banana_.
+
+Note	**Indentation is meaningful** in Python, whereas in most other programming languages indentation is only a reading aid. Look up Python's indentation rules if you are unsure.
+
+MW	Write a program that asks for the user's name, tests if it starts with a vowel, and if so, prints _You are a vowel person!_.
+MW	You can follow an if-clause with an else-clause, which consists of its head `else:` and one or more statements as a suite. Use `else:` to expand the previous program to print _You are a consonant person!_ in the right circumstances.
+MW	Is your program robust to different capitalizations?
+MW	Now write a program that likewise asks for the user's name, but then tests if the name starts with a _consonant_, and if so print _You are a consonant person!_; otherwise print _You are a vowel person!_. Did you type a long list of consonants to implement this? If so, could this be avoided?
+TP3	Place a hashtag `#` before a line of code that previously worked, and record what happens when you rerun the program. Whatever follows `#` is treated as a _comment_ and ignored by Python.
+MW	Write a program that tests whether the value of a variable `n` is odd, and if so print _Odd!_, and if not print _Even!_.
+MW	Oops, our client requests a change: they want to the program to print, in addition, whether the number `n` is greater than 10 or not.
+MW	What happens if `n` is not a number but, say, a string? Make your program more robust by using `isinstance` to test if `n` is a number; if not, print _Wrong input!_.
+MW	Our client requests another feature: if the number is both odd and greater than ten, that's a very special case where it should print only _ALARM!!!_ and nothing else.
+MW	Python's `elif` is shorthand for `else, if`, and it helps you avoid many nested if-clauses. Make sure you understand the following example:\n```
+if n > 0:
+    print('Positive!')
+elif n == 0:
+    print('Zero!')
+else:
+    print('Negative!')
+```
+MW	Together, the if-clause, elif-clause and else-clause form a **compound clause**. Can you have an `elif` and/or an `else` without an initial `if`? Can you have more than one `elif`?
+MW	Use `elif` to improve the 'odd/even/greater than 10' from a few exercises ago program if possible, avoiding nested if-clauses and removing any repeated code to you used to specify the conditions.
+
+Note	Deeply nested clauses are frowned upon as an 'anti-pattern' in programming, to be avoided because they make code difficult to read and maintain -- and this applies not only to `if`-clauses (see also `for`-clauses below).
+
+MW	We both flip a coin, the outcome of which is stored in two boolean variables `player1` and `player2`. If both come up heads, print _We both won!_, if both come up tails, print _Play again._, if only the first comes up heads, print _Player one won._, if the second, print _Player two won._. Implement a version with nested if-clauses, and a version without nested if-clauses. Besides `elif`, you can also reduce nested ifs by combining your conditions using boolean operators like `and` and `or`.
+MW	Write a program that takes a word as input from the user, and checks the first two characters: if one is a vowel and the other a consonant, create a new string where the two characters are swapped; otherwise leave the string unchanged. Print the resulting string. Can you think of an English word that turns into another proper English word?
+MW	In an if-elif-else compound clause, what happens if one of the three clauses has an empty suite (e.g., delete or comment out (`#`) one of the print statements in the code above).
+MW	Are the headers `if True:` and `if False:` accepted by Python (together with a suitable suite)? What do these conditions achieve?
+MW	Write a program that takes two strings from the user, prints _You are disqualified_ if either one is less than three characters long, and prints _Yay well done!_ if the two strings are not equal but one string is contained in the other.
+
+
+Title	Lists (`list`, `append`, `[]`)
+
+MW	Assign a variable `names = ['Alf', 'Beth', 'Chris', 'Dave', 'Esra']`. What does `type(names)` say?
+MW	Use square brackets `[` and `]` to create a list of numbers, a list of strings, and a list of both numbers and strings. Do these lists all have the same `type`? What about an empty list?
+MW	What happens if you try to create a list but forget a comma? What if you forget a square bracket?
+MW	Using the previous variable `names`, try to predict what the following do (just as with strings, this is called _slicing_), and test your predictions: \n - `names[1]` \n - `names[2]` \n - `names[8]` \n - `names[-1]` \n - `names[-2]` \n - `names[1:3]` \n - `names[2:2]` \n - `names[-2:]` \n - `names[2:]` \n - `names[:2]` \n - `names[0]` \n - `names[2-4]` \n - `names[3-2]` \n - `names[1+1]`?
+MW	Earlier we used `len` for strings. Does it also work on lists? What about an empty list?
+MW	Recall from slicing with strings that you could specify not only a start and end, but also a step. Does this work with lists?
+MW  Form your expectation, and then test it: What happens if you define a list where the same object occurs multiple times? What happens if you append an object to a list that already contains it?
+MW	What happens if you pass an entire list as an argument to `print`?
+MW	Assuming you still have the variable `names`, what does the `in` keyword do? Try at least `'Alf' in names` and `'Alwyn' in names`. How do you test whether _Alwyn_ is _not_ in `names`.
+MW	Remember that various numerical operations could be performed on strings, e.g., `'apple' * 5`, and `'apple' + 'pear'`. Which of these also work on lists?
+MW	What do you expect will happen if you do `names[len(names)]`? Test your expectation, and try to understand why you were wrong/right.
+MW	You can change a list element at a given position (index) by assigning a new value using `=`, e.g., `names[3] = 'Nick'`. Print the resulting list.
+MW	In the list `names`, use assign to replace the last element by 'Suzy' and the first element by 'Bob'. Can you also use assignment to _extend_ the list, by assigning a new element to the final index plus 1?
+MW	Adding elements at the end of a list can be done, instead, with `append`, which is a method of the list class, hence you call it like `names.append('Ann')`. Try appending several names to `names`, and finally print the length of the resulting list.
+MW  Assign an empty list to a variable, and then `append` a bunch of things to it. Print the result.
+MW	So far, you first assigned a list to the variable `names`, then changed the list, and then you inspected the original variable `names` to see the result. However, at no point did you _reassign_ an updated list to `names`. Rather, the same list remained assigned to `names`; it is the list itself that was modified. This is possible because lists are _mutable_, unlike integers or strings. In comparison, there is no way to _change_ the integer or string value of a variable, _except_ by reassigning something new to it. To better understand this, reflect on the following code:\n```
+int1 = 5
+int2 = int1
+int1 += 6
+print('int1:', int1, '   int2:', int2)
+
+str1 = 'bla'
+str2 = str2
+str1 *= 2
+print('str1:', str1, '   str2:', str2)
+
+
+list1 = ['a', 'nice', 'list']
+list2 = list1
+list1.append('really')
+
+print('list1:', list1, '   list2:', list2)
+```
+MW  One way of modifying a list in-place is by assigning a new value to an existing position in the list, as we saw above (e.g., `names[3] = 'Nick'`). Do you remember whether you can similarly change a string by assigning a character to a position, e.g., `str1[1] = 'z'`? Try it, and compare this to how a list behaves.
+
+Note    Lists are **mutable**: they can be changed in-place (e.g., using `append` or by assigning something to an index in the list). This means that the 'contents' of a variable to which a list is assigned can change, without ever needing to reassign an updated list to that variable. By contrast, strings and ints (and floats, and bools, and tuples) are _immutable_: e.g., the only way to change the value of a variable that refers to a string, is by reassigning a new string to that variable. Understanding mutability will prevent some hard-to-track mistakes later on!
+
+MW  Based on the foregoing, do you expect strings to have an `append` method? Why (not)? Try it.
+P4L	But if strings are really immutable, what about this: First run `x = 'abc'` and `print(x)`, and then `x = x.upper()` and `print(x)` again. `x` seems to have changed! Explain what's going on; is a string mutable after all? (Beware: it's easy here to settle on an intuitive, but wrong answer.)
+MW	Can you also create a _list of lists_? And a list of lists of lists? What happens if you mismatch the required open and closing brackets? What happens if you forget a comma?
+G4G	Given a list, write a Python program to swap first and last element of the list. Does your program work if the list has only one element? What should it do if the input list has zero elements?
+TP3	Assume the days of the week are numbered 0,1,2,3,4,5,6 from Monday to Sunday. Write a program that asks a day number, and prints the day name (a string).
+MW	Oops! Your client prefers to number the days from 1 (Monday) to 7 (Sunday). Can you modify the above program to fit their use case? How many changes did you need to make?
+MW	In the above program, did you use `if` statements? Try to write this program without using `if` statements, by using a list of day names instead. Does this make the program easier to modify if the client changes their mind again?
+
+Note	Whenever you need a mapping from (consecutive) integer numbers to something else, such as strings, use a list, which is precisely such a mapping. For a mapping from things other than integer numbers, we will learn about another datastructure later, the _dictionary_.
+
+TP3	You go on a wonderful holiday leaving on day number 3 (a Wednesday). You return home after 137 sleeps. Write a general version of the program which asks for the starting day number, and the length of your stay, and it will tell you the name of day of the week you will return on.
+P4L	Lists and strings are similar in many ways. Try to show with code three ways in which they are alike, and three in which they are not alike (think _mutability_).
+MW	Do you expect the following to be true or false: `len([1, 2, 3]) == len('[1, 2, 3]')`. Test your expectation.
+MW	Similar to converting from e.g. `int` to `str`, you can convert various types of objects to a list, using `list`. Try converting a string to a list, and understand what you see. Can you also a list to a string? Do you expect the following to be true? Is it? `str(list('apple')) == 'apple'`
+MW	Recap: how do you select the first element of a list? How do you select the `n`th element of a list? What happens if `n` is larger than the list's length? How do you select the last element of a list? How do you select the pre-last element of a list?
+
+
+Title	More control flow: loops (`for`, `range`)
+
+MW	Another keyword that can create clauses, like `if`, is `for`. Try to understand what it does, with the following code. First make sure the variable `names` is still assigned the list of names `['Alf', 'Beth', 'Chris', 'Dave', 'Esra']`.\n```
+for name in names:
+    print(name)
+```
+MW	Do for-clauses follow the same syntactic rules as if-clauses, e.g., with regard to indentation, the placement of the colon, and the effect of (lack of) newlines in between a for-clause and subsequent statements?
+MW	After executing the preceding code, what is now the value of the variable `name`? Do you understand why?
+MW	Write a program that loops over the list `names` from above and prints each element twice, using a `for`-loop with two `print` statements in its body.
+MW	In the previous example the variable `name` probably already existed before the for-clause was executed. Does this need to be the case? Try looping with a fresh variable.
+MW	Create a variable `num_names`, and loop over the list `names` again, this time incrementing the counter `num_names` by 1 for each element. Print `num_names` afterwards. Congratulations, you have re-implemented `len`!
+TP3	Can you use an if-clause within a for-loop? Write a program to count how many odd numbers are in a list, printing the result.
+TP3	Sum up all the even numbers in a list.
+TP3	Sum up all the negative numbers in a list.
+MW  Write a program that takes a list of numbers, multiplies each element by 3 and appends the results to a new list. Does the new list have the same number of elements as the original list?
+NED  In the following example, how come the list `nums` doesn't change?\n```
+nums = [1, 2, 3]
+for x in nums:
+    x *= 10
+
+print(nums)
+```
+MW	Write a program that prints all and only list elements with even indices (0, 2, 4, ...).
+TP3	Count how many words in a list have length 5.
+TP3	Sum all the elements in a list up to but not including the first even number. (What if there is no even number?)
+TP3	Count how many words occur in a list up to and including the first occurrence of the word _the_. (What if _the_ does not occur?)
+TP3	Write a program that counts the number of even digits in a number `n`.
+
+Note	In programming, an important part of the solution to any problem is often: how should I represent my data? For instance, should you represent a number as an int or as a string? If the goal is to do arithmetic, it makes sense to treat it as a number; but if the goal is to count digits, it can be helpful to first represent the number as a string.
+
+TP3	Write a program that computes the sum of the squares of the numbers in the list `numbers`. For example a call with `numbers = [2, 3, 4]` should print the result of 4+9+16 which is `29`
+MW	Write a program that concatenates all words in the list `words = ['apple', 'pear', 'banana', 'strawberry']`, placing one after the other with dashes `-` in between.
+MW	Generalize the preceding program to allow changing the connector (e.g., dash, space, underscore) by assigning this to a variable `connector`.
+MW	It is often convenient (but equally often _not_ convenient!) to loop over consecutive numbers (0, 1, 2, 3, ...). A clumsy way to achieve this is to create a list of numbers and loop over those. Try this, and print each number.
+MW	A better way to loop over consecutive numbers is to use `range`, e.g., `for i in range(10)` loops over all integers from 0 to 9. Try this and verify that it works the same way.
+MW	Execute `help(range)` for more information (and remember to press `q` to quit). As you can see, you can construct a range with up to three arguments. What do the other arguments do? E.g., what happens if you loop over `range(3, 50, 5)`? And what about `range(100, 5, -3)`? Is there a relation between the three arguments of `range`, and the three integers you can specify when slicing a string or list?
+MW	Write a program that counts down from 10 all the way to 0, and then prints _Lift off!_.
+MW	Write a program that counts down from 10 down to -10 in steps of 2.
+MW	What happens if you iterate over an empty list? What happens if you iterate over an empty range, e.g., `range(0)`, or `range(56,56)`?
+MW	Can you think of advantages of using `range` instead of a list of numbers? Also consider limits of computer memory: what if you want to loop a billion gazillion times?
+MW	Can you create a `range` with non-integer steps, e.g., 0.1? What about using a float as a starting point or end point, is that allowed?
+MW	Remember that objects can sometimes be converted from one type to another. A `range` object can be converted to a `list`, e.g., `list(range(100))`. Try this. Can you also convert a list back to a range? What happens if you try, and why?
+MW	Compare `x = range(9999)` and to `x = list(range(9999))` (without printing the result). Keep increasing nines and try again, e.g., `99999`, `999999`, `9999999`, and beyond. At some point you will notice that the version `x = list(range(999...9)` gets much slower, while the version `x = range(999...9)` remains fast. Why would this be?
+
+Note	Try not to needlessly occupy memory and processing time: `range` lets you iterate over a sequence of integers without having to store the corresponding list of integers in memory.
+
+MW	Earlier we saw that if-clauses can be nested. What about for-clauses? Write a program that loops over the `names` list from earlier (`for name1 in names`), and nested within that loop, loops over the same list again (`for name2 in names`). In the body of the inner loop, print the two names stored in `name1` and `name2`, concatenated with a dash in between. What do you get?
+MW	Why did the inner loop use a different variable from the outer loop, namely `name2`? Modify the previous program to see what happens if the inner loop instead uses the same variable as the outer loop (i.e., `name`), and inside the inner loop simply print `name`. Do you understand what you see?
+MW  In the following example, how come the list `cities` doesn't change?\n```
+cities = ['amsterdam', 'rotterdam', 'leiden', 'gouda']
+for city in cities:
+    city.capitalize()
+
+print(cities)
+```
+MW  What about now?\n```
+cities = ['amsterdam', 'rotterdam', 'leiden', 'gouda']
+for city in cities:
+    city = city.capitalize()
+
+print(cities)
+```
+MW	Create nested loops to print all pairs of numbers between 0 and 10, but only if the first member is odd and the second even. Did you use an if-clause, or appropriate `range` objects?
+MW	Create nested loops to print all two-character strings where the first is a consonant and the second is a vowel.
+MW	Create nested loops to print all pairs of numbers between 0 and 10, where the second is higher than the first -- but crucially _without_ using `if`-statements!
+TP3	Write a program that prints out the first `n` triangular numbers. For instance, with `n = 5`, it should print the result of 1+2+3+4+5, i.e., `15`.
+TP3	Write a program which prints `True` when `n` is a prime number and `False` otherwise.
+MW	Create a _single_ (!) loop using `range` (without constructing a list first), that prints the numbers 0, 1, 2, ..., 23, repeating this five times. Remember how you handled the hours on a clock earlier?
+MW	Now program a clock with both hours and minutes, printing it as, e.g., `16:52`, and let it run for two 'days'. If it works, make it also display seconds, and run it for a few 'hours'.
+
+Note	When looping over a range of numbers in a particular way, choosing a smart `range` often results in more readable code than using if-statements inside the loop.
+
+MW	Can you change the setting of your clock to display times using `am` and `pm` instead of the 24-hour format, e.g., `4:52pm` instead of `16:52`?
+MW	Write a program that takes a list of words like `words = ['the', 'dog', 'is', 'in', 'the', 'garden']`, takes the length of each word, and prints the total sum of word lengths. Do you get the same number as `len('the dog is in the garden')`? Why (not)? What about `len(words)`?
+
+
+Title	Defining and calling functions (`def`, `return`)
+
+MW	In a python script, enter the following code to define a function with the name `print_spam` and subsequently _call_ it:\n```
+print('I'm going to define a function.')
+
+def print_spam():
+    print('spam')
+
+
+print('Now I'm going to call the function, pay attention:')
+print_spam()
+```
+MW	A function definition is a clause, just like an if-clause and a for-clause. What is its head and what is its suite/body?
+MW	What happens in the above example if there is only one empty line after the function definition? What if there is no empty line after the function definition? What if the last two print statements in the above example are indented too?
+MW	What happens if you define a function but don't call it? What happens if you forget the parentheses in the function call, i.e., `print_spam`?
+MW	Can a function contain multiple statements in its body? Can you call the same function multiple times?
+MW	What happens if your script calls a function before defining it (i.e., in the .py file, the definition comes after the call)?
+MW	What happens if you rename the function in the definition, but forget to update the function call?
+MW	When defining a function, you can give it **parameters**, enabling it to be called with **arguments**. Play around with the following to see what is allowed:\n```
+def print_twice(word):
+    print(word)
+    print(word)
+
+
+print_twice("bla")
+```
+MW	What happens if you accidentally call the original `print_spam`, which has no parameters, with an argument, e.g., `print_spam('testing')`?
+MW	Define and call a function `print_inverted` that is given a word, and prints the word back-to-front (e.g., _apple_ is printed as _elppa_).
+MW	Write a function `print_multiple` that is given a list, and prints each element of the list, each on a new line.
+MW	Write a function `print_multiple_oneline` that is given a list, and prints all list elements on a single line, concatenated with dashes in between. You can either first compose a long string and call `print` only once at the end, or use repeated `print` statements and control the layout with the help of its `sep` and `end` parameters.
+MW	Modify the original `print_multiple` to take an additional boolean argument `oneline`, such that `print_multiple([1, 2, 3], True)` prints all numbers on one line, and `print_multiple([1, 2, 3], False)` prints each number on a new line.
+MW	Does a function definition (a def-clause) follow the same indentation rules as an if-clause and a for-clause?
+MW	Functions can not only take inputs and do stuff, they can also output stuff, using the `return` keyword. The following code does not print `aaah!`. Make the program print `aaah!` without changing the function definition.\n```
+def create_scream():
+    return 'aaah!'
+
+
+create_scream()
+```
+MW	Define and call a function `invert` that takes a word, and returns a new string containing that word back-to-front (that is, like `print_inverted`, but instead of printing the inverted word, it returns it). When calling the function, assign the returned value to a variable and print it.
+MW	What do you expect `type(create_scream())` and `type(invert())` to be? And what is the type of a function call that does not return anything, e.g., `print_spam()` above?
+MW	Explain the difference between `type(create_scream())` and `type(create_scream)`; and between `type(print_spam())` and `type(print_spam)`.
+MW	What happens if a single function contains multiple different `return` statements (e.g., `return 'aaah!'` and `return 'oooh...'`)?
+MW	Define and call a function that both prints a string and returns another string.
+
+Note	As a rule of thumb, every function should either _compute_ stuff (return a new object) or _do_ stuff (e.g., print stuff, modify an existing object), not both. Functions that return stuff are sometimes called fruitful functions; functions that only do stuff are sometimes called procedures. A function that does both is said to have _side effects_, which is considered an anti-pattern in programming.
+
+MW	Functions can also have multiple parameters, hence be called with multiple arguments. Write a function that takes three numbers and returns their sum, and a function that takes three numbers and returns their average.
+MW	What happens if you define a function with one parameter (like `invert` above), but call the function as if it has two parameters (e.g., `invert('abc', 'def')`)? What if you call it with no arguments (`invert()`)?
+MW	Write a function `is_palindrome` that takes a word, and checks if it is a palindrome, returning `True` or `False` accordingly. Can you implement a version that uses your `invert` function from above?
+TP3	Write a `compare` function that returns `1` if `a > b`, `0` if `a == b`, and `-1` if `a < b`. Examples:\n- `compare(5, 4) == 1` \n- `compare(7, 7) == 0` \n- `compare(2, 3) == -1`
+TP3	Write a function called `hypotenuse` that returns the length of the hypotenuse (Dutch: 'schuine zijde') of a right triangle, given the lengths of the two legs adjacent to the right angle as parameters. Examples: `hypotenuse(3, 4) == 5.0`, `hypotenuse(24, 7) == 25.0`.
+TP3	Write a function called `is_even` that takes an integer `n` as an argument and returns `True` if the argument is an even number and `False` if it is odd.
+TP3	Now write the function `is_odd` that returns `True` when its integer argument `n` is odd and `False` otherwise.
+TP3	Write a function `is_factor` with integer parameters `f`, `n` that makes the following true: \n- `is_factor(3, 12)` \n- `not is_factor(5, 12)` \n- `is_factor(7, 14)` \n- `not is_factor(7, 15)` \n- `is_factor(1, 15)` \n- `is_factor(15, 15)` \n- `not is_factor(25, 15)`.
+TP3	Write `is_multiple` to satisfy these statements: \n- `is_multiple(12, 3)` \n- `is_multiple(12, 4)` \n- `not is_multiple(12, 5)` \n- `is_multiple(12, 6)` \n- `not is_multiple(12, 7)`.
+TP3	Write the function `farenheit_to_celcius` designed to return the integer value of the nearest degree Celsius for given temperature in Fahrenheit, and its inverse `celcius_to_farenheit`. Extract suitable test cases from a conversion table on the web.
+MW  In PyCharm and many other IDEs you can ctrl+click (or cmd+click) on a function call, to jump to the place in the code where the function is defined. Clicking on a variable in this way brings you to the place where it is first assigned. It is true also for built-in functions, and functions imported from other modules, in which case PyCharm takes you to the corresponding source files as well. Try ctrl+click a bunch of times on different functions and variables.
+MW	Write a function `even_or_odd_vowels` that counts the number of vowels in a string, and prints _evenly voweled!_ if it has an even number, otherwise _oddly voweled!_.
+MW	Write a function `count_words` that takes a string, namely an English sentence, and prints the number of words in the sentence. Hint: Generally speaking, in written English, how do you know a new word is beginning?
+MW	Write a function `vowels_to_y` that takes a string and returns a new string where all vowels have been replaced by `y`. Could you change the function to modify the original string _in-place_, instead of returning a changed copy?
+MW	Write a function `tokenize` that takes a string, namely an English sentence, and returns a list containing its separate words. (Try not to use any built-in functions other than those introduced above.) Congratulations, you have programmed a _tokenizer_! Can you spot some room for improvement? You can make your tokenizer as advanced as you like.
+MW	Use your `tokenize` function to obtain a list of tokens from a text. Then loop through the resulting tokens list to print pairs of consecutive words. For instance, for the text _the apple is red_, your program should print `the apple`, then `apple is`, then `is red`. Using `enumerate` is convenient here; alternatively you can use `range` based on the length of the list of tokens.
+MW	Adapt your preceding code to print not bigrams but _trigrams_, i.e., sequences of three consecutive words.
+
+
+Title	More loops, and ways to break them (`for`, `while`, `break`)
+
+MW	Make sure `names` is still assigned the list of names from earlier: `['Alf', 'Beth', 'Chris', 'Dave', 'Esra']`. What does the `break` keyword do? Execute the following code and try to understand the output:\n```
+for name in names:
+    if name[0] not in 'aeiou':
+        print('Found one!')
+        break
+```
+MW	What happens if you use `break` in some other place in your code, not inside a loop?
+MW	How many names does this loop print:\n```
+for name in names:
+    print(name)
+    break
+```
+MW	Try to predict the output of the following program, then test your expectation:\n```
+for name in names:
+    if name[0] in 'aeiou':
+        break
+    print(name)
+```
+Note	The keyword `break` lets you break out of a loop, which can be useful when some condition is met (e.g., some crucial element has been found) and there is no need to keep looping.
+MW	Can a single loop contain multiple `break` statements?
+MW	What does `break` do when placed in the inner loop of multiple nested loops (e.g., the clock examples from above)? Does it break out of all the loops?
+TP3	We want to know if a list contains any odd numbers. What are problems with the following code?\n```
+numbers = [10, 5, 24, 8, 6]
+
+for number in numbers:
+    if number % 2 == 1:
+        print(True)
+        break
+    else:
+        print(False)
+        break
+```
+
+Note	When writing a loop, always consider: Do I need to look at all elements in all cases? Can I shortcut and take an early exit? Under what conditions? And under what conditions will I have to examine all the items in the list?
+
+MW	The `while` keyword lets you loop in a way that is different from `for`-loops. Run the following and make sure you understand what's happening. As before, try to break it in various ways.\n```
+counter = 0
+while counter < 10:
+    print(counter)
+    counter += 1
+```
+MW	If a program keeps on running, do you know how to intervene to stop it? This is sometimes `ctrl`+`d` or `cmd`+`d`, but your IDE may also offer a stop button (e.g., red square).
+MW	In the above while-loop, replace the condition (`counter < 10`) simply by `True`. What do you expect will happen? Do you understand the importance of the previous question?
+MW	Redo some of the exercises above by using a `while` loop instead of a `for` loop. E.g., use a `while` loop to sum up all the even numbers in a list, to concatenate all words in the list `words`.
+P4E	Write a while loop that starts at the last character in the string and works its way backwards to the first character in the string, printing each letter on a separate line, except backwards.
+MW	Write a program with a while-loop that repeatedly takes a string from the user, and simply repeats it back to you _unless_ it contains a profanity, in that case it remains silent. You can get creative (and naughty), or find lists of profanities on the web. (Further below we will learn how to read such words from a separate file, so you don't need to copy them into your program.) If you enter more than 5 profanities, the program should say _I've had enough of this_ and change the value of a boolean such that the while-loop stops.
+
+Note	Often `for`-loops are the way to go; but `while`-loops can be convenient if you don't quite know how long to loop, e.g., until some unpredictable condition is met, such as a particular user input.
+
+MW	Write an infinite loop that prints prime numbers. Periodically ask the user if they want to continue, and if not, make sure the loop stops. Implement one version where the loop stops because a boolean is changed; another version where the loop stops by using `break`.
+P4E	Write a function that repeatedly gets numbers from the user (using the `input` function), until the user enters _done_. Once _done_ is entered, print out the total, count, and average of the numbers. If the user enters anything other than a number, print an error message and skip to the next number.
+TP3	Write a number guessing game. Start your program with `import random` and then `number = random.randrange(1,100)`. What does this do? (We will learn more about `import` later.) Now write a loop where the user is asked to guess that number. Upon each guess, the program prints whether it is too high or too low, or, if the guess is exactly right, exit the loop and print _Congratulations! You won in [n] guesses!_ where _n_ is the number of guesses.
+MW	Modify the guessing game: if the player guesses correctly, after congratulating them, ask the player if they want to play again, and if so, sample a new random number and start over. After each game, give the player some additional feedback: were they faster or slower than the average of previous rounds?
+MW	Write a loop that prints floats between 0 and 1000, in increments of (approximately) pi. Write a version without `range`, and a version with `range`.
+MW	Write a program that repeatedly asks for user input; it ignores all user input except the string _knock_. Only if the user writes _knock_ three times in a row (as three separate inputs), the program should print _Go away!_ Does the program behave as required if you enter _knock- twice, then something else, then _knock_ a third time?
+MW	Sometimes you want to loop over the elements of a list, while at the same time counting them. The built-in function `enumerate` is great for this. Assuming you still have `names` defined, try the following:\n```
+for i, name in enumerate(names):
+    print(i, name)
+```
+MW	Note that looping over a list via `enumerate` iteratively assigns new values to _two_ variables, namely the counter and the element (`i` and `name`, in this example). What happens if you forget the `i` and do `for name in enumerate(names)`? What is the type of `name` in that case? And what happens if, conversely, you include the `i` but forget the `enumerate`, that is, `for i, name in names`?
+MW	Can you define your own function that returns not one, but two values (e.g., `return x, y`)? What happens if you call the function and assign the two returned values to a single variable? What is the type of the resulting object? Can a function return three values? Or four? Do you expect there to be an upper limit?
+
+Note	Use the built-in function `enumerate` to count the elements of a list as you loop over them. `enumerate` takes a list and iteratively yields _pairs_ (2-tuples) of a count and a list element. We will learn more about pairs (and more generally tuples) later.
+
+MW	What happens if you print the object `enumerate(names)` directly? What is its `type`? Note that it is not an ordinary list; instead, an Enumerate object processes `names` _on demand_, numbering each element on the fly, without looking ahead. This avoids having to read the full list and construct a new 'numbered' list, which would unnecessarily take up memory and processing time. But it means that, if you want to collect all enumerated names in an ordinary list, you need to do so explicitly: `list(enumerate(names))`. What is the `type` of the elements in this list? We will learn more about that type of object later.
+MW	A very powerful and 'Pythonic' pattern is **list comprehension**. It allows you to change or filter list elements in a single, relatively readable line of code. Try to predict (and test) what the following do:\n- Let `numbers = [9, 5, 8, 3, 2, 6]`, and try `[n for n in numbers if n > 4]` \n- `[i % 3 for i in range(20)]` \n- `[s[0] for s in names]` (assuming you still have `names`) \n- `[str(i) + ': ' + name for i, name in enumerate(names)]` \n- `[name[0].lower() in 'aeiou' for name in names]`
+MW  Use list comprehension to take a list of words, and construct a list of the same words but in full capitals. Does your code demonstrate that strings are mutable? Does it demonstrate that lists are mutable?
+MW	Use list comprehension to take a list of numbers, and return a list of squares of those numbers, but only of those numbers which were even.
+MW	Use list comprehension to create a list containing all names in the list `names` that are at least 3 characters long. Also use list comprehension to create a list of integer that indicate, for each name, how many characters it contains.
+
+Note    With list comprehension, a _lot_ can be done in a single, compact line of code. But compact code is not the goal; code must be _readable_ above all else. Therefore, use list comprehension only if you think this makes the code more readable than e.g. a multi-line `for`-loop. This is only the case, typically, if the modification or filtering condition you want to apply is sufficiently simple. In general: don't write 'clever' code; write _clear_ code.
+
+MW	Redo the previous two exercises _without_ list comprehension, by using an ordinary multi-line for-loop. Which version do you find more readable?
+AMY Here is a fun puzzle related to mutability. For the game of tic-tac-toe, we can construct a 3x3 board as follows: `row = [''] * 3`, and then  `board = [row] * 3`. Print the `board` to see what it looks like. Now let's play the game: I'm the first player, and I place a cross in _one_ of the cells, like this: `board[1][1] = 'x'`. Let's print the board again. Oops, it appears I already won! Easiest game of tic-tac-toe! (What on earth is going on??) How should the `board` be constructed to prevent this cheat?
+MW	Enter `import keyword` and then print `keyword.kwlist`. For which of these keywords do you already know the purpose? (We will learn more about `import` later.)
+
+Title	More functions practice!
+
+MW	Define a function that takes a list of numbers, of in principle unrestricted length, and returns its sum. Define a similar function that returns the lists' average.
+
+Note	When you are asked to write a program, define a function, etc., what is left implicit is that you should _test_ your function thoroughly to ascertain it works correctly. One example for testing is never sufficient. (Later we will learn how to write code in a separate file for exactly that purpose: testing testing testing.) Moreover, you need to decide in which file to put the function, where in that file, and sometimes what to name it. Always choose a logical place, and a meaningful, transparent name, favoring clarity over brevity. And for your own sake, remember to comment (`#`) each chunk of code with the exercise number to which it belongs.
+
+MW	Write a function `find` that takes a string and a character, and returns the index of the first occurrence of that character in the string. For instance, `find('david', 'v')` returns `2`. Explain why `find` can be seen as the inverse of the square brackets notation for retrieving a character by index.
+MW	Write a function `find_in_list` that does the same, but for a list instead of a string. Could you reuse any of the previous code?
+TP2 Write a function named `right_justify` that takes a string named `s` as a parameter and prints the string with enough leading spaces so that the last letter of the string is in column 40 of the display.
+MW	Add a parameter to the previous function, such that you can also choose a number other than 40.
+MW	It is easy to misunderstand or forget what a function is supposed to be doing, even if you yourself wrote it. To avoid this you should _document_ your code. Adding informative (non-redundant, non-avoidable) `#`-comments is one way. Another, very important way to document your code is with so-called **docstrings** (documentation strings): a string object that occurs in the first line(s) of a function definition. Try this:\n```
+def sum_three_numbers(a, b, c):
+	"""Takes three integers or floats and returns their sum."""
+	return a + b + c
+```
+MW	Python internally handles docstrings by storing them as properties of the function, in a special field `___doc__`. Try `print(sum_three_numbers.__doc__)`. Docstrings are accessed, for instance, by the `help` function; try `help(sum_three_numbers)` (remember you can press `q` to quit the help).
+MW	Docstrings are customarily defined using three double-quotation marks (`"""..."""`). Do you remember how they handle newlines? Can you also also define docstrings using single double-quotation marks (`"..."`), i.e., does the `help` function still pick it up? What about using three single-quotation marks (`'''...'''`) or a single single-quotation mark (`'.'`)?
+
+Note	Always start your function definition with a docstring, explaining at least what arguments the function takes and what it does or returns. You can even write the docstring before writing the body of the function definition.
+
+MW	Add docstrings to all the functions you defined so far.
+TP3	The four compass points can be abbreviated by single-letter strings as `'N'`, `'E'`, `'S'`, and `'W'`. Write a function `turn_clockwise` that takes one of these four compass points as its parameter, and returns the next compass point in the clockwise direction. What should this function do if you give it some 'illegal' input, e.g., `'A'`?
+MW	Explain the difference between `type(turn_clockwise)` and `type(turn_clockwise('N'))`.
+TP3	Also define an analogous function `turn_counterclockwise`. Should `turn_counterclockwise(turn_clockwise('N')) == 'N'` evaluate to `True`? Does it?
+MW	If applicable, streamline the functions `turn_clockwise` and `turn_counterclockwise` with the help of a list datastructure containing the four compass points. How might the function `find_in_list` from above be useful here? And remember: whenever you can go around and around, you might need the modulo operator.
+MW	Extend your clockwise and counterclockwise functions to deal with four diagonal directions (such as North-East `NE` and South-West `SW`). If this is difficult or requires a lot of manual typing, it means your functions could probably have been implemented in a smarter, more concise way...
+TP3	Write a function `get_day_name` that converts an integer number 0 to 6 into the name of a day. Assume day 0 is Sunday. Print _Oops, error!_ if the arguments to the function are not valid. 
+TP3	Write the inverse function `get_day_num` which is given a day name, and returns its number. Once again, if this function is given an invalid argument, it should print _Oops, error!_. (In the future, more informative error messages are of course preferable.)
+MW	If applicable, streamline the functions `get_day_name` and `get_day_num` with the help of a list.
+
+Note	Dividing code into functions is sometimes called **chunking**. Chunking is an art, but there are some useful rules of thumb. One is the **Single Level of Abstraction Principle** (SLAP): a function should do a single thing at a single level of abstraction (related to 'separation of concerns'). Another rule of thumb for chunking (dividing a program into functions) is **Don't Repeat Yourself** (DRY), i.e., define a function whenever you find you are repeating chunks of code. The value of these principles may be difficult to see with the current exercises, but will become clear when we start writing larger programs.
+
+TP3	Write a function `add_to_day_name` that helps answer questions like 'Today is Wednesday. I leave on holiday in 19 days time. What day will that be?'. So the function must take a day name and a `num_days` argument -- the number of days to add -- and should return the resulting day name.
+TP3	Can your `add_to_day_name` function already work with negative deltas? For example, -1 would be yesterday, or -7 would be a week ago. If your function already works, explain why. If it does not work, try to fix it. Consider how the modulo `%` operator works on negative numbers.
+TP3	Write a function `month_to_ndays` which takes the name of a month, and returns the number of days in the month. Ignore leap years.
+TP3	Write a function `time_to_secs` that takes three arguments -- hours, minutes, seconds -- and converts the time these jointly represent to a total number of seconds, which it returns as output.
+TP3	Extend `time_to_secs` so that it can cope with real (i.e., non-integer, or floating point) values as inputs. It should always return an integer number of seconds (truncated, or rounded down, towards zero).
+TP3	Write three functions that are the _inverses_ of `time_to_secs`: \n 1. `hours_in` returns the whole integer number of hours represented by a total number of seconds; \n 2. `minutes_in` returns the whole integer number of left over minutes in a total number of seconds, once the hours have been taken out; \n 3. `seconds_in` returns the left over seconds represented by a total number of seconds. \n You may assume that the total number of seconds passed to these functions is an integer.
+MW	What happens if you assign a function to a variable, e.g., `convert_to_secs = time_to_secs`? Can you call the function using the new variable, instead of the original name?
+TP2	Make sure the function `print_spam` from above is still defined. Now write a function `do_twice` that takes a function `func` as a parameter, and calls that function twice. Then call `do_twice` with the function `print_spam` as its parameter. What happens if you give `print_spam()` (with parenthesis) as parameter? Why?
+TP2	Modify `do_twice` so that it takes two arguments, a function object and a value, and calls the function twice, passing the value as an argument. What happens if you enter `do_twice(print_spam)`? Why? What happens if you enter `do_twice(print, 'spam')`?
+TP2	Define a new function called `do_four` that takes a function object and a value and calls the function four times, passing the value as a parameter. Can you achieve this without a loop, and with only _two_ statements in the body of this function?
+MW  Do you remember to ctrl+click (or cmd+click) on a function or variable to go to the place where it was defined? Try this a couple of times on your new functions, just to build a kind of routine.
+MW	Just a reminder to add docstrings to your functions!
+MW	Earlier we saw what happens if you call a function before defining it (try again!). What happens if your function call is inside another function, e.g., your implementation of `do_four` should involve a call to `do_twice`. Does the order of the two function definitions -- `do_four` and `do_twice` -- matter? Why might this be?
+
+Note	A Python script is executed top-to-bottom, with the important clarification that defining a function is different from calling a function. The latter means that in the body of one function, you can in principle refer to another function even if it is defined later, as long as the first function is _called_ even later than that.
+
+MW  Explain how the foregoing is illustrated by the following two programs:```
+# The first program:
+
+def print_sum(a, b):
+    print(sum_numbers(a, b))
+
+def sum_numbers(a, b):
+    return a + b
+
+print_sum(1, 3)
+
+# The second program (place in a separate file):
+
+def print_sum(a, b):
+    print(sum_numbers(a, b))
+
+print_sum(1, 3)
+
+def sum_numbers(a, b):
+    return a + b
+```
+MW	Write a function `find_largest` that finds and returns the largest element in a list. It should work both when given a list of numbers and when given a list of strings.
+MW	Write a function `has_any_odd` that takes a _list_ of integers as argument, and returns `True` if it contains at least one odd number, and `False` if it contains no odd numbers. Does your function ever inspect more list elements than necessary to reach a conclusion? If so, try to streamline your function; note that return statements can be placed inside a loop, and a function can have multiple return statements. 
+
+Note	**Code is read much more often than it is written.** For this reason, when 'streamlining' your code, the goal is never brevity in and of itself. The goal, rather, is to improve the *readability* of your code.
+
+MW	Write a function `has_only_odd` that takes a list of integers as argument, and returns `True` if all numbers in the list are odd, and `False` otherwise. Again try to streamline your result.
+MW	Write a function `has_three_odd` that takes a list of integers as argument, and returns `True` if, and only if, at least three numbers in the list are odd.
+G4G	Write a function with three parameters that, given a list and two integer positions in the list, swaps the two elements in the list. Does your function modify the input list _in-place_, or create a new list?
+MW	Write an analogous function for swapping two characters in a string.
+MW  Write a function `chain` that takes a list of lists, and chains all lists into a single list.
+MW	Write a program that takes in a list of determiners, a list of nouns, and a list of intransitive verbs, and prints all possible three-word sentences.
+MW	To the previous program, add a list of transitive verbs and make sure your program also prints all possible five-word sentences.
+MW	We have a micro-computer with a tiny display of 8 by 8 pixels, each of which can only be either on or off. We received what appears to be a secret message: `0000000000110110011111110011111000011100000010000000000000000000`. Write a function that takes such strings and prints them to a (simulated) 8 by 8 display, each pixel represented by a one-character space, rendering a `0` as an empty space ` `, and a `1` as a hashtag `#`. If you like, compose your own reply.
+MW	Recall that you can convert a `range` object to a `list`, but not the other way around. Implement a function `list_to_range` that does allow this. Of course it can only work for lists that correspond to a certain range with an integer start point, end point and regular steps in between. If these conditions are not met, let the function print an error message.
+
+
+Title	Dictionaries (also tuples, `zip`)
+
+MW	Let us construct `name_to_id`, a mapping or _dictionary_ from fictional student names (the keys) to student IDs (the values):\n```
+name_to_id = {'Alf': '136124', 'Beth': '008623', 'Chris': '014212', 'Dave': '9123785', 'Esra': '978123'}
+```
+MW	You can look up a particular value in the dictionary by providing it with a key in square brackets (like list index notation). Look up the student IDs (values) of Alf and Chris (keys).
+MW	What happens if you try to look up the student ID (value) of a student whose name is not a key in the dictionary?
+MW	What happens when you try to define a dictionary with strings as keys, but you forget quotation marks around the strings?
+MW	Does a dictionary have a length, just like lists and strings? Can you create an empty dictionary? What is the `type` of a dictionary?
+MW	Similar to assigning a value to a particular index in the list (e.g., `names[3] = 'Bert'`), you can assign a value to a particular key in the dictionary (e.g., `name_to_id['Suzy'] = '124987'). What happens if the key to which you assign a value already exists in the dictionary? What happens if it does not yet exist in the dictionary?
+MW	Oops, the `name_to_id` dictionary contains the wrong ID for Chris! It should be `5987162`, please correct it.
+MW	What happens if you try to define a dictionary in which the same string appears as a key twice? What happens if you define a dictionary in which the same string is both a key and a value?
+MW	What happens if you define a dictionary (like `{'Alf': '36124', 'Beth': '008623'}`) but using `=` instead of the colons `:`? What happens if you update a dictionary via assignment (`name_to_id['Suzy'] = '124987`) but use a colon `:` instead of equals `=`?
+MW	Are the keys in a dictionary case-sensitive?
+MW  Is a dictionary mutable like a list, or immutable like integers and strings?
+MW	Both keys and values in a dictionary can be be integers, strings, or other objects (though the keys cannot be _mutable_, or more precisely they need to be _hashable_, which can remain a mystery for now). Give an argument why in this case the student IDs should be represented as strings, not as integers.
+MW	Can you loop over a dictionary with the same syntax as looping over a list? Try to loop over the dictionary `name_to_id` from above, printing each element. Which elements get printed, the keys, the values, or both?
+MW	There are three other ways of looping over a dictionary. In the above code, replace the occurrence of `name_to_id` in the header of the for-clause by `name_to_id.keys()`, `name_to_id.values()` and `name_to_id.items()`, and see what happens in each case.
+MW	If you loop over `name_to_id.items()`, note that what gets printed are _pairs_ of a key and a value. Earlier we saw that `enumerate` likewise creates pairs (of an integer count and a list element), and that this pair can be 'unpacked' into two separate variables in the for-header: `for i, name in enumerate(names)`. Similarly, try `for key, value in name_to_id.items()`, and print the key and value separately.
+MW	Construct another dictionary `name_to_id2` with a bunch of fictional names and IDs different from those in the original `name_to_id`. Now use a loop to add all items from `name_to_id` to the dictionary `name_to_id2` (in addition to its existing items).
+MW	Do the dictionary methods `keys`, `values` and `items` return an ordinary list, or a different type of object? If they are not lists, can you convert them using `list(...)`?
+MW	Create a dictionary `en_to_nl` that maps English numerals up to ten (_one_, _two_, ..., _ten_) to Dutch numerals (_een_, _twee_, ..., _tien_).
+MW	Create an empty dictionary `{}` and then, without re-typing any numerals, loop through the items of `en_to_nl` to construct the inverse dictionary, `nl_to_en`. Test a number of examples, including translating back and forth, e.g., `nl_to_en[en_to_nl['two']] == 'two'`.
+MW	Write a function that takes a list of strings like `['abc', 'hello', '2', 'three', '51', 'john']`, and computes the sum of all numbers it contains (in this example 2 + 52 = 53). What should it return if the list contains no numbers? Now extend your function so it also takes into account English numerals, like _two_, _three_ and _four_, adding them up together with the numbers; let it handle at least all English numerals up to _ten_.
+MW	Use the list `names` used earlier above, and create an empty dictionary `names_inv`. Now use `enumerate` to loop through all index-name pairs of the list `names`, and assign these to the dictionary `names_inv` by using names as keys and the corresponding list indices as values. Explain why `names_inv` is a suitable name.
+MW	Continuing from before, what do you expect is the result of `names_inv[names[3]]`? And what about `names[names_inv[names[3]]]`? And `names_inv[names[names_inv[names[3]]]]`? Test your expectations!
+MW	How robust is your previous program? What happens if the original list of names contained the same name twice, and you try to construct its inverse? Explain what goes wrong.
+MW	Think of a similar robustness issue with the way you constructed the dictionary `nl_to_en` from `en_to_nl`. Can you add one or more words to `en_to_nl` (and then re-construct `nl_to_en`) in a way that illustrates this issue?
+MW  Copy a short story or blog post from the web and assign it as one long string to a variable `text` (if the copied text contains newlines, remember you can enclose the string in triple quotation marks `'''` or `"""`). Write a program that uses your function `tokenize` from a while ago, to turn the `text` into a list of words. Then loop through the list of words in order to fill a dictionary `word_counts`, that has words (as types) as keys and the number of tokens (occurrences) of each word (tokens) as values. To illustrate: if the text contains _apple_ five times, then `word_counts['apple']` will end up equivalent to `5`.
+MW	Write a function that takes a dictionary and prints its items, one item on each line, with key and value separated by a colon and a space (`: `). Apply this function to `word_counts` from the previous exercise.
+W3R	Write a function to get the minimum and maximum value in a dictionary, and a separate function to get the minimum and maximum key in a dictionary.
+MW	Try defining several dictionaries and iterate over their keys, printing them. What determines the order in which the keys are iterated over?
+
+Note	Conventionally, when iterating over a dictionary the elements will be given in the order in which they were defined / added to the dictionary (so not, e.g., alphabetical). However, this can depend on the particular Python version. By convention, the order of items in a dictionary _must not matter_ and _should not be relied upon_ for critical code. If order matters, use a list instead.
+
+MW	Loop over a dictionary's `items` (key-value pairs) to print the `type` of each item. Do all items have the same type? What if the dictionary keys and values are a mix of integers and strings?
+MW	Let's learn a bit more about **tuples**, which we also saw with `enumerate` earlier (pairs of a counter and an element). You can create a tuple as in `my_tuple = (5, 2, 3)`. (In various contexts the parentheses for tuples are optional for reasons that can remain a mystery for now.) Print `my_tuple` to see what it looks like, and explore how tuples work. 
+MW	Can you create a tuple of numbers, a tuple of strings, a mixed tuple? Can you look up an element by its index, like with lists? Does a tuple have a length? Can you concatenate two tuples into a new one using `+`? Is a tuple mutable like a list (i.e., can you assign a new value to a slot in an existing tuple), or immutable like a string? Can you loop over the elements of a tuple? Can you append an extra element to a tuple? Can an element of a tuple be itself a tuple? How do you create an empty tuple? Can tuples be compared with operators like `<` and `>`? What does it mean?
+MW	Recall that you can convert between types, e.g., `int` to `str`, or `str` to `list`. Can you convert a tuple to list? And a list to a tuple?
+MW	What types of tuples do you get if you `enumerate` the `items` of a dictionary?
+MW	Although when creating tuples the parentheses are sometimes optional, sloppiness can lead to potentially unexpected results. Explain the difference between `(1, 2, 3) + (4, 5)` and `1, 2, 3 + 4, 5`.
+MW	Explain the truth value of `True, True, True == (True, True, True)`
+MW	Can you use the `in` keyword as with lists, to check if the dictionary contains a certain key? A certain value? A certain key-value pair?
+MW	Conversion to a dictionary can be done with `dict`. Which types of objects can be converted to a dictionary? Can you convert an ordinary list to a dictionary? What about a list of pairs? What about a list of tuples, where one of the tuples has less than two elements, or more than two?
+MW	Assuming `my_list` is a list of pairs, do you expect the following to be true: `list(dict(my_list)) == my_list`? Test your expectation and try to understand what's going on.
+MW	Instead of a list of pairs, can you also create a dictionary from a list of _lists_, as long as the inner lists all have exactly two elements? What if one list has more or fewer elements? Do you expect that you can create a dictionary from a list containing only two-character strings, like `['ab', 'cd', 'ef']`? What do you think will be the result? Test your expectations.
+MW	Sometimes you want to combine every element from one list, with each corresponding element from another. This can be done with `zip` -- can you see why it is called `zip`?\n```
+for a, b in zip([1, 2, 3], [9, 8, 7]):
+    print(a, b)
+```
+MW	Can the keys in a dictionary themselves be tuples? Can the keys be lists? Why (not)? Can a key be a tuple that contains a list as one of its elements?
+MW	In the above code, can you predict what happens if you use only one variable, e.g., `for a in zip(...):` (and adapt the print statement accordingly)? Or if you accidentally use three variables?
+MW	What do you think will happend if `zip` is provided with two lists of unequal length? Test your expectation.
+MW	As with `enumerate`, `zip` constructs its tuples on the fly. To create a list of pairs, you need to explicitly convert the `zip` object to a `list` again. You can also convert a `zip` object directly to a dictionary using `dict`. Are the results as you would expect?
+MW	Suppose we have a list of place names and a list of inhabitant counts. Write a short function (the body could be a single line) that lets us combine them to form a dictionary from place names to inhabitant counts.
+MW	Suppose we have two (disjoint) lists of names, `names1` and `names2`. You can create pairs of names with `name_pairs = list(zip(names1, names2))`. Does the following code achieve the same? As usual, carefully make a prediction before trying it out.\n```
+name_pairs = []
+for name1 in names:
+    for name2 in names:
+        name_pairs.append((name1, name2))
+```
+MW	Write a function `fake_zip` that takes two arguments `list1` and `list2` and returns the same as `list(zip(list1, list2))`, but without using `zip`. Does it handle lists of unequal lengths the way `zip` does?
+MW	Write two functions that together emulate a dictionary: `fake_add_to_dict` takes a list, a key and a value, and (i) if the list has no pair yet with the same key, append the pair to the list, (ii) if the list already has a pair with the same key, update the value of that key; `fake_get_from_dict` takes a list and a key, and (i) if the list has a pair with that key, return the corresponding value; (ii) if the list has no pair with that key, print an error. Test your functions rigorously.
+MW	Write additional functions `fake_keys`, `fake_values` and `fake_items` that take a list of pairs and return a list of keys, values or full pairs. (Recall that the real `keys`, `values` and `items` methods of a dictionary do not return an ordinary list, but for our fake dictionary this suffices.)
+MW	Do you remember to add docstrings to your function definitions?
+MW	With minimal effort, make the keys in your fake dictionary case-insensitive, i.e., such that _Apple_ and _apple_ and _applE_ count as 'the same' key.
+MW	Oh no! Our client wants to use our case-insensitive dictionary code on a game console from the seventies, with tiny memory! Change `fake_add_to_dict` so that the emulated dictionary can contain at most 10 items; if the dictionary is full, simply remove the oldest item to make room for the new item.
+MW	Let's improve our dictionary `en_to_nl` and the way we constructed its inverse. Instead of mapping a single English word to a single Dutch word, it maps each English word to a _list_ of Dutch words, e.g., `{'bat': ['vleermuis', 'knuppel'], ...}`. Now implement a function that takes this type of dictionary, and constructs the inverse dictionary `nl_to_en`, again a list from words to lists of words. If you invert the new `nl_to_end` back again, do you return to the dictionary with which you started, or is information lost along the way?
+MW	Remember the `text` and its `word_counts` dictionary from above? Now go through the text again to count not single words, but _bigrams_: pairs of words that occur next to each other. Store each bigram, with its counts, in a dictionary `bigram_counts`. If every bigram occurs only once, consider using a larger `text` for more interesting results. Now print the top 10 most common bigrams with their counts.
+MW	Generalize the foregoing to allow counting unigrams (single words), bigrams, trigrams, 4-grams, etc.: define a function `count_ngrams` that takes two parameters, namely a text (string) and an integer `n`, and returns a dictionary containing all n-tuples that occur in the text as n-grams, with their counts. What happens to the counts as `n` becomes higher and higher?
+MW	Dictionaries are also useful for representing so-called _feature structures_, i.e., bundles of features with values. You can represent all relevant features of a certain student by a dictionary, e.g., `{'name': 'John', 'age': 22, 'student_id': '1249871', 'major': 'linguistics'}`. Create a list `students` and populate it with a number of fictitious students of different majors. To keep your code readable, can you spread your definition of the list across multiple lines, with one dictionary per line? 
+MW	From the list `students`, how do you extract all students that major in linguistics? And all students between age 21 and 25?
+MW	Construct a similar database of university courses, each with its name, course code, number of ECTS, and name of the professor. Then query it, e.g., select all courses that give you at least 5 ECTS, or that are taught by a professor with a name shorter than 5 characters.
+MW	Can you use list comprehension syntax (see earlier) with dictionaries? Suppose we have a plain list of names `student_names`, and a plain list of numbers `student_ages` containing the age of each student (in the same order). Now try `{name: age for name, age in zip(student_names, student_ages)}`.
+MW	Use list comprehension to take an existing dictionary with strings as keys (e.g., `name_to_id`), and filter it, constructing a new dictionary that contains only those items whose key started with a vowel.
+MW	Use list comprehension to take an existing dictionary and invert it, swapping the keys with the values, in a single line of code. (But remember, _brevity_ is not the point; use list comprehension only if it makes the code _easier to read and understand_!)
+
+
+Title   Making your code (more) self-documenting
+
+MW	So far you have been documenting your code in at least two ways: by adding docstrings to your functions, and by adding comments like `# Ex 5.23` above the code written for a particular exercise. That's great! Perhaps you have been adding many additional `#`-comments to your code to explain particular lines, as illustrated below. However, often such comments can be made unnecessary by choosing more meaningful variable names, making the code more __self-documenting__. Can you change the variable name in the following snippet to make the following code self-documenting, so the `#`-comment can be deleted?\n```
+d = {}  # create an empty dictionary that will contain word counts
+```
+MW	Make the following code self-documenting by both changing variable names and restructuring the for-loop (avoid the need for `range` and `i`):\n```
+l = ['John', 'Sue', 'Bob', 'Chris']
+# loop over all names in the list to print them
+for i in range(len(l)):
+    print(l[i])
+```
+MW	Make the following code self-documenting:\n```
+mapping = {'John': '098124', 'Sue': '657317', 'Bob': '135809'}
+
+x = '657317'    # this is the student ID that I need to know the name for
+
+mapping2 = {a: b for b, a in mapping.items()}	# construct the inverse mapping
+if x in mapping2:	# this means the student ID was in the original dictionary
+    print(new_mapping[x])	# print the student's name
+```
+MW	For self-documenting code you must often resist the temptation to do too much in a single line of code. Improve the following code by, inside the for-loop, first assigning the computed value to a transparently named variable, and then printing that variable (i.e., instead of printing the output of the computation directly). In that way, the variable name can tell you its meaning. Feel free to make other changes too, to make the code more self-documenting:\n```
+r = [7, 4, 5, 8, 6, 9, 5]
+print('We have 7 circles!')
+for i in range(7):
+    print(3.1415 * r[i]**2)
+```
+MW	So called **magic numbers**, i.e., manually typed numbers in the middle of the code, are also bad for readability and maintainability. In the above example, you can replace two occurrences of the value `7` by `len(r)` (or whatever your name name for `r` is). You can also replace our own pi approximation by pi from Python's built-in math module: first `import math`, then you can use `math.pi`. (We will learn more about `import` later.) Can you think of reasons why 'magic numbers' are often bad?
+
+Note	You can often greatly improve the clarity of your code by making it **self-documenting**. This is achieved by chunking your code into functions (especially the SLAP principle), and by choosing meaningful variable and function names. (However, variables used only for a few lines, such as a counter in a loop or an item in a list comprehension, can often be safely named with a single letter.)
+
+MW	Make the following code as self-documenting as possible; you may have to change quite a bit! Also replace some of the magic numbers by transparently named variables defined at the start of the program instead of in the middle. \n```
+python = ['John', 'Sue', 'Bob', 'Chris', 'Peter', 'Pjotr', 'Maria']  # all students of the python for linguists class
+pts = [80, 60, 43, 75, 27, 92, 94]  # points they earned for the exam
+total = 100
+g = [10 * i/95 for i in pts]   # only 95 because 5 points were bonus
+p = [i > 5.5 for i in g]
+# now print the results in terms of pass/fail, followed by the number of failing students
+print(p)
+print(len([q for q in p if not q]))
+print([s for i, s in enumerate(python) if not p[i]])	# these failed the exam
+```
+MW	If you have been adding `#`-comments to your code, go through any of your previous code and see if such comments can be rendered unnecessary by making the code self-documenting (if it isn't already).
+MW	Variables with meaningful names inevitably carry the implication that they will be subsequently used. If this is not the case, i.e., for variables that will not be reused, the underscore `_` is conventionally used, as below. Go through your code to see if any variables could be replaced by `_` to make the code more readable:\n```
+for _ in range(10):
+    print("Hurrah!")
+```
+MW  A bit of an aside, but try executing something simple in the Python console that returns a value, like `38 * -2`, and then, on the next prompt, simply enter the underscore variable `_` and execute it. What special behavior does this show the underscore variable has in the interpreter? Does `_` work the same way in a Python script? 
+MW  Besides adequate variable and function names, another way to make your code more self-documenting is to use appropriate, informative _datastructures_. Make the following code more self-documenting (and more safe!) by using a dictionary instead of two lists:\n```
+# Names of students and the corresponding (!) student IDs. 
+# Warning, if you change one list make sure you change the other!
+names = ['John', 'Sue', 'Bob', 'Chris']
+ids = ['124987', '098513', '098122', '198732']   
+
+# find the student ID of Bob:
+index_of_bob = names.index("Bob")
+x = ids[index_of_bob]
+
+print(x)
+```
+MW  Recall that a list can contain the same object twice. If you don't want this (and if element order does not matter) then Python's _set_ is a more appropriate datastructure. Make sure you understand what is happening in the following code:\n```
+my_list = [1, 2, 2, 3]
+print(my_list)
+my_list.append(1)
+print('new:', my_list)
+
+my_set = set([1, 2, 2, 3])
+print(my_set)
+my_list.add(1)
+print('new:', my_set)
+```
+MW  Can you create a set containing strings? A set containing tuples? A set containing lists? What is the `type` of these sets?
+MW  Can you `append` something to a set? Can you `add` something to a list? Try to understand the motivation for this terminological difference.  
+MW  Can you check if a set contains a certain element?
+MW  In maths/set theory, sets are written with curly braces like `{1, 2, 3}`. Does that work in Python? What about creating an empty set like this `{}`? (To be sure, check the type of the resulting object!)
+MW  Do you expect that you can iterate over the elements of a set (try the same syntax as with lists)?
+MW  Do you expect that you can use slicing on a set, as you would with a list? Why (not)?
+MW  Can you convert a dictionary to a set? What do you expect will be the result? And what might happen if you tried to convert a string to a set, e.g., `set('aaabbbccc')`?
+
+Note    The **set** datastructure contains each element only once. Moreover, sets are significantly faster than lists when it comes to determining if an object is present in the set. (Though lists are of course much faster if you know the index of the object you are looking for.) The price to pay for this lookup speed is that sets (like a dictionary's keys) can only contain objects that are **hashable**. Technical details: an object is hashable if, roughly, its unique identity can be represented by a relatively short code, or 'hash': you can imagine that looking for short codes is faster than looking for actual Python objects! For the same reason, keys in a dictionary must be hashable.
+
+MW  Do you remember some objects that are, and some objects that aren't hashable? 
+MW  We will find more uses of sets later. For now, use the set datastructure to make the following code more self-documenting (and again, more safe!):\n```
+unique_numbers = [1,6,3,2,5,7,9]    # warning: must contain every number only once!
+
+new_number = 8
+if new_number not in unique_numbers:    # to ensure each number remains unique 
+    unique_numbers.append(new_number)
+```
+
+Note    Besides adequate variable and function names and not doing too much in a single line, using appropriate data structures makes your code more self-documenting (and often more robust).
+
+MW  Make the following code more self-documenting (and safer, and in some ways much shorter), mainly by choosing better datastructures:\n```
+# student records consist of the fields name, age, student_id and major:
+students = [
+    ['John', 22, '1249871', 'linguistics'],
+    ['Mary', 24, '4198712', 'psychology'],
+    ['Bob', 32, '089123', 'mathematics'],
+]
+
+for x in students:
+    if x[0] == 'Bob':   # name was in the first column, hence 0
+        print(x[2])  # student id is in the third column, hence 2
+        break
+```
+
+
+Title	Text processing (advanced string methods, reading/writing files, some statistics)
+
+MW	Python provides many useful string operations, including some which you manually implemented in the previous exercises. 
+MW	Look at `dir(str)`, or equivalently `dir('apple')` (or use some other random instance of the `str` class), for a list of methods available on the string class itself. Remember you've already used `upper` (invoked like `'apple'.upper()`) and `lower`. Explore at least the string methods `strip`, `swapcase`, `isalnum` and `center`; use `help` if needed (e.g., `help(str.strip)`) and illustrate how they work with your own examples.
+MW	What is the difference between the string methods `split` and `rsplit`? Illustrate with your own example.
+MW	For each of the following invocations of `strip`, form an expectation about what it does and then test it, refining your understanding of `strip`:\n```
+test_string = 'abcblablablaabc'
+test_string.strip('abc')
+test_string.strip('cba')
+test_string.strip('a').strip('b').strip('c')
+test_string.strip('c').strip('b').strip('a')
+```
+MW	Call `help` on the `str.join` method, look at the example it provides, and try to apply it to join your own list of strings with a dash `-` in between. Pay attention: on which object is the `join` method called, on the joiner or on the joinees?
+MW	What does the following illustrate?\n```
+names = ['john', 'sue', 'bob']
+names_joined = '-'.join(names)
+names_unjoined_again = names_joined.split('-')
+print(names == names_unjoined_again)
+```
+MW	There may be something counterintuitive about `join` and `split`: why is `split` called as a method of the string-to-be-split (with the string that joined them, `'-'`, as an argument), while `join` is _not_ called on the strings to be joined, but rather, on the string used for joining them. For instance, in the above code, `-` is the argument of `split`, but not of `join` (for which it is the main object instead). The following variant would be more 'symmetrical' in this regard, as the connecting character `'-'` would be the argument in both cases. However, test this to see what type of error you get:\n```
+names = ['john', 'sue', 'bob']
+names_joined = names.join('-')	# Nope, not like this!
+names_unjoined_again = names_joined.split('-')
+print(names == names_unjoined_again)
+```
+
+Note	Two very useful built-in string operations are `split` and `join`. Memorize that `split` is called as a method _on the string to be splitted_; while `join` is called as a method _on the string used for joining_. The reason is simple (though it is ultimately a mere design decision that could have been made otherwise): for `join` to be a string method, it must be called on a string object -- and the object witwh things-to-be-joined is not a string, but a list (or dictionary, set, and any other kind of collection or iterable...). To help you remember, always read `x.join(y)` as "use _x_ to join _y_", and read `x.split(y)` as "split _x_ on _y_".
+
+MW	Oh no! I copied a list of student names from a low-quality PDF and now all names are surrounded by weird symbols! See below -- imagine the list is much longer (so manual cleaning is not an option) but the type of 'noise' remains the same. Define a function that uses `split` and `strip` to return a list of cleaned-up names:\n```
+names = '''#*John#*
+#*Mary# *,
+*#*Suzy#*,
+#*Bob#\t*;
+#* Chris#\t*'''
+```
+MW	Oops, copying from a different PDF resulted in even more mess, where all names are in uppercase and some characters were read as numbers. Can you clean it up similarly? Hint: there is a string method called `replace`.\n```
+names = '''#*T0DD#*
+#*0NA# *,
+*#*SUE#*,
+#*ANN-M4RY#\t*;
+#* R0S5#\t*'''
+```
+MW	How does the string operation `find` work? Try it on some examples. What if the thing-to-be-found isn't there?
+P4E Your spam detection program outputs strings like `'X-DSPAM-Confidence:0.8475'` (it's pretty confident that it is spam!). Write code to extract the confidence value, in two ways. The first version should use `find` and string slicing. The second version should use `split` and list slicing. In each case, print the likelihood that it _isn't_ spam, defined as 1 minus the confidence.
+MW	A business client wants us to implement a function that uses `split` to split potentially long meeting reports into separate sentences; this is sometimes called **sentence tokenization**. Assume we already have each report available to us as a plain Python string object. The function should take a string and return a list of strings, i.e., the sentences. Build a prototype, but also explain to your client the limitations of sentence-tokenizing using `split`.
+MW	Despite the limitations, our client was happy. Now they want another function that word-tokenizes a sentence, i.e., that takes a string and returns a list of separated words. Build a prototype, but also explain to your client the limitations of word-tokenizing using `split`. Also provide a function that sentence-tokenizes a text and then word-tokenizes every sentence, resulting in a _list of lists of words_.
+TP3	Suppose any line of text can contain at most one url that starts with `http://` and ends at the next space in the line. Write a function that takes a text string and extracts and prints the full url if it is present.
+MW	Suppose we have a `.csv` file (comma-separated values) with student names and their grades for two assignments and an exam. It has lines like `John,5,3,7` and `Mary,6,3,8`. Write a function that takes such lines (assuming we already have them available as strings) and turns them into a dictionary that maps each student name to an inner dictionary containing their grades. For instance, the (outer) dictionary would map `'John'` to the dictionary `{'assignment1': 5, 'assignment2': 3, 'exam': 4}`.
+MW	To the (inner) dictionaries for each student, add a key `'average'` with as value the average of that student's grades, where the assignments count for 25% each and the exam 50%.
+MW	How robust is your function? What if a student has a double name like `Anna Beth`? What if a student has a missing grade, like `Sue,1,,5,4,3,6`? Improve your function if necessary. Also provide it with a boolean argument `missing_as_zero`: if set to `True`, missing grades are treated as zeros before computing the average; if set to `False`, missing grades are ignored when computing the average (so the remaining grades make up the full 100%).
+***Now write to a file, maybe using format strings?**
+
+Note    In practice we will often use existing libraries for reading and writing `.csv` files, such as the `csv` module or the `pandas` data analysis library. We will learn about this later.
+
+***Now read from an actual file, store as dictionary, and print using format strings (meh).
+
+***Note	pipeline of reading, modifying and printing; preprocessing, datastructures
+
+***repeat sets, illustrated with lexical diversity?**
+
+***iteration vs lists for big text input etc., fits here! maybe anticipate yield but not explain it yet**
+
+***file encodings?**
+
+TP3	Write a program called `alice_words.py` that creates a text file named alice_word_counts.txt ***nope, no creation** containing an alphabetical listing of all the words, and the number of times each occurs, in the text version of Alice's Adventures in Wonderland. (You can obtain a free plain text version of the book, along with many others, from http://www.gutenberg.org.) How many times does the word alice occur in the book? The first 10 lines of your output file should look something like this:\n```
+Word              Count
+=======================
+a                 631
+a-piece           1
+abide             1
+able              1
+about             94
+above             3
+absence           1
+absurd            2
+```
+MW	What is the longest word in Alice in Wonderland? How many characters does it have?
+
+***P4E More alice exercises end of chapter 4; io3.py, io6.py, etc.
+
+***zipf's law? some visualisation
+
+MW	Did you rember to add docstrings to all your function definitions? Is your code as self-documenting as possible? 
+MW	Did you sufficiently chunk your code, adhering to the SLAP (Single Level of Abstraction Principle) and DRY (Don't Repeat Yourself) principles?
+MW	Your editor may be smart enough to highlight violations of 'Python style', adherence to which will enhance the readability of your code (in addition to docstrings and self-documenting code). The style guides are kept in the eigth _Python Enhancement Proposal_, PEP8 (https://www.python.org/dev/peps/pep-0008/). Have a look at it, and go through some of your previous code to make it PEP8-compliant if needed.
+
+Note	Initially created and long-term maintained by Guido van Rossum, Python is a very open, community-driven programming language. It has come to be the way it is with the help of **Python Enhancement Proposals** or PEPs (https://www.python.org/dev/peps/). **PEP8** is Python's style guide (https://www.python.org/dev/peps/pep-0008/).
+
+P4E	Can you predict what happens if you enter `AAAARGH I hate Python!` in the interpreter? And what if you surround it by quotation marks?
+MW	Every aspect of the Python language has been carefully designed, even though you may not always understand the reason at the present moment. Should you find yourself frustrated with Python, just enter `import this` in the interpreter and feel your calm returning. (The keyword `import` will be explained later.) The result is an easter egg (surprise) based on PEP20, that captures some of Python's design principles in poetic form.
+MW	Now that you know how to read text files, you can improve your anti-profanity echo-machine from before -- that repeats your input unless it is a profanity, and quits after five profanities -- by using a more extensive list of profanities, e.g., googling "list of curse words .txt" will get you to the list used by google: `https://code.google.com/archive/p/badwordslist/downloads`. Place this file on your computer in your current project's main directory, and write a program to read this file, store all profanities in a list or set datastructure (which one makes more sense?), and use this to increase the vocabulary of your echo machine.
+
+
+
+Title   A bit about function arguments, and scope
+   
+***args, kwargs (inc. no mutable default!)
+
+***AMY mutable default arguments `append_cat(l=[]): l.append('cat'); return l` then call it twice. see the field `__defaults__`?
+
+***encapsulation, global and local scope**
+
+***AMY `a = 1`, then `def foo(): return a`, returns 1. Python first looks in local scope, then enclosing scope, then global scope. But when assigning, local scope is successful right away. `def foo(): a = 3; return a` returns 3. / But when incrementing like `a += 3`, it raises an UnboundLocalError.
+
+***Note    When you make an assignment to a variable in a local scope (e.g., function definition), that variable becomes **local** to that scope. This is true _even if_ you intend to first use the variable before assigning it (e.g., `x = x + 3` will give an error if `x` is assigned only globally, but `y = x + 3` is fine in that case).
+
+
+
+
+Title	Modules and scripts (`import`, `main`, `__name__`, `click`)
+
+MW	We have already seen some uses of the `import` keyword (e.g., `import random` to be able to use `random.randrange(1, 100)`). To understand how `import` works, create two files, `file_a.py` and `file_b.py`. In one, write `print('Hello from file_a.py!')`, in the other, `print('Hello from file_b.py!')`. To test, run `file_a.py`, and then run `file_b.py` separately.
+MW	Now, at the top of `file_a.py`, add `import file_b`. Run `file_a.py` again and see what happens. Try to understand where the different printouts come from.
+MW	In `file_b.py` define the function `print_spam` that prints the string _Here's some spam from file_b.py!_), but do not call this function in `file_b.py` itself. Instead, call it in `file_a.py`: since it imports `file_b.py`, you can call the function on the `file_b` module: `file_b.print_spam()`. Try this. Do any variables defined in `file_b.py` also become available via `import` into `file_a.py`, or only functions?
+MW	In `file_a.py`, after importing `file_b`, do `print(file_b)` and `print(type(file_b))`. This shows that importing a Python file creates a _module_ object. All code in the imported file is executed relative to that object, such that any variables and functions defined have to be called as attributes on that object (e.g., `file_b.print_spam()`). Try `dir(file_b)` to see all names available on the `file_b` object. Note that `dir()` (when executed inside `file_a.py`) lists all names available in the global scope of the main file being run, i.e., `file_a.py`. Does `dir()` when executed inside `file_a.py` also list `file_b.print_spam`, or only the parent module `file_b` as a whole?
+
+Note	When you `import` a file, the code in that file is executed (basically as if you would run it yourself, with one difference, see below), and any names (variables, names of functions) defined in that file become available as attributes on a module object constructed from that file.
+
+MW	Previously we already imported standard Python modules using `import random` and `import math`, to make available a function like `random.randrange`, and the constant `math.pi`. Does importing standard Python modules result in a similar 'module' object as importing your own `file_b.py`?
+MW	In PyCharm you can ctrl+click (or cmd+click) on `random` (e.g., its occurrence in `import random`, or in a call to `random.randrange`), which brings you to the file `random.py` which lives somewhere in your system.
+MW	Play around with the foregoing code. What happens if you accidentally include the file extension `.py` in the `import` statement, e.g., `import file_b.py`?
+MW	Modules and other Python objects have a special field called `__name__`. In `file_a.py` add the print statement `print('The internal name of file_a.py is:', __name__)`. In file_b.py add `print('The internal name of file_b.py is:', __name__)`. Execute each file, and try to understand what's going on.
+
+Note	The `__name__` attribute of a script or module differs depending on whether a file is run as its own script, or imported by another. If it is run on its own, then `__name__ == '__main__'`; otherwise `__name__` will be derived from the filename of the imported file.
+
+MW	Use the foregoing to change `file_b.py` as follows: create an if-clause that checks if the file is run as the main file. Move all the print-statements in `file_b.py` to the body of the if-statement: these are executed only if the file is run on its own, and not if it is imported elsewhere. Test this.
+MW	What happens if, still in `file_b.py`, you also move the function definition of `print_spam` to the body of the if-clause? Can you still call the function from within `file_a.py`? (Revert this change for what follows.)
+MW	If you are coding in PyCharm, note that the editor puts a little green 'run' arrow in the margin left of the if-clause: it recognizes that the code is meant to be run as a script, not (just) imported in another.
+MW	A bit of an aside: functions have names too, e.g., try printing `max.__name__` for the built-in function `max`, or `file_b.print_spam.__name__` for your own function `print_spam`. What happens to the `__name__` property if you assign a function to a new variable, e.g., `get_maximum = max`? Is the function's name changed along with it?
+MW	How does Python know where to find the right files to import? Do `import sys` (a standard module with various system tools) and then `print(sys.path)`. This lists all the paths (to memory locations somewhere on your computer) where Python will look, one after the other, to find a standard module or user-created file with a matching name.
+MW	What if you create a file with the same name as an existing module, e.g., create `random.py` containing just a print statement `print('Greetings from fake random.py!')`, and then in `file_a.py` do `import random`. Does Python give priority to the standard module, or to the user-defined file? (You can test this for instance with `dir(random)`.)
+
+Note	Some terminology: a _module_ is a single python file that is (meant to be) imported into another, while a _package_ is a collection of related modules that can be imported together. The term _library_ is sometimes used more loosely for some collection of code designed for a certain coherent set of purposes (in one or multiple modules). A python file that is meant to be run on its own is called a _script_.
+
+MW	To solidify your understanding of `import`, create two new files, `file_c.py` and `file_d`, containing the code given below. Try to predict (and test) what gets printed if you execute `file_c.py`, and what if you execute `file_d.py`:\n```
+# Put the following in file_c.py:
+import file_d
+
+print('Hohohoho!')
+
+def laugh():
+    print('Hahaha!')
+
+if __name__ == '__main__':
+    laugh()
+    file_d.cry()
+
+# Put the following in file_d.py:
+def cry():
+    print('Boohoo...')
+
+if __name__ == '__main__':
+    print('I\'m so sad...')
+
+print('Ayayay!')
+```
+MW	Explore the foregoing code. Suggestions: what happens if, in `file_c.py`, you call `laugh` like this: `file_c.laugh()`? What happens if you try to import a file that does not exist, e.g., `import file_z`? What happens if a file tries to import itself? What happens if two files import each other (e.g., in `file_d.py` add `import file_c.py`)? What happens if you place an import statement at the bottom of your file instead of at the top? What happens if you create a file `file_e` _without_ the customary Python extension `.py`, and try to import it?
+
+Note	Python files can both _define_ stuff (e.g., functions) and _do_ stuff (e.g., call functions, get user input, print output). By convention (and for good reason), a file should _do_ stuff only if it is run as the main script, i.e., if `__name__ == '__main__'`. That is why any function _calls_ should be placed under an if-clause that checks this. Put differently, importing a file should not have _side effects_. (This is related to the principle, mentioned earlier, that functions should either _return_ something or _do_ something (e.g., change an existing object, print something), not both.)
+
+MW	Clean up the files `file_c.py` and `file_d.py` to adhere to the foregoing principle.
+
+Note	Related to the foregoing: if a file is only meant to be imported, not run on its own, then it should _not_ contain a `__name__ == '__main__'` check! Including it signals to the user (and to an editor such as PyCharm) that you can run this script on its own.
+
+MW	Recall from earlier that functions enable **encapsulation**: variables created in a local scope, such as a function definition, are not accessible elsewhere. Do you remember why encapsulation is generally good, i.e., why a lack of encapsulation is risky? Give an example.
+MW	Any variables or functions defined in the _global scope_ of a program are not encapsulated, hence accessible elsewhere. In the file `file_c.py`, try whether the body of the main if-clause (under `if __name__ == '__main__'`) belongs to the global scope -- is a variable defined there, accessible within the function definition of `laugh`?
+MW	To increase encapsulation, statements in the body of the main if-clause are typically moved into their own separate function `main`. For instance, for the file `file_c.py` this would look as follows. Verify that this indeed improves the encapsulation, by defining a variable in `main` and testing if you can reach it from within `laugh`.\n```
+import file_d
+
+def main():
+    laugh()
+    file_d.cry()
+
+def laugh():
+    print('Hahaha!')
+
+if __name__ == '__main__':
+    main()
+```
+MW	Restructure the file `file_d.py` in a similar way, i.e., replace the main if-clause's body by a call to a designated function `main`. Verify that everything works as before.
+
+Note	From now on, for better encapsulation, you should do this for every file you create: define a `main` function that is called at the bottom of the file only if the file is run as main file, and put all your commands that 'do something' (hence that should _not_ be side-effects when importing the file elsewhere) into the `main` function (or in functions called by the `main` function).
+
+MW	Python interprets files from top to bottom, right? Then how come in the restructured `file_d.py` above, `laugh` can be called within `main`, despite it being defined _after_ (i.e., below) `main`?
+MW	Add docstrings to your functions, at least in files `file_c.py` and `file_d.py`. When importing a file, do you get access to the docstrings of its functions (try with `help`)?
+MW  In the previous block of exercises we learned how to read text files. What happens if instead of _importing_ a python file, you read it with `open` and `read()` like before? Do you expect the resulting object to be a module, as with `import`? Test this.
+
+***Turning your script into a useful command-line tool; command line sys.args, piping, 
+***check OS interoperability; shebangs?  #!/usr/bin/env python
+***using the **click** library
+
+
+
+Title	Language generation (& testing and version management)
+
+
+***remember name == main.
+*** recursion, grammar, string replacement
+*** reading, writing to files  
+Note    (i) Do not experiment with important files. Create toy files to play with.   (ii) When you do want to start working on your own files, do not use those  files directly. It’s much safer to create copies of these files and work with those.  (iii) Finally, it’s safest to create a new directory to learn file operations in. You can create new files there and copy (not move!) other files there.)  [From P4L]
+
+*** rule-based chatbot
+*** yield again
+***testing**
+*** creating scripts again, with click?
+
+Note	Test, test, test! Untested code is useless. Tested code _might_ be useful.
+
+***Version management (`git`)   yes, easy in PyCharm.
+
+*** probabilistic based on tri-grams.
+*** state-of-the-art generation
+
+
+
+
+***Check Hammond's P4L book for i/o?
+
+
+Title   Search (literal, patterns, fuzzy, semantic)
+
+***regex with a secondary program (browser based)? or re.verbose? re vs regex?
+***Check Hammond's P4L book for regex exercises
+***stopwords, diflib, spacy --> explain import
+	***Maybe search as a theme, then use pattern-based (re), fuzzy (diflib) and meaning-based (embeddings)?
+
+***again turning script into a useful command-line tool.
+
+
+
+
+Title	Pandas, csv files, json files
+
+***Installation of non-base libraries.**
+
+
+
+Title	Statistical analysis
+
+
+
+
+Title   Making things look nice
+
+
+
+Title   APIs
+
+
+
+ENDFILE
+
+
+Title	Objects, identity, equality, mutability
+
+
+TP3	\n```
+opposites = {"up": "down", "right": "wrong", "yes": "no"}
+alias = opposites
+copy = opposites.copy()
+```
+
+
+MW  What do you think is the relation between mutability and hashability? Why?
+
+MW	Calling a class creates an instance of it; like str()! :D
+
+
+AMY ***this one in CPython; does it work only in the interpreter, or also in a python file?  \n```
+a = 256
+b = 256
+a is b
+
+# vs.
+
+a = 257
+b = 257
+a is b
+
+# vs.
+
+a = 257; b = 257
+a is b
+```
+
+***floating point precision and identity:   `0.0 == -0.0` true, `0.0 is -0.0` false         `0.1 + 0.2 == 0.3` false    https://www.youtube.com/watch?v=Js99ciGwho0
+
+
+***sorting a mixed list
+
+
+What does this do?  max(set(lst), key=lst.count)
+
+
+
+
+MW	Execute the following program:\n```
+from collections import namedtuple
+
+Student = namedtuple('Student', ['name', 'age', 'studentid'])
+
+john = Student('John', 19, '123987')
+```
+
+
+Title   Building useful scripts
+
+***what's the commands and args module called again?
+
+
+
+
+
+***Bytecode disassembler?
+
+
+https://github.com/JaDogg/summarized_books/tree/master/clean_code
+
+
+I've done:
+TP3 up to chapter 4 (excluding turtle exercises).
+TP2 up to chapter 3. 	excluding stack diagrams, turtle exercises.
+P4E up to chapter 3.
+P4L up to chapter 3.3.
+AMY https://www.youtube.com/watch?v=sH4XF6pKKmk
+NED https://www.youtube.com/watch?v=_AEJHKGk9ns&t=2s
