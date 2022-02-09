@@ -33,7 +33,7 @@ if __name__ == "__main__":
                 else:
                     source = prefix
                     mode = 'exercise'
-                content = line[1].replace('\\n', '\n')
+                content = line[1].replace('\\\\', '[ESCAPE]').replace('\\n', '\n').replace('[ESCAPE]', '\\')
                 if content.endswith('```'):
                     content = content[:-3] + '\n```python\n'
                     for codeline in infile:
