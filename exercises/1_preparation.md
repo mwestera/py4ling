@@ -31,3 +31,5 @@
 
 **1.10.** In PyCharm, see if you can find the editor, the 'run' button, and the Python Console button. <p align="center"><img src="https://raw.githubusercontent.com/mwestera/py4ling/main/src/pycharm.png" width=35% height=35%></p>
 
+**1.11.** As a student you can apply for the free PyCharm _educational license_ (https://www.jetbrains.com/community/education/#students). I would recommend getting this, mainly because it will let you host unlimited sessions of Code With Me (https://www.jetbrains.com/code-with-me/), in case you want to program together with a friend at a distance.
+
