@@ -129,18 +129,18 @@ print(
 **2.41.** When using the `not` operator, can you leave out the parentheses, like `not 3 >= 4`? Compare this how the `max` function behaved above.
 
 - - - - - -
-**Something to keep in mind:** Python has various built-in functions and operators. Calling a function (such as `max` and `print`) requires parentheses directly following the function name, with no space (`max(...)`). By contrast, **operators** (such as `not`) do not require parentheses, and are followed by a space (e.g., `not 3 >= 4`), though often parentheses increase readability (e.g., `not (3 >= 4)`), and they can also matter for operator precedence (see next exercises).
+**Something to keep in mind:** Python has various built-in **functions** and **operators**. Calling a function (such as `max` and `print`) requires parentheses directly following the function name, with no space (`max(...)`). By contrast, operators (such as `not`) do not require parentheses, and are followed by a space (e.g., `not 3 >= 4`), though often parentheses increase readability (e.g., `not (3 >= 4)`), and they can also matter for operator precedence (see next exercises).
 - - - - -
 
 **2.42.** Explore how boolean operators `and` and `or` work. Does `or` correspond to inclusive or exclusive _or_?
 
-**2.43.** Let `cloudy = True` and `windy = False`, and `clear = not cloudy`, and test whether it is clear or windy, or not.
+**2.43.** Let `cloudy = True` and `windy = True`, and `sunny = not cloudy`, and test whether it is nice day to go to the beach for flying a kite.
 
-**2.44.** Predict, test and explain the difference between `not windy or cloudy` and `not (windy or cloudy)`?
+**2.44.** Predict, test and explain the difference between `not sunny or cloudy` and `not (sunny or cloudy)`.
 
-**2.45.** Verify your previous explanation by looking at this table: https://docs.python.org/3/reference/expressions.html#operator-precedence
+**2.45.** Verify your previous explanation by considering the table of **operator precedence** in Python: https://docs.python.org/3/reference/expressions.html#operator-precedence
 
-**2.46.** Ooh, the weather changes! Reassign `cloudy = False`. Did the variable `clear` automatically update as well?
+**2.46.** Ooh, the weather changes! Reassign `cloudy = False`. Did the variable `sunny` automatically update as well?
 
 - - - - - -
 **Something to keep in mind:** Variables are 're-assigned' independently of one another. Even if two variables are initially made to refer to the same thing, reassigning something to one variable doesn't automatically reassign the other.
@@ -148,48 +148,53 @@ print(
 
 **2.47.** Assign `my_variable = 6`. What happens if you subsequently do `my_other_variable = my_variable`? What if you then reassign `my_variable = 20`, can you predict what happens to the value of `my_other_variable`? Test your prediction.
 
-**2.48.** First enter `n = 42`, and then `n == 42`. What is the result? What about `n == 43`? What happens if you try to assign a new variable with `==`, e.g., `z == 123` (assuming you haven't used `z` before)?
+**2.48.** Numerical expressions can be implicitly converted to boolean values (more about _type conversions_ later). Try to understand this: 
+- `not 0` 
+- `not 1` 
+- `not 100` 
+- `not -1`
 
-**2.49.** Try to predict which one of these is legal, what the result is, and why: 
+**2.49.** Given the foregoing, can you predict the value of `not (0 + 1)` vs. `not 0 + 1`? Verify your prediction, and compare it with `not (False or True)` vs. `not False or True`. Make sure you understand this potentially puzzling behavior (see again the _operator precedence_ table).
+
+**2.50.** First enter `n = 42`, and then `n == 42`. What is the result? What about `n == 43`? What happens if you try to assign a new variable with `==`, e.g., `z == 123` (assuming you haven't used `z` before)?
+
+**2.51.** We have already seen you can create a string by using quotation marks. Try to predict which one of these is legal, what the result is, and why: 
 - `fruit = 'apple'` 
 - `fruit = apple` 
 - `'fruit' = 'apple'` 
 - `fruit == apple` 
 - `'fruit' == 'apple'` 
-- `'fruit' == apple`.
+- `'fruit' == apple`
 
-**2.50.** What does this code do: `a = 3 == 3`? What is the result and why? What’s the difference between that code snippet and this one: `a == 3 = 3`? Why does the latter produce an error?
+**2.52.** What does this code do: `a = 3 == 3`? What is the result and why? What's the difference between that code snippet and this one: `a == 3 = 3`? Why does the latter produce an error?
 
 - - - - - -
-**Something to keep in mind:** While single `=` is used for assigning a value to a variable, while double `==` tests for equality. It matters how you read them, whether mentally or out loud. If you read both simply as _is_, you are prone to confuse yourself.
+**Something to keep in mind:** While single `=` is used for **assigning** a value to a variable, double `==` tests for **equality**. It matters how you read them, whether mentally or out loud. If you read both simply as _'is'_, you are prone to confuse yourself.
 - - - - -
 
-**2.51.** What do these expressions evaluate to? 
+**2.53.** What do these expressions evaluate to? 
 - `3 == 3` 
 - `3 != 3` 
 - `3 >= 4` 
-- `not (3 < 4)`
-
-**2.52.** Give the logical opposites of these conditions: 
-- `a > b` 
-- `a >= b` 
-- `a >= 18 and day == 3` 
-- `a >= 18 and day != 3`.
-
-**2.53.** Which of the following fail? Explain why. 
+- `not (3 < 4)` 
 - `3 % 4 == 0` 
 - `3 % 4 == 3` 
 - `3 / 4 == 0` 
 - `3 // 4 == 0` 
 - `3+4 * 2 == 14` 
-- `4-2+2 == 0` 
-- `len("hello, world!") == 13`.
+- `4 - 2 + 2==0`
 
-**2.54.** Given two integer numbers, assigned to variables `x` and `y`, what is the value of `x == (y * (x // y) + x % y)`. Can you change the value by changing the numbers assigned to `x` and `y`? How / why not?
+**2.54.** Give the logical opposites of these conditions: 
+- `a > b` 
+- `a >= b` 
+- `a >= 18 and day == 3` 
+- `a >= 18 and day != 3`.
 
-**2.55.** You look at the clock and it is exactly 2pm. You set an alarm to go off in 51 hours. At what time does the alarm go off? (Whenever a value increases and then goes back to zero, again and again, like hours on the clock, modulo can be useful.)
+**2.55.** Given two integer numbers, assigned to variables `x` and `y`, what is the value of `x == (y * (x // y) + x % y)`. Can you change the value by changing the numbers assigned to `x` and `y`? How / why not?
 
-**2.56.** In the interpreter enter `name = input('What is your name?')`. What does it do? Enter something in the interpreter and press enter. Next, look what's in the variable `name`.
+**2.56.** You look at the clock and it is exactly 2pm. You set an alarm to go off in 51 hours. At what time does the alarm go off? (Whenever a value increases and then goes back to zero, again and again, like hours on the clock, modulo can be useful.)
 
-**2.57.** In a Python script, write a program that asks for the user's name and prints the name three times (each can be on a separate line).
+**2.57.** In the interpreter enter `name = input('What is your name?')`. What does it do? Enter something in the interpreter and press enter. Next, look what's in the variable `name`.
+
+**2.58.** In a Python script, write a program that asks for the user's name and prints the name three times (each can be on a separate line).
 
