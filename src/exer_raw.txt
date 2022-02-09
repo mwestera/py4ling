@@ -172,6 +172,7 @@ print(f'left {my_string:>40} right')
 print(f'left {my_string:<40} right')
 print(f'left {my_string:^40} right')
 ```
+MW  Use format strings to improve the printed output of some of your time/clock exercises from the previous section.
 
 
 Title	Types (`type`, and `int`, `str`, `float`, `bool`...)
