@@ -130,3 +130,5 @@ print(f'left {my_string:^40} right')
 ```
 
 
+**3.40.** Use format strings to improve the printed output of some of your time/clock exercises from the previous section.
+
