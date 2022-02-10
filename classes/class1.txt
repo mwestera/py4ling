@@ -1,0 +1,8 @@
+Python for Linguists
+
+1. Admin (plan, grading, extra, etc.)
+2. Practice mini-exam
+3. Discuss exercises section 1: PyCharm basics
+4. Exercises section 2: Python basics
+5. Schedule office hours!
+6. Homework for next time: Exercises sections 2 and 3.
