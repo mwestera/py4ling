@@ -1,6 +1,6 @@
 # Python for Linguists: exercises
 
-This repository hosts exercises for the BA Linguistcs course **Python for linguists** in Leiden, not to be confused with the course **Language for pythons**.
+This repository hosts exercises for the BA Linguistics course **Python for linguists** in Leiden, not to be confused with the course **Language for pythons**.
 
 Aimed at linguistics students with no programming experience, the exercises are designed to foster:
 
