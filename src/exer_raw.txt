@@ -272,7 +272,7 @@ MW  How often does your coin-flip program check the variables `player1` and `pla
 MW	Write a program that takes two strings from the user (one after the other). If either one is less than three characters long, it prints _You are disqualified_. Otherwise, if the two strings are not equal but one string is contained in the other, it prints _Yay well done!_, otherwise _Nope_.
 MW	Write a program that takes a word as input from the user, and checks the first two characters: if one is a vowel and the other a consonant (in either order), create a new string where the two characters are swapped; otherwise leave the string unchanged. Print the resulting string. Can you think of an English word that turns into another proper English word?
 MW  Write a program that takes a word as input from the user, tests a number of things in a row, and prints a single line of appropriate feedback: \n- whether it starts with two vowels, with a single vowel, or with a consonant \n- whether it has an even or odd number of characters \n- if odd, what the middle character is, and if even, what the middle two characters are \n- whether it is a palindrome (hint: use string slicing).
-MW  Write a program that checks if a given word is an English determiner (for didactic reasons, try to do this without first storing them in a _list_, which will be properly introduced in the next section).
+MW  Write a program that checks if a given word is an English determiner, and prints _Ooh, very determinate!_ if it is the case (for didactic reasons, try to do this without first storing them in a _list_, which will be properly introduced in the next section).
 
 
 Title	Lists (`list`, `append`, `[]`)
