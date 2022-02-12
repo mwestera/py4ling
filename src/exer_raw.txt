@@ -84,6 +84,7 @@ MW  What happens if you accidentally put a space between the function name and t
 MW	In maths it is common to compare numbers or variables with _greater than_, _smaller than_, _not equal to_, and so on. Experiment with the operators `>`, `<`, `!=`, `>=`, `<=` to figure out what they do.
 MW	Put the `not` operator in front of some of the expressions you tested, e.g., `not (3 >= 4)`. What does it do? What about `not True` and `not False`? Inspired by the meaning of the operator `!=`, could you also use exclamation mark `!` instead of `not`?
 MW  When using the `not` operator, can you leave out the parentheses, like `not 3 >= 4`? Compare this how the `max` function behaved above.
+***[NEW] MW   Some exercise connecting odd/even to the modulo operator.
 
 Note    Python has various built-in **functions** and **operators**. Calling a function (such as `max` and `print`) requires parentheses directly following the function name, with no space (`max(...)`). By contrast, operators (such as `not`) do not require parentheses, and are followed by a space (e.g., `not 3 >= 4`), though often parentheses increase readability (e.g., `not (3 >= 4)`), and they can also matter for operator precedence (see next exercises).
 
@@ -129,7 +130,7 @@ MW	Do the comparison operators `>` and `<` work on strings, e.g., `'apple' < 'pe
 P4L	For each of the following, try to predict whether it's true or false (or neither...), verify, and explain why: \n- `'hat' == "hat"` \n- `hat == 'hat'` \n- `1/3 == .33` \n- `'three' > 'two'` \n- `2 + 2 = 4`
 MW	What happens if you feed the built-in functions `max` and `min` a string as argument (e.g., `max('apple')`, `min('bonanza')`)? And what about multiple strings, `max('apple', 'aardvark', 'banana', 'zebra')`? Can you explain the result of `max('250')`? And `min('-852')`? And `max('123abc')`?
 
-Note    To get the most out of these exercises, try not to use any built-in methods other than the ones mentioned in the exercises that came before. Later on, we will learn about convenient shortcuts for some of the things you are asked to do, as well as familiarize ourselves with powerful natural language programming libraries. But first we need to put in the manual labor.
+Note    To get the most out of these exercises, try not to use any built-in methods other than the ones mentioned in the exercises that came before. Later on, we will learn about convenient shortcuts for some of the things you are asked to do, as well as familiarize ourselves with powerful natural language processing libraries. But first we need to put in the manual labor.
 
 MW	What does `len('apple')` do? Apply `len` to different strings.
 MW  Can you also get the length of a number, e.g., `len(3)`? What about a boolean? What about the length of the empty string?
@@ -142,7 +143,8 @@ MW	Assign a variable `name = 'Michael'`. What do each of the following do: \n- `
 Note    The square brackets operator `[]` lets us select characters, contiguous substrings, and even non-contiguous substrings. This is called _slicing_ the string.
 
 MW  You can also indicate the _step size_ when slicing, by adding another colon and a number. What does `name[::2]` do? What about `name[::-1]`? And `name[1:5:2]`?
-MW  By using _only slicing_, extract only the odd-position characters from `michael` (assuming the `m` is at position 0, i.e., even). And can you also obtain the string `eh` from the string `michael` by using only slicing? What about the string `ehm`?
+MW  By using _only_ slicing, extract only the odd-position characters from `michael` (assuming the `m` is at position 0, i.e., even). And can you also obtain the string `eh` from the string `michael` by using only slicing? What about the string `ehm`?
+***[NEW] MW  By using slicing, write a boolean expression that tests if a given word `w` is a _palindrome_. It should work for words of any length.
 MW	Perhaps you'd expect to be able to change the string in `name` by replacing a character like this: `name[2] = 'b'`, expecting the result `Mibhael`. But this doesn't work; what does the error message say? This is because strings are not _mutable_: once you create a string, you cannot change it, only create a new one that is different. We return to mutability later.
 MW	Can you predict what `'0123456'[3]` does? What about `'1234567'[3]`? And what about `1234567[3]`?
 MW	What does `name[len(name)]` do? What about `name[len(name)-1]`? Why?
@@ -152,6 +154,7 @@ MW	Python's strings have various methods 'attached to them', including `upper` a
 MW	For some arbitrary string assigned to variable `s`, is the following true: `s == s.upper().lower()`.
 MW  In other programming languages, `len` is sometimes 'attached to' string objects similar to `upper` and `lower`, requiring you to type for example `'apple'.len()` instead of `len('apple')`. What happens if you try the same in Python? Also try the weird-looking `'apple'.__len__()`? Operators in Python are effectively shortcuts for (or implemented via) so-called _dunder_ (double underscore) methods, like `len` is for `.__len__()`.
 MW  In a Python script write a program that uses `input` to ask for the user's name, and in response let it print `Hi [name], how are you?`, with the name the user entered.
+***[NEW] TP3	Try placing a hashtag `#` before a line of code that previously worked, and record what happens when you rerun the program. Whatever follows `#` is treated as a _comment_ and ignored by Python.
 MW	In all of the Python scripts you create, add a _comment_ with the exercise number above the relevant chunk of code, e.g., `# Ex 3.29`, so that you can retrieve your own solutions later. Any text or code preceded by `#` is ignored by Python, as it represents a comment meant for humans.
 MW  Write an expression that, given a string `s`, creates a new string that is like `s` but lacks the last 4 characters. What happens if `s` has fewer than 4 characters to begin with?
 MW	Write an expression that, given a string `s`, evaluates to `True` if the first character of the string is a vowel, and `False` otherwise. Is your expression robust to capitalization differences? Can you improve this using `upper` or `lower`?
@@ -175,74 +178,80 @@ print(f'left {my_string:^40} right')
 MW  Use format strings to improve the printed output of some of your time/clock exercises from the previous section.
 
 
-Title	Types (`type`, and `int`, `str`, `float`, `bool`...)
+Title	Types (`type`, and `int`, `str`, ..., also `help`, `dir`)
 
 MW	What does the built-in function `type` do? Apply it at least to the expressions `4`, `238`, `-6`, `5.3`, `3 ** 4`, `'apple'`, `'apple' * 5`, `True`, `False`, `'True'`, `'False'`, `'987'` (note the quotation marks), `print` and `max`.
-MW	You can _convert_ between types by using `int`, `str`, `float`, `bool`, for instance `int('400')` constructs a string `'400'` from the integer `400`, and `bool(0)` constructs the boolean `False` from the integer `0`. Try to convert between different types, and use `type` to check the result. What happens for conversions that don't make sense, e.g., `int('apple')`, `float('')`?
+MW	You can _convert_ between types by using `int`, `str`, `float`, `bool`, for instance `int('400')` constructs a string `'400'` from the integer `400`, and `bool(0)` constructs the boolean `False` from the integer `0`. Try to convert between different types, and use `type` to check the result.
+MW  What happens for conversions that don't make sense, e.g., `int('apple')`, `float('')`?
 MW	Try `bool('True')` and `bool('False')`. Is the result what you expected? Try to understand why this is. Can you guess what string do you need to feed to `bool` to get `False`?
-MW	What happens if you try to append a number to a string by doing `'apple' + 5`? Can you fix this by using `str`?
-MW	What happens if you try to divide an integer number such as `5` by a floating point number such as `3.14`?
+MW	What happens if you try to append a number to a string by doing `'apple' + 5`? Can you fix this by using `str`? (Of course you can also create a string directly with quotation marks, e.g., `'5'`, but here we are practicing explicit conversion.)
+MW	Can you divide an integer number such as `5` directly by a floating point number such as `3.14`, or does this require explicit type conversion?
+MW  Does division always result in a float, or only when the result is not a whole number? For instance, what about `6/3` (e.g., compared to `6/4`)?
 MW	Is `5.0000` a float or an int? What do you expect will be the value of `5.0000 == 5`?
+MW  Remember that Python does not allow zero prefixes on integers, e.g., it complains when you do `some_number = 000123`. What do you think will happen if you do `int('000123')`? Given this, can you argue that converting strings to numbers is more lenient than the Python interpreter itself?
 MW	If you get a user's input using `input`, what is the type of the resulting object? Does this depend on what the user enters?
 MW	In a Python script, write a program that gets a number from the user, multiplies it times 5, and prints the result.
+MW  Given what you have learned, if you add up two floats that together happen to form a round number (like `0.4 + 0.6`), does the outcome automatically become of type `int`?
 MW  While the Python console is useful for trying out a single command, writing longer programs is much more convenient to do in a file in the editor. Can you think of some reasons why?
 
-Note	When you are asked to 'write a program', you can either create a new `.py` file (and make sure you subsequently run the new file), or continue working in an existing file from a previous exercise. As long as the previous code doesn't give errors, take too long to run, etc., continuing in the same file is fine! Later we will learn how to better structure your files and code. For now, make sure to choose sensible file names, and always add a **comment** with the exercise number(s) above each chunk of code, e.g., `# Ex 1.23`.
+Note	When you are asked to 'write a program', you can either create a new `.py` file (and make sure you subsequently run the new file), or continue working in an existing file from a previous exercise. As long as the previous code doesn't give errors, take too long to run, etc., continuing in the same file is fine! Later we will learn how to better structure your files and code. For now, make sure to choose sensible file names, and always add a **comment** with the exercise number(s) above each chunk of code, e.g., `# Ex 4.13`.
 
 MW	Write a program that gets one number from the user, then another one, and prints the result of dividing the first by the second. Try it out a couple of times. What happens if you run the program, first enter 9 and then 0?
 MW	To test if an object is of a certain type, use `isinstance`, for instance `isinstance(500, int)` and `isinstance('apple', str)`. What is the type of `isinstance` itself?
-MW	Types form a hierarchy, as you would expect, e.g., just like a mammal is also an animal, a string (type `str`) is at the same time also an object (type `object`), which is a more general, super-type. Test this with `isinstance('apple', str)` and `isinstance('apple', object)`. When you use `type`, it looks only at its lowest type in the hierarchy. Verify this by comparing `isinstance('apple', object)` to `type('apple') == object`.
-P4L	What does this code do: `isinstance(bool == bool,bool)`? What is the output and why?
+MW	Types form a hierarchy, as you would expect, e.g., just like a mammal is also an animal, a string (type `str`) is at the same time also an object (type `object`), which is a more general, super-type. Test this with `isinstance('apple', str)` and `isinstance('apple', object)`. When you use `type`, it looks only at its lowest type in the hierarchy. Can you compare and explain the values of `isinstance('apple', object)` and `type('apple') == object`?
+P4L	What does this code do: `isinstance(bool == bool, bool)`? What is the output and why?
+MW  What might be going on here: `0.1 + 0.2 == 0.3`? It tells you _something_ (but not much) about how Python (and many other programming languages) internally represents floats.
 MW	`help` is a built-in function that gives you information about other functions. Try `help(max)`, `help(min)` (pressing `q` lets you quit the help screen).
 P4L	Use the `help` function to find out about the `round` function. Explore how to use it, with one and with two arguments.
-MW	Use `type` to test whether `round` changes a float into an int. Does it always do this?
+MW	Use `type` to test whether `round` changes a float into an int. Does it _always_ do this?
 MW	Note that `print` can take multiple arguments, e.g., `print('apple', 'pear', 'banana')`. Use `help` to learn more about the `print` function. You will likely not understanding everything, but you can play around with the parameters `sep` and `end`.
 MW	Why doesn't `print('Hello', 'world!')` print `Hello, world!`?
-MW	Now that you have used the Python console for a while, enter `dir()` in the interpreter to show the 'directory', a list of names of all objects currently available (at least those in the _global scope_, about which we will learn later). As you will see, any variables previously created still exist (alongside some automatically created variables like `__name__`, about which we will learn later).
+MW	Now that you have used the Python console for a while, enter `dir()` in the interpreter to show the 'directory', a list of names of all objects currently available (at least those in the _global scope_, about which we will learn later). As you will see, any variables previously created still exist (alongside some automatically created variables like `__name__`, about which we will also learn later). In PyCharm's Python Console, variables and their values are also standardly displayed in a separate panel on the right.
 MW	If you mistype `primt('apple')` instead of `print('apple')`, you would normally get the informative error _Name is not defined_ to notify you of this mistake: the name `primt` does not appear in the `dir()`. But what if you defined a variable `primt = 5` long ago and you forgot about it? If you then make the typo `primt('apple')`, the error you get will be much harder to understand (unless you remember you still had the `primt` variable hanging around from earlier).
 
 Note	If you keep too many old names hanging around in the interpreter, this can make it more difficult to _detect mistakes_. To reduce this problem, occasionally restart your Python console (especially if you keep getting unexpected results). When you run code from python scripts (instead of the interpreter directly) this problem is less likely to occur, as each time you run a script, Python starts from scratch. However, if keep working in the same file for too long, the problem can reappear. (To help with the latter, programmers _encapsulate_ chunks of code; we will learn about this later.)
 
-MW  In a Python script, write a program that asks for the user's age in years and prints several things: their age in months, their age in weeks, their age in days, their age in hours, their age in minutes, and their age in seconds; you can ignore leap years (and make other simplifying approximations).
+MW  Verify that running a Python script starts the Python interpreter from scratch (at least with the 'run' button in PyCharm...), in particular that it removes any variables defined in a previous run. You can test this by first running a script that creates a certain variable (and then uses it, e.g., printing it), then change the script by removing the line that created the variable, and try to run it again.
+MW  In a Python script, write a program that asks for the user's age in years and prints several things: their age in months, their age in weeks, their age in days, their age in hours, their age in minutes, and their age in seconds; you can ignore leap years (and make other simplifying approximations). Is your program making the same (pieces of) computations multiple times? If so, consider storing intermediate results in auxiliary variables.
 TP3 Write a program that uses `input` to ask the user for the time now (in hours), and subsequently asks for the number of hours to wait. Your program should store each user response in a variable, and print what the time will be on the clock when the alarm goes off.
+MW  When doing linguistic research, what kinds of data would you likely represent in the form of strings? What could be some linguistic uses of integers? What about floats?
+MW  Let's zoom out a bit, and consider what types of linguistic research might require programming to begin with. Try to come up with several, varied examples of research questions that could require, or at least benefit from, programming.
 
 
 Title	If-clauses (`if`, `elif`, `else`)
 
-MW	Create a python script containing `if 4+2 == 6: print('yes!')`, and execute it. Now try to break it by modifying different things, for example, what if you replace `==` by `=`? (Undo that.) What if you remove the colon `:`? 
-Mw	Now change the condition (`4+2 == 6`) into something that is always false, and execute it again. Did it print anything? 
-
-Note  Some terminology: the `if`-clause consists of a **header** `if 4+2 == 6:` and a **suite** `print('yes!')`, also called the **body** of the if-clause. We will see various other types of clauses later, always consisting of a header and a suite, e.g., for-loops and function definitions. The header of a clause always ends with a colon `:`.
-
-Mw  After the header, the clause's suite/body is typically placed on a new line, where it _must_ be indented (i.e., spaces at the front). Change the previous program to make this the case, and run it again; e.g.:\n```
-if 4+2 == 6:
+Mw  Create a Python script with the following, predict what it does and test your prediction:\n```
+if 4 + 2 == 6:
     print('yes!')
 ```
+MW  After learning something new, stay with it for a while, exploring it and finding ways to break it. Modify various things, for example, what if you replace `==` by `=`? (Undo that.) What if you remove the colon `:`? (Undo that.) What if you change the condition (`4 + 2 == 6`) into something that is always false?
+
+Note  The `if`-clause consists of a **header** `if 4 + 2 == 6:` and a **suite** `print('yes!')`, also called the **body** of the if-clause. We will see various other types of clauses later, always consisting of a header and a suite, e.g., for-loops and function definitions. The header of a clause always ends with a colon `:`. The suite/body typically starts on a new line, and must be indented.
+
 MW	What happens if you remove the indentation, i.e., if header and suite start at the same level?
+MW  What if you place the print statement on the same line as the if-statement, i.e., after the colon?
 MW	What is being printed by the following program:\n```
-if 1+1 == 5:
+if 1 + 1 == 5:
     print('uuuuhm...')
 
 print('print this!')
 ```
-MW	What happens if you indent the second print-statement to the same level as the first print statement? And what if you now make the condition true (e.g., `1+1 == 2`)? What happens if you remove the newline between the two statements? Or if you add five newlines? Play around!
-MW	In an if-clause, does it still work if you place the condition in parentheses right behind the `if`? (This goes against Python style.)
+MW	What happens if you indent the second print statement to the same level as the first print statement? (Undo that.) What if you replace the condition by something true? What happens if you remove the newline between the two statements? What if you indent the second print statement again, but now add several newlines between the two print statements?
+
+Note	_Indentation is meaningful_ in Python, whereas in most other programming languages it is only an optional style convention.
+
 MW	In your Python editor (or the interpreter), can you indent with the 'tab' key? Do these appear as proper tabs (large spaces) or are they replaced by sequences of multiple normal, narrow spaces? If the latter, you're safe; if the former, you need to pay extra attention: you can indent either with tabs or with spaces, but don't mix them!
-MW	Write a program that takes a variable `n`, tests if its value is odd, and if not, adds 1 to it and prints _I've made it even!_. Subsequently, regardless of whether it was originally even or odd, the program should always print the resulting value of `n`.
-MW	With variable `name` containing a string, write a program that tests if the first letter is `a`, and, if so, prints _The first letter is 'a'!_. Only if the first letter is 'a', it should additionally test if the second letter is 'b', and if so, print _The word starts with 'ab'!_. Your second `if` can be nested under the first `if` -- make sure the indentation reflects this. Apply your program to a number of strings to test, such as _able_, _apple_ and _banana_.
-
-Note	**Indentation is meaningful** in Python, whereas in most other programming languages indentation is only a reading aid. Look up Python's indentation rules if you are unsure.
-
+MW	Write a program that, given a variable `n` with a number, tests if its value is odd, and if not, adds 1 to it and prints _I've made it even!_. Subsequently, regardless of whether it was originally even or odd, the program should always print the resulting value of `n`.
+MW	Write a program that, given a variable `name` containing a string, tests if the first letter is `a`, and, if so, prints _The first letter is 'a'!_. Only if the first letter is 'a', it should additionally test if the second letter is 'b', and if so, print _The word starts with 'ab'!_. Your second `if` can be nested under the first `if` -- make sure the indentation reflects this. Apply your program to a number of strings to test, such as _able_, _apple_ and _banana_.
 MW	Write a program that asks for the user's name, tests if it starts with a vowel, and if so, prints _You are a vowel person!_.
+MW	Are the headers `if True:` and `if False:` accepted by Python (together with a suitable suite)? What do these conditions achieve?
 MW	You can follow an if-clause with an else-clause, which consists of its head `else:` and one or more statements as a suite. Use `else:` to expand the previous program to print _You are a consonant person!_ in the right circumstances.
-MW	Is your program robust to different capitalizations?
-MW	Now write a program that likewise asks for the user's name, but then tests if the name starts with a _consonant_, and if so print _You are a consonant person!_; otherwise print _You are a vowel person!_. Did you type a long list of consonants to implement this? If so, could this be avoided?
-TP3	Place a hashtag `#` before a line of code that previously worked, and record what happens when you rerun the program. Whatever follows `#` is treated as a _comment_ and ignored by Python.
-MW	Write a program that tests whether the value of a variable `n` is odd, and if so print _Odd!_, and if not print _Even!_.
-MW	Oops, our client requests a change: they want to the program to print, in addition, whether the number `n` is greater than 10 or not.
-MW	What happens if `n` is not a number but, say, a string? Make your program more robust by using `isinstance` to test if `n` is a number; if not, print _Wrong input!_.
+MW	Is your program robust to users (not) capitalizing their name?
+MW	Now write a program that basically does the same, but is coded in the reverse order: it first tests if the name starts with a _consonant_, and if so prints _You are a consonant person!_; otherwise print _You are a vowel person!_. Did you type a long string of all the consonants to implement this? If so, could this be avoided?
+MW	Write a program that tests whether the value of a variable `n` is odd (i.e., not divisible by 2), if so print _Odd!_, and if not print _Even!_.
+MW	Oops, our client requests a change: they want to the program to print, on the same line as _Odd!/Even!_, whether the number `n` is greater than 10, equal to 10, or smaller than 10.
 MW	Our client requests another feature: if the number is both odd and greater than ten, that's a very special case where it should print only _ALARM!!!_ and nothing else.
-MW	Python's `elif` is shorthand for `else, if`, and it helps you avoid many nested if-clauses. Make sure you understand the following example:\n```
+MW	Python's `elif` is shorthand for `else, if`. Can you predict what the following program does?\n```
 if n > 0:
     print('Positive!')
 elif n == 0:
@@ -250,23 +259,27 @@ elif n == 0:
 else:
     print('Negative!')
 ```
-MW	Together, the if-clause, elif-clause and else-clause form a **compound clause**. Can you have an `elif` and/or an `else` without an initial `if`? Can you have more than one `elif`?
-MW	Use `elif` to improve the 'odd/even/greater than 10' from a few exercises ago program if possible, avoiding nested if-clauses and removing any repeated code to you used to specify the conditions.
-
-Note	Deeply nested clauses are frowned upon as an 'anti-pattern' in programming, to be avoided because they make code difficult to read and maintain -- and this applies not only to `if`-clauses (see also `for`-clauses below).
-
-MW	We both flip a coin, the outcome of which is stored in two boolean variables `player1` and `player2`. If both come up heads, print _We both won!_, if both come up tails, print _Play again._, if only the first comes up heads, print _Player one won._, if the second, print _Player two won._. Implement a version with nested if-clauses, and a version without nested if-clauses. Besides `elif`, you can also reduce nested ifs by combining your conditions using boolean operators like `and` and `or`.
-MW	Write a program that takes a word as input from the user, and checks the first two characters: if one is a vowel and the other a consonant, create a new string where the two characters are swapped; otherwise leave the string unchanged. Print the resulting string. Can you think of an English word that turns into another proper English word?
+MW	Together, the if-clause, elif-clause and else-clause form a **compound clause**. Can you have an `elif` and/or an `else` clause without an initial `if` clause? Can you have more than one `elif`?
+MW  What happens if you specify a condition also in the `else` header, e.g., `else n < 0:`?
 MW	In an if-elif-else compound clause, what happens if one of the three clauses has an empty suite (e.g., delete or comment out (`#`) one of the print statements in the code above).
-MW	Are the headers `if True:` and `if False:` accepted by Python (together with a suitable suite)? What do these conditions achieve?
-MW	Write a program that takes two strings from the user, prints _You are disqualified_ if either one is less than three characters long, and prints _Yay well done!_ if the two strings are not equal but one string is contained in the other.
+MW	If possible, use `elif` to improve the readability of the 'odd/even/greater than 10' program from a few exercises ago, for instance by avoiding (deeply) nested if-clauses.
+
+Note	Nested if-clauses are frowned upon as an 'anti-pattern' in programming, to be avoided because they make code difficult to read and maintain -- and this applies not only to `if`-clauses (see also `for`-clauses below).
+
+MW	We both flip a coin, the outcome of which is stored in two boolean variables `player1` and `player2`. If both come up heads, print _We both won!_, if both come up tails, print _Play again._, if only the first comes up heads, print _Player one won._, if the second, print _Player two won._.
+MW  Does your code for the previous exercise contain nested if-clauses? Implement a version without nested if-clauses. Besides `elif`, you can also reduce nested ifs by combining your conditions using boolean operators like `and` and `or`.
+MW  How often does your coin-flip program check the variables `player1` and `player2`? If either variable is checked more than twice, you are checking more than you need to; try to simplify your code.
+MW	Write a program that takes two strings from the user (one after the other). If either one is less than three characters long, it prints _You are disqualified_. Otherwise, if the two strings are not equal but one string is contained in the other, it prints _Yay well done!_, otherwise _Nope_.
+MW	Write a program that takes a word as input from the user, and checks the first two characters: if one is a vowel and the other a consonant (in either order), create a new string where the two characters are swapped; otherwise leave the string unchanged. Print the resulting string. Can you think of an English word that turns into another proper English word?
+MW  Write a program that takes a word as input from the user, tests a number of things in a row, and prints a single line of appropriate feedback: \n- whether it starts with two vowels, with a single vowel, or with a consonant \n- whether it has an even or odd number of characters \n- if odd, what the middle character is, and if even, what the middle two characters are \n- whether it is a palindrome (hint: use string slicing).
+MW  Write a program that checks if a given word is an English determiner (for didactic reasons, try to do this without first storing them in a _list_, which will be properly introduced in the next section).
 
 
 Title	Lists (`list`, `append`, `[]`)
 
 MW	Assign a variable `names = ['Alf', 'Beth', 'Chris', 'Dave', 'Esra']`. What does `type(names)` say?
 MW	Use square brackets `[` and `]` to create a list of numbers, a list of strings, and a list of both numbers and strings. Do these lists all have the same `type`? What about an empty list?
-MW	What happens if you try to create a list but forget a comma? What if you forget a square bracket?
+MW	What happens if you try to create a list but forget a comma? What if you forget a square bracket? Is it legal to put each list item on a separate line (i.e., newlines after each comma)?
 MW	Using the previous variable `names`, try to predict what the following do (just as with strings, this is called _slicing_), and test your predictions: \n - `names[1]` \n - `names[2]` \n - `names[8]` \n - `names[-1]` \n - `names[-2]` \n - `names[1:3]` \n - `names[2:2]` \n - `names[-2:]` \n - `names[2:]` \n - `names[:2]` \n - `names[0]` \n - `names[2-4]` \n - `names[3-2]` \n - `names[1+1]`?
 MW	Earlier we used `len` for strings. Does it also work on lists? What about an empty list?
 MW	Recall from slicing with strings that you could specify not only a start and end, but also a step. Does this work with lists?
@@ -303,7 +316,7 @@ Note    Lists are **mutable**: they can be changed in-place (e.g., using `append
 
 MW  Based on the foregoing, do you expect strings to have an `append` method? Why (not)? Try it.
 P4L	But if strings are really immutable, what about this: First run `x = 'abc'` and `print(x)`, and then `x = x.upper()` and `print(x)` again. `x` seems to have changed! Explain what's going on; is a string mutable after all? (Beware: it's easy here to settle on an intuitive, but wrong answer.)
-MW	Can you also create a _list of lists_? And a list of lists of lists? What happens if you mismatch the required open and closing brackets? What happens if you forget a comma?
+MW	Let's explore a bit further: can you also create a _list of lists_? And a list of lists of lists? What happens if you mismatch the required open and closing brackets? What happens if you forget a comma?
 G4G	Given a list, write a Python program to swap first and last element of the list. Does your program work if the list has only one element? What should it do if the input list has zero elements?
 TP3	Assume the days of the week are numbered 0,1,2,3,4,5,6 from Monday to Sunday. Write a program that asks a day number, and prints the day name (a string).
 MW	Oops! Your client prefers to number the days from 1 (Monday) to 7 (Sunday). Can you modify the above program to fit their use case? How many changes did you need to make?
@@ -316,7 +329,9 @@ P4L	Lists and strings are similar in many ways. Try to show with code three ways
 MW	Do you expect the following to be true or false: `len([1, 2, 3]) == len('[1, 2, 3]')`. Test your expectation.
 MW	Similar to converting from e.g. `int` to `str`, you can convert various types of objects to a list, using `list`. Try converting a string to a list, and understand what you see. Can you also a list to a string? Do you expect the following to be true? Is it? `str(list('apple')) == 'apple'`
 MW	Recap: how do you select the first element of a list? How do you select the `n`th element of a list? What happens if `n` is larger than the list's length? How do you select the last element of a list? How do you select the pre-last element of a list?
-
+MW  If applicable, improve your program from end of the previous section, which checks whether a given word is an English determiner, by first storing the determiners in a convenient list.
+MW	Create a random sentence generator, for simple sentences of the shape "determiner noun verb+s". Use separate lists to store a bunch of lexical items of the required syntactic categories. At the top of your program add `import random`, which lets you use the function `random.choice` to randomly select items from a list. (We will learn more about `import` as well as `random` later.) Select random items from the appropriate lists and concatenate them into a string, printing the final result.
+MW  Make your random sentence generator as advanced as you like (though try to use only Python constructs that have been introduced in the exercises so far). For instance, can you extend it to randomly choose between an intransitive and a transitive verb frame, and then use the right type of verb and include a direct object only if the verb is transitive?
 
 Title	For-loops (`for`, `range`)
 
