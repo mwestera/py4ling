@@ -99,5 +99,3 @@ else:
 - if odd, what the middle character is, and if even, what the middle two characters are 
 - whether it is a palindrome (hint: use string slicing).
 
-**5.29.** Write a program that checks if a given word is an English determiner, and prints _Ooh, very determinate!_ if it is the case (for didactic reasons, try to do this without first storing them in a _list_, which will be properly introduced in the next section).
-
