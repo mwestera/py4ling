@@ -64,7 +64,7 @@ if __name__ == "__main__":
             exercises = 0
             string = f'\n\n## {titles}. {line["content"]}'
             if separate_files:
-                short_title = line["content"].split('(')[0].strip()
+                short_title = line["content"].split('(')[0].strip().replace(',', ' ')
                 out_filename = f'{out_dir}/{titles}_{short_title}.md'.lower()
                 with open(out_filename, 'w+') as outfile:
                     outfile.write("# Python for linguists\n")
