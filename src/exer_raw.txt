@@ -334,11 +334,14 @@ MW	Docstrings are customarily defined using three double-quotation marks (`"""..
 
 Note	Always start your function definition with a **docstring**, explaining at least what arguments the function takes and what it does or returns. When programming, you can even write the docstring prior to writing the body of the function definition, to guide the actual implementation.
 
-MW	Add docstrings to all the functions you defined so far. (This is not just a chore; re-reading your own code from previous exercises, and remembering/reconstructing what it is supposed to do, is a useful exercise in its own right.)
+MW	Add docstrings to all the functions you defined so far. (This is not just a chore; re-reading your own code from previous exercises, and remembering/reconstructing what it is supposed to do, is a useful exercise in its own right.) Your docstrings can also mention the exercise number for which the function was written.
 TP3	Write a function called `is_even` that takes an integer `n` as an argument and returns `True` if the argument is an even number and `False` if it is odd.
 TP3	Now write the function `is_odd` that returns `True` when its integer argument `n` is odd and `False` otherwise.
 TP3	Write a function `is_factor` with integer parameters `f`, `n` that makes each of the following statements evaluate to `True`: \n- `is_factor(3, 12)` \n- `not is_factor(5, 12)` \n- `is_factor(7, 14)` \n- `not is_factor(7, 15)` \n- `is_factor(1, 15)` \n- `is_factor(15, 15)` \n- `not is_factor(25, 15)`.
 TP3	Write a function `is_multiple` to satisfy these statements: \n- `is_multiple(12, 3)` \n- `is_multiple(12, 4)` \n- `not is_multiple(12, 5)` \n- `is_multiple(12, 6)` \n- `not is_multiple(12, 7)`.
+
+Note    Lists of statements like the foregoing are useful for ***testing** that your function works correctly. Indeed, although most of these exercises do not explicitly tell you, you should always _test_ your function thoroughly, to ascertain it works correctly. Testing your function on one example is never sufficient, and always consider possible _edge cases_ (e.g., negative numbers, zero, empty lists, empty strings). (Later we will learn how to write code in a separate file for exactly that purpose: testing testing testing.)
+
 TP3	Write the function `farenheit_to_celcius` designed to return the integer value of the nearest degree Celsius for given temperature in Fahrenheit, and its inverse `celcius_to_farenheit`. Extract suitable test cases from a conversion table on the web.
 MW  Write a function `is_determiner` that checks if a given word is an English determiner (for practice reasons, try to do this without first storing an inventory of determiners in a _list_, which will be properly introduced in the next section). It should return True or False accordingly.
 MW  In PyCharm and many other IDEs you can ctrl+click (or cmd+click) on a function call, to jump to the place in the code where the function is defined. Clicking on a variable in this way brings you to the place where it is first assigned. It is true also for built-in functions, and functions imported from other modules, in which case PyCharm takes you to the corresponding source files as well. Try ctrl+click a bunch of times on different functions and variables.
@@ -415,7 +418,7 @@ MW  Make your random sentence generator as advanced as you like (though try to u
 
 Title	For-loops (`for`, `range`)
 
-MW	Another keyword that can create clauses, like `if`, is `for`. Try to understand what it does, with the following code. First make sure the variable `names` is still assigned the list of names `['Alf', 'Beth', 'Chris', 'Dave', 'Esra']`.\n```
+MW	Another keyword that can create clauses, like `if` and  `def`, is `for`. Try to understand what it does, with the following code. First make sure the variable `names` is still assigned the list of names `['Alf', 'Beth', 'Chris', 'Dave', 'Esra']`.\n```
 for name in names:
     print(name)
 ```
@@ -589,7 +592,7 @@ Title	More functions practice!
 
 MW	Define a function that takes a list of numbers, of in principle unrestricted length, and returns its sum. Define a similar function that returns the lists' average.
 
-Note	When you are asked to write a program, define a function, etc., what is left implicit is that you should _test_ your function thoroughly to ascertain it works correctly. One example for testing is never sufficient. (Later we will learn how to write code in a separate file for exactly that purpose: testing testing testing.) Moreover, you need to decide in which file to put the function, where in that file, and sometimes what to name it. Always choose a logical place, and a meaningful, transparent name, favoring clarity over brevity. And for your own sake, remember to comment (`#`) each chunk of code with the exercise number to which it belongs.
+Note	When you are asked to write a program, define a function, etc., sometimes a function name is given, but often this decision will be left to you. Likewise, you often need to decide whether to create a new file or add the new function to an existing file. Always choose a logical place, and a meaningful, transparent name, favoring clarity over brevity.
 
 MW	Write a function `find` that takes a string and a character, and returns the index of the first occurrence of that character in the string. For instance, `find('david', 'v')` returns `2`. Explain why `find` can be seen as the inverse of the square brackets notation for retrieving a character by index.
 MW	Write a function `find_in_list` that does the same, but for a list instead of a string. Could you reuse any of the previous code?
@@ -952,7 +955,7 @@ MW	Now that you know how to read text files, you can improve your anti-profanity
 
 
 
-Title   More functions practice! (and `args`, `kwargs`, and scope)
+Title   Even more functions practice! (and `args`, `kwargs`, and scope)
 
 ***Many more exercises:  https://www.w3resource.com/python-exercises/list/   https://www.w3resource.com/python-exercises/dictionary/
 

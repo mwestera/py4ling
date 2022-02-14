@@ -102,7 +102,7 @@ def sum_three_numbers(a, b, c):
 **Something to keep in mind:** Always start your function definition with a **docstring**, explaining at least what arguments the function takes and what it does or returns. When programming, you can even write the docstring prior to writing the body of the function definition, to guide the actual implementation.
 - - - - -
 
-**6.26.** Add docstrings to all the functions you defined so far. (This is not just a chore; re-reading your own code from previous exercises, and remembering/reconstructing what it is supposed to do, is a useful exercise in its own right.)
+**6.26.** Add docstrings to all the functions you defined so far. (This is not just a chore; re-reading your own code from previous exercises, and remembering/reconstructing what it is supposed to do, is a useful exercise in its own right.) Your docstrings can also mention the exercise number for which the function was written.
 
 **6.27.** Write a function called `is_even` that takes an integer `n` as an argument and returns `True` if the argument is an even number and `False` if it is odd.
 
@@ -123,6 +123,10 @@ def sum_three_numbers(a, b, c):
 - `not is_multiple(12, 5)` 
 - `is_multiple(12, 6)` 
 - `not is_multiple(12, 7)`.
+
+- - - - - -
+**Something to keep in mind:** Lists of statements like the foregoing are useful for ***testing** that your function works correctly. Indeed, although most of these exercises do not explicitly tell you, you should always _test_ your function thoroughly, to ascertain it works correctly. Testing your function on one example is never sufficient, and always consider possible _edge cases_ (e.g., negative numbers, zero, empty lists, empty strings). (Later we will learn how to write code in a separate file for exactly that purpose: testing testing testing.)
+- - - - -
 
 **6.31.** Write the function `farenheit_to_celcius` designed to return the integer value of the nearest degree Celsius for given temperature in Fahrenheit, and its inverse `celcius_to_farenheit`. Extract suitable test cases from a conversion table on the web.
 
