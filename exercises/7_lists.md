@@ -117,11 +117,13 @@ print(x)
 
 **7.32.** What happens if you define your own variable with the name `list` (or `str`, or `int`, for that matter)? Why might doing so be a bad idea?
 
-**7.33.** Recap: how do you select the first element of a list? How do you select the `n`th element of a list? What happens if `n` is larger than the list's length? How do you select the last element of a list? How do you select the pre-last element of a list?
+**7.33.** Write a function with three parameters that, given a list and two integer positions in the list, swaps the two elements in the list. Does your function modify the input list _in-place_, or create a new list?
 
-**7.34.** If applicable, improve your function `is_determiner` from the end of the previous section, which checks whether a given word is an English determiner, by first storing the determiners in a convenient list.
+**7.34.** Write an analogous function (or at least 'as analogous as possible') for swapping two characters in a string.
 
-**7.35.** Define a function that generates random, simple sentences of the shape "{determiner} {noun} {verb}s" (e.g., "the student walks"). Use separate lists to store a bunch of lexical items of the required syntactic categories. At the top of your program add `import random`, which lets you use the function `random.choice` to randomly select items from a list. (We will learn more about `import` as well as `random` later.) Select random items from the appropriate lists and compose a string from them, printing the final result.
+**7.35.** If applicable, improve your function `is_determiner` from the end of the previous section, which checks whether a given word is an English determiner, by first storing the determiners in a convenient list.
 
-**7.36.** Make your random sentence generator as advanced as you like (though try to use only Python constructs that have been introduced in the exercises so far). For instance, can you extend it to randomly choose between an intransitive and a transitive verb frame, and then choose the right type of verb and include a direct object if the verb is transitive?
+**7.36.** Define a function that generates random, simple sentences of the shape "{determiner} {noun} {verb}s" (e.g., "the student walks"). Use separate lists to store a bunch of lexical items of the required syntactic categories. At the top of your program add `import random`, which lets you use the function `random.choice` to randomly select items from a list. (We will learn more about `import` as well as `random` later.) Select random items from the appropriate lists and compose a string from them, printing the final result.
+
+**7.37.** Make your random sentence generator as advanced as you like (though try to use only Python constructs that have been introduced in the exercises so far). For instance, can you extend it to randomly choose between an intransitive and a transitive verb frame, and then choose the right type of verb and include a direct object if the verb is transitive?
 

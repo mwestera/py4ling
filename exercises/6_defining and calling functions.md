@@ -47,7 +47,11 @@ print_twice('bla')
 
 **6.11.** Does a function definition (a def-clause) follow the same indentation rules as an if-clause and a for-clause?
 
-**6.12.** Functions can not only take inputs and do stuff, they can also output stuff, using the `return` keyword. The following code does not print `aaah!`. Make the program print `aaah!` without changing the function definition.
+**6.12.** Write a function called `is_even` that takes an integer `n` as an argument and returns `True` if the argument is an even number and `False` if it is odd.
+
+**6.13.** Now write the function `is_odd` that returns `True` when its integer argument `n` is odd and `False` otherwise. To reduce redundancy in your code, you can define this function in terms of the previous function `is_even`.
+
+**6.14.** Functions can not only take inputs and do stuff, they can also output stuff, using the `return` keyword. The following code does not print `aaah!`. Make the program print `aaah!` without changing the function definition.
 
 ```python
 def create_scream():
@@ -58,34 +62,38 @@ create_scream()
 ```
 
 
-**6.13.** Define and call a function `invert` that takes a word, and returns a new string containing that word back-to-front (that is, like `print_inverted`, but instead of printing the inverted word, it returns it). When calling the function, assign the returned value to a variable and print it.
+**6.15.** Write a function called `hypotenuse` that returns the length of the hypotenuse (Dutch: 'schuine zijde') of a right triangle, given the lengths of the two legs adjacent to the right angle as parameters. Examples: `hypotenuse(3, 4) == 5.0`, `hypotenuse(24, 7) == 25.0`.
 
-**6.14.** Remember `type` from before? What do you expect `type(create_scream())` and `type(invert())` to be? And what is the type of a function call that does not return anything, e.g., `print_spam()` above? Test your expectations.
+**6.16.** Define and call a function `invert` that takes a word, and returns a new string containing that word back-to-front (that is, like `print_inverted`, but instead of printing the inverted word, it returns it). When calling the function, assign the returned value to a variable and print it.
 
-**6.15.** Explain the difference between `type(create_scream())` and `type(create_scream)`; and between `type(print_spam())` and `type(print_spam)`.
+**6.17.** Do you remember how to use _format strings_ to align a string left, center or right? Try this again. Now write your own function named `right_justify`, _without_ using format strings (for the sake of practice), that takes a string named `s` as a parameter and returns the string with enough leading spaces so that (when printing it) the last letter of the string would be in column 40 of the display.
 
-**6.16.** What happens if a single function contains multiple different `return` statements (e.g., `return 'haha!'` and `return 'hehehe...'`)?
+**6.18.** Add a parameter to the previous function, such that you can also choose a column other than 40.
 
-**6.17.** Define and call a function that both prints a string and returns another string (against recommended practice).
+**6.19.** Remember `type` from before? What do you expect `type(create_scream())` and `type(invert())` to be (assuming you still have `create_screen` and `invert` defined from above)? Test your expectations. And what is the type of a function call that does not return anything, e.g., `print_spam()` from above?
+
+**6.20.** Explain the difference between `type(create_scream())` and `type(create_scream)`; and between `type(print_spam())` and `type(print_spam)`.
+
+**6.21.** What happens if a single function contains multiple different `return` statements (e.g., `return 'haha!'` and `return 'hehehe...'`)?
+
+**6.22.** Define and call a function that both prints a string and returns another string (against recommended practice).
 
 - - - - - -
 **Something to keep in mind:** As a rule of thumb, every function should either _compute_ stuff (return a new object) or _do_ stuff (e.g., print stuff, modify an existing object), not both. Functions that return stuff are sometimes called fruitful functions; functions that only do stuff are sometimes called procedures. A function that does both is said to have **side effects**, which is considered an anti-pattern in programming.
 - - - - -
 
-**6.18.** Functions can also have multiple parameters (hence be called with multiple arguments). Write a function that takes three numbers and returns their sum, and a function that takes three numbers and returns their average.
+**6.23.** Functions can also have multiple parameters (hence be called with multiple arguments). Write a function that takes three numbers and returns their sum, and a function that takes three numbers and returns their average.
 
-**6.19.** What happens if you define a function with one parameter (like `invert` above), but wrongly call the function as if it has two parameters (e.g., `invert('abc', 'def')`)? Conversely, what if you wrongly call a function that has two parameters, as if it has only one?
+**6.24.** What happens if you define a function with one parameter (like `invert` above), but wrongly call the function as if it has two parameters (e.g., `invert('abc', 'def')`)? Conversely, what if you wrongly call a function that has two parameters, as if it has only one?
 
-**6.20.** Write a function `is_palindrome` that takes a word, and checks if it is a palindrome, returning `True` or `False` accordingly. Can you implement a version that uses your `invert` function from above?
+**6.25.** Write a function `is_palindrome` that takes a word, and checks if it is a palindrome, returning `True` or `False` accordingly. Can you implement a version that uses your `invert` function from above?
 
-**6.21.** Write a `compare` function with two parameters `a` and `b`, that returns `1` if `a > b`, `0` if `a == b`, and `-1` if `a < b`. Examples:
+**6.26.** Write a `compare` function with two parameters `a` and `b`, that returns `1` if `a > b`, `0` if `a == b`, and `-1` if `a < b`. Examples:
 - `compare(5, 4) == 1` 
 - `compare(7, 7) == 0` 
 - `compare(2, 3) == -1`
 
-**6.22.** Write a function called `hypotenuse` that returns the length of the hypotenuse (Dutch: 'schuine zijde') of a right triangle, given the lengths of the two legs adjacent to the right angle as parameters. Examples: `hypotenuse(3, 4) == 5.0`, `hypotenuse(24, 7) == 25.0`.
-
-**6.23.** It is easy to misunderstand or forget what a function is supposed to be doing, even if you yourself wrote it. To avoid this you should _document_ your code. Adding informative `#`-comments is one way (caveat: `#`-comments can often be replaced by making your code more 'self-documenting', about which we will learn later). Another, very important way to document your code is with so-called _docstrings_ (documentation strings): a string object that occurs in the first line(s) of a function definition. Try this:
+**6.27.** It is easy to misunderstand or forget what a function is supposed to be doing, even if you yourself wrote it. To avoid this you should _document_ your code. Adding informative `#`-comments is one way (caveat: `#`-comments can often be replaced by making your code more 'self-documenting', about which we will learn later). Another, very important way to document your code is with so-called _docstrings_ (documentation strings): a string object that occurs in the first line(s) of a function definition. Try this:
 
 ```python
 def sum_three_numbers(a, b, c):
@@ -94,21 +102,17 @@ def sum_three_numbers(a, b, c):
 ```
 
 
-**6.24.** Python internally handles docstrings by storing them as properties of the function, in a special field `___doc__`. Try `print(sum_three_numbers.__doc__)`. Docstrings are accessed, for instance, by the `help` function; try `help(sum_three_numbers)` (remember you can press `q` to quit the help).
+**6.28.** Python internally handles docstrings by storing them as properties of the function, in a special field `___doc__`. Try `print(sum_three_numbers.__doc__)`. Docstrings are accessed, for instance, by the `help` function; try `help(sum_three_numbers)` (remember you can press `q` to quit the help).
 
-**6.25.** Docstrings are customarily defined using three double-quotation marks (`"""..."""`). Do you remember how they handle newlines? Can you also also define docstrings using single double-quotation marks (`"..."`), i.e., does the `help` function still pick it up? What about using three single-quotation marks (`'''...'''`) or a single single-quotation mark (`'...'`)?
+**6.29.** Docstrings are customarily defined using three double-quotation marks (`"""..."""`). Do you remember how they handle newlines? Can you also also define docstrings using single double-quotation marks (`"..."`), i.e., does the `help` function still pick it up? What about using three single-quotation marks (`'''...'''`) or a single single-quotation mark (`'...'`)?
 
 - - - - - -
 **Something to keep in mind:** Always start your function definition with a **docstring**, explaining at least what arguments the function takes and what it does or returns. When programming, you can even write the docstring prior to writing the body of the function definition, to guide the actual implementation.
 - - - - -
 
-**6.26.** Add docstrings to all the functions you defined so far. (This is not just a chore; re-reading your own code from previous exercises, and remembering/reconstructing what it is supposed to do, is a useful exercise in its own right.) Your docstrings can also mention the exercise number for which the function was written.
+**6.30.** Add docstrings to all the functions you defined so far. (This is not just a chore; re-reading your own code from previous exercises, and remembering/reconstructing what it is supposed to do, is a useful exercise in its own right.) Your docstrings can also mention the exercise number for which the function was written.
 
-**6.27.** Write a function called `is_even` that takes an integer `n` as an argument and returns `True` if the argument is an even number and `False` if it is odd.
-
-**6.28.** Now write the function `is_odd` that returns `True` when its integer argument `n` is odd and `False` otherwise.
-
-**6.29.** Write a function `is_factor` with integer parameters `f`, `n` that makes each of the following statements evaluate to `True`: 
+**6.31.** Write a function `is_factor` with integer parameters `f`, `n` that makes each of the following statements evaluate to `True`: 
 - `is_factor(3, 12)` 
 - `not is_factor(5, 12)` 
 - `is_factor(7, 14)` 
@@ -117,7 +121,7 @@ def sum_three_numbers(a, b, c):
 - `is_factor(15, 15)` 
 - `not is_factor(25, 15)`.
 
-**6.30.** Write a function `is_multiple` to satisfy these statements: 
+**6.32.** Write a function `is_multiple` to satisfy these statements: 
 - `is_multiple(12, 3)` 
 - `is_multiple(12, 4)` 
 - `not is_multiple(12, 5)` 
@@ -125,12 +129,12 @@ def sum_three_numbers(a, b, c):
 - `not is_multiple(12, 7)`.
 
 - - - - - -
-**Something to keep in mind:** Lists of statements like the foregoing are useful for ***testing** that your function works correctly. Indeed, although most of these exercises do not explicitly tell you, you should always _test_ your function thoroughly, to ascertain it works correctly. Testing your function on one example is never sufficient, and always consider possible _edge cases_ (e.g., negative numbers, zero, empty lists, empty strings). (Later we will learn how to write code in a separate file for exactly that purpose: testing testing testing.)
+**Something to keep in mind:** Sets of statements like the foregoing are useful for **testing** that your function works correctly. Indeed, although most of these exercises do not explicitly tell you, you should always _test_ your function thoroughly, to ascertain it works correctly. Testing your function on one example is never sufficient, and always consider possible _edge cases_ (e.g., negative numbers, zero, empty lists, empty strings). (Later we will learn how to write code in a separate file for exactly that purpose: testing testing testing.)
 - - - - -
 
-**6.31.** Write the function `farenheit_to_celcius` designed to return the integer value of the nearest degree Celsius for given temperature in Fahrenheit, and its inverse `celcius_to_farenheit`. Extract suitable test cases from a conversion table on the web.
+**6.33.** Write the function `farenheit_to_celcius` designed to return the integer value of the nearest degree Celsius for given temperature in Fahrenheit, and its inverse `celcius_to_farenheit`. Extract suitable test cases from a conversion table on the web.
 
-**6.32.** Write a function `is_determiner` that checks if a given word is an English determiner (for practice reasons, try to do this without first storing an inventory of determiners in a _list_, which will be properly introduced in the next section). It should return True or False accordingly.
+**6.34.** Write a function `is_determiner` that checks if a given word is an English determiner (for practice reasons, try to do this without first storing an inventory of determiners in a _list_, which will be properly introduced in the next section). It should return True or False accordingly.
 
-**6.33.** In PyCharm and many other IDEs you can ctrl+click (or cmd+click) on a function call, to jump to the place in the code where the function is defined. Clicking on a variable in this way brings you to the place where it is first assigned. It is true also for built-in functions, and functions imported from other modules, in which case PyCharm takes you to the corresponding source files as well. Try ctrl+click a bunch of times on different functions and variables.
+**6.35.** In PyCharm and many other IDEs you can ctrl+click (or cmd+click) on a function call, to jump to the place in the code where the function is defined. Clicking on a variable in this way brings you to the place where it is first assigned. It is true also for built-in functions, and functions imported from other modules, in which case PyCharm takes you to the corresponding source files as well. Try ctrl+click a bunch of times on different functions and variables.
 
