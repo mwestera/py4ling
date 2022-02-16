@@ -316,7 +316,7 @@ create_scream()
 TP3	Write a function called `hypotenuse` that returns the length of the hypotenuse (Dutch: 'schuine zijde') of a right triangle, given the lengths of the two legs adjacent to the right angle as parameters. Examples: `hypotenuse(3, 4) == 5.0`, `hypotenuse(24, 7) == 25.0`.
 MW	Define and call a function `invert` that takes a word, and returns a new string containing that word back-to-front (that is, like `print_inverted`, but instead of printing the inverted word, it returns it). When calling the function, assign the returned value to a variable and print it.
 TP2 Do you remember how to use _format strings_ to align a string left, center or right? Try this again. Now write your own function named `right_justify`, _without_ using format strings (for the sake of practice), that takes a string named `s` as a parameter and returns the string with enough leading spaces so that (when printing it) the last letter of the string would be in column 40 of the display.
-MW	Add a parameter to the previous function, such that you can also choose a column other than 40.
+MW	Still without using format strings in the function definition, add a parameter to the previous function, such that you can also choose a column other than 40.
 MW	Remember `type` from before? What do you expect `type(create_scream())` and `type(invert())` to be (assuming you still have `create_screen` and `invert` defined from above)? Test your expectations. And what is the type of a function call that does not return anything, e.g., `print_spam()` from above?
 MW	Explain the difference between `type(create_scream())` and `type(create_scream)`; and between `type(print_spam())` and `type(print_spam)`.
 MW	What happens if a single function contains multiple different `return` statements (e.g., `return 'haha!'` and `return 'hehehe...'`)?
@@ -640,19 +640,19 @@ MW	Write a function `has_any_odd` that takes a _list_ of integers as argument, a
 MW	Write a function `has_only_odd` that takes a list of integers as argument, and returns `True` if all numbers in the list are odd, and `False` otherwise. Again try to streamline your result.
 MW	Write a function `has_three_odd` that takes a list of integers as argument, and returns `True` if, and only if, at least three numbers in the list are odd.
 
-MW	The `while` keyword lets you loop in a way that is different from `for`-loops. Run the following and make sure you understand what's happening. As before, try to break it in various ways.\n```
+MW	The `while` keyword lets you loop in a way that is different from for-loops. Run the following and make sure you understand what's happening. As before, try to break it in various ways.\n```
 counter = 0
 while counter < 10:
     print(counter)
     counter += 1
 ```
-MW	If a program keeps on running, do you know how to intervene to stop it? This is sometimes `ctrl`+`d` or `cmd`+`d`, but your IDE may also offer a stop button (e.g., red square).
+MW	If a program keeps on running, do you know how to intervene to stop it? This is often the keyboard shortcut `ctrl`+`c` or `cmd`+`c`, but your IDE may also offer a stop button (e.g., red square).
 MW	In the above while-loop, replace the condition (`counter < 10`) simply by `True`. What do you expect will happen? Do you understand the importance of the previous question?
-MW	Redo some of the exercises above by using a `while` loop instead of a `for` loop. E.g., use a `while` loop to sum up all the even numbers in a list, to concatenate all words in the list `words`.
+MW	Redo some of the exercises above by using a `while` loop instead of a `for` loop. For instance, use a `while` loop to sum up all the even numbers in a list; to concatenate all words in the list `words`; or to determine if a list contains at least one odd number.
 P4E	Write a while loop that starts at the last character in the string and works its way backwards to the first character in the string, printing each letter on a separate line, except backwards.
 MW	Write a program with a while-loop that repeatedly takes a string from the user, and simply repeats it back to you _unless_ it contains a profanity, in that case it remains silent. You can get creative (and naughty), or find lists of profanities on the web. (Further below we will learn how to read such words from a separate file, so you don't need to copy them into your program.) If you enter more than 5 profanities, the program should say _I've had enough of this_ and change the value of a boolean such that the while-loop stops.
 
-Note	Often `for`-loops are the way to go; but `while`-loops can be convenient if you don't quite know how long to loop, e.g., until some unpredictable condition is met, such as a particular user input.
+Note	Often for-loops are the way to go; but while-loops can be convenient if you don't quite know how long to loop, e.g., until some unpredictable condition is met, such as a particular user input.
 
 MW	Write an infinite loop that prints prime numbers. Periodically ask the user if they want to continue, and if not, make sure the loop stops. Implement one version where the loop stops because a boolean is changed; another version where the loop stops by using `break`.
 P4E	Write a function that repeatedly gets numbers from the user (using the `input` function), until the user enters _done_. Once _done_ is entered, print out the total, count, and average of the numbers. If the user enters anything other than a number, print an error message and skip to the next number.
