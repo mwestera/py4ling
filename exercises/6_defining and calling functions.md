@@ -68,7 +68,7 @@ create_scream()
 
 **6.17.** Do you remember how to use _format strings_ to align a string left, center or right? Try this again. Now write your own function named `right_justify`, _without_ using format strings (for the sake of practice), that takes a string named `s` as a parameter and returns the string with enough leading spaces so that (when printing it) the last letter of the string would be in column 40 of the display.
 
-**6.18.** Add a parameter to the previous function, such that you can also choose a column other than 40.
+**6.18.** Still without using format strings in the function definition, add a parameter to the previous function, such that you can also choose a column other than 40.
 
 **6.19.** Remember `type` from before? What do you expect `type(create_scream())` and `type(invert())` to be (assuming you still have `create_screen` and `invert` defined from above)? Test your expectations. And what is the type of a function call that does not return anything, e.g., `print_spam()` from above?
 
