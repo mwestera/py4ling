@@ -7,3 +7,25 @@ Python for Linguists
 6. Homework for next time: Exercises sections 4 (types) and 5 (if), up to (including) 5.22.
     4.28, 4.29, 4.30 and 5.22 will be discussed in class -- unless nobody cares :)
    For all other questions, see office hours/forum.
+
+Some things that came up and that I didn't super clearly explain in class:
+
+With slicing, if you don't specify the 'start' and 'stop' indices but only a 'step', Python will basically infer
+what you must have intended to do, based on whether the step is positive or negative. This behavior is fairly
+common in Python, i.e., that if you don't specify certain arguments it will do what Python developers decided is
+a sensible 'default'.
+
+Here's some more info about which objects evaluate to True and which to False (copy-pasted from elsewhere:)
+An object is considered true unless its class defines either a __bool__() method that returns False or a
+__len__() method that returns zero, when called with the object. Here are most of the built-in objects
+considered false:
+
+    constants defined to be false: None and False.
+    zero of any numeric type: 0, 0.0, 0j, Decimal(0), Fraction(0, 1)
+    empty sequences and collections: '', (), [], {}, set(), range(0)
+
+And about the surprising behavior of 'or' that Loek so cunningly discovered, basically it shows that it isn't
+a purely boolean operator. As I hastily explained in class, 'or' returns the first object (trying from left
+to right) that evaluates to True, and if no such object exist, it returns whatever instance of that type of object
+evaluates to False. So in the case of a disjunction of strings, it returns the first string that
+isn't empty, or an empty string if none of the strings was nonempty (try this!).
