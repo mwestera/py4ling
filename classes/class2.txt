@@ -4,6 +4,6 @@ Python for Linguists
 2. Mini-exam 1
 3. Discuss exercises section 2: Python basics (cont.)
 4. Exercises section 3: String operations
-6. Homework for next time: Exercises sections 4 (types) and 5 (if).
-    To be discussed in class (unless nobody cares): 4.28, 4.29, 4.30, 5.23-5.25, 5.28
+6. Homework for next time: Exercises sections 4 (types) and 5 (if), up to (including) 5.22.
+    4.28, 4.29, 4.30 and 5.22 will be discussed in class -- unless nobody cares :)
    For all other questions, see office hours/forum.
