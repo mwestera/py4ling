@@ -21,7 +21,7 @@
 
 **1.7.** For this course please install the **PyCharm IDE** on your computer: https://www.jetbrains.com/pycharm/ . The 'community edition' is open-source, available for every operating system, and more than sufficient for our needs. Installation is very user-friendly, and you can install it without changing any of the default settings (or tweak them if you know what they do).
 
-**1.8.** Once you have installed PyCharm, execute it (e.g., launch it from the start menu) and on the PyCharm entry screen click the big '+' button to create a _new project_. Again, all the default settings are fine. If Python is not yet installed on your system, PyCharm offers to do this for you when you click "create". Please do so, and again, the default Python version is fine. (To clarify: Python is a programming language. PyCharm is a program to help you write Python programs.)
+**1.8.** Once you have installed PyCharm, execute it (e.g., launch it from the start menu) and on the PyCharm entry screen click the big '+' button to create a _new project_. Again, all the default settings are fine. If Python is not yet installed on your system, PyCharm offers to do this for you when you click "create". Please do so, and again, the default Python version should be fine, but make sure it's at least **Python 3.6**. (To clarify: Python is a programming language. PyCharm is a program to help you write Python programs.)
 
 **1.9.** Inside your newly created project, have a look at the file `main.py` (which, on the default settings, PyCharm will have created for you) and try to run it.
 
