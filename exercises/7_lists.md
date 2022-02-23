@@ -91,7 +91,7 @@ print(x)
 
 **7.21.** Given some list `my_list`, do you remember what this slicing notation does: `my_list[:]`? Is the resulting object the same list as the one originally assigned to `my_list`, or does it merely have the same elements? Test this by trying to modify one without modifying the other.
 
-**7.22.** Here is a fun puzzle related to mutability. For the game of tic-tac-toe, we can construct a 3x3 board as follows: `row = [''] * 3`, and then  `board = [row] * 3`. Print the `board` to see what it looks like. Now let's play the game: I'm the first player, and I place a cross in _one_ of the cells, like this: `board[1][1] = 'x'`. Let's print the board again. Oops, it appears I already won! Easiest game of tic-tac-toe! (What on earth is going on??) How should the `board` have been constructed to prevent this cheat?
+**7.22.** Here is a fun puzzle related to mutability. For the game of tic-tac-toe, we can construct a 3x3 board as follows: `row = [''] * 3`, and then  `board = [row] * 3`. Write a function to print the `board` in a pretty way, and see what it looks like. Now let's play the game: I'm the first player, and I place a cross in _one_ of the cells, like this: `board[1][1] = 'x'`. Let's print the board again. Oops, it appears I already won! Easiest game of tic-tac-toe! (What on earth is going on??) How should the `board` have been constructed to prevent this cheat?
 
 **7.23.** Define a function `swap_first_and_last` that takes a list and swaps the first and last elements, modifying the list in-place. Does your program work if the list has only one element? What should it do if the input list has zero elements?
 
