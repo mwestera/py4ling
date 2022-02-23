@@ -4,6 +4,8 @@ separate_files = True
 out_dir = '../exercises'
 in_file = 'exer_raw.txt'
 
+update_files_from_section = 7
+
 
 if __name__ == "__main__":
 
@@ -59,9 +61,15 @@ if __name__ == "__main__":
     exercises = 0
     exercises_total = 0
     for line in lines:
+
         if line['mode'] == 'title':
             titles += 1
             exercises = 0
+
+        if titles < update_files_from_section:
+            continue
+
+        if line['mode'] == 'title':
             string = f'\n\n## {titles}. {line["content"]}'
             if separate_files:
                 short_title = line["content"].split('(')[0].strip().replace(',', ' ')
