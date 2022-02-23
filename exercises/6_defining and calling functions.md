@@ -47,11 +47,7 @@ print_twice('bla')
 
 **6.11.** Does a function definition (a def-clause) follow the same indentation rules as an if-clause and a for-clause?
 
-**6.12.** Write a function called `is_even` that takes an integer `n` as an argument and returns `True` if the argument is an even number and `False` if it is odd.
-
-**6.13.** Now write the function `is_odd` that returns `True` when its integer argument `n` is odd and `False` otherwise. To reduce redundancy in your code, you can define this function in terms of the previous function `is_even`.
-
-**6.14.** Functions can not only take inputs and do stuff, they can also output stuff, using the `return` keyword. The following code (when executed from a file) does not print `aaah!`. Make the program print `aaah!` without changing the function definition.
+**6.12.** Functions can not only take inputs and do stuff, they can also output stuff, using the `return` keyword. The following code (when executed from a file) does not print `aaah!`. Make the program print `aaah!` without changing the function definition.
 
 ```python
 def create_scream():
@@ -61,6 +57,10 @@ def create_scream():
 create_scream()
 ```
 
+
+**6.13.** Write a function called `is_even` that takes an integer `n` as an argument and returns `True` if the argument is an even number and `False` if it is odd.
+
+**6.14.** Now write the function `is_odd` that returns `True` when its integer argument `n` is odd and `False` otherwise. To reduce redundancy in your code, you can define this function in terms of the previous function `is_even`.
 
 **6.15.** Write a function called `hypotenuse` that returns the length of the hypotenuse (Dutch: 'schuine zijde') of a right triangle, given the lengths of the two legs adjacent to the right angle as parameters. Examples: `hypotenuse(3, 4) == 5.0`, `hypotenuse(24, 7) == 25.0`.
 
