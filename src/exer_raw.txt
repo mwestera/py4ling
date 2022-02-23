@@ -273,6 +273,9 @@ else:
 MW	Together, the if-clause, elif-clause and else-clause form a **compound clause**. Can you have an `elif` and/or an `else` clause without an initial `if` clause? Can you have more than one `elif`?
 MW  What happens if you specify a condition also in the `else` header, e.g., `else n < 0:`?
 MW	In an if-elif-else compound clause, what happens if one of the three clauses has an empty suite (e.g., delete or comment out (`#`) one of the print statements in the code above).
+
+***The following is not great; flattening if/thens isn't super relevant yet.
+
 MW	If possible, use `elif` to improve the readability of the 'odd/even/greater than 10' program from a few exercises ago, for instance by avoiding (deeply) nested if-clauses.
 
 Note	Nested if-clauses are frowned upon as an 'anti-pattern' in programming, to be avoided because they make code difficult to read and maintain -- and this applies not only to `if`-clauses (see also `for`-clauses below).
