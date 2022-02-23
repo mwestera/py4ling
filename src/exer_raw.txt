@@ -25,6 +25,9 @@ MW  As a student you can apply for the free PyCharm _educational license_ (https
 
 Title   My first Python (`print`, variables, `=`, `==`, `+`, ...)
 
+***Consider separate sections on variables/assignment; arithmetic; booleans.
+***Add some interesting reflection/discussion exercises in the middle.
+
 MW	In the Python console, write a print statement such as `print('Hello, world!')` and press the Enter key to execute it.
 MW  Write something again, but instead of executing it, cancel it using `ctrl+c` or `cmd+c`. This will be useful to remember.
 TP2	When executing a print statement, what happens if you leave out both of the parentheses? What happens if you leave out only the parenthesis open? Or only the closing parenthesis?
@@ -82,13 +85,17 @@ TP2	If I leave my house at 6:52 am and run 1 km at an easy pace (6:15 per km), t
 MW	What do the built-in functions `max` and `min` do? For example, try `max(3, 4, 5)`, `min(5, -11, -2, 99)`, and `max(10)`; can you guess what the error means?
 MW  What happens if you accidentally put a space between the function name and the parentheses (against Python style): `max (3, 4, 5)`? What if you forget the parentheses altogether?
 MW	In maths it is common to compare numbers or variables with _greater than_, _smaller than_, _not equal to_, and so on. Experiment with the operators `>`, `<`, `!=`, `>=`, `<=` to figure out what they do.
+***[NEW] MW   Some exercise connecting odd/even to the modulo operator.
+
+***Consider separate section on booleans.
+***More operator precedence and basic logic exercises.
 MW	Put the `not` operator in front of some of the expressions you tested, e.g., `not (3 >= 4)`. What does it do? What about `not True` and `not False`? Inspired by the meaning of the operator `!=`, could you also use exclamation mark `!` instead of `not`?
 MW  When using the `not` operator, can you leave out the parentheses, like `not 3 >= 4`? Compare this how the `max` function behaved above.
-***[NEW] MW   Some exercise connecting odd/even to the modulo operator.
 
 Note    Python has various built-in **functions** and **operators**. Calling a function (such as `max` and `print`) requires parentheses directly following the function name, with no space (`max(...)`). By contrast, operators (such as `not`) do not require parentheses, and are followed by a space (e.g., `not 3 >= 4`), though often parentheses increase readability (e.g., `not (3 >= 4)`), and they can also matter for operator precedence (see next exercises).
 
 MW	Explore how boolean operators `and` and `or` work. Does `or` correspond to inclusive or exclusive _or_?
+***Consider `or`/`and` on stuff other than booleans, and the rightmost-first evaluation. 'a' and 'b' and 'c', 0 and False and '', etc.
 MW  Let `cloudy = True` and `windy = True`, and `sunny = not cloudy`, and test whether it is nice day to go to the beach for flying a kite.
 MW  Predict, test and explain the difference between `not sunny or cloudy` and `not (sunny or cloudy)`.
 MW  Verify your previous explanation by considering the table of **operator precedence** in Python: https://docs.python.org/3/reference/expressions.html#operator-precedence
@@ -97,7 +104,10 @@ MW  Ooh, the weather changes! Reassign `cloudy = False`. Did the variable `sunny
 Note    Variables are 're-assigned' independently of one another. Even if two variables are initially made to refer to the same thing, reassigning something to one variable doesn't automatically reassign the other.
 
 MW  Assign `my_variable = 6`. What happens if you subsequently do `my_other_variable = my_variable`? What if you then reassign `my_variable = 20`, can you predict what happens to the value of `my_other_variable`? Test your prediction.
+
 MW  Numerical expressions can be implicitly converted to boolean values (more about _type conversions_ later). Try to understand this: \n- `not 0` \n- `not 1` \n- `not 100` \n- `not -1`
+***Add a note here with the actual rule for this conversion (see notes class2).
+***The following exercise has questionable utility; operator precedence is easier to illustrate in a different way.
 MW  Given the foregoing, can you predict the value of `not (0 + 1)` vs. `not 0 + 1`? Verify your prediction, and compare it with `not (False or True)` vs. `not False or True`. Make sure you understand this potentially puzzling behavior (see again the _operator precedence_ table).
 MW	First enter `n = 42`, and then `n == 42`. What is the result? What about `n == 43`? What happens if you try to assign a new variable with `==`, e.g., `z == 123` (assuming you haven't used `z` before)?
 MW	We have already seen you can create a string by using quotation marks. Try to predict which one of these is legal, what the result is, and why: \n- `fruit = 'apple'` \n- `fruit = apple` \n- `'fruit' = 'apple'` \n- `fruit == apple` \n- `'fruit' == 'apple'` \n- `'fruit' == apple`
@@ -106,8 +116,9 @@ P4L	What does this code do: `a = 3 == 3`? What is the result and why? What's the
 Note	While single `=` is used for **assigning** a value to a variable, double `==` tests for **equality**. It matters how you read them, whether mentally or out loud. If you read both simply as _'is'_, you are prone to confuse yourself.
 
 TP3	What do these expressions evaluate to? \n- `3 == 3` \n- `3 != 3` \n- `3 >= 4` \n- `not (3 < 4)` \n- `3 % 4 == 0` \n- `3 % 4 == 3` \n- `3 / 4 == 0` \n- `3 // 4 == 0` \n- `3+4 * 2 == 14` \n- `4 - 2 + 2==0`
+
 TP3	Give the logical opposites of these conditions: \n- `a > b` \n- `a >= b` \n- `a >= 18 and day == 3` \n- `a >= 18 and day != 3`.
-MW  Given two integer numbers, assigned to variables `x` and `y`, what is the value of `x == (y * (x // y) + x % y)`. Can you change the value by changing the numbers assigned to `x` and `y`? How / why not?
+MW  Given two integer numbers, assigned to variables `x` and `y`, what is the value of `x == (y * (x // y) + x % y)`. Can you change the truth value by changing the numbers assigned to `x` and `y`? How / why not?
 TP3	You look at the clock and it is exactly 2pm. You set an alarm to go off in 51 hours. At what time does the alarm go off? (Whenever a value increases and then goes back to zero, again and again, like hours on the clock, modulo can be useful.)
 MW	In the interpreter enter `name = input('What is your name?')`. What does it do? Enter something in the interpreter and press enter. Next, look what's in the variable `name`.
 MW	In a Python script, write a program that asks for the user's name and prints the name three times (each can be on a separate line).
@@ -224,7 +235,7 @@ Mw  Create a Python script with the following, predict what it does and test you
 if 4 + 2 == 6:
     print('yes!')
 ```
-MW  After learning something new, stay with it for a while, exploring it and finding ways to break it. Modify various things, for example, what if you replace `==` by `=`? (Undo that.) What if you remove the colon `:`? (Undo that.) What if you change the condition (`4 + 2 == 6`) into something that is always false?
+MW  Remember: after learning something new, stay with it for a while, exploring it and finding ways to break it. To that end, modify various things in the above example, e.g., what if you replace `==` by `=`? (Undo that.) What if you remove the colon `:`? (Undo that.) What if you change the condition (`4 + 2 == 6`) into something that is always false?
 
 Note  The `if`-clause consists of a **header** `if 4 + 2 == 6:` and a **suite** `print('yes!')`, also called the **body** of the if-clause. We will see various other types of clauses later, always consisting of a header and a suite, e.g., for-loops and function definitions. The header of a clause always ends with a colon `:`. The suite/body typically starts on a new line, and must be indented.
 
@@ -288,6 +299,9 @@ print('Now I\'m going to call the function, pay attention:')
 print_spam()
 ```
 MW	A function definition is a _clause_, just like an if-clause (and others about which we will learn later). What is its head and what is its suite/body?
+
+***First: can a function call itself?
+
 MW	What happens in the above example if there is only one empty line after the function definition (it will run, but your editor may complain)? What if there is no empty line after the function definition? What if either or both of the last two print statements in the above example are indented too?
 MW	Can a function contain multiple statements in its body? Can you call the same function multiple times?
 MW	What happens if you define a function but don't call it? What happens if, in the function _call_, you forget the parentheses, i.e., `print_spam` instead of `print_spam()`?
@@ -304,15 +318,15 @@ print_twice('bla')
 MW	What happens if you accidentally call the original `print_spam` from further above, which has no parameters, with an argument, e.g., `print_spam('bla')`? Conversely, what if you call `print_twice`, which does have a parameter, without an argument?
 MW	Define and call a function `print_inverted` that is given a word, and prints the word back-to-front (e.g., _apple_ is printed as _elppa_). (Hint: String slicing can be helpful here.)
 MW	Does a function definition (a def-clause) follow the same indentation rules as an if-clause and a for-clause?
-TP3	Write a function called `is_even` that takes an integer `n` as an argument and returns `True` if the argument is an even number and `False` if it is odd.
-TP3	Now write the function `is_odd` that returns `True` when its integer argument `n` is odd and `False` otherwise. To reduce redundancy in your code, you can define this function in terms of the previous function `is_even`.
-MW	Functions can not only take inputs and do stuff, they can also output stuff, using the `return` keyword. The following code does not print `aaah!`. Make the program print `aaah!` without changing the function definition.\n```
+MW	Functions can not only take inputs and do stuff, they can also output stuff, using the `return` keyword. The following code (when executed from a file) does not print `aaah!`. Make the program print `aaah!` without changing the function definition.\n```
 def create_scream():
     return 'aaah!'
 
 
 create_scream()
 ```
+TP3	Write a function called `is_even` that takes an integer `n` as an argument and returns `True` if the argument is an even number and `False` if it is odd.
+TP3	Now write the function `is_odd` that returns `True` when its integer argument `n` is odd and `False` otherwise. To reduce redundancy in your code, you can define this function in terms of the previous function `is_even`.
 TP3	Write a function called `hypotenuse` that returns the length of the hypotenuse (Dutch: 'schuine zijde') of a right triangle, given the lengths of the two legs adjacent to the right angle as parameters. Examples: `hypotenuse(3, 4) == 5.0`, `hypotenuse(24, 7) == 25.0`.
 MW	Define and call a function `invert` that takes a word, and returns a new string containing that word back-to-front (that is, like `print_inverted`, but instead of printing the inverted word, it returns it). When calling the function, assign the returned value to a variable and print it.
 TP2 Do you remember how to use _format strings_ to align a string left, center or right? Try this again. Now write your own function named `right_justify`, _without_ using format strings (for the sake of practice), that takes a string named `s` as a parameter and returns the string with enough leading spaces so that (when printing it) the last letter of the string would be in column 40 of the display.
@@ -689,11 +703,15 @@ MW	In the Python console enter `import keyword` and then print `keyword.kwlist`.
 
 Title	Dictionaries (also tuples, `zip`)
 
+***Maybe split this section in two, with one part AFTER the self-documenting code section.
+***Maybe introduce del (also for lists, but rarely used)
+
 MW	Let us construct `name_to_id`, a mapping or _dictionary_ from fictional student names (the keys) to student IDs (the values):\n```
 name_to_id = {'Alf': '136124', 'Beth': '008623', 'Chris': '014212', 'Dave': '9123785', 'Esra': '978123'}
 ```
 MW	You can look up a particular value in the dictionary by providing it with a key in square brackets (like list index notation). Look up the student IDs (values) of Alf and Chris (keys).
 MW	What happens if you try to look up the student ID (value) of a student whose name is not a key in the dictionary?
+MW  What happens if you try to treat the dictionary like a list, and select, e.g., the third item (i.e., index 2) by doing `name_to_id[2]`?
 MW	What happens when you try to define a dictionary with strings as keys, but you forget quotation marks around the strings?
 MW	Does a dictionary have a length, just like lists and strings? Can you create an empty dictionary? What is the `type` of a dictionary?
 MW	Similar to assigning a value to a particular index in the list (e.g., `names[3] = 'Bert'`), you can assign a value to a particular key in the dictionary (e.g., `name_to_id['Suzy'] = '124987'). What happens if the key to which you assign a value already exists in the dictionary? What happens if it does not yet exist in the dictionary?
