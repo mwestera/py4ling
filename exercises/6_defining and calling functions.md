@@ -51,7 +51,7 @@ print_twice('bla')
 
 **6.13.** Now write the function `is_odd` that returns `True` when its integer argument `n` is odd and `False` otherwise. To reduce redundancy in your code, you can define this function in terms of the previous function `is_even`.
 
-**6.14.** Functions can not only take inputs and do stuff, they can also output stuff, using the `return` keyword. The following code does not print `aaah!`. Make the program print `aaah!` without changing the function definition.
+**6.14.** Functions can not only take inputs and do stuff, they can also output stuff, using the `return` keyword. The following code (when executed from a file) does not print `aaah!`. Make the program print `aaah!` without changing the function definition.
 
 ```python
 def create_scream():
