@@ -83,7 +83,7 @@ else:
 **Something to keep in mind:** Nested if-clauses are frowned upon as an 'anti-pattern' in programming, to be avoided because they make code difficult to read and maintain -- and this applies not only to `if`-clauses (see also `for`-clauses below).
 - - - - -
 
-**5.23.** We both flip a coin, the outcome of which is stored in two boolean variables `player1` and `player2`. If both come up heads, print _We both won!_, if both come up tails, print _Play again._, if only the first comes up heads, print _Player one won._, if the second, print _Player two won._.
+**5.23.** We both flip a coin (outside Python), and manually store the outcomes in two boolean variables `player1` and `player2`. If both came up heads, print _We both won!_, if both came up tails, print _Play again._, if only the first comes up heads, print _Player one won._, if the second, print _Player two won._.
 
 **5.24.** Does your code for the previous exercise contain nested if-clauses? Implement a version without nested if-clauses. Besides `elif`, you can also reduce nested ifs by combining your conditions using boolean operators like `and` and `or`.
 
