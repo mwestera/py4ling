@@ -13,3 +13,36 @@
 
 ### TODOs
 - share the twitter csv 
+
+### Some code snippets from class
+
+```python
+# 4.28.
+time = int(input('What is the current time in hours?'))
+
+hours_until_alarm = int(input('How long shall we wait until the alarm sounds?'))
+
+print('alarm will go off at:', (time + hours_until_alarm) % 24)
+```
+
+
+```python
+# 5.22
+n = 123
+
+if n % 2 == 1 and n > 10:
+    print('ALARM!!!')
+    quit()  # inside a function, you'd typically use 'return' instead; inside a loop (later section), `continue` or `break`
+
+if n % 2 == 1:
+    print('Odd', end='')
+else:
+    print('Even', end='')
+
+if n > 10:
+    print(', and greater than 10!')
+elif n == 10:
+    print(', and equal to 10!')
+else:
+    print(', and smaller than 10!')
+```
