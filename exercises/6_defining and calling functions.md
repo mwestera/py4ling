@@ -73,6 +73,16 @@ create_scream()
 
 **6.14.** Now write the function `is_odd` that returns `True` when its integer argument `n` is odd and `False` otherwise. To reduce redundancy in your code, you can define this function in terms of the previous function `is_even`.
 
+**6.14½. (newly inserted for clarification)** What happens if you try to print the supposed 'output' of a function that in fact has no `return` statement, such as the `print_spam` function from earlier? For instance, try:
+```python
+result = print_spam()
+print('the result is:', result)
+```
+
+- - - - - -
+**Something to keep in mind:** A function can not only take inputs and 'do' stuff (such as print it out to the user), it can also **return** a value, i.e., give it back to wherever in the program the function was called, a value which can then be used for subsequent processing. A function that has no return statement returns nothing, literally: it returns the special object `None`.
+- - - - -
+
 **6.15.** Write a function called `hypotenuse` that returns the length of the hypotenuse (Dutch: 'schuine zijde') of a right triangle, given the lengths of the two legs adjacent to the right angle as parameters. Examples: `hypotenuse(3, 4) == 5.0`, `hypotenuse(24, 7) == 25.0`.
 
 **6.16.** Define and call a function `invert` that takes a word, and returns a new string representing that word back-to-front (that is, like `print_inverted`, but instead of printing the inverted word, it returns it to the program for subsequent processing). In your program (outside the function definition), apply the function to some word and then print that word and its mirror image next to each other.
