@@ -418,7 +418,7 @@ x = x.upper()
 print(x)
 ```
 MW  Given some list `my_list`, do you remember what this slicing notation does: `my_list[:]`? Is the resulting object the same list as the one originally assigned to `my_list`, or does it merely have the same elements? Test this by trying to modify one without modifying the other.
-AMY Here is a fun puzzle related to mutability. For the game of tic-tac-toe, we can construct a 3x3 board as follows: `row = [''] * 3`, and then  `board = [row] * 3`. Write a function to print the `board` in a pretty way, and see what it looks like. Now let's play the game: I'm the first player, and I place a cross in _one_ of the cells, like this: `board[1][1] = 'x'`. Let's print the board again. Oops, it appears I already won! Easiest game of tic-tac-toe! (What on earth is going on??) How should the `board` have been constructed to prevent this cheat?
+AMY Here is a fun puzzle related to mutability. For the game of tic-tac-toe, we can construct a 3x3 board as follows: `row = [''] * 3`, and then  `board = [row] * 3`. See what the `board` looks like, and optionally write a function to print it in a prettier way. Now let's play the game: I'm the first player, and I place a cross in _one_ of the cells, like this: `board[1][1] = 'x'`. Let's print the board again. Oops, it appears I already won! Easiest game of tic-tac-toe! (What on earth is going on??) How should the `board` have been constructed to prevent this cheat?
 G4G	Define a function `swap_first_and_last` that takes a list and swaps the first and last elements, modifying the list in-place. Does your program work if the list has only one element? What should it do if the input list has zero elements?
 MW  Make your previous function more sophisticated by giving it an additional parameter `in_place`, a boolean that indicates whether the function should modify the list in-place (and return nothing) or make a changed copy instead (and return that). Change the rest of the function accordingly, to handle this parameter. If `in_place` is set to True, your function should also be able to work on strings.
 TP3	Assume the days of the week are numbered 0,1,2,3,4,5,6 from Monday to Sunday. Write a function `day_number_to_name` that asks a day number, and returns the day name (a string). Call the function with some values to test it.
@@ -430,12 +430,12 @@ Note	Whenever you need a mapping from (consecutive) integer numbers to something
 TP3	You go on a wonderful holiday leaving on day number 3 (a Wednesday). You return home after 137 nights. Write a function that asks for the starting day number, and the length of your stay, and it will tell you the name of day of the week you will return on.
 P4L	Lists and strings are similar in many ways. Try to show with code several ways in which they are alike, and ways in which they are not alike.
 MW	Do you expect the following to be true or false: `len([1, 2, 3]) == len('[1, 2, 3]')`. Test your expectation.
-MW	Similar to converting from e.g. `int` to `str`, you can convert various types of objects to a list, using `list`. Try converting a string to a list, and understand what you see. Can you also convert a list to a string? Do you expect the following to be true? Is it? `str(list('apple')) == 'apple'`. Why (not)?
+MW	In the section on types we saw how to build a string from an int (`str(5)`), an int from a string (`int('24')`), etc., essentially converting between types. Similarly, you can build a list from various types of objects, using `list`. Try 'converting' a string to a list, and understand what you see. Can you also convert a list to a string? Do you expect the following to be true: `str(list('apple')) == 'apple'`? Is it? Why (not)?
 MW  What happens if you define your own variable with the name `list` (or `str`, or `int`, for that matter)? Why might doing so be a bad idea?
 G4G	Write a function with three parameters that, given a list and two integer positions in the list, swaps the two elements in the list. Does your function modify the input list _in-place_, or create a new list?
 MW	Write an analogous function (or at least 'as analogous as possible') for swapping two characters in a string.
 MW  If applicable, improve your function `is_determiner` from the end of the previous section, which checks whether a given word is an English determiner, by first storing the determiners in a convenient list.
-MW	Define a function that generates random, simple sentences of the shape "{determiner} {noun} {verb}s" (e.g., "the student walks"). Use separate lists to store a bunch of lexical items of the required syntactic categories. At the top of your program add `import random`, which lets you use the function `random.choice` to randomly select items from a list. (We will learn more about `import` as well as `random` later.) Select random items from the appropriate lists and compose a string from them, printing the final result.
+MW	Define a function that generates random, simple sentences of the shape "{determiner} {noun} {verb}s" (e.g., "the student walks"). Use separate lists to store a bunch of lexical items of the required syntactic categories. At the top of your program add `import random`, which lets you use the function `random.choice` to randomly select an item from a list. (We will learn more about `import` as well as `random` later.) Select random items from the appropriate lists and compose a string from them, printing the final result.
 MW  Make your random sentence generator as advanced as you like (though try to use only Python constructs that have been introduced in the exercises so far). For instance, can you extend it to randomly choose between an intransitive and a transitive verb frame, and then choose the right type of verb and include a direct object if the verb is transitive?
 
 
@@ -452,9 +452,9 @@ MW	What happens if the variable `name` already exists before executing the for-l
 MW	Write a function `print_multiple` that is given a list, and prints each element of the list, each on a new line.
 MW	Write a function `print_multiple_oneline` that is given a list, and prints all list elements on a single line, concatenated with dashes in between. You can either first compose a long string and call `print` only once at the end, or use repeated `print` statements and control the layout with the help of its `end` parameter.
 MW	Modify the original `print_multiple` to take an additional boolean argument `oneline`, such that `print_multiple([1, 2, 3], True)` prints all numbers on one line, and `print_multiple([1, 2, 3], False)` prints each number on a new line.
-TP3	You can also set a variable outside the for-loop, and then modify or reassign something to it on each iteration within the for-loop. Use this to write a function that takes a list `numbers`, and loops through it to compute the sum of the squares of the numbers, returning it in the end. For example a call with `[2, 3, 4]` as an argument should return the result of 4+9+16 which is `29`
+TP3	You can also initialize a variable outside the for-loop, and then modify or reassign something to it on each iteration within the for-loop. Use this to write a function that takes a list `numbers`, and loops through it to compute the sum of the squares of the numbers, returning it in the end. For example a call with `[2, 3, 4]` as an argument should return the result of 4+9+16 which is `29`
 MW	Define a function `length` that takes a list as input and returns its length, _without_ using the built-in function `len`.
-MW	Write a function that takes a list of words and concatenates them, placing one after the other with dashes `-` in between, and returns (not prints) the resulting string. (For maximal educational value, remember not to use built-in functions other than those introduced so far.)
+MW	Write a function that takes a list of words and concatenates them, placing one after the other with dashes `-` in between, and returns (not prints) the resulting string. (Try not to use built-in functions other than those introduced so far.)
 MW	Generalize the preceding function to allow changing the separator (e.g., dash, space, underscore) by giving the function an extra parameter `sep`.
 
 Note    After defining a function, make sure to _test_ it thoroughly by calling it with various arguments. After verifying that it works, you can easily comment out (with `#`) the test function calls, while leaving the function definition itself untouched. This lets you conveniently work in a single file for all the exercises, without all the previous functions being called every time you test the latest function. Later we will learn how to separate the test calls from the function definitions.
@@ -464,40 +464,51 @@ TP3	Define a function that sums up all the even numbers in a list, returning the
 TP3	Define a function that sums up all the negative numbers in a list, returning the result. As always, try to use a clear, transparent function name.
 MW  Write a function that takes a list of numbers, multiplies each element by 3 and appends the results to a new list. Does the new list have the same number of elements as the original list?
 TP3	Write a function that takes a list of words, and an integer, and counts how many words in the list have a length of at least that integer.
-TP3	Including the `return` statement of a function definition inside a for-loop, is one way to escape the loop early. Write a function that sums all the elements in a list up to, and including, the first even number. (What if there is no even number in the list?)
-MW  Extend the previous function with a boolean parameter `inclusive`: setting it to false results in summing up to, but _excluding_, the first even number.
+TP3	One way to escape a loop early, at least inside a function definition, is the `return` statement. Write a function that sums all the elements in a list up to, and including, the first even number, and then returns the result right away (skipping the rest of the list). (What if there is no even number in the list?)
+MW  Extend the previous function with a boolean parameter `inclusive`: setting it to False should result in summing up to, but _excluding_, the first even number.
 TP3	Write a function that counts how many words occur in a list up to (and including) the first occurrence of the word _the_.
 MW	Just as you can loop through a list, you can loop through the characters of a string. Write a function `even_vowel_count` that uses a loop to count the number of vowels in a string, and returns a boolean that indicates whether that number is even or not.
-MW  Are you remembering to add docstrings to all your functions?
+MW  Did you remember to add docstrings to your functions?
 TP3	Write a function that counts the number of even digits in a number `n`, e.g., the number `5671238` has 3 even digits (6, 2 and 8).
-MW	The keyword `for` also appears in a powerful and 'Pythonic' pattern called _list comprehension_. With a single line of code, it lets you construct a new list from an old one by changing or filtering the original elements. Try to predict (and test) what the following do:\n- Let `numbers = [9, 5, 8, 3, 2, 6]`, and try `[n for n in numbers if n > 4]` \n- `[s[0] for s in names]` (assuming you still have `names`) \n- `[name[0].lower() in 'aeiou' for name in names]`
+MW	The keyword `for` also appears in a powerful and 'Pythonic' pattern called **list comprehension**. With a single line of code, it lets you construct a new list from an old one by changing or filtering the original elements. Try to predict (and test) what the following do:\n- Let `numbers = [9, 5, 8, 3, 2, 6]`, and try `[n for n in numbers if n > 4]` \n- Assuming you still have `names` assigned: `[s[0] for s in names]` (if you were to assign the result to a variable, what would be a fitting variable name?) \n- `[name[::-1] for name in names]` \n- `[s for s in names if s[0].lower() in 'aeiou']` (try to describe what this means, in plain English)
 MW  Use list comprehension to take a list of words, and construct a list of the same words but in full capitals. Does your code demonstrate that strings are mutable? Does it demonstrate that lists are mutable?
 MW	Use list comprehension to take a list of numbers, and return a list of squares of those numbers, but only of those numbers which were even.
 MW	Use list comprehension to create a list containing all names in the list `names` that are at least 3 characters long. Also use list comprehension to create a list of integers that indicate, for each name in the original `names`, how many characters it contains.
 
-Note    With **list comprehension**, a _lot_ can be done in a single, compact line of code. But _with great power comes great responsibility_. Compact code is never in itself a goal; code must be _readable_ above all else. Therefore, use list comprehension only if you think this makes the code more readable than e.g. a multi-line `for`-loop. This is only the case, typically, if the modification or filtering condition you want to apply is sufficiently simple. In general: don't write 'clever' code; write _clear_ code.
+Note    With list comprehension a _lot_ can be done in a single, compact line of code, and with great power comes great responsibility. Compact code is never in itself a goal; code must be _readable_ above all else. Therefore, use list comprehension only if you think this makes the code more readable than e.g. a multi-line `for`-loop. This is only the case, typically, if the modification or filtering condition you want to apply is sufficiently simple. In general: don't write 'clever' code; write _clear_ code.
 
 MW	Redo the previous two exercises _without_ list comprehension, by using an ordinary multi-line for-loop. Which version do you find more readable?
 MW  Use list comprehension to write a function that takes two lists, `source` and `filter`, and returns a new list that is exactly like `source` but with all elements removed that are not in `filter`.
 
 
-Title	More practice with lists and loops
+Title	More practice with lists and loops (also `index`, `range`)
 
-MW	Define a function that takes a list of numbers, of in principle unrestricted length, and returns its sum. Define a similar function that returns the list's average.
+MW	Define three functions, each of which takes a list of numbers (e.g., the outcomes of an experiment) and returns a number. The first returns the sum of all elements. The second uses the summation function to compute and returns the list's average. The third uses the averaging function to compute and return the list's standard deviation.
 MW	Write a function that takes a list of words like `words = ['the', 'dog', 'is', 'in', 'the', 'garden']`, takes the length of each word, and prints the total sum of word lengths. Do you get the same number as `len('the dog is in the garden')`? Why (not)? What about `len(words)`?
 MW	Write a function `index_in_string` that takes a string and a character, and returns the index of the first occurrence of that character in the string. For instance, `index_in_string('david', 'v')` returns `2`. Explain why `index_in_string` can be seen as the inverse of the square brackets slicing notation for retrieving a character by index.
 MW	Write a function `index_in_list` that does the same, but for a list instead of a string. Could you reuse any of the previous code?
-MW  Lists and strings in fact already come with a method `index`, which called like this: `'david'.index('v')` or `[6, 4, 8, 6].index(8)`. Does this method behave the same as your own implementation from the foregoing exercises? What happens if the string or list does not contain the element you request the index for? Which index is returned if it contains the requested element multiple times? After testing this empirically, call for `help` on the `index` method to confirm your findings.
-MW	Write a function `find_largest` that finds and returns the index of the largest element in a list. It should work both when given a list of numbers and when given a list of strings, where in the latter case `largest` means `last when sorting alphabetically`. For maximum educational value, you can implement this once with the help of the built-in function `max`, and once without it.
-MW	Write a function that takes a string, namely an English sentence, and loops through the characters of the string, ultimately returning the total number of words in the sentence. Hint: Generally speaking, in written English, how do you know a new word is beginning?
+MW  Lists and strings in fact already come with a method `index`, which is called like this: `'david'.index('v')` or `[6, 4, 8, 6].index(8)`. Does this method behave the same as your own implementation from the foregoing exercises? What happens if the string or list does not contain the element you request the index for? Which index is returned if it contains the requested element multiple times? After testing this empirically, call for `help` on the `index` method to confirm your findings.
 
-*** Move the following note up
-Note	When you are asked to write a program, define a function, etc., sometimes a function name is given, but often this decision will be left to you. Likewise, you often need to decide whether to create a new file or add the new function to an existing file. Always choose a logical place, and a meaningful, transparent name, favoring clarity over brevity.
+Note    Lists and strings have a method **index**, which you can use to find the (first) index of an element in the list, provided it exists.
 
-MW	Write a function that takes a string and returns a new string where all vowels have been replaced by `y`. Could you change the function to modify the original string _in-place_, instead of returning a changed copy? What if you give it a list of characters instead of a string, e.g., `vowels_to_y(['b', 'a', 'n', 'a', 'n', 'a'])`?
-MW	Write a function `tokenize` that takes a string, namely an English sentence, and returns a list containing its separate words. (Try not to use any built-in functions other than those introduced so far.) Congratulations, you have programmed a _tokenizer_! Can you spot some room for improvement? You can make your tokenizer as advanced as you like.
-MW	Use your `tokenize` function to obtain a list of tokens from a text. Define a function that loops through the resulting tokens list to print pairs of consecutive words, or **bigrams**. For instance, for the text _the apple is red_, your program should print `the apple`, then `apple is`, then `is red`.
-MW	Adapt your preceding code to print not bigrams but _trigrams_, i.e., sequences of three consecutive words.
+MW	Write a function `find_index_of_largest` that finds and returns the _index_ of the largest element in a list (in mathematical terms this would be an _argmax_ function). You can do this without any explicit looping, namely by using the built-in functions `max` and the list method `index`. (Optional: Consider why this is not the most _computationally efficient_ way, e.g., imagine you had a list of millions of numbers.) What if you give your function a list of strings? What if you give it not a list, but a single string?
+
+MW	Write a function that takes a string, namely an English sentence, and loops through the characters of the string, ultimately returning the total number of _words_ in the sentence. Hint: Generally speaking, in written English, how do you know a new word is beginning?
+
+***Not super helpful   Note	When you are asked to write a program, define a function, etc., sometimes a function name is given, but often this decision will be left to you. Likewise, you often need to decide whether to create a new file or add the new function to an existing file. Always choose a logical place, and a meaningful, transparent name, favoring clarity over brevity.
+
+MW	Write a function that takes a string and returns a new string where all vowels have been replaced by the character _y_. Could you change the function to modify the original string _in-place_, instead of returning a changed copy? What if you give it a list of characters instead of a string, e.g., `vowels_to_y(['b', 'a', 'n', 'a', 'n', 'a'])`?
+
+MW	It is often convenient to loop over consecutive numbers (0, 1, 2, 3, ...). One way to achieve this is to create a list of numbers and loop over those list elements just as we did before, e.g., `for n in [0, 1, 2, 3]:`. Use this technique to print each number from 0 to 9. To understand a downside of this technique, consider printing the numbers up to 999 in the same way (but don't).
+MW	A more convenient way to loop over consecutive numbers is to use `range`, e.g., `for i in range(10):` loops over all integers from 0 to 9. Try this, and see how easily it scales up to larger ranges.
+
+Note    To loop over a **range** of consecutive integers from 0 to some integer `n`, use `range(n)`. We will learn more about `range` later, as it is a lot more flexible/powerful than simply 'integers from 0 to _n_'.
+
+MW  For a list like `words` from above, what does looping over `range(len(words))` achieve? Use it to print each index (0, 1, 2, ...) next to the corresponding element in the list (`0 the`, `1 dog`, `2 is`, etc.). (Later we will learn a slightly more Pythonic way to achieve this, using `enumerate`.)
+MW  Use `range` to iterate over indices of the list `words`, in a way that lets you print _pairs_ of consecutive words, or **bigrams** (`the dog`, `dog is`, `is in`, etc.). What should be the upper bound of your range?
+MW	Write a function `tokenize` that takes a string, namely an English sentence, and returns a list containing its separate words. (Try not to use any built-in functions other than those introduced so far.) Congratulations, you have programmed a **tokenizer**! Can you spot some room for improvement? You can make your tokenizer as advanced as you like.
+MW	Define a function that takes a string (an English sentence), that uses your `tokenize` function to obtain a list of tokens, and loops through the resulting tokens to collect all _bigrams_. Your function should return a list of all bigrams.
+MW	Adapt your preceding code to collect not bigrams but _trigrams_, i.e., sequences of three consecutive words.
 
 MW  In the following example, how come the list `cities` doesn't change?\n```
 cities = ['amsterdam', 'rotterdam', 'leiden', 'gouda']
@@ -513,14 +524,10 @@ for city in cities:
 
 print(cities)
 ```
-MW  If the previous code did not change the list `cities`, modify the code (or create a modified copy) so that it does.
-
-***Make sure I try the following:
-
-MW	We have a micro-computer with a tiny display of 8 by 8 pixels, each of which can only be either on or off. We received what appears to be a secret message: `0000000000110110011111110011111000011100000010000000000000000000`. Write a function that takes such strings and prints them to a (simulated) 8 by 8 display, each pixel represented by a one-character space, rendering a `0` as an empty space ` `, and a `1` as a hashtag `#`. If you like, compose your own reply.
-
-MW	Earlier we saw that if-clauses can be nested. What about for-clauses? Write a function (and think of an appropriate name) that loops over the `names` list from earlier (`for name1 in names`), and nested within that loop, loops over the same list again (`for name2 in names`). In the body of the inner loop, print the two names stored in `name1` and `name2`, concatenated with a dash in between. What do you get?
+MW  If the previous code did not change the list `cities`, modify the code so that it does. Does your modification actually change the original list in-place, or create a new, modified copy (re-assigned to the old variable)?
+MW	Earlier we saw that if-clauses can be nested. What about for-clauses? Write a function (and think of an appropriate name) that loops over the `names` list from earlier (`for name1 in names:`), and nested within that loop, loops over the same list again (`for name2 in names:`). In the body of the inner loop, print the two names stored in `name1` and `name2`, concatenated with a dash in between. What do you get?
 MW	Why did the inner loop use a different variable from the outer loop, namely `name2`? Modify the previous code (or create a modified copy) to see what happens if the inner loop instead uses the same variable as the outer loop (i.e., `name`), and inside the inner loop simply print `name`. Do you understand what you see?
+MW  Use nested loops and if-statements to print all pairs of names where the first name starts with a vowel and the second with a consonant.
 MW  Write a function `chain` that takes a list of lists, and chains all lists into a single list. For example, chaining `[[1, 2], [3, 4, 5], [6, 7]]` will result in `[1, 2, 3, 4, 5, 6, 7]`.
 
 MW  Remember your random sentence generator from before? Use the same lists of words as before (determiners, nouns, intransitive verbs, transitive verbs), but now, instead of printing one random sentence, write a function that prints _all possible sentences_, one after the other. Does it handle the different verb frames (intransitive, transitive) correctly?
@@ -541,7 +548,7 @@ MW	Earlier we saw what happens if you call a function before defining it (try ag
 
 Note	A Python script is executed top-to-bottom, with the important clarification that defining a function is different from calling a function. That is, in the body of one function, you can in principle refer to another function even if it is defined later, as long as the first function is _called_ only after the function it references is defined.
 
-MW  Explain how the foregoing is illustrated by the following two programs (placed in two separate files):```
+MW  Explain how the foregoing is illustrated by the following two programs -- place these in two separate files:```
 # The first program:
 
 def print_sum(a, b):
@@ -552,7 +559,7 @@ def sum_numbers(a, b):
 
 print_sum(1, 3)
 
-# The second program (place in a separate file):
+# The second program (place in a separate file!):
 
 def print_sum(a, b):
     print(sum_numbers(a, b))
@@ -572,7 +579,7 @@ Note	Dividing code into functions is called **chunking**. Chunking is an art, bu
 TP3	The four compass points can be abbreviated by single-letter strings as `'N'`, `'E'`, `'S'`, and `'W'`. Write a function `turn_clockwise` that takes one of these four compass points as its parameter, and returns the next compass point in the clockwise direction. What should this function do if you give it some 'illegal' input, e.g., `'A'`?
 MW	Explain the difference between `type(turn_clockwise)` and `type(turn_clockwise('N'))`.
 TP3	Also define an analogous function `turn_counterclockwise`. Should `turn_counterclockwise(turn_clockwise('N')) == 'N'` evaluate to `True`? Does it?
-MW	If applicable, streamline the functions `turn_clockwise` and `turn_counterclockwise` with the help of a list containing the four compass points. How might the list method `index` mentioned above be useful here? And remember: whenever you can go around and around, you might need the modulo operator.
+MW	If applicable, streamline the functions `turn_clockwise` and `turn_counterclockwise` with the help of a list containing the four compass points. How might the list method `index` be useful here? And remember: whenever you can go around and around, you might need the modulo operator.
 MW	Extend your clockwise and counterclockwise functions to deal with four diagonal directions (such as North-East `NE` and South-West `SW`). If this is difficult or requires a lot of manual typing, it means your functions could probably have been implemented in a smarter, more concise way...
 TP3	Write a function `get_day_name` that converts an integer number 0 to 6 into the name of a day. Assume day 0 is Sunday. Also write the inverse function `get_day_num` which is given a day name, and returns its number. If applicable, streamline the functions `get_day_name` and `get_day_num` with the help of a list.
 
@@ -597,6 +604,14 @@ MW  Speaking of readability, did you remember to add docstrings to all your func
 **TODO default arguments
 ***Probably not args, kwargs
 ***Probably not this: AMY mutable default arguments `append_cat(l=[]): l.append('cat'); return l` then call it twice. see the field `__defaults__`?
+
+MW	Your editor may be smart enough to highlight violations of 'Python style', adherence to which will enhance the readability of your code (in addition to docstrings and self-documenting code). The style guides are kept in the eigth _Python Enhancement Proposal_, PEP8 (https://www.python.org/dev/peps/pep-0008/). Have a look at it, and go through some of your previous code to make it PEP8-compliant if needed.
+
+Note	Initially created and long-term maintained by Guido van Rossum, Python is a very open, community-driven programming language. It has come to be the way it is with the help of **Python Enhancement Proposals** or PEPs (https://www.python.org/dev/peps/). **PEP8** is Python's style guide (https://www.python.org/dev/peps/pep-0008/).
+
+P4E	Can you predict what happens if you enter `AAAARGH I hate Python!` in the interpreter? And what if you surround it by quotation marks?
+MW	Every aspect of the Python language has been carefully designed, even though you (and I) may not always understand the reason at the present moment. Should you find yourself frustrated with Python, just enter `import this` in the interpreter and feel your calm returning. (The keyword `import` will be explained later.) The result is an easter egg (surprise) based on PEP20, that captures some of Python's design principles in poetic form.
+
 
 
 Title	More loops, and ways to break them (`for`, `while`, `break`)
@@ -624,7 +639,7 @@ for name in names:
 Note	The keyword `break` lets you break out of a loop, which can be useful when some condition is met (e.g., some crucial element has been found) and there is no need to keep looping. (Recall that within a function definition, the `return` keyword can similarly let you break out of a loop.)
 
 MW	Can a single loop contain multiple `break` statements, e.g., in different if-clauses?
-MW	What does `break` do when placed in the inner loop of multiple nested loops (e.g., the clock examples from above)? Does it break out of all the loops? Can you compare this to what a `return` statement in the inner loop would achieve instead?
+MW	What does `break` do when placed in the inner loop of multiple nested loops (e.g., the clock examples from above)? Does it break out of _all_ the containing loops, or only the one that directly contains the `break` statement? Can you compare this to what a `return` statement in some function definition with nested loops would achieve instead?
 TP3	We want to know if a list contains any odd numbers. What are problems with the following code?\n```
 numbers = [10, 5, 24, 8, 6]
 
@@ -661,67 +676,10 @@ MW	Write an infinite loop that prints prime numbers. Periodically ask the user i
 P4E	Write a function that repeatedly gets numbers from the user (using the `input` function), until the user enters _done_. Once _done_ is entered, print out the total, count, and average of the numbers. If the user enters anything other than a number, print an error message and skip to the next number.
 TP3	Write a number guessing game. Start your program with `import random` and then `number = random.randrange(1,100)`. What does this do? (We will learn more about `import` later.) Now write a loop where the user is asked to guess that number. Upon each guess, the program prints whether it is too high or too low, or, if the guess is exactly right, exit the loop and print _Congratulations! You won in [n] guesses!_ where _n_ is the number of guesses.
 MW	Modify the guessing game: if the player guesses correctly, after congratulating them, ask the player if they want to play again, and if so, sample a new random number and start over. After each game, give the player some additional feedback: were they faster or slower than the average of previous rounds?
-MW	Write a loop that prints floats between 0 and 1000, in increments of (approximately) pi. Write a version without `range`, and a version with `range`.
-MW	Write a program that repeatedly asks for user input; it ignores all user input except the string _knock_. Only if the user writes _knock_ three times in a row (as three separate inputs), the program should print _Go away!_ Does the program behave as required if you enter _knock- twice, then something else, then _knock_ a third time?
+MW	Write a loop that prints floats between 0 and 1000, in increments of (approximately) pi.
+MW	Write a program that repeatedly asks for user input; it ignores all user input except the string _knock_. Only if the user writes _knock_ three times in a row (as three separate inputs), the program should print _Go away!_ Does the program behave as required if you enter _knock_ twice, then something else, then _knock_ a third time?
 
-MW	In the Python console enter `import keyword` and then print `keyword.kwlist`. For which of these keywords do you already know the purpose?
-
-
-
-Title   Looping while counting (`enumerate`, `range`)
-
-MW	It is often convenient (but equally often _not_ convenient!) to loop over consecutive numbers (0, 1, 2, 3, ...). One way to achieve this is to create a list of numbers and loop over those list elements just as we did before. Try this, to print each number from 0 to 9.
-MW	A more convenient way to loop over consecutive numbers is to use `range`, e.g., `for i in range(10)` loops over all integers from 0 to 9. Try this.
-MW  Write a function that iterates the integers from 1 to 50. For multiples of three print `Fizz` instead of the number and for multiples of five print `Buzz`. For numbers which are multiples of both three and five print `FizzBuzz`. Try to minimize repetition in your code.
-MW	Execute `help(range)` for more information (and remember to press `q` to quit). As you can see, you can construct a range with up to three arguments. What do the other arguments do? E.g., what happens if you loop over `range(3, 50, 5)`? And what about `range(100, 5, -3)`? Is there a relation between the three arguments of `range`, and the three integers you can specify when slicing a string or list?
-MW	Write a function that counts down from 10 all the way to 0, and then prints _Lift off!_.
-MW	Write a function that counts down from 10 down to -10 in steps of 2.
-MW	Write a function that prints all and only list elements at even positions (0, 2, 4, ...).
-MW  Generalize the previous function with an extra parameter `even`: when set to True, it displays the previous behavior; when set to False, it instead prints only the list elements at odd positions (1, 3, 5, ...).
-MW  Write a function that takes a list like `names`, and loops over list indices (e.g., using `range(len(names)`) in order to print all pairs of consecutive elements. For instance, for `names` as defined at the start of this section, it would first print _Alf Beth_, then _Beth Chris_, then _Chris Dave_, and so on.
-MW  Write a similar function, but now the printed pairs of consecutive elements should not overlap: _Alf Beth_, then _Chris Dave_, and so on.
-MW	What happens if you iterate over an empty list? What happens if you iterate over an empty range, e.g., `range(0)`, or `range(56,56)`?
-MW	Can you think of (dis)advantages of using `range`, defined by a start and end point, instead of a list of all the numbers in that range? For instance, what if you want to loop over a billion gazillion numbers?
-MW	Can you create a `range` with non-integer steps, e.g., 0.1? What about using a float as a starting point or end point, is that allowed? Can you think of a more indirect way to nevertheless achieve such things (e.g., non-integer steps, or start/end points) with the help of `range`?
-NED  In the following example, how come the list `nums` doesn't change?\n```
-nums = [1, 2, 3]
-for x in nums:
-    x *= 10
-
-print(nums)
-```
-MW  Change the above code to have it modify the list `nums` in-place. You can achieve this by only changing the header of the for-clause, and the `x` in its body...
-MW  Can you generalize the previous code so it also works on strings, modifying them in-place?
-MW	Remember that objects can sometimes be converted from one type to another. A `range` object can be converted to a `list`, e.g., `list(range(100))`. Try this. Can you also convert a list back to a range? What happens if you try, and why might this be?
-MW	Compare `x = range(9999)` to `x = list(range(9999))` (without printing the result). Keep increasing nines and try again, e.g., `99999`, `999999`, `9999999`, and beyond (take it easy, don't crash your computer). At some point you will notice that the version `x = list(range(999...9)` gets much slower, while the version `x = range(999...9)` remains fast. Why would this be?
-MW  If you add `import sys` to the top of your file, you can access various operating-system-related functions in Python. One of these is the function `sys.getsizeof`. First call `help` on this function to read what it does. Then use the function to compare `range(9)` to `range(9999)`, and `list(range(9))` to `list(range(9999))`. Do your findings align with your answer to the previous exercise?
-
-Note	Try not to needlessly occupy memory and processing time: `range` lets you iterate over a sequence of integers without having to store the corresponding list of integers anywhere in memory.
-
-TP3	Write a function that takes a number `n` and prints out the first `n` triangular numbers. (For instance, the 5th triangular number is 1+2+3+4+5, i.e., 15.)
-TP3	Write a function that takes a number and prints `True` when it is a prime number and `False` otherwise.
-MW	Define a function that uses nested loops to print all pairs of numbers between 0 and 10, but only if the first member is odd and the second even. Did you use an if-clause, or appropriate `range` objects?
-MW	Define a function that uses nested loops to print all possible two-character strings where the first is a consonant and the second is a vowel.
-MW	Define a function that uses nested loops to print all pairs of numbers between 0 and 10, where the second is higher than the first -- but crucially _without_ using `if`-statements (hint: the inner loop can use a range of which the starting point is determined by the outer loop)!
-
-Note	When you need to loop over a range of numbers in a particular way, choosing a smart `range` can often result in more readable code than using if-statements inside the loop.
-
-MW	Recall that you can directly convert a `range` object to a `list`, but not the other way around. Implement a function `list_to_range` that does allow this. Of course it can only work for lists that correspond to a certain range with an integer start point, end point and regular steps in between.
-MW	Define a function that uses a _single_ (!) loop using `range` (without constructing a list first), that prints the numbers 0, 1, 2, ..., 23, repeating this five times. Remember the operation with which you handled the hours on a clock earlier?
-MW	Now program a clock with both hours and minutes, printing it as, e.g., `16:52`, and let it run for two 'days' (each iteration simulates a minute). If it works, make it also display seconds, and run it for a few 'hours'.
-MW	Can you change the setting of your clock to display times using `am` and `pm` instead of the 24-hour format, e.g., `4:52pm` instead of `16:52`?
-MW	Sometimes you want to loop over the elements of a list, while at the same time counting them. The built-in function `enumerate` is great for this. Assuming you still have `names` defined, try the following:\n```
-for i, name in enumerate(names):
-    print(i, name)
-```
-MW	Note that looping over a list via `enumerate` iteratively assigns new values to _two_ variables, namely the counter and the element (`i` and `name`, in this example). What happens if you forget the `i` and do `for name in enumerate(names)`? What is the type of `name` in that case? And what happens if, conversely, you include the `i` but forget the `enumerate`, that is, `for i, name in names`?
-MW	Can you define your own function that returns not one, but two values at a time (e.g., `return x, y`)? What happens if you call the function and assign whatever the function returns to a single variable? What is the type of the resulting object? Can a function return three values at a time? Or four?
-
-Note	Use the built-in function `enumerate` to count the elements of a list as you loop over them. `enumerate` takes a list and iteratively yields _pairs_ (2-tuples) of a count and a list element. We will learn more about pairs (and more generally tuples) later.
-
-MW	What happens if you print the object `enumerate(names)` directly? What is its `type`? Note that it is not an ordinary list; instead, an Enumerate object processes `names` _on demand_, numbering each element on the fly, without looking ahead. This avoids having to read the full list and construct a new 'numbered' list, which would unnecessarily take up memory and processing time. But it means that, if you want to collect all enumerated names in an ordinary list, you need to do so explicitly: `list(enumerate(names))`. What is the `type` of the elements in the resulting list? We will learn more about that type of object later.
-MW  Predict what the outcome is of the following statements, and verify your understanding: \n- `list(enumerate(range(10)))` \n- `enumerate(10)` \n- `list(10)` \n- `list(zip(range(10), range(10)))` \n- `list(zip(range(10)))` \n- `list(enumerate(enumerate(range(10))))`
-*** TODO practice more list comprehensions:  \n- `[str(i) + ': ' + name for i, name in enumerate(names)]` \n- `[i % 3 for i in range(20)]`
+MW	In the Python console enter `import keyword` and then print `keyword.kwlist`. For which of these keywords do you already know some purpose?
 
 
 
@@ -751,11 +709,8 @@ MW	Construct another dictionary `name_to_id2` with a bunch of fictional names an
 MW	Do the dictionary methods `keys`, `values` and `items` return an ordinary list, or a different type of object? If they are not lists, can you convert them using `list(...)`?
 MW	Create a dictionary `en_to_nl` that maps English numerals up to ten (_one_, _two_, ..., _ten_) to Dutch numerals (_een_, _twee_, ..., _tien_).
 MW	Create an empty dictionary `{}` and then, without re-typing any numerals, loop through the items of `en_to_nl` to construct the inverse dictionary, `nl_to_en`. Test a number of examples, including translating back and forth, e.g., `nl_to_en[en_to_nl['two']] == 'two'`.
+MW	Add some more words to your original dictionary `en_to_nl`, and see if constructing the inverse `nl_to_en` still works. What problem arises if to `en_to_nl` you now add the English word _note_ meaning Dutch _noot_, and also the English word _nut_ meaning Dutch _noot_, and then construct its inverse again?
 MW	Write a function that takes a list of strings like `['abc', 'hello', '2', 'three', '51', 'john']`, and computes the sum of all numbers it contains (in this example 2 + 52 = 53). What should it return if the list contains no numbers? Now extend your function so it also takes into account English numerals, like _two_, _three_ and _four_, adding them up together with the numbers; let it handle at least all English numerals up to _ten_.
-MW	Use the list `names` used earlier above, and create an empty dictionary `names_inv`. Now use `enumerate` to loop through all index-name pairs of the list `names`, and assign these to the dictionary `names_inv` by using names as keys and the corresponding list indices as values. Explain why `names_inv` is a suitable name.
-MW	Continuing from before, what do you expect is the result of `names_inv[names[3]]`? And what about `names[names_inv[names[3]]]`? And `names_inv[names[names_inv[names[3]]]]`? Test your expectations!
-MW	How robust is your previous program? What happens if the original list of names contained the same name twice, and you try to construct its inverse? Explain what goes wrong.
-MW	Think of a similar robustness issue with the way you constructed the dictionary `nl_to_en` from `en_to_nl`. Can you add one or more words to `en_to_nl` (and then re-construct `nl_to_en`) in a way that illustrates this issue?
 MW  Copy a short story or blog post from the web and assign it as one long string to a variable `text` (if the copied text contains newlines, remember you can enclose the string in triple quotation marks `'''` or `"""`). Write a program that uses your function `tokenize` from a while ago, to turn the `text` into a list of words. Then loop through the list of words in order to fill a dictionary `word_counts`, that has words (as types) as keys and the number of tokens (occurrences) of each word (tokens) as values. To illustrate: if the text contains _apple_ five times, then `word_counts['apple']` will end up equivalent to `5`.
 MW	Write a function that takes a dictionary and prints its items, one item on each line, with key and value separated by a colon and a space (`: `). Apply this function to `word_counts` from the previous exercise.
 W3R	Write a function to get the minimum and maximum value in a dictionary, and a separate function to get the minimum and maximum key in a dictionary.
@@ -777,6 +732,68 @@ MW	Use list comprehension to take an existing dictionary and invert it, swapping
 MW	Remember the `text` and its `word_counts` dictionary from above? Now go through the text again to count not single words, but _bigrams_: pairs of words that occur next to each other. Store each bigram, with its counts, in a dictionary `bigram_counts`. If every bigram occurs only once, consider using a larger `text` for more interesting results. Now print the top 10 most common bigrams with their counts.
 MW	Generalize the foregoing to allow counting unigrams (single words), bigrams, trigrams, 4-grams, etc.: define a function `count_ngrams` that takes two parameters, namely a text (string) and an integer `n`, and returns a dictionary containing all n-grams, with their counts. What happens to the counts as `n` becomes higher and higher?
 
+
+
+Title   Looping while counting (`enumerate`, `range`)
+
+MW  It is time to learn a bit more about `range`, which we used before to iterate over indices of a list or string. As a warming up, write a function that iterates the integers from 1 to 50. For multiples of three print `Fizz` instead of the number and for multiples of five print `Buzz`. For numbers which are multiples of both three and five print `FizzBuzz`. Try to minimize repetition in your code.
+MW	Execute `help(range)` for more information (and remember to press `q` to quit). As you can see, you can construct a range with up to three arguments. What do the other arguments do? E.g., what happens if you loop over `range(3, 50, 5)`? And what about `range(100, 5, -3)`? Is there a relation between the three arguments of `range`, and the three integers you can specify when slicing a string or list?
+MW	Write a function that counts down from 10 all the way to 0, and then prints _Lift off!_.
+MW	Write a function that counts down from 10 down to -10 in steps of 2.
+MW	Write a function that prints all and only list elements at even positions (0, 2, 4, ...).
+MW  Generalize the previous function with an extra parameter `even`: when set to True, it displays the previous behavior; when set to False, it instead prints only the list elements at odd positions (1, 3, 5, ...).
+MW  Write a function that takes a list like `names`, and loops over list indices (e.g., using `range(len(names)`) in order to print all pairs of consecutive elements. For instance, for `names` as defined at the start of this section, it would first print _Alf Beth_, then _Beth Chris_, then _Chris Dave_, and so on.
+MW  Write a similar function, but now the printed pairs of consecutive elements should not overlap: _Alf Beth_, then _Chris Dave_, and so on.
+MW	What happens if you iterate over an empty list? What happens if you iterate over an empty range, e.g., `range(0)`, or `range(56,56)`?
+MW	Can you think of (dis)advantages of using `range`, defined by a start and end point, instead of a list of all the numbers in that range? For instance, what if you want to loop over a billion gazillion numbers?
+MW	Can you create a `range` with non-integer steps, e.g., 0.1? What about using a float as a starting point or end point, is that allowed? Can you think of a more indirect way to nevertheless achieve such things (e.g., non-integer steps, or start/end points) with the help of `range`?
+NED  In the following example, how come the list `nums` doesn't change?\n```
+nums = [1, 2, 3]
+for x in nums:
+    x *= 10
+
+print(nums)
+```
+MW  Change the above code to have it modify the list `nums` in-place. You can achieve this by only changing the header of the for-clause, and the `x` in its body...
+MW  Can you generalize the previous code so it also works on strings, modifying them in-place?
+MW	Remember that objects can sometimes be converted from one type to another. A `range` object can be converted to a `list`, e.g., `list(range(100))`. Try this. Can you also convert a list back to a range? What happens if you try, and why might this be?
+MW	Compare `x = range(9999)` to `x = list(range(9999))` (without printing the result). Keep increasing nines and try again, e.g., `99999`, `999999`, `9999999`, and beyond (take it easy, don't crash your computer). At some point you will notice that the version `x = list(range(999...9)` gets much slower, while the version `x = range(999...9)` remains fast. Why would this be?
+MW  If you add `import sys` to the top of your file, you can access various operating-system-related functions in Python. One of these is the function `sys.getsizeof`. First call `help` on this function to read what it does. Then use the function to compare `range(9)` to `range(9999)`, and `list(range(9))` to `list(range(9999))`. Do your findings align with your answer to the previous exercise?
+
+*** Not super relevant  Note	Try not to needlessly occupy memory and processing time: `range` lets you iterate over a sequence of integers without having to store the corresponding list of integers anywhere in memory.
+
+TP3	Write a function that takes a number `n` and prints out the first `n` triangular numbers. (For instance, the 5th triangular number is 1+2+3+4+5, i.e., 15.)
+TP3	Write a function that takes a number and prints `True` when it is a prime number and `False` otherwise.
+MW	Define a function that uses nested loops to print all pairs of numbers between 0 and 10, but only if the first member is odd and the second even. Did you use an if-clause, or appropriate `range` objects?
+MW	Define a function that uses nested loops to print all possible two-character strings where the first is a consonant and the second is a vowel.
+MW	Define a function that uses nested loops to print all pairs of numbers between 0 and 10, where the second is higher than the first -- but crucially _without_ using `if`-statements (hint: the inner loop can use a range of which the starting point is determined by the outer loop)!
+
+Note	When you need to loop over a range of numbers in a particular way, choosing a smart `range` can often result in more readable code than using if-statements inside the loop.
+
+MW	Recall that you can directly convert a `range` object to a `list`, but not the other way around. Implement a function `list_to_range` that does allow this. Of course it can only work for lists that correspond to a certain range with an integer start point, end point and regular steps in between.
+MW	Define a function that uses a _single_ (!) loop using `range` (without constructing a list first), that prints the numbers 0, 1, 2, ..., 23, repeating this five times. Remember the operation with which you handled the hours on a clock earlier?
+MW	Now program a clock with both hours and minutes, printing it as, e.g., `16:52`, and let it run for two 'days' (each iteration simulates a minute). If it works, make it also display seconds, and run it for a few 'hours'.
+MW	Can you change the setting of your clock to display times using `am` and `pm` instead of the 24-hour format, e.g., `4:52pm` instead of `16:52`?
+
+MW	Sometimes you want to loop over the elements of a list, while at the same time keeping track of the indices. The built-in function `enumerate` is great for this. Assuming you still have `names` defined, try the following:\n```
+for i, name in enumerate(names):
+    print(i, name)
+```
+MW	Note that looping over a list via `enumerate` iteratively assigns new values to _two_ variables, namely the counter and the element (`i` and `name`, in this example). What happens if you forget the `i` and do `for name in enumerate(names)`? What is the type of `name` in that case? And what happens if, conversely, you include the `i` but forget the `enumerate`, that is, `for i, name in names`?
+MW	Can you define your own function that returns not one, but two values at a time (e.g., `return x, y`)? What happens if you call the function and assign whatever the function returns to a single variable? What is the type of the resulting object? Can a function return three values at a time? Or four?
+
+Note	Use the built-in function `enumerate` to iterate over the elements of a list together with their indices. `enumerate` takes a list and iteratively yields _pairs_ (2-tuples) of an index and a list element. We will learn more about pairs (and more generally tuples) later.
+
+MW	What happens if you print the object `enumerate(names)` directly? What is its `type`? Note that it is not an ordinary list; instead, an Enumerate object processes `names` _on demand_, numbering each element on the fly, without looking ahead. This avoids having to read the full list and construct a new 'numbered' list, which would unnecessarily take up memory and processing time. But it means that, if you want to collect all enumerated names in an ordinary list, you need to do so explicitly: `list(enumerate(names))`. What is the `type` of the elements in the resulting list? We will learn more about that type of object later.
+MW  Predict what the outcome is of the following statements, and verify your understanding: \n- `list(enumerate(range(10)))` \n- `enumerate(10)` \n- `list(10)` \n- `list(zip(range(10), range(10)))` \n- `list(zip(range(10)))` \n- `list(enumerate(enumerate(range(10))))`
+*** TODO practice more list comprehensions:  \n- `[str(i) + ': ' + name for i, name in enumerate(names)]` \n- `[i % 3 for i in range(20)]`
+
+MW	We have a micro-computer with a tiny display of 8 by 8 pixels, each of which can only be either on or off. We received what appears to be a secret message: `0000000000110110011111110011111000011100000010000000000000000000`. Write a function that takes such strings and prints them to a (simulated) 8 by 8 display, each pixel represented by a one-character space, rendering a `0` as an empty space ` `, and a `1` as a hashtag `#`. If you like, compose your own reply.
+
+***Integrate these exercises:
+MW	Use the list `names` used earlier above, and create an empty dictionary `names_inv`. Now use `enumerate` to loop through all index-name pairs of the list `names`, and assign these to the dictionary `names_inv` by using names as keys and the corresponding list indices as values. Explain why `names_inv` is a suitable name.
+MW	Continuing from before, what do you expect is the result of `names_inv[names[3]]`? And what about `names[names_inv[names[3]]]`? And `names_inv[names[names_inv[names[3]]]]`? Test your expectations!
+MW	How robust is your previous program? What happens if the original list of names contained the same name twice, and you try to construct its inverse? Explain what goes wrong.
 
 
 Title   Clearer, self-documenting code
@@ -1022,12 +1039,6 @@ MW	What is the longest word in Alice in Wonderland? How many characters does it 
 
 MW	Did you rember to add docstrings to all your function definitions? Is your code as self-documenting as possible? 
 MW	Did you sufficiently chunk your code, adhering to the SLAP (Single Level of Abstraction Principle) and DRY (Don't Repeat Yourself) principles?
-MW	Your editor may be smart enough to highlight violations of 'Python style', adherence to which will enhance the readability of your code (in addition to docstrings and self-documenting code). The style guides are kept in the eigth _Python Enhancement Proposal_, PEP8 (https://www.python.org/dev/peps/pep-0008/). Have a look at it, and go through some of your previous code to make it PEP8-compliant if needed.
-
-Note	Initially created and long-term maintained by Guido van Rossum, Python is a very open, community-driven programming language. It has come to be the way it is with the help of **Python Enhancement Proposals** or PEPs (https://www.python.org/dev/peps/). **PEP8** is Python's style guide (https://www.python.org/dev/peps/pep-0008/).
-
-P4E	Can you predict what happens if you enter `AAAARGH I hate Python!` in the interpreter? And what if you surround it by quotation marks?
-MW	Every aspect of the Python language has been carefully designed, even though you may not always understand the reason at the present moment. Should you find yourself frustrated with Python, just enter `import this` in the interpreter and feel your calm returning. (The keyword `import` will be explained later.) The result is an easter egg (surprise) based on PEP20, that captures some of Python's design principles in poetic form.
 MW	Now that you know how to read text files, you can improve your anti-profanity echo-machine from before -- that repeats your input unless it is a profanity, and quits after five profanities -- by using a more extensive list of profanities, e.g., googling "list of curse words .txt" will get you to the list used by google: `https://code.google.com/archive/p/badwordslist/downloads`. Place this file on your computer in your current project's main directory, and write a program to read this file, store all profanities in a list or set data structure (which one makes more sense?), and use this to increase the vocabulary of your echo machine.
 
 
