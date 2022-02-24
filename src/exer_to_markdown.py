@@ -12,6 +12,7 @@ if __name__ == "__main__":
     os.makedirs(out_dir, exist_ok=True)
 
     lines = []
+    titles = 0
 
     with open(in_file) as infile:
 
@@ -36,6 +37,9 @@ if __name__ == "__main__":
                     source = prefix
                     mode = 'exercise'
                 content = line[1].replace('\\\\', '[ESCAPE]').replace('\\n', '\n').replace('[ESCAPE]', '\\')
+                if prefix == "title":
+                    titles += 1
+                    print('-------------', titles, content.split('(')[0].strip(), '------------')
                 if content.endswith('```'):
                     content = content[:-3] + '\n```python\n'
                     for codeline in infile:
