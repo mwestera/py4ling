@@ -5,9 +5,9 @@
 |3. | 23 Feb |	If, else; 'programs'  |	**Sentiment**  |	4.1-5.22 (types, if)
 |4. | 2 Mar   |   Lists |	(cont.)  | 5.23-7.10 (functions, lists)
 |5. | 9 Mar |	Loops |	**Concreteness** 	| 7.11-8.10 (lists, loops)
-|6. | 16 Mar |	Variable scope |  **Frequencies**	  |	 8.11-9.9 (loops)
+|6. | 16 Mar |	More loops  |  **Frequencies**	  |	 8.11-9.9 (loops)
 |   | ~~23 Mar~~  |  _No class (midterms)._ |   |
-|7. | 30 Mar |	   |	**Similarity** | 9.10-10.all (loops, functions)
+|7. | 30 Mar |  Variable scope  |	**Similarity** | 9.10-10.all (loops, functions)
 |8. | 6 Apr |	Dictionaries |	**Distributional semantics**   |	11.1-12.10 (loops, dictionaries)
 |   | ~~13 Apr~~ |	_No class due to Humanities Career Event_  |  |   12.10-end (dictionaries)
 |9. | 20 Apr |	Tuples, text processing |	_(tbd)_  |	13 (range) and 14 (clear code); also refresh sec. 12
