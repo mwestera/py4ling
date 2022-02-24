@@ -80,7 +80,7 @@ print('the result is:', result)
 ```
 
 - - - - - -
-**Something to keep in mind:** A function can not only take inputs and 'do' stuff (such as print it out to the user), it can also **return** a value, i.e., give it back to wherever in the program the function was called, a value which can then be used for subsequent processing. A function that has no return statement returns nothing, literally: it returns the special object `None`.
+**Something to keep in mind:** A function can not only take inputs and 'do' stuff (such as print it out to the user), it can also **return** a value, i.e., give it back to wherever in the program the function was called, a value which can then be used for subsequent processing. A function that has no return statement returns nothing, or rather, it returns the special object `None`.
 - - - - -
 
 **6.15.** Write a function called `hypotenuse` that returns the length of the hypotenuse (Dutch: 'schuine zijde') of a right triangle, given the lengths of the two legs adjacent to the right angle as parameters. Examples: `hypotenuse(3, 4) == 5.0`, `hypotenuse(24, 7) == 25.0`.
