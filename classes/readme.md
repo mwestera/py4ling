@@ -13,7 +13,7 @@
 |9. | 20 Apr |	Tuples, text processing |	_(tbd)_  |	13 (range) and 14 (clear code); also refresh sec. 12
 |  | ~~27 Apr~~ |	_No class (holiday)_	|	  |  15 (tuples) and 16 (text processing).
 |10. | 4 May |	Pandas 	|  _(tbd)_   | 	17 (modules) and 18 (pandas)
-|11. | 11 May |	Pandas, plots 	|  _(tbd)_  |	
-|12. | 18 May | 	Statistics 	|   _(tbd)_  |	
+|11. | 11 May |	Pandas 	|  _(tbd)_  |	
+|12. | 18 May |  _(tbd)_	   	|   _(tbd)_  |	
 |    |30 May 14.45u  |  	**Exam**   |   |
 
