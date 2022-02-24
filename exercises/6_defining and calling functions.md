@@ -47,7 +47,19 @@ print_twice('bla')
 
 **6.11.** Does a function definition (a def-clause) follow the same indentation rules as an if-clause and a for-clause?
 
-**6.12.** Functions can not only take inputs and do stuff, they can also output stuff, using the `return` keyword. Functions can not only take inputs and do stuff, they can also output stuff, using the `return` keyword. The following code (when executed from a file) does not print `aaah!`. Make the program print `aaah!` _without_ changing the function definition. Consider assigning the result of the function call `create_scream()` to a variable and printing it (or even applying `print` to the function call directly).
+**6.11½. (newly inserted for clarification)** Instead of directly printing something to the user, a function can also `return` a value to the program, i.e., back to where the function was called, for subsequent processing. Run this example and try to understand what it does:
+
+```python
+def give_me_spam():
+    return 'spam'
+
+
+some_spam = give_me_spam()
+even_more_spam = some_spam.upper() * 5 + '!!!'
+print(even_more_spam)
+```
+
+**6.12.** The following code (when executed from a file, _not_ the console) does not print `aaah!`. Make the program print `aaah!` _without_ changing the function definition. Consider assigning the result of the function call `create_scream()` to a variable and printing it (or even applying `print` to the function call directly).
 
 ```python
 def create_scream():
@@ -56,7 +68,6 @@ def create_scream():
 
 create_scream()
 ```
-
 
 **6.13.** Write a function called `is_even` that takes an integer `n` as an argument and returns `True` if the argument is an even number and `False` if it is odd.
 
