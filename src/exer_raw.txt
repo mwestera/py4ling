@@ -325,7 +325,7 @@ MW	What happens if you accidentally call the original `print_spam` from further 
 MW	Define and call a function `print_inverted` that is given a word, and prints the word back-to-front (e.g., _apple_ is printed as _elppa_). (Hint: String slicing can be helpful here.)
 MW	Does a function definition (a def-clause) follow the same indentation rules as an if-clause and a for-clause?
 
-MW  Instead of directly printing something to the user, a function can also `return` a value to the program, i.e., back to where the function was called, for subsequent processing. Run this example and try to understand what it does:\n```python
+MW  Instead of directly printing something to the user, a function can also `return` a value to the program, i.e., back to where the function was called, for subsequent processing. Run this example and try to understand what it does:\n```
 def give_me_spam():
     return 'spam'
 
