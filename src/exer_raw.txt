@@ -324,7 +324,7 @@ print_twice('bla')
 MW	What happens if you accidentally call the original `print_spam` from further above, which has no parameters, with an argument, e.g., `print_spam('bla')`? Conversely, what if you call `print_twice`, which does have a parameter, without an argument?
 MW	Define and call a function `print_inverted` that is given a word, and prints the word back-to-front (e.g., _apple_ is printed as _elppa_). (Hint: String slicing can be helpful here.)
 MW	Does a function definition (a def-clause) follow the same indentation rules as an if-clause and a for-clause?
-MW	Functions can not only take inputs and do stuff, they can also output stuff, using the `return` keyword. The following code (when executed from a file) does not print `aaah!`. Make the program print `aaah!` without changing the function definition.\n```
+MW	Functions can not only take inputs and do stuff, they can also output stuff, using the `return` keyword. The following code (when executed from a file) does not print `aaah!`. Make the program print `aaah!` _without_ changing the function definition. Consider assigning the result of the function call `create_scream()` to a variable and printing it (or even applying `print` to the function call directly).\n```
 def create_scream():
     return 'aaah!'
 
