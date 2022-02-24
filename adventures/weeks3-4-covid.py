@@ -3,14 +3,16 @@ import pandas as pd
 
 """
 Code for the VaxSentimentizer3000©
+Input: Tweets about COVID
+Output: a plot of COVID vaccination sentiment trough time
 This is currently just a squib. It will be completed in class in week 4.
 """
 
 
-path_to_our_data = '../data/twitter_covid.csv'  # move up, then down into the data folder
+path_to_our_data = 'data/twitter_covid.csv'  # NB. This was different in class (I moved the folder)
 
 # NOTE: If you want to run this at home, uncomment this (twitter does not allow broad sharing of tweet contents):
-# path_to_our_data = '../data/twitter_covid_sample.csv'
+# path_to_our_data = 'data/twitter_covid_sample.csv'
 
 
 # Read the csv file
