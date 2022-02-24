@@ -59,7 +59,7 @@ even_more_spam = some_spam.upper() * 5 + '!!!'
 print(even_more_spam)
 ```
 
-**6.12.** The following code (when executed from a file, _not_ the console) does not print `aaah!`. Make the program print `aaah!` _without_ changing the function definition. Consider assigning the result of the function call `create_scream()` to a variable and printing it (or even applying `print` to the function call directly).
+**6.12.** The following code (when executed from a file, _not_ the console) does not print `aaah!`. Make the program print capitalized `AAAH!` _without_ changing the function definition, by doing something with the result of the function call.
 
 ```python
 def create_scream():
@@ -69,13 +69,13 @@ def create_scream():
 create_scream()
 ```
 
-**6.13.** Write a function called `is_even` that takes an integer `n` as an argument and returns `True` if the argument is an even number and `False` if it is odd.
+**6.13.** Write a function called `is_even` that takes an integer `n` as an argument and returns (_not_ prints) `True` if the argument is an even number and `False` if it is odd. Test the function by applying it to several numbers, one after the other, and print all test results at once.
 
 **6.14.** Now write the function `is_odd` that returns `True` when its integer argument `n` is odd and `False` otherwise. To reduce redundancy in your code, you can define this function in terms of the previous function `is_even`.
 
 **6.15.** Write a function called `hypotenuse` that returns the length of the hypotenuse (Dutch: 'schuine zijde') of a right triangle, given the lengths of the two legs adjacent to the right angle as parameters. Examples: `hypotenuse(3, 4) == 5.0`, `hypotenuse(24, 7) == 25.0`.
 
-**6.16.** Define and call a function `invert` that takes a word, and returns a new string containing that word back-to-front (that is, like `print_inverted`, but instead of printing the inverted word, it returns it). When calling the function, assign the returned value to a variable and print it.
+**6.16.** Define and call a function `invert` that takes a word, and returns a new string representing that word back-to-front (that is, like `print_inverted`, but instead of printing the inverted word, it returns it to the program for subsequent processing). In your program (outside the function definition), apply the function to some word and then print that word and its mirror image next to each other.
 
 **6.17.** Do you remember how to use _format strings_ to align a string left, center or right? Try this again. Now write your own function named `right_justify`, _without_ using format strings (for the sake of practice), that takes a string named `s` as a parameter and returns the string with enough leading spaces so that (when printing it) the last letter of the string would be in column 40 of the display.
 

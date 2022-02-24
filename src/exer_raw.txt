@@ -324,17 +324,31 @@ print_twice('bla')
 MW	What happens if you accidentally call the original `print_spam` from further above, which has no parameters, with an argument, e.g., `print_spam('bla')`? Conversely, what if you call `print_twice`, which does have a parameter, without an argument?
 MW	Define and call a function `print_inverted` that is given a word, and prints the word back-to-front (e.g., _apple_ is printed as _elppa_). (Hint: String slicing can be helpful here.)
 MW	Does a function definition (a def-clause) follow the same indentation rules as an if-clause and a for-clause?
-MW	Functions can not only take inputs and do stuff, they can also output stuff, using the `return` keyword. The following code (when executed from a file) does not print `aaah!`. Make the program print `aaah!` _without_ changing the function definition. Consider assigning the result of the function call `create_scream()` to a variable and printing it (or even applying `print` to the function call directly).\n```
+
+MW  Instead of directly printing something to the user, a function can also `return` a value to the program, i.e., back to where the function was called, for subsequent processing. Run this example and try to understand what it does:\n```python
+def give_me_spam():
+    return 'spam'
+
+
+some_spam = give_me_spam()
+even_more_spam = some_spam.upper() * 5 + '!!!'
+print(even_more_spam)
+```
+MW	The following code (when executed from a file, _not_ the console) does not print `aaah!`. Make the program print capitalized `AAAH!` _without_ changing the function definition, by doing something with the result of the function call.\n```
 def create_scream():
     return 'aaah!'
 
 
 create_scream()
 ```
-TP3	Write a function called `is_even` that takes an integer `n` as an argument and returns `True` if the argument is an even number and `False` if it is odd.
+TP3	Write a function called `is_even` that takes an integer `n` as an argument and returns (_not_ prints) `True` if the argument is an even number and `False` if it is odd. Test the function by applying it to several numbers, one after the other, and print all test results at once.
 TP3	Now write the function `is_odd` that returns `True` when its integer argument `n` is odd and `False` otherwise. To reduce redundancy in your code, you can define this function in terms of the previous function `is_even`.
+
+***Already exercise with None type here.
+***Note    Functions can not only take inputs and 'do' stuff (such as print it out to the user), they can also `return` a value, i.e., give it back to wherever in the program they were called, a value which can then be used for subsequent processing. A function that has no return statement returns nothing, literally: it returns the special object `None`.
+
 TP3	Write a function called `hypotenuse` that returns the length of the hypotenuse (Dutch: 'schuine zijde') of a right triangle, given the lengths of the two legs adjacent to the right angle as parameters. Examples: `hypotenuse(3, 4) == 5.0`, `hypotenuse(24, 7) == 25.0`.
-MW	Define and call a function `invert` that takes a word, and returns a new string containing that word back-to-front (that is, like `print_inverted`, but instead of printing the inverted word, it returns it). When calling the function, assign the returned value to a variable and print it.
+MW	Define and call a function `invert` that takes a word, and returns a new string representing that word back-to-front (that is, like `print_inverted`, but instead of printing the inverted word, it returns it to the program for subsequent processing). In your program (outside the function definition), apply the function to some word and then print that word and its mirror image next to each other.
 TP2 Do you remember how to use _format strings_ to align a string left, center or right? Try this again. Now write your own function named `right_justify`, _without_ using format strings (for the sake of practice), that takes a string named `s` as a parameter and returns the string with enough leading spaces so that (when printing it) the last letter of the string would be in column 40 of the display.
 MW	Still without using format strings in the function definition, add a parameter to the previous function, such that you can also choose a column other than 40.
 MW	Remember `type` from before? What do you expect `type(create_scream())` and `type(invert())` to be (assuming you still have `create_screen` and `invert` defined from above)? Test your expectations. And what is the type of a function call that does not return anything, e.g., `print_spam()` from above?
@@ -342,7 +356,7 @@ MW	Explain the difference between `type(create_scream())` and `type(create_screa
 MW	What happens if a single function contains multiple different `return` statements (e.g., `return 'haha!'` and `return 'hehehe...'`)?
 MW	Define and call a function that both prints a string and returns another string (against recommended practice).
 
-Note	As a rule of thumb, every function should either _compute_ stuff (return a new object) or _do_ stuff (e.g., print stuff, modify an existing object), not both. Functions that return stuff are sometimes called fruitful functions; functions that only do stuff are sometimes called procedures. A function that does both is said to have **side effects**, which is considered an anti-pattern in programming.
+Note	As a rule of thumb, every function should either _return_ stuff (e.g., compute and return some value) or _do_ stuff (e.g., print stuff, modify an existing object), not both. Functions that return stuff are sometimes called fruitful functions; functions that only do stuff are sometimes called procedures. A function that does both is said to have **side effects**, which is considered an 'anti-pattern' (i.e., to be avoided) in programming.
 
 MW	Functions can also have multiple parameters (hence be called with multiple arguments). Write a function that takes three numbers and returns their sum, and a function that takes three numbers and returns their average.
 MW	What happens if you define a function with one parameter (like `invert` above), but wrongly call the function as if it has two parameters (e.g., `invert('abc', 'def')`)? Conversely, what if you wrongly call a function that has two parameters, as if it has only one?
