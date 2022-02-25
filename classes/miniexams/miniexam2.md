@@ -11,7 +11,8 @@ Notes:
 
 
 Example output:
-
+```
 Enter your age:   (user enters:)  25
 Your age is odd.
 It has an even digit.
+```
