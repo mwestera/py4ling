@@ -311,7 +311,7 @@ MW	A function definition is a _clause_, just like an if-clause (and others about
 MW	What happens in the above example if there is only one empty line after the function definition (it will run, but your editor may complain)? What if there is no empty line after the function definition? What if either or both of the last two print statements in the above example are indented too?
 MW	Can a function contain multiple statements in its body? Can you call the same function multiple times?
 MW	What happens if you define a function but don't call it? What happens if, in the function _call_, you forget the parentheses, i.e., `print_spam` instead of `print_spam()`?
-MW	What did you think will happen if your script calls a function _before_ defining it (i.e., in the .py file, the definition comes after the call)? Test your expectation.
+MW	What do you think will happen if your script calls a function _before_ defining it (i.e., in the .py file, the definition comes after the call)? Test your expectation.
 MW	What happens if you change the name of the function in the definition, but forget to update the function call?
 MW	When defining a function, you can give it **parameters**, enabling it to be called with **arguments**. Make sure you understand the following:\n```
 def print_twice(word):
@@ -350,7 +350,7 @@ print('the result is:', result)
 
 Note    A function can not only take inputs and 'do' stuff (such as print it out to the user), it can also **return** a value, i.e., give it back to wherever in the program the function was called, a value which can then be used for subsequent processing. A function that has no return statement returns nothing, or rather, it returns the special object `None`.
 
-TP3	Write a function called `hypotenuse` that returns the length of the hypotenuse (Dutch: 'schuine zijde') of a right triangle, given the lengths of the two legs adjacent to the right angle as parameters. Examples: `hypotenuse(3, 4) == 5.0`, `hypotenuse(24, 7) == 25.0`.
+TP3	Write a function called `hypotenuse` that returns the length of the hypotenuse (Dutch: 'schuine zijde') of a right triangle, given the lengths of the two legs adjacent to the right angle as parameters. Examples: `hypotenuse(3, 4) == 5.0`, `hypotenuse(24, 7) == 25.0`. For a square root function, you can do `import math` and then use `math.sqrt`.
 MW	Define and call a function `invert` that takes a word, and returns a new string representing that word back-to-front (that is, like `print_inverted`, but instead of printing the inverted word, it returns it to the program for subsequent processing). In your program (outside the function definition), apply the function to some word and then print that word and its mirror image next to each other.
 TP2 Do you remember how to use _format strings_ to align a string left, center or right? Try this again. Now write your own function named `right_justify`, _without_ using format strings (for the sake of practice), that takes a string named `s` as a parameter and returns the string with enough leading spaces so that (when printing it) the last letter of the string would be in column 40 of the display.
 MW	Still without using format strings in the function definition, add a parameter to the previous function, such that you can also choose a column other than 40.
