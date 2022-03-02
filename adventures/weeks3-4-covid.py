@@ -1,48 +1,86 @@
 import pandas as pd
-
+import datetime
+import seaborn as sns
+import matplotlib.pyplot as plt
+import textblob
 
 """
 Code for the VaxSentimentizer3000©
 Input: Tweets about COVID
 Output: a plot of COVID vaccination sentiment trough time
-This is currently just a squib. It will be completed in class in week 4.
 """
 
 
-path_to_our_data = 'data/twitter_covid.csv'  # NB. This was different in class (I moved the folder)
-
-# NOTE: If you want to run this at home, uncomment this (twitter does not allow broad sharing of tweet contents):
-# path_to_our_data = 'data/twitter_covid_sample.csv'
+path_to_our_data = 'data/twitter_covid_001.csv'
+max_n_tweets = 1000     # small is more convenient for quick testing
 
 
-# Read the csv file
-# 1. Can I solve this quite easily? No.
-# 2. Is it likely that someone else has solved this? Very.
-# Hence we google, e.g., 'how to read a csv file using python'
-
-dataset = pd.read_csv(path_to_our_data)
-
-
-# Preprocessing/cleaning the data, e.g.:
-#   - do we have tweets from all time points?
-#   - any non-covid tweets?
-#   - filter out empty/weird/unanalyzable tweets
-# 1. can we do this easily ourselves? Nope.
-# 2. Is it likely that someone has solved this before us? Yes, very!
-#      What should we google for?   [to be continued!]
-
-print(dataset['created_at'].to_string())
+def main():
+    dataset = load_data(path_to_our_data)
+    compute_features(dataset)
+    explore_data(dataset)
+    analyze_sentiment_over_time(dataset)
+    analyze_sentiment_before_and_after_approval(dataset)
 
 
-# Take the text, compute its vaccine sentiment as a float, e.g., using:
-# - keywords, keyphrases, syntax
-# - hashtags
-# - some machine learning
-# - beware of sarcasm?
+def load_data(path):
+    return pd.read_csv(path, nrows=max_n_tweets)
 
 
-# Aggregate data for each time point (mean, std)
+def compute_features(dataset):
+    # These all use list comprehension (exercises about this in two weeks time)
+    dataset['date'] = [extract_time(time) for time in dataset['created_at']]
+    dataset['sentiment'] = [extract_sentiment(text) for text in dataset['full_text']]
+    dataset['is_about_vaccine'] = [is_about_vaccine(text) for text in dataset['full_text']]
+
+    # I added the following after class, in anticipation of next week
+    date_of_vaccine_approval = datetime.date(2021, 8, 14)
+    dataset['tweeted_after_approval'] = [d >= date_of_vaccine_approval for d in dataset['date']]
 
 
+def explore_data(dataset):
+    print(dataset)
+    print(dataset.columns)
+    print(dataset.dtypes)
 
-# Generate a plot
+    # do we have tweets for all dates?
+    sns.histplot(data=dataset, x='date')
+    plt.show()
+
+
+def extract_sentiment(text):
+    """
+    Returns the sentiment float [-1, 1] of our text (tweet) according to textblob.
+    """
+    blobbed_text = textblob.TextBlob(text)
+    return blobbed_text.sentiment.polarity
+
+
+def is_about_vaccine(text):
+    """
+    Return a boolean indicating whether the text (tweet) is about the vaccine or not.
+    """
+    ...  # homework :)
+
+
+def extract_time(time):
+    """
+    Read a date/time string with the format of our dataset, and turn it into a date object.
+    """
+    time = datetime.datetime.strptime(time, '%Y-%m-%d %H:%M:%S')
+    return time.date()
+
+
+def analyze_sentiment_over_time(dataset):
+    ...
+
+
+def analyze_sentiment_before_and_after_approval(dataset):
+    ...
+
+
+# This makes sure the function we called 'main' (could have called it 'blabla', doesn't matter)
+# is only called if this file is run as a separate script, and NOT if this file is 'imported'
+# into another file. Don't worry, we'll learn about this in later exercises.
+if __name__ == "__main__":
+    main()
