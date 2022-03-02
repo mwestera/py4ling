@@ -9,6 +9,7 @@
 5. ~~Work on exercises, from 7.11~~ no time
 6. Homework for next time: Exercises 7.11-8.10 (lists, loops)
   - Also look at the adventure, and try to come up with an **is_about_vaccine** function.
+  - You can download a file with more tweets from Brightspace, URL on the welcome page.
   - Exercises 7.24, 7.37, 8.9, 8.10 will be discussed in class.
   - For all other questions, see office hours/forum.
 
