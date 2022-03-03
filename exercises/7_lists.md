@@ -127,3 +127,6 @@ print(x)
 
 **7.37.** Make your random sentence generator as advanced as you like (though try to use only Python constructs that have been introduced in the exercises so far). For instance, can you extend it to randomly choose between an intransitive and a transitive verb frame, and then choose the right type of verb and include a direct object if the verb is transitive?
 
+**7.38.** **New addition** Don't forget the extra homework: to implement the function `is_about_vaccine` in our tweet sentiment adventure. (It may help to first do the initial loop-exercises of the next section, also homework.)
+
+**7.39.** **New addition** Another idea in case you have some time left: try to determine the sentiment of tweets by checking what emoji each tweet contains (instead of using textblob). Since emoji are part of the unicode standard, you can copy-paste emoji from a website like https://unicode.org/emoji/charts-12.0/emoji-ordering.html and store them into a Python string. With the help of such a string, you can try to write a function that (e.g.) counts happy vs. sad/angry emoji and turns this into a sentiment value between -1 and 1.
