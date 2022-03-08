@@ -95,7 +95,7 @@ print(x)
 
 **7.23.** Define a function `swap_first_and_last` that takes a list and swaps the first and last elements, modifying the list in-place. Does your program work if the list has only one element? What should it do if the input list has zero elements?
 
-**7.24.** Make your previous function more sophisticated by giving it an additional parameter `in_place`, a boolean that indicates whether the function should modify the list in-place (and return nothing) or make a changed copy instead (and return that). Change the rest of the function accordingly, to handle this parameter. If `in_place` is set to True, your function should also be able to work on strings.
+**7.24.** Make your previous function more sophisticated by giving it an additional parameter `in_place`, a boolean that indicates whether the function should modify the list in-place (and return nothing) or make a changed copy instead (and return that). Change the rest of the function accordingly, to handle this parameter. If `in_place` is set to False **[Correction: previously this erroneously said 'True']**, your function should also be able to work on strings.
 
 **7.25.** Assume the days of the week are numbered 0,1,2,3,4,5,6 from Monday to Sunday. Write a function `day_number_to_name` that asks a day number, and returns the day name (a string). Call the function with some values to test it.
 
@@ -127,3 +127,6 @@ print(x)
 
 **7.37.** Make your random sentence generator as advanced as you like (though try to use only Python constructs that have been introduced in the exercises so far). For instance, can you extend it to randomly choose between an intransitive and a transitive verb frame, and then choose the right type of verb and include a direct object if the verb is transitive?
 
+**7.38.** **New addition** Don't forget the extra homework: to implement the function `is_about_vaccine` in our tweet sentiment adventure. (It may help to first do the initial loop-exercises of the next section, also homework.)
+
+**7.39.** **New addition** Another idea in case you have some time left: try to determine the sentiment of tweets by checking what emoji each tweet contains (instead of using textblob). Since emoji are part of the unicode standard, you can copy-paste emoji from a website like https://unicode.org/emoji/charts-12.0/emoji-ordering.html and store them into a Python string. With the help of such a string, you can try to write a function that (e.g.) counts happy vs. sad/angry emoji and turns this into a sentiment value between -1 and 1.

@@ -4,7 +4,7 @@
 |2. | 16 Feb |	Strings and types |	- |	Sections 2 (basics) & 3 (strings)
 |3. | 23 Feb |	If, else; 'programs'  |	**Sentiment**  |	4.1-5.22 (types, if)
 |4. | 2 Mar   |   Lists |	(cont.)  | 5.23-7.10 (functions, lists)
-|5. | 9 Mar |	Loops |	**Concreteness** 	| 7.11-8.10 (lists, loops)
+|5. | 9 Mar |	Loops |	**Concreteness** 	| 7.11-8.10 (lists, loops) + `is_about_vaccine` (adventure)
 |6. | 16 Mar |	More loops  |  **Frequencies**	  |	 8.11-9.9 (loops)
 |   | ~~23 Mar~~  |  _No class (midterms)._ |   |
 |7. | 30 Mar |  Variable scope  |	**Similarity** | 9.10-10.all (loops, functions)
