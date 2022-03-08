@@ -107,6 +107,15 @@ def section7():
             copy[0], copy[-1] = copy[-1], copy[0]
             return copy
 
+    # Note that we can avoid some repetition (= good!) as follows:
+    def swap_first_and_last2(l, inplace):
+        if not inplace:
+            l = l[:]
+        l[0], l[-1] = l[-1], l[0]
+        if not inplace:
+            return l
+
+
     my_list = [1, 2, 3, 4, 5]
     print(my_list)
 
