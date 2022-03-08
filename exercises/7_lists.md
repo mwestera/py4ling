@@ -95,7 +95,7 @@ print(x)
 
 **7.23.** Define a function `swap_first_and_last` that takes a list and swaps the first and last elements, modifying the list in-place. Does your program work if the list has only one element? What should it do if the input list has zero elements?
 
-**7.24.** Make your previous function more sophisticated by giving it an additional parameter `in_place`, a boolean that indicates whether the function should modify the list in-place (and return nothing) or make a changed copy instead (and return that). Change the rest of the function accordingly, to handle this parameter. If `in_place` is set to True, your function should also be able to work on strings.
+**7.24.** Make your previous function more sophisticated by giving it an additional parameter `in_place`, a boolean that indicates whether the function should modify the list in-place (and return nothing) or make a changed copy instead (and return that). Change the rest of the function accordingly, to handle this parameter. If `in_place` is set to False **[Correction: previously this erroneously said 'True']**, your function should also be able to work on strings.
 
 **7.25.** Assume the days of the week are numbered 0,1,2,3,4,5,6 from Monday to Sunday. Write a function `day_number_to_name` that asks a day number, and returns the day name (a string). Call the function with some values to test it.
 
