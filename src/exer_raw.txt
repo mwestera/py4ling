@@ -404,6 +404,10 @@ MW	You can change a list element at a given position (index) by assigning a new 
 MW	In the list `names`, use assign to replace the last element by 'Suzy' and the first element by 'Bob'. Can you also use assignment to _extend_ the list, by assigning a new element to the final index plus 1?
 MW	Adding elements at the end of a list can be done, instead, with `append`. This is a method of the list class, hence you call it 'on' a list with a period `.`, like `names.append('Ann')`. Try appending several names to `names`, and finally print the length of the resulting list.
 MW  Assign an empty list to a variable, and then `append` a bunch of things to it. Print the result.
+***Insert exercise about a = a.append('test')
+***Insert exercise about my_list.append(1000) what is the resulting length?
+***Insert exercise about concatenation vs append; what if you concatenate with a single element, etc, try to append a list.
+***Insert about [1, 2, 3] + 'abc' works, but 'abc' + [1, 2, 3] doesn't.
 MW  Write down your expectation, and then test it: What happens if you append an object to a list that already contains it? And what happens if you define a list in which the same object occurs multiple times from the start?
 MW	So far, you first assigned a list to the variable `names`, then changed the list, and then you inspected the original variable `names` to see the result. However, at no point did you _reassign_ an updated list to `names`. Rather, the same list remained assigned to `names`; it is the list itself that was modified. This is possible because lists are _mutable_, unlike integers or strings. In comparison, there is no way to _change_ the integer or string value of a variable, _except_ by reassigning something new to it. To better understand this, reflect on the following code:\n```
 int1 = 5
@@ -437,7 +441,7 @@ print(x)
 MW  Given some list `my_list`, do you remember what this slicing notation does: `my_list[:]`? Is the resulting object the same list as the one originally assigned to `my_list`, or does it merely have the same elements? Test this by trying to modify one without modifying the other.
 AMY Here is a fun puzzle related to mutability. For the game of tic-tac-toe, we can construct a 3x3 board as follows: `row = [''] * 3`, and then  `board = [row] * 3`. See what the `board` looks like, and optionally write a function to print it in a prettier way. Now let's play the game: I'm the first player, and I place a cross in _one_ of the cells, like this: `board[1][1] = 'x'`. Let's print the board again. Oops, it appears I already won! Easiest game of tic-tac-toe! (What on earth is going on??) How should the `board` have been constructed to prevent this cheat?
 G4G	Define a function `swap_first_and_last` that takes a list and swaps the first and last elements, modifying the list in-place. Does your program work if the list has only one element? What should it do if the input list has zero elements?
-MW  Make your previous function more sophisticated by giving it an additional parameter `in_place`, a boolean that indicates whether the function should modify the list in-place (and return nothing) or make a changed copy instead (and return that). Change the rest of the function accordingly, to handle this parameter. If `in_place` is set to True, your function should also be able to work on strings.
+MW  Make your previous function more sophisticated by giving it an additional parameter `in_place`, a boolean that indicates whether the function should modify the list in-place (and return nothing) or make a changed copy instead (and return that). Change the rest of the function accordingly, to handle this parameter. If `in_place` is set to False, your function should also be able to work on strings.
 TP3	Assume the days of the week are numbered 0,1,2,3,4,5,6 from Monday to Sunday. Write a function `day_number_to_name` that asks a day number, and returns the day name (a string). Call the function with some values to test it.
 MW	Oops! Your client prefers to number the days from 1 (Monday) to 7 (Sunday). Can you modify the above program to fit their use case? How many changes did you need to make?
 MW	In the above function, did you use `if` statements? Try to write this program without using `if` statements, by using a list of day names instead. Does this make the program easier to modify if the client changes their mind again?
@@ -467,8 +471,9 @@ MW	After executing the above code, do you expect that the variable `name` has a 
 MW	Write a program that loops over the list `names` from above and prints each element twice, using a `for`-loop with two `print` statements in its body.
 MW	What happens if the variable `name` already exists before executing the for-loop? (Perhaps this was already the case in the previous exercises.)
 MW	Write a function `print_multiple` that is given a list, and prints each element of the list, each on a new line.
+MW  Can you predict what will happen if you accidentally do `print_multiple(name)` instead of `print_multiple(names)`? Test your understanding.
 MW	Write a function `print_multiple_oneline` that is given a list, and prints all list elements on a single line, concatenated with dashes in between. You can either first compose a long string and call `print` only once at the end, or use repeated `print` statements and control the layout with the help of its `end` parameter.
-MW	Modify the original `print_multiple` to take an additional boolean argument `oneline`, such that `print_multiple([1, 2, 3], True)` prints all numbers on one line, and `print_multiple([1, 2, 3], False)` prints each number on a new line.
+MW	Modify the original `print_multiple` to take an additional boolean argument `oneline`, such that `print_multiple([1, 2, 3], True)` prints all numbers on one line with dashes in between, and `print_multiple([1, 2, 3], False)` prints each number on a new line.
 TP3	You can also initialize a variable outside the for-loop, and then modify or reassign something to it on each iteration within the for-loop. Use this to write a function that takes a list `numbers`, and loops through it to compute the sum of the squares of the numbers, returning it in the end. For example a call with `[2, 3, 4]` as an argument should return the result of 4+9+16 which is `29`
 MW	Define a function `length` that takes a list as input and returns its length, _without_ using the built-in function `len`.
 MW	Write a function that takes a list of words and concatenates them, placing one after the other with dashes `-` in between, and returns (not prints) the resulting string. (Try not to use built-in functions other than those introduced so far.)
@@ -551,11 +556,11 @@ MW  Remember your random sentence generator from before? Use the same lists of w
 MW  If your sentence generator had actually implemented a full human grammar, would the previous function ever terminate? _Should_ it?
 
 
-Title   More about functions
+Title   Functions, arguments and scope
 
-TP2	Make sure a simple function like `print_spam` from earlier is still defined (or copy its definition to the file you currently work in). Now write a function `do_twice` that takes a function `func` as a parameter, and calls that function twice. Then call `do_twice` with the function `print_spam` as its parameter. What happens if you give `print_spam()` (with parenthesis) as parameter? Why?
+TP2	Make sure a simple function like `print_spam` from earlier is still defined (or copy its definition to the file you currently work in). Now write a function `do_twice` that takes a function `func` as a parameter and calls that function twice. Then call `do_twice` with the function `print_spam` as its parameter. What happens if you give `print_spam()` (with parenthesis) as parameter? Why?
 TP2	Modify `do_twice` so that it takes two arguments, a function object and a value, and calls the function twice, passing the value as an argument. What happens if you enter `do_twice(print_spam)`? Why? What happens if you enter `do_twice(print, 'spam')`?
-TP2	Define a new function called `do_four` that takes a function object and a value and calls the function four times, passing the value as a parameter. Can you achieve this with only _two_ statements in the body of this function? (Try this without a 'loop', about which we will learn later.)
+***Too late TP2	Define a new function called `do_four` that takes a function object and a value and calls the function four times, passing the value as a parameter. Can you achieve this with only _two_ statements in the body of this function? (Try this without a 'loop', about which we will learn later.)
 MW	What happens if you assign a function to a variable, e.g., `convert_to_secs = time_to_secs`? Can you call the function using the new variable, instead of the original name?
 MW  Remember to ctrl+click (or cmd+click) on a function or variable to go to the place where it was defined? Try this a couple of times on your new functions, just to build some muscle memory with this extremely useful functionality.
 
