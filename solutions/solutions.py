@@ -226,7 +226,7 @@ def section7():
     print(is_determiner('the man'))
     print(is_determiner('The'))
 
-    # 7.36
+    # 7.36, 7.37
     import random   # imports are normally put at the top of the file
 
     nouns = ['tree', 'house', 'person', 'teacher']
