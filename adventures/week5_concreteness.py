@@ -11,6 +11,8 @@ Suggestions for further exploration:
 - Restricting attention to the single words (because bigrams are probably longer, but not necessarily less concrete).
 - Check if the correlation exists also in sub-segments, e.g., word lenghts between 2 and 10, between 10 and 20. 
 - Check if particular characters, syllables or morphemes differ in concreteness.
+
+Read more about pearson correlation: https://libguides.library.kent.edu/spss/pearsoncorr
 """
 
 
