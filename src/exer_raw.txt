@@ -489,7 +489,7 @@ TP3	Write a function that takes a list of words, and an integer, and counts how 
 TP3	One way to escape a loop early, at least inside a function definition, is the `return` statement. Write a function that sums all the elements in a list up to, and including, the first even number, and then returns the result right away (skipping the rest of the list). (What if there is no even number in the list?)
 MW  Extend the previous function with a boolean parameter `inclusive`: setting it to False should result in summing up to, but _excluding_, the first even number.
 TP3	Write a function that counts how many words occur in a list up to (and including) the first occurrence of the word _the_.
-MW	Just as you can loop through a list, you can loop through the characters of a string. Write a function `even_vowel_count` that uses a loop to count the number of vowels in a string, and returns a boolean that indicates whether that number is even or not.
+MW	Just as you can loop through a list, you can loop through the characters of a string. Write a function `has_even_vowel_count` that uses a loop to count the number of vowels in a string, and returns a boolean that indicates whether that number is even or not.
 MW  Did you remember to add docstrings to your functions?
 TP3	Write a function that counts the number of even digits in a number `n`, e.g., the number `5671238` has 3 even digits (6, 2 and 8).
 MW	The keyword `for` also appears in a powerful and 'Pythonic' pattern called **list comprehension**. With a single line of code, it lets you construct a new list from an old one by changing or filtering the original elements. Try to predict (and test) what the following do:\n- Let `numbers = [9, 5, 8, 3, 2, 6]`, and try `[n for n in numbers if n > 4]` \n- Assuming you still have `names` assigned: `[s[0] for s in names]` (if you were to assign the result to a variable, what would be a fitting variable name?) \n- `[name[::-1] for name in names]` \n- `[s for s in names if s[0].lower() in 'aeiou']` (try to describe what this means, in plain English)
@@ -500,12 +500,12 @@ MW	Use list comprehension to create a list containing all names in the list `nam
 Note    With list comprehension a _lot_ can be done in a single, compact line of code, and with great power comes great responsibility. Compact code is never in itself a goal; code must be _readable_ above all else. Therefore, use list comprehension only if you think this makes the code more readable than e.g. a multi-line `for`-loop. This is only the case, typically, if the modification or filtering condition you want to apply is sufficiently simple. In general: don't write 'clever' code; write _clear_ code.
 
 MW	Redo the previous two exercises _without_ list comprehension, by using an ordinary multi-line for-loop. Which version do you find more readable?
-MW  Use list comprehension to write a function that takes two lists, `source` and `filter`, and returns a new list that is exactly like `source` but with all elements removed that are not in `filter`.
+MW  Use list comprehension to write a function that takes two lists, `source` and `filter`, and returns a new list that is exactly like `source` but with all elements removed that are not in `filter`. Test at least an example where the resulting list should be equivalent to the filter, and an example where it should not.
 
 
 Title	More practice with lists and loops (also `index`, `range`)
 
-MW	Define three functions, each of which takes a list of numbers (e.g., the outcomes of an experiment) and returns a number. The first returns the sum of all elements. The second uses the summation function to compute and returns the list's average. The third uses the averaging function to compute and return the list's standard deviation.
+MW	Define three functions, each of which takes a list of numbers (e.g., the outcomes of an experiment) and returns a number. The first returns the sum of all elements. The second uses the summation function to compute and returns the list's average. The third uses the averaging function to compute and return the list's standard deviation. For the latter, you can do `import math` to use the `math.sqrt` function.
 MW	Write a function that takes a list of words like `words = ['the', 'dog', 'is', 'in', 'the', 'garden']`, takes the length of each word, and prints the total sum of word lengths. Do you get the same number as `len('the dog is in the garden')`? Why (not)? What about `len(words)`?
 MW	Write a function `index_in_string` that takes a string and a character, and returns the index of the first occurrence of that character in the string. For instance, `index_in_string('david', 'v')` returns `2`. Explain why `index_in_string` can be seen as the inverse of the square brackets slicing notation for retrieving a character by index.
 MW	Write a function `index_in_list` that does the same, but for a list instead of a string. Could you reuse any of the previous code?
@@ -708,6 +708,7 @@ MW	In the Python console enter `import keyword` and then print `keyword.kwlist`.
 Title	Dictionaries
 
 ***Maybe introduce del (also for lists, but rarely used)
+***tuple syntax, e.g.,  a = 3 + 4,   error.
 
 MW	Let us construct `name_to_id`, a mapping or _dictionary_ from fictional student names (the keys) to student IDs (the values):\n```
 name_to_id = {'Alf': '136124', 'Beth': '008623', 'Chris': '014212', 'Dave': '9123785', 'Esra': '978123'}
