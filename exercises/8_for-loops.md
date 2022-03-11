@@ -77,5 +77,4 @@ for name in names:
 
 **8.28.** Redo the previous two exercises _without_ list comprehension, by using an ordinary multi-line for-loop. Which version do you find more readable?
 
-**8.29.** Use list comprehension to write a function that takes two lists, `source` and `filter`, and returns a new list that is exactly like `source` but with all elements removed that are not in `filter`.
-
+**8.29.** Use list comprehension to write a function that takes two lists, `source` and `filter`, and returns a new list that is exactly like `source` but with all elements removed that are not in `filter`. Test at least an example where the resulting list should be equivalent to the filter, and an example where it should not be.
