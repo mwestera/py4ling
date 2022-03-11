@@ -136,6 +136,9 @@ print(count_words('The quick brown fox jumped over the lazy dog.'))
 
 # 9.8
 def vowels_to_y(s):
+    """
+    Returns a string that is like s but with all vowels replaced by 'y'.
+    """
     result = ''
     for char in s:
         if char.lower() in 'aeiou':
@@ -147,6 +150,8 @@ def vowels_to_y(s):
 
 print(vowels_to_y('banana'))
 print(vowels_to_y('haha!'))
+print(vowels_to_y(['b', 'a', 'n', 'a', 'n', 'a']))  # works too;
+# for strings, the function cannot be defined to modify it in-place; for lists this would be possible.
 
 # 9.9
 for n in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]:
