@@ -236,7 +236,9 @@ def generate_sentence():
     verb_frame = random.choice(['transitive', 'intransitive'])
     if verb_frame == 'transitive':
         verb = random.choice(transitive_verbs)
-        sentence = f'{determiner} {noun} {verb}s {determiner} {noun}'
+        determiner2 = random.choice(determiners)
+        noun2 = random.choice(nouns)
+        sentence = f'{determiner} {noun} {verb}s {determiner2} {noun2}'
     else:
         verb = random.choice(intransitive_verbs)
         sentence = f'{determiner} {noun} {verb}s'   # using a format string, note the little 'f'
