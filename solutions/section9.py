@@ -154,6 +154,152 @@ print(vowels_to_y(['b', 'a', 'n', 'a', 'n', 'a']))  # works too;
 # for strings, the function cannot be defined to modify it in-place; for lists this would be possible.
 
 # 9.9
-for n in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]:
+for n in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]:    # not convenient!
     print(n)
 
+# 9.10
+for i in range(1000):   # convenient!
+    print(i, end=' ')
+print()
+
+# 9.11
+for i in range(len(words)):
+    print(i, words[i])
+
+# 9.12
+# for i in range(words):  # TypeError: list object cannot be interpreted as an integer
+#     print(i)
+# for i in range(len(words - 1)):  # TypeError: unsupported operand type(s) for -: 'list' and 'int'
+#     print(i)
+
+
+# 9.13
+for i in range(len(words)-1):   # without the -1 you'd get an error, because [i+1] below would be out of bounds.
+    print(words[i], words[i+1])
+
+# 9.14
+def tokenize(sentence):
+    """
+    Split the sentence into tokens, returning the list of tokens.
+    """
+    tokens = ['']
+    for char in sentence:
+        if char == ' ':
+            tokens.append('')
+        elif char in '.,:;?!':    # treat each punctuation mark as separate token as well
+            tokens.append(char)
+        else:
+            tokens[-1] += char
+    return tokens
+
+print(tokenize('the quick brown fox jumped, over the lazy dog.'))
+
+# 9.15
+def bigrams(sentence):
+    """
+    Return a list of all bigrams of the sentence.
+    """
+    tokens = tokenize(sentence)
+    bigrams = [tokens[i:i+2] for i in range(len(tokens) - 1)]
+    # Of course you can do this with a multi-line for-loop if you find that more readable.
+    return bigrams
+
+print(bigrams('the quick brown fox jumped over the lazy dog'))
+
+# 9.16
+def trigrams(sentence):
+    """
+    Returns a list of all trigrams of the sentence.
+    """
+    tokens = tokenize(sentence)
+    trigrams = [tokens[i:i+3] for i in range(len(tokens) - 2)]
+    return trigrams
+
+print(trigrams('the quick brown fox jumped over the lazy dog'))
+
+# 9.17
+# 1. One could change the bigrams and trigrams functions to take already-tokenized text as arguments instead of a
+#    plain string. That way you can first tokenize the text once and for all, in advance, separately from the
+#    bigrams and trigrams functions, and then call the latter on the tokenized text.
+# 2. Note the overlap between this function and the bigrams function. Clearly, a generalized 'ngrams' function,
+#    with an integer argument n, would be preferable!
+
+# 9.18
+# The string method capitalize returns a new string, it does not change the original string (which is immutable, after
+# all).
+
+# 9.19
+# Still doesn't change the list. Recall from section 2 that variables are assigned independently. Thus, assigning
+# the new, capitalized string to the variable city DOESN'T automatically assign it to the corresponding
+# index in the original list.
+
+# 9.20
+# You need to reassign something to the list index, hence you need to loop over list indices, and therefore use range.
+cities = ['amsterdam', 'rotterdam', 'leiden', 'gouda', 'eindhoven']
+for i in range(len(cities)):
+    cities[i] = cities[i].capitalize()
+
+print(cities)
+
+# 9.21
+for city1 in cities:
+    for city2 in cities:
+        print(city1 + '-' + city2)
+
+print('----')
+
+# 9.22
+for city in cities:
+    for city in cities:
+        print(city)
+
+# 9.23
+for city1 in cities:
+    # Note: you can put the first if-condition over here, so that the second loop
+    # doesn't even begin if the first city doesn't start with a vowel. That would be more efficient
+    # (in case you have many cities), but arguably a bit less readable.
+    for city2 in cities:
+        if city1[0].lower() in 'aeoui' and city2[0].lower() not in 'aeiou':
+            print(city1, city2)
+
+# 9.24
+def chain(list_of_lists):
+    """
+    Takes a list of lists and chains them together, returning a single 'flattened' list.
+    """
+    result = []
+    for inner_list in list_of_lists:
+        for element in inner_list:
+            result.append(element)
+    return result
+
+print(chain([[1, 2], [3, 4, 5], [6, 7]]))
+
+# 9.25
+determiners = ['a(n)', 'the']
+nouns = ['tree', 'house', 'person', 'teacher']
+intransitive_verbs = ['fall', 'sing']
+transitive_verbs = ['hit', 'kiss']
+
+def generate_all_sentences():
+    """
+    Print all sentences based on the above vocabulary.
+    """
+    for noun in nouns:
+        for determiner in determiners:
+            for verb_frame in ['transitive', 'intransitive']:
+                if verb_frame == 'transitive':
+                    for verb in transitive_verbs:
+                        for determiner2 in determiners:
+                            for noun2 in nouns:
+                                print(f'{determiner} {noun} {verb}s {determiner2} {noun2}')
+                else:
+                    for verb in intransitive_verbs:
+                        print(f'{determiner} {noun} {verb}s')
+
+generate_all_sentences()
+
+# 9.26
+# This exercise is of course about the recursive nature of human languages and the -- in principle -- infinitude of
+# sentences it can generate. How strongly you feel about this infinitude may depend on your stance toward the
+# competence-performance distinction (do you see why?).
