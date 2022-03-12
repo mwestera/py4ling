@@ -501,7 +501,7 @@ Note    With list comprehension a _lot_ can be done in a single, compact line of
 
 MW	Redo the previous two exercises _without_ list comprehension, by using an ordinary multi-line for-loop. Which version do you find more readable?
 MW  Use list comprehension to write a function that takes two lists, `source` and `filter`, and returns a new list that is exactly like `source` but with all elements removed that are not in `filter`. Test at least an example where the resulting list should be equivalent to the filter, and an example where it should not.
-
+***Replace the foregoing by exercises to implement union, intersection, complement?
 
 Title	More practice with lists and loops (also `index`, `range`)
 
@@ -527,41 +527,56 @@ MW	A more convenient way to loop over consecutive numbers is to use `range`, e.g
 Note    To loop over a **range** of consecutive integers from 0 to some integer `n`, use `range(n)`. We will learn more about `range` later, as it is a lot more flexible/powerful than simply 'integers from 0 to _n_'.
 
 MW  For a list like `words` from above, what does looping over `range(len(words))` achieve? Use it to print each index (0, 1, 2, ...) next to the corresponding element in the list (`0 the`, `1 dog`, `2 is`, etc.). (Later we will learn a slightly more Pythonic way to achieve this, using `enumerate`.)
+MW  What happens if in the above `range` construction, you forget the `len`, so it reads `for i in range(words)`? This type of mistake is easily made, so it is helpful if you can recognize it. And what happens if you accidentally do `for i in range(len(words - 1))`? (Do you see the mistake?)
 MW  Use `range` to iterate over indices of the list `words`, in a way that lets you print _pairs_ of consecutive words, or **bigrams** (`the dog`, `dog is`, `is in`, etc.). What should be the upper bound of your range?
-MW	Write a function `tokenize` that takes a string, namely an English sentence, and returns a list containing its separate words. (Try not to use any built-in functions other than those introduced so far.) Congratulations, you have programmed a **tokenizer**! Can you spot some room for improvement? You can make your tokenizer as advanced as you like.
-MW	Define a function that takes a string (an English sentence), that uses your `tokenize` function to obtain a list of tokens, and loops through the resulting tokens to collect all _bigrams_. Your function should return a list of all bigrams.
-MW	Adapt your preceding code to collect not bigrams but _trigrams_, i.e., sequences of three consecutive words.
+
+MW	The code below implements a simple tokenizer, that takes a text and returns a list of words. (Later we will learn more convenient methods for this, but the code below illustrates a useful pattern.) Try to understand how the function works and apply it to a number of sentences. Can you improve the tokenizer to ensure that punctuation marks are treated as separate tokens? For example, `tokenize('Hello, world!')` should return `['Hello', ',', 'world', '!']`. Subsequently, can you think of some other shortcomings and possible fixes?\n```
+def tokenize(sentence):
+    tokens = ['']
+    for char in sentence:
+        if char == ' ':
+            tokens.append('')
+        else:
+            tokens[-1] += char
+    return tokens
+```
+MW	Define a function that takes a string (an English sentence) and first uses your `tokenize` function to obtain a list of tokens, and then loops through the resulting tokens to collect all _bigrams_. Your function should return a list of all bigrams. You can represent each bigram as a list containing two words (or a tuple/pair, but we will learn about that later), e.g., `['the', 'apple']` for the bigram _the apple_. The returned list is, therefore, a list of lists, each inner list containing two strings.
+MW	Create another function to collect not bigrams but _trigrams_, i.e., sequences of three consecutive words.
+MW   Two more conceptual questions (no programming required): \n 1. Currently your `bigrams` and `trigrams` function each take an untokenized string as parameter and call the `tokenizer` function on it. This means that, if we need both bigrams and trigrams for our research, we would be tokenizing each text _twice_! How could we restructure the code to avoid this redundancy? \n 2. Can you think of a way to combine the `bigrams` and `trigrams` functions into a single `ngrams` function (maybe taking an additional integer argument `n`), to avoid code repetition?
 
 MW  In the following example, how come the list `cities` doesn't change?\n```
-cities = ['amsterdam', 'rotterdam', 'leiden', 'gouda']
+cities = ['amsterdam', 'rotterdam', 'leiden', 'gouda', 'eindhoven']
 for city in cities:
     city.capitalize()
 
 print(cities)
 ```
 MW  What about now? (First formulate your prediction, then test it.)\n```
-cities = ['amsterdam', 'rotterdam', 'leiden', 'gouda']
+cities = ['amsterdam', 'rotterdam', 'leiden', 'gouda', 'eindhoven']
 for city in cities:
     city = city.capitalize()
 
 print(cities)
 ```
 MW  If the previous code did not change the list `cities`, modify the code so that it does. Does your modification actually change the original list in-place, or create a new, modified copy (re-assigned to the old variable)?
-MW	Earlier we saw that if-clauses can be nested. What about for-clauses? Write a function (and think of an appropriate name) that loops over the `names` list from earlier (`for name1 in names:`), and nested within that loop, loops over the same list again (`for name2 in names:`). In the body of the inner loop, print the two names stored in `name1` and `name2`, concatenated with a dash in between. What do you get?
-MW	Why did the inner loop use a different variable from the outer loop, namely `name2`? Modify the previous code (or create a modified copy) to see what happens if the inner loop instead uses the same variable as the outer loop (i.e., `name`), and inside the inner loop simply print `name`. Do you understand what you see?
-MW  Use nested loops and if-statements to print all pairs of names where the first name starts with a vowel and the second with a consonant.
+MW	Earlier we saw that if-clauses can be nested. What about for-clauses? Write a function (and think of an appropriate name) that loops over the `cities` list from earlier (`for city1 in cities:`), and nested within that loop, loops over the same list again (`for city2 in cities:`). In the body of the inner loop, print the two names stored in `city1` and `city2`, concatenated with a dash in between. Can you predict what will be printed? Try it, and make sure you understand what's happening.
+MW	(It will likely be helpful to print a separator in between exercises (e.g., `print('---------')`), or you'll loose track of where each printed text originates from!) In the previous exercise, why did the inner loop use a different variable from the outer loop, namely `city2` and `city1`, respectively? Do you understand the output of the following variant?\n```
+for city in cities:
+    for city in cities:
+        print(city)
+```
+MW  Use nested loops and if-statements to print all pairs of cities where the first city name starts with a vowel and the second with a consonant. Looking at the city names, can you predict how many lines will be printed?
 MW  Write a function `chain` that takes a list of lists, and chains all lists into a single list. For example, chaining `[[1, 2], [3, 4, 5], [6, 7]]` will result in `[1, 2, 3, 4, 5, 6, 7]`.
 
-MW  Remember your random sentence generator from before? Use the same lists of words as before (determiners, nouns, intransitive verbs, transitive verbs), but now, instead of printing one random sentence, write a function that prints _all possible sentences_, one after the other. Does it handle the different verb frames (intransitive, transitive) correctly?
-MW  If your sentence generator had actually implemented a full human grammar, would the previous function ever terminate? _Should_ it?
+MW  Remember your random sentence generator from before? Use the same lists of words as before (determiners, nouns, intransitive verbs, transitive verbs), but now, instead of returning one random sentence, write a function that *prints* _all possible sentences_, one after the other. This will require many nested loops.
+MW  If your sentence generator had actually implemented a full human grammar, would the previous function ever terminate? (Should it?)
 
 
 Title   Functions, arguments and scope
 
-TP2	Make sure a simple function like `print_spam` from earlier is still defined (or copy its definition to the file you currently work in). Now write a function `do_twice` that takes a function `func` as a parameter and calls that function twice. Then call `do_twice` with the function `print_spam` as its parameter. What happens if you give `print_spam()` (with parenthesis) as parameter? Why?
+TP2	Make sure a simple function like `print_spam` from earlier is still defined (or copy its definition to the file you currently work in). Now write a function `do_twice` that takes a function `func` as a parameter and calls that function twice. Then call `do_twice` with the function `print_spam` as its argument. What happens if, instead, you give it `print_spam()` (with parenthesis) as a parameter? Why?
 TP2	Modify `do_twice` so that it takes two arguments, a function object and a value, and calls the function twice, passing the value as an argument. What happens if you enter `do_twice(print_spam)`? Why? What happens if you enter `do_twice(print, 'spam')`?
-***Too late TP2	Define a new function called `do_four` that takes a function object and a value and calls the function four times, passing the value as a parameter. Can you achieve this with only _two_ statements in the body of this function? (Try this without a 'loop', about which we will learn later.)
-MW	What happens if you assign a function to a variable, e.g., `convert_to_secs = time_to_secs`? Can you call the function using the new variable, instead of the original name?
+MW	What happens if you assign a function to a variable, e.g., `shout_nonsense = print_spam`? Can you call the function using the new variable, instead of the original name?
 MW  Remember to ctrl+click (or cmd+click) on a function or variable to go to the place where it was defined? Try this a couple of times on your new functions, just to build some muscle memory with this extremely useful functionality.
 
 ***Note about first-class citizens
