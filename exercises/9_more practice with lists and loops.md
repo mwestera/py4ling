@@ -102,3 +102,13 @@ for city in cities:
 
 **9.26.** If your sentence generator had actually implemented a full human grammar, would the previous function ever terminate? (Should it?)
 
+**9.27.** The four compass points can be abbreviated by single-letter strings as `'N'`, `'E'`, `'S'`, and `'W'`. Write a function `turn_clockwise` that takes one of these four compass point strings as an argument, and returns the next compass point in the clockwise direction.
+
+**9.28.** Explain the difference between `type(turn_clockwise)` and `type(turn_clockwise('N'))`.
+
+**9.29.** Also define an analogous function `turn_counterclockwise`. Should `turn_counterclockwise(turn_clockwise('N')) == 'N'` evaluate to `True`? Does it?
+
+**9.30.** If you haven't done so already, perhaps you can streamline the functions `turn_clockwise` and `turn_counterclockwise` by storing the four compass points in a list. To simplify the function definitions, both the list method `index` and the modulo operator `%` can be useful here.
+
+**9.31.** Extend your clockwise and counterclockwise functions to deal with four diagonal directions (such as North-East `NE` and South-West `SW`). If this is difficult or requires a lot of manual typing, it means your functions could probably have been implemented in a smarter, more concise way...
+
