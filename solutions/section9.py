@@ -303,3 +303,42 @@ generate_all_sentences()
 # This exercise is of course about the recursive nature of human languages and the -- in principle -- infinitude of
 # sentences it can generate. How strongly you feel about this infinitude may depend on your stance toward the
 # competence-performance distinction (do you see why?).
+
+# 9.27
+directions = ['N', 'E', 'S', 'W']
+
+def turn_clockwise(direction):
+    """
+    Takes a string representation of a direction (NESW) and returns the new direction after
+    turning one 'step' clockwise.
+    """
+    index = directions.index(direction)
+    turned_index = (index + 1) % len(directions)
+    return directions[turned_index]
+
+print(turn_clockwise('W'))
+print(turn_clockwise('N'))
+
+# 9.28
+# One is the type of the function itself, the other is the type of the result of calling the function.
+
+# 9.29
+def turn_counterclockwise(direction):
+    """Takes a string representation of a direction (NESW) and returns the new direction after
+    turning one 'step' counterclockwise."""
+    index = directions.index(direction)
+    turned_index = (index - 1) % len(directions)
+    return directions[turned_index]
+
+print(turn_counterclockwise('W'))
+print(turn_counterclockwise('N'))
+
+print(turn_counterclockwise(turn_clockwise('N')) == 'N')    # yes :)
+
+# 9.30
+# They are already pretty streamlined. However, note that there is still considerable overlap between the
+# two functions, so perhaps you can try to streamline the code further... Later there will be an exercise about this.
+
+# 9.31
+# This is a matter of extending the directions list, and everything will just work. That is because
+# the functions are programmed in a robust way (e.g., using % len(directions) instead of % 4).
