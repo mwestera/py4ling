@@ -448,7 +448,8 @@ MW	In the above function, did you use `if` statements? Try to write this program
 
 Note	Whenever you need a mapping from (consecutive) integer numbers to something else, such as strings, use a list, which is precisely such a mapping. For a mapping from things other than integer numbers, we will learn about another data structure later, the _dictionary_.
 
-TP3	You go on a wonderful holiday leaving on day number 3 (a Wednesday). You return home after 137 nights. Write a function that asks for the starting day number, and the length of your stay, and it will tell you the name of day of the week you will return on.
+TP3	You go on a wonderful holiday leaving on day number 3 (a Wednesday). You return home after 137 nights. Write a function that takes a starting day number and a duration (in number of nights) as parameters, and it will tell you the name of day of the week on which you will return.
+TP3	Can your function from the previous exercise already work with a negative number of nights? For example, -1 would be yesterday, and -7 would be a week ago. If your function already works, explain why. If it does not work, try to fix it. Consider how the modulo `%` operator works on negative numbers.
 P4L	Lists and strings are similar in many ways. Try to show with code several ways in which they are alike, and ways in which they are not alike.
 MW	Do you expect the following to be true or false: `len([1, 2, 3]) == len('[1, 2, 3]')`. Test your expectation.
 MW	In the section on types we saw how to build a string from an int (`str(5)`), an int from a string (`int('24')`), etc., essentially converting between types. Similarly, you can build a list from various types of objects, using `list`. Try 'converting' a string to a list, and understand what you see. Can you also convert a list to a string? Do you expect the following to be true: `str(list('apple')) == 'apple'`? Is it? Why (not)?
@@ -513,6 +514,8 @@ MW  Lists and strings in fact already come with a method `index`, which is calle
 
 Note    Lists and strings have a method **index**, which you can use to find the (first) index of an element in the list, provided it exists.
 
+TP3	Remember your function `day_number_to_name` from earlier, that converts an integer number 1 to 7 to the name of a day? Now use the list method `index` to write the inverse function `day_name_to_number` which is given a day name, and returns its integer representation.
+TP3	Write a function `month_to_ndays` which takes the name of a month, and returns the number of days in the month. Ignore leap years. It can be helpful to define two lists, one with the month names and one with the corresponding numbers of days. (Later we will learn about _dictionaries_, which would streamline this a bit further.)
 MW	Write a function `find_index_of_largest` that finds and returns the _index_ of the largest element in a list (in mathematical terms this would be an _argmax_ function). You can do this without any explicit looping, namely by using the built-in functions `max` and the list method `index`. (Optional: Consider why this is not the most _computationally efficient_ way, e.g., imagine you had a list of millions of numbers.) What if you give your function a list of strings? What if you give it not a list, but a single string?
 
 MW	Write a function that takes a string, namely an English sentence, and loops through the characters of the string, ultimately returning the total number of _words_ in the sentence. Hint: Generally speaking, in written English, how do you know a new word is beginning?
@@ -570,84 +573,118 @@ MW  Write a function `chain` that takes a list of lists, and chains all lists in
 
 MW  Remember your random sentence generator from before? Use the same lists of words as before (determiners, nouns, intransitive verbs, transitive verbs), but now, instead of returning one random sentence, write a function that *prints* _all possible sentences_, one after the other. This will require many nested loops.
 MW  If your sentence generator had actually implemented a full human grammar, would the previous function ever terminate? (Should it?)
-
-
-Title   Functions, arguments and scope
-
-TP2	Make sure a simple function like `print_spam` from earlier is still defined (or copy its definition to the file you currently work in). Now write a function `do_twice` that takes a function `func` as a parameter and calls that function twice. Then call `do_twice` with the function `print_spam` as its argument. What happens if, instead, you give it `print_spam()` (with parenthesis) as a parameter? Why?
-TP2	Modify `do_twice` so that it takes two arguments, a function object and a value, and calls the function twice, passing the value as an argument. What happens if you enter `do_twice(print_spam)`? Why? What happens if you enter `do_twice(print, 'spam')`?
-MW	What happens if you assign a function to a variable, e.g., `shout_nonsense = print_spam`? Can you call the function using the new variable, instead of the original name?
-MW  Remember to ctrl+click (or cmd+click) on a function or variable to go to the place where it was defined? Try this a couple of times on your new functions, just to build some muscle memory with this extremely useful functionality.
-
-***Note about first-class citizens
-
-MW	Earlier we saw what happens if you call a function before defining it (try again!). What happens if the potentially problematic function call is inside another function, e.g., your implementation of `do_four` should involve a call to `do_twice`. Does the order of the two function definitions in your file -- `do_four` and `do_twice` -- matter? Why might this be?
-
-Note	A Python script is executed top-to-bottom, with the important clarification that defining a function is different from calling a function. That is, in the body of one function, you can in principle refer to another function even if it is defined later, as long as the first function is _called_ only after the function it references is defined.
-
-MW  Explain how the foregoing is illustrated by the following two programs -- place these in two separate files:```
-# The first program:
-
-def print_sum(a, b):
-    print(sum_numbers(a, b))
-
-def sum_numbers(a, b):
-    return a + b
-
-print_sum(1, 3)
-
-# The second program (place in a separate file!):
-
-def print_sum(a, b):
-    print(sum_numbers(a, b))
-
-print_sum(1, 3)
-
-def sum_numbers(a, b):
-    return a + b
-```
-
-TP3	Write a function `time_to_secs` that takes three arguments -- hours, minutes, seconds -- and converts the time these jointly represent to a total number of seconds, which it returns as output. If necessary extend `time_to_secs` so that it can cope with real (i.e., non-integer, or floating point) values as inputs. It should always return an integer number of seconds ('truncated', or rounded down).
-TP3	Write three functions that are the partial _inverses_ of `time_to_secs`: \n 1. `hours_in` returns the whole integer number of hours represented by a total number of seconds; \n 2. `minutes_in` returns the whole integer number of _left over_ minutes in a total number of seconds once the hours have been taken out; \n 3. `seconds_in` returns the left over seconds in a total number of seconds, once the hours and minutes have been taken out. \n You may assume that the total number of seconds passed to these functions is an integer.
-MW  Write a single function that is the inverse of `time_to_secs`. It should use the preceding three auxiliary functions to obtain hours, minutes and seconds, and return these values together as a _tuple_ like this (we will learn about tuples later): `return hours, minutes, seconds`.
-
-Note	Dividing code into functions is called **chunking**. Chunking is an art, but there are some useful rules of thumb. One is the **Single Level of Abstraction Principle** (SLAP): a function should do a single thing at a single level of abstraction (related to 'separation of concerns'). Another rule of thumb for chunking (dividing a program into functions) is **Don't Repeat Yourself** (DRY), i.e., define a function whenever you find you are repeating chunks of code. The value of these principles may be difficult to see with the current exercises, but will become clear when we start writing larger programs.
-
-TP3	The four compass points can be abbreviated by single-letter strings as `'N'`, `'E'`, `'S'`, and `'W'`. Write a function `turn_clockwise` that takes one of these four compass points as its parameter, and returns the next compass point in the clockwise direction. What should this function do if you give it some 'illegal' input, e.g., `'A'`?
+TP3	The four compass points can be abbreviated by single-letter strings as `'N'`, `'E'`, `'S'`, and `'W'`. Write a function `turn_clockwise` that takes one of these four compass point strings as an argument, and returns the next compass point in the clockwise direction.
 MW	Explain the difference between `type(turn_clockwise)` and `type(turn_clockwise('N'))`.
 TP3	Also define an analogous function `turn_counterclockwise`. Should `turn_counterclockwise(turn_clockwise('N')) == 'N'` evaluate to `True`? Does it?
-MW	If applicable, streamline the functions `turn_clockwise` and `turn_counterclockwise` with the help of a list containing the four compass points. How might the list method `index` be useful here? And remember: whenever you can go around and around, you might need the modulo operator.
+MW	If you haven't done so already, perhaps you can streamline the functions `turn_clockwise` and `turn_counterclockwise` by storing the four compass points in a list. To simplify the function definitions, both the list method `index` and the modulo operator `%` can be useful here.
 MW	Extend your clockwise and counterclockwise functions to deal with four diagonal directions (such as North-East `NE` and South-West `SW`). If this is difficult or requires a lot of manual typing, it means your functions could probably have been implemented in a smarter, more concise way...
-TP3	Write a function `get_day_name` that converts an integer number 0 to 6 into the name of a day. Assume day 0 is Sunday. Also write the inverse function `get_day_num` which is given a day name, and returns its number. If applicable, streamline the functions `get_day_name` and `get_day_num` with the help of a list.
-
-***Probably superfluous here: Note	_Code is read much more often than it is written._ For this reason, when 'streamlining' your code, the goal is never brevity in and of itself. The goal, rather, is to improve the *readability* of your code.
-
-MW  Speaking of readability, did you remember to add docstrings to all your functions?
-
-***The following exercises aren't super relevant:
-
-***TP3	Write a function `add_to_day_name` that helps answer questions like 'Today is Wednesday. I leave on holiday in 19 days time. What day will that be?'. So the function must take a day name and a `num_days` argument -- the number of days to add -- and should return the resulting day name.
-***TP3	Can your `add_to_day_name` function already work with negative deltas? For example, -1 would be yesterday, and -7 would be a week ago. If your function already works, explain why. If it does not work, try to fix it. Consider how the modulo `%` operator works on negative numbers.
-***TP3	Write a function `month_to_ndays` which takes the name of a month, and returns the number of days in the month. Ignore leap years. It can be helpful to define two lists, one with the month names and one with the corresponding numbers of days. (Later we will learn about _dictionaries_, which would streamline this a bit further.)
 
 
-***TODO encapsulation, global and local scope**
+Title   Functions, parameters and arguments
 
-***AMY `a = 1`, then `def foo(): return a`, returns 1. Python first looks in local scope, then enclosing scope, then global scope. But when assigning, local scope is successful right away. `def foo(): a = 3; return a` returns 3. / But when incrementing like `a += 3`, it raises an UnboundLocalError.
+MW  Define again the simple function `print_spam` we used in earlier sections (taking no arguments, simply printing `spam`). Explain (for instance using `type`) what the difference is between `print_spam` and `print_spam()`.
+MW	What happens if you assign a function to a variable, e.g., `shout_nonsense = print_spam`? Can you call the function using the new variable, instead of the original name?
+TP2	Write a function `do_twice` that takes a function `func` as a parameter and calls that function twice. Having done that, calling `do_twice(print_spam)` should execute `print_spam()` twice. What happens if, instead, you accidentally do `do_twice(print_spam())`? Why?
 
-***Note    When you make an assignment to a variable in a local scope (e.g., function definition), that variable becomes **local** to that scope. This is true _even if_ you intend to first use the variable before assigning it (e.g., `x = x + 3` will give an error if `x` is assigned only globally, but `y = x + 3` is fine in that case).
+Note    In Python, a function is _not_ a piece of code, and calling a function is _not_ a matter of sending the interpreter to the lines in your file where the function is defined. Rather, in Python **functions are objects in their own right**. A `def`-clause is an instruction to the Python interpreter to create such an object and assign it to a variable with the same name as the function. In Python tutorials you'll often read that 'functions in Python are first-class citizens', to mean exactly this. Functions, just like the other objects we have worked with so far (strings, ints, lists), can be (re)assigned to variables and passed around as arguments.
 
+TP2	Define a function `do_twice_with_argument` that takes two arguments, a function `func` and a value `arg`, and calls the function twice with that argument. The command `do_twice(print, 'test')` should result in `test` being printed twice.
+MW  Generalize the previous functions to `do_multiple` and `do_multiple_with_argument`, by adding a parameter `n` to each, with the effect that the function `func` will be executed `n` times.
+MW  As objects, functions carry some information along with them, such as the `__doc__` attribute containing the function's docstring (shown when `help` is called on the function, as we did earlier), and `__name__` storing the function's name. Try `print(print_spam.__name__)`. (Can you explain what happens if you do `print(print_spam().__name__)` instead?)
+MW  What happens to the `__name__` attribute of a function if you assign a function to a new variable, and retrieve the `__name__` property from that new variable?
+MW  Function objects also offer various methods (similar to strings having methods like `upper` and `capitalize`, and lists having `append` and `index`). Calling a function like `print('apple')` is in fact shorthand for invoking the `__call__` method of the function object, i.e., `print.__call__('apple')`. Verify that this is the case, and also test it for a couple of functions you yourself defined.
 
-**TODO default arguments
-***Probably not args, kwargs
-***Probably not this: AMY mutable default arguments `append_cat(l=[]): l.append('cat'); return l` then call it twice. see the field `__defaults__`?
+Note    It may seem like we use 'argument' and 'parameter' interchangeably, but there is a subtle difference. When you define a function, you specify its **parameters** in the header of the `def`-clause. When you call a function that has parameters, you (often) need to provide it with **arguments**. The called function will use the provided arguments, to set the values for its parameters. This requires that Python is able to match each argument (of the function call) with the correct parameter (of the function definition). If the intended match is not clear, Python cannot know what exactly your function call is requesting. The following exercises teach you more about how Python decides which arguments set which parameters.
 
-MW	Your editor may be smart enough to highlight violations of 'Python style', adherence to which will enhance the readability of your code (in addition to docstrings and self-documenting code). The style guides are kept in the eigth _Python Enhancement Proposal_, PEP8 (https://www.python.org/dev/peps/pep-0008/). Have a look at it, and go through some of your previous code to make it PEP8-compliant if needed.
+MW  When calling a function, you have seen that sometimes arguments are simply given as a value, and sometimes as a `parameter=value` expression, a so-called **keyword argument** (e.g., `print('apple', end='')` uses both). In Python, you can often choose how to pass values as arguments to a function: the value on its own, or as a keyword argument `parameter=value`. Look carefully at the following code, predict the outcomes and test your prediction.\n```
+def print_diff(a, b):
+    print(a - b)
 
-Note	Initially created and long-term maintained by Guido van Rossum, Python is a very open, community-driven programming language. It has come to be the way it is with the help of **Python Enhancement Proposals** or PEPs (https://www.python.org/dev/peps/). **PEP8** is Python's style guide (https://www.python.org/dev/peps/pep-0008/).
+print_diff(5, 2)
+print_diff(a=5, b=2)
+print_diff(b=2, a=5)
+print_diff(2, 5)
+print_diff(a=2, b=5)
+print_diff(b=5, a=2)
+```
+MW  Arguments passed _without_ the parameter name are also called **positional arguments**. Given the previous example, do you understand why?
+MW  Given your answer to the preceding question, try to predict which of the following works fine, and which one crashes. Test your prediction and make sure you understand what is going on.\n```
+print_diff(5, b=2)
+print_diff(2, a=5)
+```
+MW  Although positional and keyword arguments can be mixed, no positional argument can _follow_ a keyword argument. Try `print_diff(a=5, 2)` to see what error you get. Here is an intuitive explanation: argument order (for positional arguments) is determined by counting left-to-right, so if a keyword argument indicates 'order doesn't matter here', then the order of any arguments to the right of it cannot be relied upon either, hence any arguments to the right of it must also be given as keyword arguments.
+MW  Although typically one can choose whether to call a function with positional or keyword arguments or both, sometimes programmers may decide that certain (or even all) arguments _must_ be passed as keyword arguments. This is the case, for instance, for functions that permit any number of positional arguments, such as the built-in function `print`, e.g., `print('apple', 'pear', 'banana')` prints all three. Explain why it follows from this feature of `print`, that the additional `sep` and `end` parameters of `print` must _always_ be given as keyword arguments, by considering what happens if you don't:\n```
+print('apple', 'pear', 'banana', sep='-', end='.')
+print('apple', 'pear', 'banana', '-', '.')
+```
+MW  Another reason why programmers sometimes choose to enforce the use of keyword arguments is _explicitness_. For instance, in the Seaborn library for creating plots, all parameters of a function like `scatterplot` must be specified with keyword arguments (e.g., `scatterplot(data=tweets, x='date', y='sentiment')`). Explain in what sense keyword arguments are more explicit than positional arguments.
+MW  For the sake of completeness, the way to let functions take any number of positional arguments (like `print`) and/or enforce the use of keywords for explicitness (like `scatterplot`), is through the use of an asterisked parameter `*` in the function definition header, which essentially 'eats up' any positional arguments given when the function is called; as a consequence, any parameters occurring after the asterisked parameter _must_ be specified with keywords. Try the following to better understand this:\n```
+def some_weird_function(*a, b, c):
+    print('a:', a)
+    print('b:', b)
+    print('c:', c)
 
-P4E	Can you predict what happens if you enter `AAAARGH I hate Python!` in the interpreter? And what if you surround it by quotation marks?
-MW	Every aspect of the Python language has been carefully designed, even though you (and I) may not always understand the reason at the present moment. Should you find yourself frustrated with Python, just enter `import this` in the interpreter and feel your calm returning. (The keyword `import` will be explained later.) The result is an easter egg (surprise) based on PEP20, that captures some of Python's design principles in poetic form.
+# some_weird_function(1, 2, 3)     # will complain that `b` and `c` are not given values, as all positional arguments are eaten up by `*a`.
+some_weird_function(1, b=2, c=3)    # this one works fine
+some_weird_function(1, 2, 3, 4, b=5, c=6)   # this also works fine
+```
+MW  Reflect on the role of the asterisk in the definition of the built-in `print` function:\n```
+def print(*objects, sep=' ', end='\n', file=sys.stdout, flush=False):
+```
+
+Note  When you _define_ a function, you can specify **default values** for some or all of the parameters, using `parameter=value` syntax in the header of the function definition (not to be confused with the same `parameter=value` syntax used when _calling_ a function to specify keyword arguments!). Parameters with default values can be omitted from the function call, in which case the default value is used.
+
+MW  Explain how the foregoing is illustrated by the following code:\n```
+def multiply_and_add(a, b, c=1):
+    print(a * b + c)
+
+multiply_and_add(2, 3)
+multiply_and_add(2, 3, 4)
+```
+MW  Explain how by specifying or omitting default values in your function _definition_, you can effectively make certain parameters **mandatory** and others **optional** when calling the function.
+MW  Define a function `subtract` with three parameters: two mandatory numbers `a` and `b`, and one optional boolean `absolute`, where the latter has default value `False`. The call `subtract(3, 5)` should evaluate simply to the difference `3 - 5`, i.e., `-2`. The call `subtract(3, 5, True)` should evaluate instead to the absolute (positive) value of the difference, i.e., `2`.
+MW  Look up the function `tokenize` from the previous section, and if needed copy the code to your current working file. Note that it effectively removes spaces from the input text, returning only the tokens. This makes it harder to reconstruct the original text by re-concatenating all the tokens, which in some cases might be a desirable functionality. For this reason, add an optional parameter to the function, `keep_spaces` with default value `False`. When the default is overriden (i.e., when the function is called with the additional argument `True`), the returned tokens should have their spaces still attached. For example, `tokenize('The cat sleeps.', True)` should evaluate to `['The ', 'cat ', 'sleeps', '.']` (note the spaces). Also verify that omitting the optional argument results in the original behavior.
+
+Note  While the syntax of specifying default values (`parameter=value`) looks similar to the syntax of keyword arguments explained at the start of this section, the two notions -- default value and keyword argument -- are conceptually very different! Default values are an aspect of function _definitions_, while keyword arguments are an aspect of function _calls_. Whether a parameter is given a default value when _defining_ the function, has nothing directly to do with whether to use positional or keyword arguments when _calling_ the function.
+
+MW  To illustrate the preceding explanation, verify that the optional parameters of the `subtract` and `tokenize` functions from above can be passed both as a positional argument and as a keyword argument.
+MW  Try to predict the printed output of the following function calls, and test your understanding:\n- `multiply_and_add(2, 3, 5)` \n- `multiply_and_add(a=2, b=3, c=5)` \n- `multiply_and_add(c=5, a=2, b=3)` \n- `multiply_and_add(2, b=3)` \n- `multiply_and_add(2, b=3, c=4)` \n- `multiply_and_add(a=2, b=3)` \n- `multiply_and_add(b=3, a=2)`
+MW  Parameters with a default value are, effectively, _optional_ in the function call; parameters without a default value are mandatory. In function definitions, all mandatory parameters should come before all optional parameters. Try this with an example that violates the rule, e.g., `def my_function(a, b=1, c): ...`.
+MW  Given the preceding rule that optional parameters should come after mandatory parameters in the function definition, how come the function call `multiply_and_add(c=5, a=2, b=3)` is allowed?
+AMY Default values are assigned only once, at the start, when the function is defined; _not_ each time the function is called. This can lead to puzzling behavior when you use a _mutable_ object like a list as default argument: since it is mutable, it can be changed, thereby causing the default value to change. For example, consider the function below and what it is _supposed_ to do, according to the docstring, if no list argument is given. Explain what goes wrong, taking into account the mutability of the default argument.\n```
+def append_to(element, l=[]):       # note: the docstring is a lie
+    """
+    Appends the element to the provided list, returning it, or to an empty list if none was provided (resulting in [element]).
+    """
+    l.append(element)
+    return l
+
+print(append_to('cat', ['dog', 'horse']))
+print(append_to('cat'))
+print(append_to('cat', ['mouse']))
+print(append_to('cat'))
+```
+MW  When entering the above code in PyCharm, the editor will likely immediately warn you that 'Default argument value is mutable'. PyCharm may even offer you to automatically fix it, which will result in code like the following. Try to understand how this fix works, i.e., how it avoids the problem illustrated in the previous exercise:\n```
+def append_to2(element, l=None):
+    """
+    Appends the element to the provided list, returning it, or to an empty list if none was provided (resulting in [element]).
+    """
+    if l is None:       # Equivalently, replacing the whole if-clause:  l = l or []
+        l = []
+    l.append(element)
+    return l
+
+print(append_to2('cat', ['dog', 'horse']))
+print(append_to2('cat'))
+print(append_to2('cat', ['mouse']))
+print(append_to2('cat'))
+```
+
+Note   The fact that a function's default values are created only once, when the function is defined, reflects that (in Python) functions are not pieces of code but objects, created only once, when the interpreter reads the definition to create the function object.
+
+MW  We have already seen that functions, as objects in their own right, have various properties that you can inspect, such as `__doc__` and `__name__`. Another property of functions is `__defaults__` (not for built-in functions though). Use this to inspect the default values of some of the functions defined above, e.g., `print(append_to.__defaults__)` and `print(multiply_and_add.__defaults__)`. For the problematic function `append_to`, compare its defaults before and after a call `append_to('cat')`.
+
+MW  In the previous section you defined `turn_clockwise` and `turn_counterclockwise`, to take directions like `'N'`, `'NW'`, and `'SE'` and return a new direction after turning. (Copy these to your current working file if needed.) Extend their functionality with an optional argument `n_turns` that has `1` as its default value, representing the number of 'turn steps' to take.
 
 
 
@@ -717,13 +754,20 @@ MW	Write a loop that prints floats between 0 and 1000, in increments of (approxi
 MW	Write a program that repeatedly asks for user input; it ignores all user input except the string _knock_. Only if the user writes _knock_ three times in a row (as three separate inputs), the program should print _Go away!_ Does the program behave as required if you enter _knock_ twice, then something else, then _knock_ a third time?
 
 MW	In the Python console enter `import keyword` and then print `keyword.kwlist`. For which of these keywords do you already know some purpose?
+***Maybe also print __builtins__?
 
+MW	Your editor may be smart enough to highlight violations of 'Python style', adherence to which will enhance the readability of your code (in addition to docstrings and self-documenting code). The style guides are kept in the eigth _Python Enhancement Proposal_, PEP8 (https://www.python.org/dev/peps/pep-0008/). Have a look at it, and go through some of your previous code to make it PEP8-compliant if needed.
+
+Note	Initially created and long-term maintained by Guido van Rossum, Python is a very open, community-driven programming language. It has come to be the way it is with the help of **Python Enhancement Proposals** or PEPs (https://www.python.org/dev/peps/). **PEP8** is Python's style guide (https://www.python.org/dev/peps/pep-0008/).
+
+***P4E	Can you predict what happens if you enter `AAAARGH I hate Python!` in the interpreter? And what if you surround it by quotation marks?
+MW	Every aspect of the Python language has been carefully designed, even though you (and I) may not always understand the reason at the present moment. Should you find yourself frustrated with Python, just enter `import this` in the interpreter and feel your calm returning. (The keyword `import` will be explained later.) The result is an easter egg based on PEP20, that captures some of Python's design principles in poetic form.
 
 
 Title	Dictionaries
 
 ***Maybe introduce del (also for lists, but rarely used)
-***tuple syntax, e.g.,  a = 3 + 4,   error.
+***tuple syntax, e.g.,  a = 3 + 4,  error.
 
 MW	Let us construct `name_to_id`, a mapping or _dictionary_ from fictional student names (the keys) to student IDs (the values):\n```
 name_to_id = {'Alf': '136124', 'Beth': '008623', 'Chris': '014212', 'Dave': '9123785', 'Esra': '978123'}
@@ -770,6 +814,155 @@ MW	Use list comprehension to take an existing dictionary and invert it, swapping
 MW	Remember the `text` and its `word_counts` dictionary from above? Now go through the text again to count not single words, but _bigrams_: pairs of words that occur next to each other. Store each bigram, with its counts, in a dictionary `bigram_counts`. If every bigram occurs only once, consider using a larger `text` for more interesting results. Now print the top 10 most common bigrams with their counts.
 MW	Generalize the foregoing to allow counting unigrams (single words), bigrams, trigrams, 4-grams, etc.: define a function `count_ngrams` that takes two parameters, namely a text (string) and an integer `n`, and returns a dictionary containing all n-grams, with their counts. What happens to the counts as `n` becomes higher and higher?
 
+
+Title   Refactoring/chunking and variable scope
+
+MW	Earlier we saw what happens if you call a function before defining it. Try this again!
+MW  The foregoing exercise should have resulted in an error. A Python program will terminate when an error is encountered (or more accurately: when an exception is _thrown_ and not _caught_ somewhere higher up -- we will learn about this later). Nevertheless, you may occasionally have seen noticed printed output appearing _after_ (i.e., below) an error message. Try to reproduce this oddity: Write some code that prints a bunch of stuff and then, at the end, does something illegal (e.g., reference a function before it is defined). Run it to verify that the error message can (at least sometimes) appear in the output before (i.e., above) the printed message. (If this never happens, perhaps your system is configured in a way that prevents this...)
+
+Note    The command `print` sends content to the **standard output stream**, while error messages go through a separate **error stream**. Each stream is 'buffered', meaning messages are first stored in a 'buffer' that is then, periodically, 'flushed' onto the Run output window on your screen -- only _then_ do you see the output. It can happen that the error buffer is flushed _before_ the standard output buffer, and thereby cause an error message to appear _before_ certain printed messages, even if the error was in fact encountered a few nanoseconds _after_ the last `print` command. This is a technicality, but knowing about this can prevent confusion about the (apparent) source of an error.
+
+MW  If in the previous exercise you were able to let an error message appear before the printed messages, now add `flush=True` as an extra argument to each of your `print` statements and try again. The error message should now consistently appear last (i.e., at the bottom of your output). This is because `flush=True` tells Python to flush the standard output buffer immediately, i.e., as soon as the `print` command is given. Although you won't normally need to use `flush=True`, you can use it in the following exercises if you find the order of print and error messages in your output confusing.
+MW  Define a function `invert` that takes a string and returns the inverted string, and then define a function `print_inverted` that takes a string and (inside its definition) calls the `invert` function to invert it, and finally prints the result (with `flush=True` for clarity). The point here is that we have one function (`print_inverted`) that, in its definition body, references another (`invert`). Does the order in which the two functions are defined matter? Formulate a prediction, then test it. Try to form a hypothesis about why this might be.
+MW  Test and (if needed) refine your hypothesis about the order of function definitions and function calls, by comparing the following two programs. For this, make sure that you try each version _on its own_, for instance by placing each in a separate file, or by commenting-out one version when you run the other and vice versa.\n```
+# The first program:
+
+def print_sum(a, b):
+    print(add_numbers(a, b), flush=True)
+
+def add_numbers(a, b):
+    return a + b
+
+print_sum(1, 3)
+
+# The second program (make sure you try the two programs separately):
+
+def print_sum(a, b):
+    print(add_numbers(a, b), flush=True)
+
+print_sum(1, 3)
+
+def add_numbers(a, b):
+    return a + b
+```
+
+Note	A Python script is interpreted **top-to-bottom**, with the important clarification that _defining_ a function (i.e., when the interpreter encounters a `def` clause) is different from _calling_ a function (i.e., when the interpreter sees a function call, like `print_sum(1, 3)`). That is, in the body of one function definition, you can reference a function that hasn't been defined yet, as long as the containing function isn't _called_ before the referenced function is defined.
+
+MW  In light of the above explanation, review your understanding of the preceding two exercises.
+TP3	Write a function `time_to_secs` that takes three arguments -- hours, minutes, seconds -- and converts the time these jointly represent to a total number of seconds, which it returns as output. If necessary extend `time_to_secs` so that it can cope with real (i.e., non-integer, or floating point) values as inputs. It should always return an integer number of seconds ('truncated', or rounded down).
+TP3	Write three functions that are the partial _inverses_ of `time_to_secs`: \n 1. `hours_in` returns the whole integer number of hours represented by a total number of seconds; \n 2. `leftover_minutes_in` returns the whole integer number of _left over_ minutes in a total number of seconds once the hours have been taken out; \n 3. `leftover_seconds_in` returns the left over seconds in a total number of seconds, once the hours and minutes have been taken out. \n You may assume that the total number of seconds passed to these functions is an integer.
+MW  Write a single function that is the inverse of `time_to_secs`. It should use the preceding three auxiliary functions to obtain hours, minutes and seconds, and return these values together as a _tuple_ like this (we will learn about tuples later): `return hours, minutes, seconds`. Does the order matter in which the various function definitions appear in your file? What about the position of the function calls?
+MW  In the previous section you defined functions `bigrams` and `trigrams`. (Copy these to your current code file if necessary.) To refresh your memory, also define a function `quadrigrams`, for sequences of four words. The definitions of these functions likely contain considerable overlap. Avoid this by defining a function `ngrams` that takes a text and a number `n`, returning a list of n-grams in the text (bigrams if `n == 2`, trigrams if `n == 3`, etc.); redefine the original functions `bigrams`, `trigrams` and `quadrigrams` as, essentially, shortcuts for `ngrams`.
+
+Note	Streamlining your code is called **refactoring**, one aspect of which is dividing your code into functions, sometimes called **chunking**. One rule of thumb for refactoring/chunking is **Don't Repeat Yourself** (DRY), i.e., consider defining a function when you find you are repeating chunks of code. Another is the **Single Level of Abstraction Principle** (SLAP): a function should do a single thing at a single level of abstraction. The latter is related to the ideal of **Separation of Concerns** (SoC), e.g., when you're defining an `ngrams` function, you shouldn't need to worry about how to tokenize a text, and vice versa).
+
+MW  Can you think of some reasons why it is (often) a good idea to try to avoid repeated chunks of code, i.e., why the DRY principle is a useful guideline?
+MW  Our client requests that n-grams be represented as strings instead of lists (e.g., `'the cat eats'` instead of `['the', 'cat', 'eats']` to represent a trigram). Make the required change. What is an advantage of having refactored your code in terms of the `ngrams` function?
+MW  Define a function `filter_by_twos` that takes a list, and returns a new list containing every second element (so given `['a', 'b', 'c', 'd', 'e', 'f']` it will return `['b', 'd', 'f']`). Define another function `filter_by_threes` that does the same but for every _third_ element (for the same example, it will return `['c', 'f']`). There is likely considerable code repetition. Define a generalized function `filter_by_n` that takes an additional argument `n` and returns a list with every `n`th element, then redefine your original functions in terms of this, as shortcuts.
+MW  In an earlier section you defined `turn_clockwise` and `turn_counterclockwise`, taking a string representation of a direction (`N`, `E`, `S`, `W`) and returning a string representation of the new direction after turning. There is likely considerably overlap between the two functions. If so, try to minimize overlap, for instance by defining an auxiliary function that is given an integer index instead of a string representation, and can turn in both directions depending on whether the integer is negative or positive.)
+
+MW  Another reason for chunking your code into functions is **encapsulation**: variables assigned inside a function, are not accessible outside it. This keeps the number of accessible variables at a given place in your code smaller, which helps prevent certain types of programming errors. Explain how the following code illustrates encapsulation. (Remember we add `flush=True` to a print statement to flush the print buffer directly, in order for printed output and error messages to appear in order of execution.)\n```
+def my_little_function():
+    b = 123
+    print('from inside the function (local scope):', b, flush=True)
+
+my_little_function()
+print('from the global scope:', b)
+```
+MW  In the previous example, what happens if you assign something to b also in the global scope, before the function definition? For instance, add  `b = 789` above the definition of `my_little_function`.
+MW  Unlike `def`-clauses (function definitions), `if`-clauses do not create a local scope, i.e., do not encapsulate the variables assigned within it. Explain how the following example demonstrates this:\n```
+if 1 + 1 == 2:
+    x = 'test'
+    print('inside:', x)
+
+print('outside:', x)
+```
+MW  Does the following example demonstrate that `for`-clauses likewise do not encapsulate their variables?\n```
+for x in [1, 2, 3]:
+    print('inside:', x)
+
+print('outside:', x)
+```
+MW  Does the following code show that `if`-clauses do create a local scope after all? Or does it show something else?\n```
+if 1 + 1 == 3:      # Notice the 3!
+    x = 'test'
+    print('inside:', x)
+
+print('outside:', x)
+```
+MW  Construct an example to test whether `while`-clauses create a local scope.
+MW  The built-in functions `locals` and `globals` give you a _dictionary_ containing all local/global variables and their values. We will learn about dictionaries later, but you can already try them out as follows. Note that among the global variables are many 'dunder' (double underscore) variables like `__name__` that Python relies upon for bookkeeping, so you may need to scroll to the right to see the variables you yourself assigned.\n```
+a = 3
+b = 4
+
+def my_function(c):
+    d = 6
+    e = 7
+    print('inside my_function, locals = ', locals())
+    print('inside my_function, globals =', globals())
+
+my_function(5)
+```
+MW  In the above example, the local scope also contains a variable `c`. Where does it come from, i.e., where is it assigned its value?
+MW  Modify the above example to print `globals()` and `locals()` also from _outside_ the function definition, e.g., put the print statements below the function call. What does this demonstrate?
+
+Note  When a variable is assigned inside a local scope (e.g., function definition), it will be added to `locals()`, not `globals()`. When a variable is called upon (its value retrieved) inside a local scope, then Python will first try to find it in the `locals()` dictionary, and only if it does not find the variable there it will look in `globals()`. (Actually there are two other 'namespaces' in which Python will search for a variable, but this will not really matter for us: Python indeed first looks in the local scope, but then it checks the immediately 'enclosing scope' (e.g., if the function is itself contained in a function), before considering the global scope, and finally it looks among the _builtins_, for built-in functions such as `len` and `print`.)
+
+MW  Explain how this rule explains what is happening in the following code. Subsequently, insert statements in the code (in different places) to print the `locals()` and `globals()`, to test and if needed refine your explanation.\n```
+x = 10
+
+def my_other_function():
+    x = 20
+    print('x inside function:', x)
+
+my_other_function()
+print('x in global scope:', x)
+```
+MW  For each variable occurrence in the following code, determine the place where its current value was assigned. (Suggestion: print (or manually write) the code and use arrows to connect each variable occurrence to the place where its current value was assigned.) Beware that (i) the same variable can be (re)assigned a value multiple times (but it will still count as the _same_ variable); (ii) two different variables can have the same name, if one is in `locals()` and the other in `globals()` (in that case you _should_ distinguish them); and (iii) not every assignment has an explicit `=`-sign.\n```
+students = ['ann', 'beth', 'gemma']
+more_students = ['dale', 'ebby']
+
+def print_students(students):
+    students = [name.upper() for name in students]
+    for student in students:
+        print(student)
+
+print_students(students + more_students)
+```
+
+Note  The previous 'something to keep in mind' stated the general rule for assigning/retrieving variables in a local scope. An important exception is the following: when a variable is assigned a value _anywhere_ in the local scope, then that variable becomes _strictly local_ to that scope, meaning Python will only try to find it in `locals()`, and never `globals()`, notably _even if the first lookup fails_ (e.g., if a variable is called upon in the local scope _before_ it is assigned a value).
+
+MW  The aforementioned exception can cause surprising behavior. In the following code, one might have expected that even though the variable `a` is locally assigned (`a = 8`) only after the print statement, it is also available globally (`a = 5`), so the function should print `5`. Explain why this isn't the case, and what causes the error when you run the following:\n```
+a = 5
+
+def erroneous_function():
+    print(a)
+    a = 8
+
+erroneous_function()
+```
+AMY  What might one naively expect the following function to print? Explain why this expectation is wrong, namely, why the following gives an error (recall that `a += 3` means `a = a + 3`):\n```
+b = 10
+
+def bad_function():
+    b += 3
+    print(b)
+
+bad_function()
+```
+
+***MW  (Like a previous exercise:) For each variable occurrence in the following code, determine the place where its current value was assigned.\n```
+abc = 123
+
+for d in str(abc):
+    print(d)
+
+```
+
+***Maybe try this on local vs. global variables?  MW  Remember to ctrl+click (or cmd+click) on a function or variable to go to the place where it was defined? Try this a couple of times on your new functions, just to build some muscle memory with this extremely useful functionality.
+
+***Probably superfluous here: Note	_Code is read much more often than it is written._ For this reason, when 'streamlining' your code, the goal is never brevity in and of itself. The goal, rather, is to improve the *readability* of your code.
+*** MW  Speaking of readability, did you remember to add docstrings to all your functions?
 
 
 Title   Looping while counting (`enumerate`, `range`)
