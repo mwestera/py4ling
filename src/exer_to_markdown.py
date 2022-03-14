@@ -4,7 +4,7 @@ separate_files = True
 out_dir = '../exercises'
 in_file = 'exer_raw.txt'
 
-update_files_from_section = 7
+update_files_from_section = 11
 
 
 if __name__ == "__main__":
@@ -76,7 +76,7 @@ if __name__ == "__main__":
         if line['mode'] == 'title':
             string = f'\n\n## {titles}. {line["content"]}'
             if separate_files:
-                short_title = line["content"].split('(')[0].strip().replace(',', ' ')
+                short_title = line["content"].split('(')[0].strip().replace(',', ' ').replace('/', ' ')
                 out_filename = f'{out_dir}/{titles}_{short_title}.md'.lower()
                 with open(out_filename, 'w+') as outfile:
                     outfile.write("# Python for linguists\n")
