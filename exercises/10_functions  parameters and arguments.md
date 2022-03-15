@@ -3,6 +3,8 @@
 
 ## 10. Functions, parameters and arguments
 
+_When we called a function so far, we often simply passed values or variables in as arguments, but sometimes we used a different syntax, such as `sep='-'` in `print('apple', sep='-')`, known as a 'keyword argument'. We have also encountered the notion of a 'default value', on which a function falls back if a certain argument is omitted. This section clarifies such notions, and lets us practice with the different ways of defining and calling functions, which are surprisingly varied but also -- once you understand -- a systematic consequence of one or two simple rules. Along the way we will learn some facts about what functions _are_, and why in Python functions are considered 'first-class citizens'._
+
 **10.1.** Define again the simple function `print_spam` we used in earlier sections (taking no arguments, simply printing `spam`). Explain (for instance using `type`) what the difference is between `print_spam` and `print_spam()`.
 
 **10.2.** What happens if you assign a function to a variable, e.g., `shout_nonsense = print_spam`? Can you call the function using the new variable, instead of the original name?
@@ -126,7 +128,7 @@ multiply_and_add(2, 3, 4)
 
 **10.24.** In function definitions, parameters without default values should come before parameters that have defaults. Try this with an example that violates the rule, e.g., `def my_function(a, b=1, c): ...`.
 
-**10.25.** Given the preceding rule that optional parameters should come after mandatory parameters in the function definition, how come the function call `multiply_and_add(c=5, a=2, b=3)` is allowed?
+**10.25.** Given the preceding rule that parameters with defaults should come before parameters without defaults in the function definition, how come the function call `multiply_and_add(c=5, a=2, b=3)` is allowed?
 
 **10.26.** Default values are assigned only once, at the start, when the function is defined; _not_ each time the function is called. This can lead to puzzling behavior when you use a _mutable_ object like a list as default argument: since it is mutable, it can be changed, thereby causing the default value to change. For example, consider the function below and what it is _supposed_ to do, according to the docstring, if no list argument is given. Explain what goes wrong, taking into account the mutability of the default argument.
 
