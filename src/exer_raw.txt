@@ -582,6 +582,8 @@ MW	Extend your clockwise and counterclockwise functions to deal with four diagon
 
 Title   Functions, parameters and arguments
 
+Text    When we called a function so far, we often simply passed values or variables in as arguments, but sometimes we used a different syntax, such as `sep='-'` in `print('apple', sep='-')`, known as a 'keyword argument'. We have also encountered the notion of a 'default value', on which a function falls back if a certain argument is omitted. This section clarifies such notions, and lets us practice with the different ways of defining and calling functions, which are surprisingly varied but also -- once you understand -- a systematic consequence of one or two simple rules. Along the way we will learn some facts about what functions _are_, and why in Python functions are considered 'first-class citizens'.
+
 MW  Define again the simple function `print_spam` we used in earlier sections (taking no arguments, simply printing `spam`). Explain (for instance using `type`) what the difference is between `print_spam` and `print_spam()`.
 MW	What happens if you assign a function to a variable, e.g., `shout_nonsense = print_spam`? Can you call the function using the new variable, instead of the original name?
 TP2	Write a function `do_twice` that takes a function `func` as a parameter and calls that function twice. Having done that, calling `do_twice(print_spam)` should execute `print_spam()` twice. What happens if, instead, you accidentally do `do_twice(print_spam())`? Why?
@@ -690,49 +692,89 @@ MW  In the previous section you defined `turn_clockwise` and `turn_counterclockw
 
 
 
-Title	More loops, and ways to break them (`for`, `while`, `break`)
+Title	Breaking out of loops (`break`, `while`)
 
-***Rephrase this section in terms of defining functions? Or add a comment about 'write a program' leaving unspecified whether it be a function or a separate file?
+Text    We have seen before that `return` can be used (inside a function) to escape a loop when some condition has been met. This is an important programming pattern to acquire. It results in cleaner code, and can benefit efficiency (e.g., in case a certain function containing a loop is executed millions of times, for each token in a large corpus). The exercises in this section let you practice with escaping loops. As you will see in this section, Python also has a more specialized tool for escaping loops: the `break` keyword. You will also get to know a new type of loop (`while`), which is especially suitable if you're not sure how long to loop for. You will learn that, when writing a loop, you should always consider: Do I know in advance over which elements I need to loop, or how often to repeat something? Do I need to look at all elements in all cases? Or can I take an early exit? Under what conditions?
 
-MW	Make sure `names` is still assigned the list of names from earlier: `['Alf', 'Beth', 'Chris', 'Dave', 'Esra']`. What does the `break` keyword do? Execute the following code and try to understand the output:\n```
+MW  What is wrong with the following function? Can you fix it? **Note:** For the sake of practice, in this and the following exercises, stick to the multi-line loop structure (e.g., don't use list comprehension, or Python's built-in `len` or `any`; the solutions will show such variants too though, which are ultimately preferable).\n```
+def has_any_odd(numbers):   # Note: The docstring is a lie.
+    """
+    Returns True if the list of numbers has any odd number; False otherwise.
+    """
+    for number in numbers:
+        if number % 2 == 1:
+            return True
+        else:
+            return False
+```
+MW	Write a function `has_any_vowel` that takes a _string_ as argument, and returns `True` if it contains at least one vowel, and `False` if it contains no vowels. Does your function ever inspect more list elements than necessary to reach a conclusion? If so, try to streamline your function.
+MW	Write a function `has_only_odd` that takes a list of integers as argument, and returns `True` if all numbers in the list are odd, and `False` otherwise.
+MW	Write a function `has_three_odd` that takes a list of integers as argument, and returns `True` if, and only if, at least three numbers in the list are odd.
+
+Note  Whereas `return` lets you escape from a function (hence also from any intervening loop), `break` is more specialized: it lets you escape only the immediately enclosing loop, nothing else. This means that `break` is in many cases more suitable than `return`; we will review some cases below, after some initial practice.
+
+MW  Execute the following code and try to understand the output:\n```
+names = ['Alf', 'Beth', 'Chris', 'Dave', 'Esra']
+
 for name in names:
-    if name[0] not in 'aeiou':
-        print('Found one!')
+    print('Checking:', name)
+    if name[0].lower() not in 'aeiou':
+        print('Got one!')       # Beth is the first consonant person, and the only printed name
         break
 ```
-MW	What happens if you use `break` in some other place in your code, not inside a loop?
-MW	How many names does this loop print:\n```
+MW	How many names do you expect this loop to print? Test your expectation.\n```
 for name in names:
     print(name)
     break
 ```
+MW	And this one?\n```
+for name in names:
+    break
+    print(name)
+```
 MW	Try to predict the output of the following program, then test your expectation:\n```
 for name in names:
-    if name[0] in 'aeiou':
+    if len(name) > 4:
         break
     print(name)
 ```
-Note	The keyword `break` lets you break out of a loop, which can be useful when some condition is met (e.g., some crucial element has been found) and there is no need to keep looping. (Recall that within a function definition, the `return` keyword can similarly let you break out of a loop.)
 
-MW	Can a single loop contain multiple `break` statements, e.g., in different if-clauses?
-MW	What does `break` do when placed in the inner loop of multiple nested loops (e.g., the clock examples from above)? Does it break out of _all_ the containing loops, or only the one that directly contains the `break` statement? Can you compare this to what a `return` statement in some function definition with nested loops would achieve instead?
-TP3	We want to know if a list contains any odd numbers. What are problems with the following code?\n```
-numbers = [10, 5, 24, 8, 6]
+Note    As mentioned, `break` can often be more suitable than `return` for escaping a loop. For one, `return` is only available inside a function (but most code should be organized in functions so that's not a real limitation). In addition, `return` is not suitable for escaping a loop if the function should still do some further processing _after_ escaping the loop (see next exercise), instead of return right away. Relatedly, if `return` occurs inside nested loops, it escapes _all_ enclosing loops at once, whereas `break` escapes only the directly enclosing loop. Some programmers take a more principled stance: `break` would be preferable in almost all cases because it results in cleaner code: while `break` was _designed_ for breaking out of loops -- it wears its purpose on its sleeve -- in the case of `return` escaping from a loop feels more like a side effect.
 
-for number in numbers:
-    if number % 2 == 1:
-        print(True)
-        break
+MW  Write a function `print_until_vowel` that takes a list of strings, and prints all strings until one is encountered that begins with a vowel, in which case it should break out of the loop and end by printing `Done!` (the latter makes `break` more suitable than `return` in this case).
+MW  To practice with 'default arguments' from an earlier section: give your function `print_until_vowel` a boolean parameter `inclusive`, with `True` as a default value. If this parameter is set to True, the string that begins with a vowel should also itself be printed; if it is set to False, only the strings that precede it should be printed.
+MW  Write code with nested loops to illustrate one of the differences between `return` and `break` mentioned above: that `return` escapes all enclosing loops, whereas `break` escapes only the directly enclosing loop.
+MW	What happens if you use `break` in some other place in your code, not inside a loop?
+MW  What is wrong with the following code (analogous to the example with `return` above)? Can you fix it? (Maintaining the printout of 'Zero odd numbers here!' in the negative case can be a bit tricky.)\n```
+def print_if_has_any_odd(numbers):
+    for number in numbers:
+        if number % 2 == 1:
+            print('It has an odd number!')
+            break
+        else:
+            print('Zero odd numbers here!')
+            break
+    print('Done!')    # this final command is mainly why we use break to escape the loop, not return
+```
+MW  Fixing the preceding code is easier if you know that `for` clauses can actually be combined with an `else` clause, just like `if` can. Notice the indentation in the following code, ensuring that the `else` belongs with the `for`, not with the `if`. Does the following function work correctly?\n```
+def has_any_odd3(number)
+    for number in numbers:
+        if number % 2 == 1:
+            print('It has an odd number!')
+            break
     else:
-        print(False)
-        break
+        print('Zero odd numbers here!')
 ```
 
-Note	When writing a loop, always consider: Do I need to look at all elements in all cases? Can I shortcut and take an early exit? Under what conditions? And under what conditions will I have to examine all the items in the list?
+Note    Similar to if-clauses, for-loops can have an `else`-clause too. The else-clause of a for-loop is executed only if the for-loop finishes _without_ any `break`. Typically (but not always) `break` represents that some target element, that meets some criterion, has been found (e.g., the first odd number, the third name that begins with a vowel...). Therefore, you can often read the `else`-clause of a for-loop as "if no such element was found...". (If you pronounce it simply as 'else', it can be confusing.)
 
-MW	Write a function `has_any_odd` that takes a _list_ of integers as argument, and returns `True` if it contains at least one odd number, and `False` if it contains no odd numbers. Does your function ever inspect more list elements than necessary to reach a conclusion? If so, try to streamline your function; note that return statements can be placed inside a loop, and a function can have multiple return statements.
-MW	Write a function `has_only_odd` that takes a list of integers as argument, and returns `True` if all numbers in the list are odd, and `False` otherwise. Again try to streamline your result.
-MW	Write a function `has_three_odd` that takes a list of integers as argument, and returns `True` if, and only if, at least three numbers in the list are odd.
+MW	Can a single loop contain multiple `break` statements, e.g., in different if-clauses? Can you think of an (imaginary) use-case where one might need this?
+MW  A rich client needs four functions, that each take a nested _list of lists_ of numbers as parameter and return a boolean. One checks if each inner list contains an (any) odd number (return True if so, False otherwise). The second checks if each inner list contains _only_ odd numbers. The third checks if _some_ (any) inner list contains an odd number. The fourth checks if some inner list contains _only_ odd numbers. Implement a first version of these functions, where each function is self-contained and does _not_ rely on auxiliary functions (e.g., `has_any_odd` from before). Each function will, therefore, contain nested loops.
+MW  Our client cares a lot of about efficiency (but insists on using Python). Do all of your loops escape early where possible?
+MW  Our client also cares a lot about clean code, and hates repetition. Implement a second version of the four functions where each contains only a single (non-nested) loop, within which some auxiliary function is called that does the rest (e.g., `has_any_odd` from before, and you may need to define another).
+
+***Revised down to here.
+
 
 MW	The `while` keyword lets you loop in a way that is different from for-loops. Run the following and make sure you understand what's happening. As before, try to break it in various ways.\n```
 counter = 0
@@ -740,33 +782,61 @@ while counter < 10:
     print(counter)
     counter += 1
 ```
+MW  Write a program that does the same, but using a `for`-loop instead of the `while`-loop above (this is not just a matter of replacing the keyword; more things have to change).
+
+Note	For the above use-case, where you know in advance how often to repeat something, for-loops are normally the way to go. But **while-loops** can be convenient if you don't quite know how long to loop, e.g., until some unpredictable condition is met, such as a particular user input. We will see some examples of this.
+
 MW	If a program keeps on running, do you know how to intervene to stop it? This is often the keyboard shortcut `ctrl`+`c` or `cmd`+`c`, but your IDE may also offer a stop button (e.g., red square).
-MW	In the above while-loop, replace the condition (`counter < 10`) simply by `True`. What do you expect will happen? Do you understand the importance of the previous question?
-MW	Redo some of the exercises above by using a `while` loop instead of a `for` loop. For instance, use a `while` loop to sum up all the even numbers in a list; to concatenate all words in the list `words`; or to determine if a list contains at least one odd number.
-P4E	Write a while loop that starts at the last character in the string and works its way backwards to the first character in the string, printing each letter on a separate line, except backwards.
-MW	Write a program with a while-loop that repeatedly takes a string from the user, and simply repeats it back to you _unless_ it contains a profanity, in that case it remains silent. You can get creative (and naughty), or find lists of profanities on the web. (Further below we will learn how to read such words from a separate file, so you don't need to copy them into your program.) If you enter more than 5 profanities, the program should say _I've had enough of this_ and change the value of a boolean such that the while-loop stops.
+MW	In the above while-loop, replace the condition (`counter < 10`) simply by `True`. What do you expect will happen? Do you see the importance of the previous exercise?
 
-Note	Often for-loops are the way to go; but while-loops can be convenient if you don't quite know how long to loop, e.g., until some unpredictable condition is met, such as a particular user input.
+***Add exercise to introduce the idea of setting a boolean check inside the while loop. Sentinel? Or break?
 
-MW	Write an infinite loop that prints prime numbers. Periodically ask the user if they want to continue, and if not, make sure the loop stops. Implement one version where the loop stops because a boolean is changed; another version where the loop stops by using `break`.
 P4E	Write a function that repeatedly gets numbers from the user (using the `input` function), until the user enters _done_. Once _done_ is entered, print out the total, count, and average of the numbers. If the user enters anything other than a number, print an error message and skip to the next number.
-TP3	Write a number guessing game. Start your program with `import random` and then `number = random.randrange(1,100)`. What does this do? (We will learn more about `import` later.) Now write a loop where the user is asked to guess that number. Upon each guess, the program prints whether it is too high or too low, or, if the guess is exactly right, exit the loop and print _Congratulations! You won in [n] guesses!_ where _n_ is the number of guesses.
-MW	Modify the guessing game: if the player guesses correctly, after congratulating them, ask the player if they want to play again, and if so, sample a new random number and start over. After each game, give the player some additional feedback: were they faster or slower than the average of previous rounds?
-MW	Write a loop that prints floats between 0 and 1000, in increments of (approximately) pi.
-MW	Write a program that repeatedly asks for user input; it ignores all user input except the string _knock_. Only if the user writes _knock_ three times in a row (as three separate inputs), the program should print _Go away!_ Does the program behave as required if you enter _knock_ twice, then something else, then _knock_ a third time?
 
-MW	In the Python console enter `import keyword` and then print `keyword.kwlist`. For which of these keywords do you already know some purpose?
-***Maybe also print __builtins__?
 
-MW	Your editor may be smart enough to highlight violations of 'Python style', adherence to which will enhance the readability of your code (in addition to docstrings and self-documenting code). The style guides are kept in the eigth _Python Enhancement Proposal_, PEP8 (https://www.python.org/dev/peps/pep-0008/). Have a look at it, and go through some of your previous code to make it PEP8-compliant if needed.
+MW	Write an infinite loop that prints the next prime number each time the user hits enter (you can use `input()` for this).
+TP3	Write a number guessing game. Start your program with `import random`. Now write a loop containing `number = random.randrange(1,100)` (what does it do?) and ask the user to guess that number. Upon each guess, the program prints whether it is too high or too low, or, if the guess is exactly right, exit the loop and print _Congratulations! You won in [n] guesses!_ where _n_ is the number of guesses.
+MW	Modify the guessing game: if the player guesses correctly, after congratulating them, ask the player if they want to play again, and if so, sample a new random number and start over. After each game, give the player some additional feedback: did they use more or fewer turns than the average of previous rounds (within the same session)?
+MW	Write a program with a while-loop that repeatedly takes a string from the user, and simply repeats it back to you _unless_ it contains a profanity, in that case it remains silent. You can get creative (and naughty), or find lists of profanities on the web. (Further below we will learn how to read such words from a separate file, so you don't need to copy them into your program.) If you enter more than 5 profanities, the program should say _I've had enough of this_ and change the value of a boolean such that the while-loop stops.
+MW	Write a program that repeatedly asks for user input; it ignores all user input except the string _knock_. Only if the user writes _knock_ three times in a row (as three separate inputs), the program should print _Go away!_ Note: if you enter _knock_ twice, then something else, then _knock_ a third time, nothing should happen; the three knocks should be consecutive.
 
-Note	Initially created and long-term maintained by Guido van Rossum, Python is a very open, community-driven programming language. It has come to be the way it is with the help of **Python Enhancement Proposals** or PEPs (https://www.python.org/dev/peps/). **PEP8** is Python's style guide (https://www.python.org/dev/peps/pep-0008/).
 
-***P4E	Can you predict what happens if you enter `AAAARGH I hate Python!` in the interpreter? And what if you surround it by quotation marks?
-MW	Every aspect of the Python language has been carefully designed, even though you (and I) may not always understand the reason at the present moment. Should you find yourself frustrated with Python, just enter `import this` in the interpreter and feel your calm returning. (The keyword `import` will be explained later.) The result is an easter egg based on PEP20, that captures some of Python's design principles in poetic form.
+MW  Besides `break` (and to some extent `return`), another keyword that helps you control your loops is `continue`. It lets you skip an element. Can you predict what the following code prints? Test your prediction and verify your understanding.\n```
+for i in range(100):
+    if i % 2 == 0 or i % 5 == 0:
+        continue
+    print(i)
+```
+MW  What `continue` achieves can also be done with an if-clause alone, without `continue`. Show this by duplicating and then modifying the above example.
+MW  Despite the foregoing, sometimes `continue` is considered preferable to a plain if-clause. A typical use case is to filter out cases that don't need to be processed, right at the start of the body of a for-loop. This is particularly desirable if the body of your loop is substantial. Compare program 1 and 2 in the code below (verify that the result is the same). In Program 1 the body is more deeply nested (under the if-clause), which means more stuff to keep in working memory as you try to understand the code. In Program 2, the body is less deeply nested, and `continue` directly, transparently signals that certain cases can simply be ignored, which is easier on our working memory.\n```
+# Program 1, not using continue:
+for i in range(1000):
+    if i % 3 == 0:
+        print(i)
+        ... # imagine a substantial program here
+
+# Program 2, using continue:
+for i in range(1000):
+    if i % 3 != 0:
+        continue
+
+    print(i)
+    ... # substantial program is now not as deeply nested
+```
+MW  Use `continue` to define a function that takes a list of strings and loops over it. Inside the loop it should ignore (with `continue`) strings that have an even number of consonants, and for those strings which it does not ignore, inverts them and appends them to a new list, which is returned in the end.
+MW	In the Python console enter `import keyword` and then print `keyword.kwlist` (we will learn the details of `import` later). For which of these keywords do you already know some purpose?
+
+Note    **Keywords** are core language constructs handled by the syntactic parser before Python code is interpreted. Keywords are _reserved_ and cannot be used as ordinary variables, e.g., reassigned new values. **Built-ins** are commonly used, preloaded functions (e.g., `print`, `round`), constants (e.g., `__name__`, in which Python stores a name for the current script), classes (e.g., `list`, but also various error classes such as `TypeError` -- if you encounter a TypeError, it is an instance of this class).
+
+MW  Test that keywords are indeed special, reserved expressions, by showing that trying to assign something to a keyword leads to an error.
+MW  Built-in objects can be found in `__builtins__`. Verify with `type` that `__builtins__` is a _dictionary_, about which we learn in the next section. If you call `print('apple')`, this is essentially shorthand for looking up `'print'` in the dictionary and calling it: `__builtins__['print']('apple')`. For an overview of `__builtins__` it is convenient to convert it to a list: `print(list(__builtins__))`. For which of the built-ins do you already know some purpose?
+MW  Unlike keywords, built-ins are assigned to ordinary variables, hence these can be reassigned new values. Try this in the console: enter `print = 'bla'`, and subsequently try to print something, like `print('apple')`. Overriding builtins like this is not a good idea. (Consider restarting the console to prevent confusing your future self.)
+MW  Try to review the past section from memory: which new keywords did you learn, and what are their uses compared to the tools you already acquired before?
 
 
 Title	Dictionaries
+
+***Todo: Text   introduction
 
 ***Maybe introduce del (also for lists, but rarely used)
 ***tuple syntax, e.g.,  a = 3 + 4,  error.
@@ -783,7 +853,7 @@ MW	Similar to assigning a value to a particular index in the list (e.g., `names[
 MW	Oops, the `name_to_id` dictionary contains the wrong ID for Chris! It should be `5987162`, please correct it.
 MW	What happens if you try to define a dictionary in which the same string appears as a key twice? What happens if you define a dictionary in which the same string is both a key and a value?
 MW	What happens if you define a dictionary (like `{'Alf': '36124', 'Beth': '008623'}`) but using `=` instead of the colons `:`? What happens if you update a dictionary via assignment (`name_to_id['Suzy'] = '124987`) but use a colon `:` instead of equals `=`?
-MW	Are the keys in a dictionary case-sensitive?
+MW	Do you expect the keys in a dictionary to be case-sensitive? Test this.
 MW  Is a dictionary mutable like a list, or immutable like integers and strings? Illustrate with code.
 MW	Both keys and values in a dictionary can be be integers, strings, or other objects (though the keys cannot be _mutable_, or more precisely they need to be _hashable_, which can remain a mystery for now). Give an argument why in this case the student IDs should be represented as strings, not as integers.
 MW	Can you loop over a dictionary with the same syntax as looping over a list? Try to loop over the dictionary `name_to_id` from above, printing each element. Which elements get printed, the keys, the values, or both?
@@ -1031,7 +1101,12 @@ MW	How robust is your previous program? What happens if the original list of nam
 
 Title   Clearer, self-documenting code
 
-MW	So far you have been documenting your code in at least two ways: by adding docstrings to your functions, and by adding comments like `# Ex 5.23` above the code written for a particular exercise. That's great! Perhaps you have been adding many additional `#`-comments to your code to explain particular lines, as illustrated below. However, often such comments can be made unnecessary by choosing more meaningful variable names, making the code more __self-documenting__. Can you change the variable name in the following snippet to make the following code self-documenting, so the `#`-comment can be deleted?\n```
+MW	Your editor may be smart enough to highlight violations of 'Python style', adherence to which will enhance the readability of your code (in addition to docstrings and self-documenting code). The style guides are kept in the eighth _Python Enhancement Proposal_, PEP8 (https://www.python.org/dev/peps/pep-0008/). Have a look at it, and go through some of your previous code to make it PEP8-compliant if needed.
+
+Note	Initially created and long-term maintained by Guido van Rossum, Python is a very open, community-driven programming language. It has come to be the way it is with the help of **Python Enhancement Proposals** or PEPs (https://www.python.org/dev/peps/). **PEP8** is Python's style guide (https://www.python.org/dev/peps/pep-0008/).
+
+MW	Every aspect of the Python language has been purposefully designed, even though we may not always understand the purpose. Should you find yourself frustrated with Python, just enter `import this` in the interpreter and feel your calm returning. (The keyword `import` will be explained later.) The result is an easter egg based on PEP20, that captures some of Python's design principles in poetic form.
+MW	Besides style, documenting your code matters. So far you have been documenting your code in at least two ways: by adding docstrings to your functions, and by adding hashtag-comments to explain specific lines, as also illustrated below. However, often such comments can be made unnecessary by choosing more meaningful variable names, making the code more __self-documenting__. Can you change the variable name in the following snippet to make the following code self-documenting, so the `#`-comment can be deleted?\n```
 d = {}  # create an empty dictionary that will contain word counts
 ```
 MW	Make the following code self-documenting by both changing variable names and restructuring the for-loop (avoid the need for `range` and `i`):\n```
