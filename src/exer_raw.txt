@@ -582,6 +582,8 @@ MW	Extend your clockwise and counterclockwise functions to deal with four diagon
 
 Title   Functions, parameters and arguments
 
+***TODO Maybe tweak the intro, it's pretty important.
+
 Text    When we called a function so far, we often simply passed values or variables in as arguments, but sometimes we used a different syntax, such as `sep='-'` in `print('apple', sep='-')`, known as a 'keyword argument'. We have also encountered the notion of a 'default value', on which a function falls back if a certain argument is omitted. This section clarifies such notions, and lets us practice with the different ways of defining and calling functions, which are surprisingly varied but also -- once you understand -- a systematic consequence of one or two simple rules. Along the way we will learn some facts about what functions _are_, and why in Python functions are considered 'first-class citizens'.
 
 MW  Define again the simple function `print_spam` we used in earlier sections (taking no arguments, simply printing `spam`). Explain (for instance using `type`) what the difference is between `print_spam` and `print_spam()`.
@@ -596,6 +598,14 @@ MW  Generalize the previous functions to `do_multiple` and `do_multiple_with_arg
 MW  As objects, functions carry some information along with them, such as the `__doc__` attribute containing the function's docstring (shown when `help` is called on the function, as we did earlier), and `__name__` storing the function's name. Try `print(print_spam.__name__)`. (Can you explain what happens if you do `print(print_spam().__name__)` instead?)
 MW  What happens to the `__name__` attribute of a function if you assign a function to a new variable, and retrieve the `__name__` property from that new variable?
 MW  Function objects also offer various methods (similar to strings having methods like `upper` and `capitalize`, and lists having `append` and `index`). Calling a function like `print('apple')` is in fact shorthand for invoking the `__call__` method of the function object, i.e., `print.__call__('apple')`. Verify that this is the case, and also test it for a couple of functions you yourself defined.
+
+***TODO Improve the following:
+MW  When calling a function, values that are passed as arguments get _assigned_ to the variables specified in the function definition header, or parameters, before the body of the function definition is executed. This is why, inside a function definition, the parameter from the definition header functions like an ordinary variable, as illustrated below. Can you also (in the function's body) reassign a different value to the function's parameter?\n```
+def example_function(example_variable):
+    print(example_variable)    # the variable is now assigned a value
+
+example_function('hello')
+```
 
 Note    It may seem like we use 'argument' and 'parameter' interchangeably, but there is a subtle difference. When you _define_ a function, you specify its **parameters** in the header of the `def`-clause. When you _call_ a function, you can provide it with **arguments**. The called function will use the provided arguments as values for its parameters. This requires that Python is able to match each argument (of the function call) with the correct parameter (in the function definition) -- otherwise it isn't clear what your function call is requesting. The following exercises teach you more about how Python decides which arguments are used to set which parameters.
 
@@ -616,13 +626,15 @@ print_diff(5, b=2)
 print_diff(2, a=5)
 ```
 MW  Although positional and keyword arguments can be mixed, no positional argument can _follow_ a keyword argument. Try `print_diff(a=5, 2)` to see what error you get. Here is an intuitive explanation: argument order (for positional arguments) is determined by counting left-to-right, so if a keyword argument indicates 'order doesn't matter here', then the order of any arguments to the right of it cannot be relied upon either, hence any arguments to the right of it must also be given as keyword arguments.
+
+
 MW  Although typically one can choose whether to call a function with positional or keyword arguments or both, sometimes programmers may decide that certain (or even all) arguments _must_ be passed as keyword arguments. This is the case, for instance, for functions that permit any number of positional arguments, such as the built-in function `print`, e.g., `print('apple', 'pear', 'banana')` prints all three. Explain why it follows from this feature of `print`, that the additional `sep` and `end` parameters of `print` must _always_ be given as keyword arguments, by considering what happens if you don't:\n```
 print('apple', 'pear', 'banana', sep='-', end='.')
 print()  # print newline for clarity
 print('apple', 'pear', 'banana', '-', '.')
 ```
 MW  Another reason why programmers sometimes choose to enforce the use of keyword arguments is _explicitness_. For instance, in the Seaborn library for creating plots, all parameters of a function like `scatterplot` must be specified with keyword arguments (e.g., `scatterplot(data=tweets, x='date', y='sentiment')`). Explain in what sense keyword arguments are more explicit than positional arguments.
-MW  For the sake of completeness, the way to let functions take any number of positional arguments (like `print`) and/or enforce the use of keywords for explicitness (like `scatterplot`), is through the use of an asterisked parameter `*` in the function definition header, which essentially 'eats up' any positional arguments given when the function is called; as a consequence, any parameters occurring after the asterisked parameter _must_ be specified with keywords. Try the following to better understand this:\n```
+MW  For the sake of completeness, the way to let functions take any number of positional arguments (like `print`) and/or enforce the use of keywords for explicitness (like `scatterplot`), is through the use of an asterisked parameter `*` in the function definition header, which essentially 'eats up' any positional arguments given when the function is called; as a consequence (consider why this follows), any parameters occurring after the asterisked parameter cannot be positional, hence _must_ be specified with keywords. Try the following to better understand this:\n```
 def some_weird_function(*a, b, c):
     print('a:', a)
     print('b:', b)
@@ -635,8 +647,10 @@ some_weird_function(1, 2, 3, 4, b=5, c=6)   # this also works fine
 MW  Reflect on the role of the asterisk in the definition of the built-in `print` function:\n```
 def print(*objects, sep=' ', end='\n', file=sys.stdout, flush=False):
 ```
+MW  The syntax `parameter=value` is used in function calls to pass values to the function as keyword arguments. Does it follow that the same syntax in the above definition of `print`, used for the arguments `end`, `file` and `flush`, are keyword arguments too?
 
-Note  When you _define_ a function, you can specify **default values** for some or all of the parameters, using `parameter=value` syntax in the header of the function definition (not to be confused with the same `parameter=value` syntax used when _calling_ a function to specify keyword arguments!). Parameters with default values can be omitted from the function call, in which case the default value is used.
+
+Note  When you _define_ a function, you can specify **default values** for some or all of the parameters, using `parameter=value` syntax in the header of the function definition (not to be confused with the same `parameter=value` syntax used when _calling_ a function, to specify keyword arguments!). Parameters with default values can be omitted from the function call, in which case the default value is used.
 
 MW  Explain how the foregoing is illustrated by the following code:\n```
 def multiply_and_add(a, b, c=1):
@@ -692,202 +706,9 @@ MW  In the previous section you defined `turn_clockwise` and `turn_counterclockw
 
 
 
-Title	Breaking out of loops (`break`, `while`)
-
-Text    We have seen before that `return` can be used (inside a function) to escape a loop when some condition has been met. This is an important programming pattern to acquire. It results in cleaner code, and can benefit efficiency (e.g., in case a certain function containing a loop is executed millions of times, for each token in a large corpus). The exercises in this section let you practice with escaping loops. As you will see in this section, Python also has a more specialized tool for escaping loops: the `break` keyword. You will also get to know a new type of loop (`while`), which is especially suitable if you're not sure how long to loop for. You will learn that, when writing a loop, you should always consider: Do I know in advance over which elements I need to loop, or how often to repeat something? Do I need to look at all elements in all cases? Or can I take an early exit? Under what conditions?
-
-MW  What is wrong with the following function? Can you fix it? **Note:** For the sake of practice, in this and the following exercises, stick to the multi-line loop structure (e.g., don't use list comprehension, or Python's built-in `len` or `any`; the solutions will show such variants too though, which are ultimately preferable).\n```
-def has_any_odd(numbers):   # Note: The docstring is a lie.
-    """
-    Returns True if the list of numbers has any odd number; False otherwise.
-    """
-    for number in numbers:
-        if number % 2 == 1:
-            return True
-        else:
-            return False
-```
-MW	Write a function `has_any_vowel` that takes a _string_ as argument, and returns `True` if it contains at least one vowel, and `False` if it contains no vowels. Does your function ever inspect more list elements than necessary to reach a conclusion? If so, try to streamline your function.
-MW	Write a function `has_only_odd` that takes a list of integers as argument, and returns `True` if all numbers in the list are odd, and `False` otherwise.
-MW	Write a function `has_three_odd` that takes a list of integers as argument, and returns `True` if, and only if, at least three numbers in the list are odd.
-
-Note  Whereas `return` lets you escape from a function (hence also from any intervening loop), `break` is more specialized: it lets you escape only the immediately enclosing loop, nothing else. This means that `break` is in many cases more suitable than `return`; we will review some cases below, after some initial practice.
-
-MW  Execute the following code and try to understand the output:\n```
-names = ['Alf', 'Beth', 'Chris', 'Dave', 'Esra']
-
-for name in names:
-    print('Checking:', name)
-    if name[0].lower() not in 'aeiou':
-        print('Got one!')       # Beth is the first consonant person, and the only printed name
-        break
-```
-MW	How many names do you expect this loop to print? Test your expectation.\n```
-for name in names:
-    print(name)
-    break
-```
-MW	And this one?\n```
-for name in names:
-    break
-    print(name)
-```
-MW	Try to predict the output of the following program, then test your expectation:\n```
-for name in names:
-    if len(name) > 4:
-        break
-    print(name)
-```
-
-Note    As mentioned, `break` can often be more suitable than `return` for escaping a loop. For one, `return` is only available inside a function (but most code should be organized in functions so that's not a real limitation). In addition, `return` is not suitable for escaping a loop if the function should still do some further processing _after_ escaping the loop (see next exercise), instead of return right away. Relatedly, if `return` occurs inside nested loops, it escapes _all_ enclosing loops at once, whereas `break` escapes only the directly enclosing loop. Some programmers take a more principled stance: `break` would be preferable in almost all cases because it results in cleaner code: while `break` was _designed_ for breaking out of loops -- it wears its purpose on its sleeve -- in the case of `return` escaping from a loop feels more like a side effect.
-
-MW  Write a function `print_until_vowel` that takes a list of strings, and prints all strings until one is encountered that begins with a vowel, in which case it should break out of the loop and end by printing `Done!` (the latter makes `break` more suitable than `return` in this case).
-MW  To practice with 'default arguments' from an earlier section: give your function `print_until_vowel` a boolean parameter `inclusive`, with `True` as a default value. If this parameter is set to True, the string that begins with a vowel should also itself be printed; if it is set to False, only the strings that precede it should be printed.
-MW  Write code with nested loops to illustrate one of the differences between `return` and `break` mentioned above: that `return` escapes all enclosing loops, whereas `break` escapes only the directly enclosing loop.
-MW	What happens if you use `break` in some other place in your code, not inside a loop?
-MW  What is wrong with the following code (analogous to the example with `return` above)? Can you fix it? (Maintaining the printout of 'Zero odd numbers here!' in the negative case can be a bit tricky.)\n```
-def print_if_has_any_odd(numbers):
-    for number in numbers:
-        if number % 2 == 1:
-            print('It has an odd number!')
-            break
-        else:
-            print('Zero odd numbers here!')
-            break
-    print('Done!')    # this final command is mainly why we use break to escape the loop, not return
-```
-MW  Fixing the preceding code is easier if you know that `for` clauses can actually be combined with an `else` clause, just like `if` can. Notice the indentation in the following code, ensuring that the `else` belongs with the `for`, not with the `if`. Does the following function work correctly?\n```
-def has_any_odd3(number)
-    for number in numbers:
-        if number % 2 == 1:
-            print('It has an odd number!')
-            break
-    else:
-        print('Zero odd numbers here!')
-```
-
-Note    Similar to if-clauses, for-loops can have an `else`-clause too. The else-clause of a for-loop is executed only if the for-loop finishes _without_ any `break`. Typically (but not always) `break` represents that some target element, that meets some criterion, has been found (e.g., the first odd number, the third name that begins with a vowel...). Therefore, you can often read the `else`-clause of a for-loop as "if no such element was found...". (If you pronounce it simply as 'else', it can be confusing.)
-
-MW	Can a single loop contain multiple `break` statements, e.g., in different if-clauses? Can you think of an (imaginary) use-case where one might need this?
-MW  A rich client needs four functions, that each take a nested _list of lists_ of numbers as parameter and return a boolean. One checks if each inner list contains an (any) odd number (return True if so, False otherwise). The second checks if each inner list contains _only_ odd numbers. The third checks if _some_ (any) inner list contains an odd number. The fourth checks if some inner list contains _only_ odd numbers. Implement a first version of these functions, where each function is self-contained and does _not_ rely on auxiliary functions (e.g., `has_any_odd` from before). Each function will, therefore, contain nested loops.
-MW  Our client cares a lot of about efficiency (but insists on using Python). Do all of your loops escape early where possible?
-MW  Our client also cares a lot about clean code, and hates repetition. Implement a second version of the four functions where each contains only a single (non-nested) loop, within which some auxiliary function is called that does the rest (e.g., `has_any_odd` from before, and you may need to define another).
-
-***Revised down to here.
-
-
-MW	The `while` keyword lets you loop in a way that is different from for-loops. Run the following and make sure you understand what's happening. As before, try to break it in various ways.\n```
-counter = 0
-while counter < 10:
-    print(counter)
-    counter += 1
-```
-MW  Write a program that does the same, but using a `for`-loop instead of the `while`-loop above (this is not just a matter of replacing the keyword; more things have to change).
-
-Note	For the above use-case, where you know in advance how often to repeat something, for-loops are normally the way to go. But **while-loops** can be convenient if you don't quite know how long to loop, e.g., until some unpredictable condition is met, such as a particular user input. We will see some examples of this.
-
-MW	If a program keeps on running, do you know how to intervene to stop it? This is often the keyboard shortcut `ctrl`+`c` or `cmd`+`c`, but your IDE may also offer a stop button (e.g., red square).
-MW	In the above while-loop, replace the condition (`counter < 10`) simply by `True`. What do you expect will happen? Do you see the importance of the previous exercise?
-
-***Add exercise to introduce the idea of setting a boolean check inside the while loop. Sentinel? Or break?
-
-P4E	Write a function that repeatedly gets numbers from the user (using the `input` function), until the user enters _done_. Once _done_ is entered, print out the total, count, and average of the numbers. If the user enters anything other than a number, print an error message and skip to the next number.
-
-
-MW	Write an infinite loop that prints the next prime number each time the user hits enter (you can use `input()` for this).
-TP3	Write a number guessing game. Start your program with `import random`. Now write a loop containing `number = random.randrange(1,100)` (what does it do?) and ask the user to guess that number. Upon each guess, the program prints whether it is too high or too low, or, if the guess is exactly right, exit the loop and print _Congratulations! You won in [n] guesses!_ where _n_ is the number of guesses.
-MW	Modify the guessing game: if the player guesses correctly, after congratulating them, ask the player if they want to play again, and if so, sample a new random number and start over. After each game, give the player some additional feedback: did they use more or fewer turns than the average of previous rounds (within the same session)?
-MW	Write a program with a while-loop that repeatedly takes a string from the user, and simply repeats it back to you _unless_ it contains a profanity, in that case it remains silent. You can get creative (and naughty), or find lists of profanities on the web. (Further below we will learn how to read such words from a separate file, so you don't need to copy them into your program.) If you enter more than 5 profanities, the program should say _I've had enough of this_ and change the value of a boolean such that the while-loop stops.
-MW	Write a program that repeatedly asks for user input; it ignores all user input except the string _knock_. Only if the user writes _knock_ three times in a row (as three separate inputs), the program should print _Go away!_ Note: if you enter _knock_ twice, then something else, then _knock_ a third time, nothing should happen; the three knocks should be consecutive.
-
-
-MW  Besides `break` (and to some extent `return`), another keyword that helps you control your loops is `continue`. It lets you skip an element. Can you predict what the following code prints? Test your prediction and verify your understanding.\n```
-for i in range(100):
-    if i % 2 == 0 or i % 5 == 0:
-        continue
-    print(i)
-```
-MW  What `continue` achieves can also be done with an if-clause alone, without `continue`. Show this by duplicating and then modifying the above example.
-MW  Despite the foregoing, sometimes `continue` is considered preferable to a plain if-clause. A typical use case is to filter out cases that don't need to be processed, right at the start of the body of a for-loop. This is particularly desirable if the body of your loop is substantial. Compare program 1 and 2 in the code below (verify that the result is the same). In Program 1 the body is more deeply nested (under the if-clause), which means more stuff to keep in working memory as you try to understand the code. In Program 2, the body is less deeply nested, and `continue` directly, transparently signals that certain cases can simply be ignored, which is easier on our working memory.\n```
-# Program 1, not using continue:
-for i in range(1000):
-    if i % 3 == 0:
-        print(i)
-        ... # imagine a substantial program here
-
-# Program 2, using continue:
-for i in range(1000):
-    if i % 3 != 0:
-        continue
-
-    print(i)
-    ... # substantial program is now not as deeply nested
-```
-MW  Use `continue` to define a function that takes a list of strings and loops over it. Inside the loop it should ignore (with `continue`) strings that have an even number of consonants, and for those strings which it does not ignore, inverts them and appends them to a new list, which is returned in the end.
-MW	In the Python console enter `import keyword` and then print `keyword.kwlist` (we will learn the details of `import` later). For which of these keywords do you already know some purpose?
-
-Note    **Keywords** are core language constructs handled by the syntactic parser before Python code is interpreted. Keywords are _reserved_ and cannot be used as ordinary variables, e.g., reassigned new values. **Built-ins** are commonly used, preloaded functions (e.g., `print`, `round`), constants (e.g., `__name__`, in which Python stores a name for the current script), classes (e.g., `list`, but also various error classes such as `TypeError` -- if you encounter a TypeError, it is an instance of this class).
-
-MW  Test that keywords are indeed special, reserved expressions, by showing that trying to assign something to a keyword leads to an error.
-MW  Built-in objects can be found in `__builtins__`. Verify with `type` that `__builtins__` is a _dictionary_, about which we learn in the next section. If you call `print('apple')`, this is essentially shorthand for looking up `'print'` in the dictionary and calling it: `__builtins__['print']('apple')`. For an overview of `__builtins__` it is convenient to convert it to a list: `print(list(__builtins__))`. For which of the built-ins do you already know some purpose?
-MW  Unlike keywords, built-ins are assigned to ordinary variables, hence these can be reassigned new values. Try this in the console: enter `print = 'bla'`, and subsequently try to print something, like `print('apple')`. Overriding builtins like this is not a good idea. (Consider restarting the console to prevent confusing your future self.)
-MW  Try to review the past section from memory: which new keywords did you learn, and what are their uses compared to the tools you already acquired before?
-
-
-Title	Dictionaries
-
-***Todo: Text   introduction
-
-***Maybe introduce del (also for lists, but rarely used)
-***tuple syntax, e.g.,  a = 3 + 4,  error.
-
-MW	Let us construct `name_to_id`, a mapping or _dictionary_ from fictional student names (the keys) to student IDs (the values):\n```
-name_to_id = {'Alf': '136124', 'Beth': '008623', 'Chris': '014212', 'Dave': '9123785', 'Esra': '978123'}
-```
-MW	You can look up a particular value in the dictionary by providing it with a key in square brackets (like list index notation). Look up the student IDs (values) of Alf and Chris (keys).
-MW	What happens if you try to look up the student ID (value) of a student whose name is not a key in the dictionary?
-MW  What happens if you try to treat the dictionary like a list, and select, e.g., the third item (i.e., index 2) by doing `name_to_id[2]`?
-MW	What happens when you try to define a dictionary with strings as keys, but you forget quotation marks around the strings?
-MW	Does a dictionary have a length, just like lists and strings? Can you create an empty dictionary? What is the `type` of a dictionary?
-MW	Similar to assigning a value to a particular index in the list (e.g., `names[3] = 'Bert'`), you can assign a value to a particular key in the dictionary (e.g., `name_to_id['Suzy'] = '124987'). What happens if the key to which you assign a value already exists in the dictionary? What happens if it does not yet exist in the dictionary?
-MW	Oops, the `name_to_id` dictionary contains the wrong ID for Chris! It should be `5987162`, please correct it.
-MW	What happens if you try to define a dictionary in which the same string appears as a key twice? What happens if you define a dictionary in which the same string is both a key and a value?
-MW	What happens if you define a dictionary (like `{'Alf': '36124', 'Beth': '008623'}`) but using `=` instead of the colons `:`? What happens if you update a dictionary via assignment (`name_to_id['Suzy'] = '124987`) but use a colon `:` instead of equals `=`?
-MW	Do you expect the keys in a dictionary to be case-sensitive? Test this.
-MW  Is a dictionary mutable like a list, or immutable like integers and strings? Illustrate with code.
-MW	Both keys and values in a dictionary can be be integers, strings, or other objects (though the keys cannot be _mutable_, or more precisely they need to be _hashable_, which can remain a mystery for now). Give an argument why in this case the student IDs should be represented as strings, not as integers.
-MW	Can you loop over a dictionary with the same syntax as looping over a list? Try to loop over the dictionary `name_to_id` from above, printing each element. Which elements get printed, the keys, the values, or both?
-MW	There are three other ways of looping over a dictionary. In the above code, replace the occurrence of `name_to_id` in the header of the for-clause by `name_to_id.keys()`, `name_to_id.values()` and `name_to_id.items()`, and see what happens in each case.
-MW	If you loop over `name_to_id.items()`, note that what gets printed are _pairs_ of a key and a value. Earlier we saw that `enumerate` likewise creates pairs (of an integer count and a list element), and that this pair can be 'unpacked' into two separate variables in the for-header: `for i, name in enumerate(names)`. Similarly, try `for key, value in name_to_id.items()`, and print the key and value separately.
-MW	Construct another dictionary `name_to_id2` with a bunch of fictional names and IDs different from those in the original `name_to_id`. Now use a loop to add all items from `name_to_id` to the dictionary `name_to_id2` (in addition to its existing items).
-MW	Do the dictionary methods `keys`, `values` and `items` return an ordinary list, or a different type of object? If they are not lists, can you convert them using `list(...)`?
-MW	Create a dictionary `en_to_nl` that maps English numerals up to ten (_one_, _two_, ..., _ten_) to Dutch numerals (_een_, _twee_, ..., _tien_).
-MW	Create an empty dictionary `{}` and then, without re-typing any numerals, loop through the items of `en_to_nl` to construct the inverse dictionary, `nl_to_en`. Test a number of examples, including translating back and forth, e.g., `nl_to_en[en_to_nl['two']] == 'two'`.
-MW	Add some more words to your original dictionary `en_to_nl`, and see if constructing the inverse `nl_to_en` still works. What problem arises if to `en_to_nl` you now add the English word _note_ meaning Dutch _noot_, and also the English word _nut_ meaning Dutch _noot_, and then construct its inverse again?
-MW	Write a function that takes a list of strings like `['abc', 'hello', '2', 'three', '51', 'john']`, and computes the sum of all numbers it contains (in this example 2 + 52 = 53). What should it return if the list contains no numbers? Now extend your function so it also takes into account English numerals, like _two_, _three_ and _four_, adding them up together with the numbers; let it handle at least all English numerals up to _ten_.
-MW  Copy a short story or blog post from the web and assign it as one long string to a variable `text` (if the copied text contains newlines, remember you can enclose the string in triple quotation marks `'''` or `"""`). Write a program that uses your function `tokenize` from a while ago, to turn the `text` into a list of words. Then loop through the list of words in order to fill a dictionary `word_counts`, that has words (as types) as keys and the number of tokens (occurrences) of each word (tokens) as values. To illustrate: if the text contains _apple_ five times, then `word_counts['apple']` will end up equivalent to `5`.
-MW	Write a function that takes a dictionary and prints its items, one item on each line, with key and value separated by a colon and a space (`: `). Apply this function to `word_counts` from the previous exercise.
-W3R	Write a function to get the minimum and maximum value in a dictionary, and a separate function to get the minimum and maximum key in a dictionary.
-MW	Try defining several dictionaries and iterate over their keys, printing them. What determines the order in which the keys are iterated over?
-
-Note	Conventionally, when iterating over a dictionary the elements will be given in the order in which they were defined / added to the dictionary (so not, e.g., alphabetical). However, this can depend on the particular Python version. By convention, the order of items in a dictionary _must not matter_ and _should not be relied upon_ for critical code. If order matters, use a list instead.
-
-MW	Loop over a dictionary's `items` (key-value pairs) to print the `type` of each item. Do all items have the same type? What if the dictionary keys and values are a mix of integers and strings?
-MW	Let's improve our dictionary `en_to_nl` from before, and the way we constructed its inverse. Instead of mapping a single English word to a single Dutch word, it maps each English word to a _list_ of Dutch words, e.g., `{'bat': ['vleermuis', 'knuppel'], ...}`. Now implement a function that takes this type of dictionary, and constructs the inverse dictionary `nl_to_en`, again a list from words to lists of words. If you invert the new `nl_to_end` back again, do you return to the dictionary with which you started, or is information lost along the way?
-
-MW	Dictionaries are also useful for representing so-called _feature structures_, i.e., bundles of features with values. You can represent all relevant features of a certain student by a dictionary, e.g., `{'name': 'John', 'age': 22, 'student_id': '1249871', 'major': 'linguistics'}`. Create a list `students` and populate it with a number of fictitious students of different majors. To keep your code readable, can you spread your definition of the list across multiple lines, with one dictionary per line?
-MW	From the list `students`, how do you extract all students that major in linguistics? And all students between age 21 and 25?
-MW	Construct a similar database of university courses, each with its name, course code, number of ECTS, and name of the professor. Then query it, e.g., select all courses that give you at least 5 ECTS, or that are taught by a professor with a name shorter than 5 characters.
-MW	Can you use list comprehension syntax (see earlier) with dictionaries? Suppose we have a plain list of names `student_names`, and a plain list of numbers `student_ages` containing the age of each student (in the same order). Now try `{name: age for name, age in zip(student_names, student_ages)}`.
-MW	Use list comprehension to take an existing dictionary with strings as keys (e.g., `name_to_id`), and filter it, constructing a new dictionary that contains only those items whose key started with a vowel.
-MW	Use list comprehension to take an existing dictionary and invert it, swapping the keys with the values, in a single line of code. (But remember, _brevity_ is not the point; use list comprehension only if it makes the code _easier to read and understand_!)
-
-***Insert this here somewhere, also saying that ngrams need to be strings (or tuples, but introduced later), not lists, and asking why.
-MW	Remember the `text` and its `word_counts` dictionary from above? Now go through the text again to count not single words, but _bigrams_: pairs of words that occur next to each other. Store each bigram, with its counts, in a dictionary `bigram_counts`. If every bigram occurs only once, consider using a larger `text` for more interesting results. Now print the top 10 most common bigrams with their counts.
-MW	Generalize the foregoing to allow counting unigrams (single words), bigrams, trigrams, 4-grams, etc.: define a function `count_ngrams` that takes two parameters, namely a text (string) and an integer `n`, and returns a dictionary containing all n-grams, with their counts. What happens to the counts as `n` becomes higher and higher?
-
-
 Title   Refactoring/chunking and variable scope
+
+***TODO add exercises with default args; maybe also function call with keywords just for the sake of it.
 
 MW	Earlier we saw what happens if you call a function before defining it. Try this again!
 MW  The foregoing exercise should have resulted in an error. A Python program will terminate when an error is encountered (or more accurately: when an exception is _thrown_ and not _caught_ somewhere higher up -- we will learn about this later). Nevertheless, you may occasionally have seen noticed printed output appearing _after_ (i.e., below) an error message. Try to reproduce this oddity: Write some code that prints a bunch of stuff and then, at the end, does something illegal (e.g., reference a function before it is defined). Run it to verify that the error message can (at least sometimes) appear in the output before (i.e., above) the printed message. (If this never happens, perhaps your system is configured in a way that prevents this...)
@@ -1031,10 +852,238 @@ for d in str(abc):
 
 ```
 
-***Maybe try this on local vs. global variables?  MW  Remember to ctrl+click (or cmd+click) on a function or variable to go to the place where it was defined? Try this a couple of times on your new functions, just to build some muscle memory with this extremely useful functionality.
+***TODO Add some recap exercise, e.g., about local precedence over global:
+MW  In the following code, what gets printed?\n```
+x = 6
+
+print(x)
+
+def my_function(x):
+    print(x)
+
+def my_function2():
+    print(x)
+
+def my_function3(y):
+    x = y
+    print(x)
+
+print(x)
+my_function(3)
+print(x)
+my_function2()
+print(x)
+my_function2(x)
+print(x)
+```
+
+***TODO Also an analogous exercise but with a mutable argument being passed around and modified.
+
+
+
+***TODO include the following, on local vs. global variables  MW  Remember to ctrl+click (or cmd+click) on a function or variable to go to the place where it was defined? Try this a couple of times on your new functions, just to build some muscle memory with this extremely useful functionality.
 
 ***Probably superfluous here: Note	_Code is read much more often than it is written._ For this reason, when 'streamlining' your code, the goal is never brevity in and of itself. The goal, rather, is to improve the *readability* of your code.
 *** MW  Speaking of readability, did you remember to add docstrings to all your functions?
+
+
+
+
+Title	Dictionaries
+
+***Todo: Text   introduction
+
+***Maybe introduce del (also for lists, but rarely used)
+***tuple syntax, e.g.,  a = 3 + 4,  error.
+
+MW	Let us construct `name_to_id`, a mapping or _dictionary_ from fictional student names (the keys) to student IDs (the values):\n```
+name_to_id = {'Alf': '136124', 'Beth': '008623', 'Chris': '014212', 'Dave': '9123785', 'Esra': '978123'}
+```
+MW	You can look up a particular value in the dictionary by providing it with a key in square brackets (like list index notation). Look up the student IDs (values) of Alf and Chris (keys).
+MW	What happens if you try to look up the student ID (value) of a student whose name is not a key in the dictionary?
+MW  What happens if you try to treat the dictionary like a list, and select, e.g., the third item (i.e., index 2) by doing `name_to_id[2]`?
+MW	What happens when you try to define a dictionary with strings as keys, but you forget quotation marks around the strings?
+MW	Does a dictionary have a length, just like lists and strings? Can you create an empty dictionary? What is the `type` of a dictionary?
+MW	Similar to assigning a value to a particular index in the list (e.g., `names[3] = 'Bert'`), you can assign a value to a particular key in the dictionary (e.g., `name_to_id['Suzy'] = '124987'). What happens if the key to which you assign a value already exists in the dictionary? What happens if it does not yet exist in the dictionary?
+MW	Oops, the `name_to_id` dictionary contains the wrong ID for Chris! It should be `5987162`, please correct it.
+MW	What happens if you try to define a dictionary in which the same string appears as a key twice? What happens if you define a dictionary in which the same string is both a key and a value?
+MW	What happens if you define a dictionary (like `{'Alf': '36124', 'Beth': '008623'}`) but using `=` instead of the colons `:`? What happens if you update a dictionary via assignment (`name_to_id['Suzy'] = '124987`) but use a colon `:` instead of equals `=`?
+MW	Do you expect the keys in a dictionary to be case-sensitive? Test this.
+MW  Is a dictionary mutable like a list, or immutable like integers and strings? Illustrate with code.
+MW	Both keys and values in a dictionary can be be integers, strings, or other objects (though the keys cannot be _mutable_, or more precisely they need to be _hashable_, which can remain a mystery for now). Give an argument why in this case the student IDs should be represented as strings, not as integers.
+MW	Can you loop over a dictionary with the same syntax as looping over a list? Try to loop over the dictionary `name_to_id` from above, printing each element. Which elements get printed, the keys, the values, or both?
+MW	There are three other ways of looping over a dictionary. In the above code, replace the occurrence of `name_to_id` in the header of the for-clause by `name_to_id.keys()`, `name_to_id.values()` and `name_to_id.items()`, and see what happens in each case.
+MW	If you loop over `name_to_id.items()`, note that what gets printed are _pairs_ of a key and a value. Earlier we saw that `enumerate` likewise creates pairs (of an integer count and a list element), and that this pair can be 'unpacked' into two separate variables in the for-header: `for i, name in enumerate(names)`. Similarly, try `for key, value in name_to_id.items()`, and print the key and value separately.
+MW	Construct another dictionary `name_to_id2` with a bunch of fictional names and IDs different from those in the original `name_to_id`. Now use a loop to add all items from `name_to_id` to the dictionary `name_to_id2` (in addition to its existing items).
+MW	Do the dictionary methods `keys`, `values` and `items` return an ordinary list, or a different type of object? If they are not lists, can you convert them using `list(...)`?
+MW	Create a dictionary `en_to_nl` that maps English numerals up to ten (_one_, _two_, ..., _ten_) to Dutch numerals (_een_, _twee_, ..., _tien_).
+MW	Create an empty dictionary `{}` and then, without re-typing any numerals, loop through the items of `en_to_nl` to construct the inverse dictionary, `nl_to_en`. Test a number of examples, including translating back and forth, e.g., `nl_to_en[en_to_nl['two']] == 'two'`.
+MW	Add some more words to your original dictionary `en_to_nl`, and see if constructing the inverse `nl_to_en` still works. What problem arises if to `en_to_nl` you now add the English word _note_ meaning Dutch _noot_, and also the English word _nut_ meaning Dutch _noot_, and then construct its inverse again?
+MW	Write a function that takes a list of strings like `['abc', 'hello', '2', 'three', '51', 'john']`, and computes the sum of all numbers it contains (in this example 2 + 52 = 53). What should it return if the list contains no numbers? Now extend your function so it also takes into account English numerals, like _two_, _three_ and _four_, adding them up together with the numbers; let it handle at least all English numerals up to _ten_.
+MW  Copy a short story or blog post from the web and assign it as one long string to a variable `text` (if the copied text contains newlines, remember you can enclose the string in triple quotation marks `'''` or `"""`). Write a program that uses your function `tokenize` from a while ago, to turn the `text` into a list of words. Then loop through the list of words in order to fill a dictionary `word_counts`, that has words (as types) as keys and the number of tokens (occurrences) of each word (tokens) as values. To illustrate: if the text contains _apple_ five times, then `word_counts['apple']` will end up equivalent to `5`.
+MW	Write a function that takes a dictionary and prints its items, one item on each line, with key and value separated by a colon and a space (`: `). Apply this function to `word_counts` from the previous exercise.
+W3R	Write a function to get the minimum and maximum value in a dictionary, and a separate function to get the minimum and maximum key in a dictionary.
+MW	Try defining several dictionaries and iterate over their keys, printing them. What determines the order in which the keys are iterated over?
+
+Note	Conventionally, when iterating over a dictionary the elements will be given in the order in which they were defined / added to the dictionary (so not, e.g., alphabetical). However, this can depend on the particular Python version. By convention, the order of items in a dictionary _must not matter_ and _should not be relied upon_ for critical code. If order matters, use a list instead.
+
+MW	Loop over a dictionary's `items` (key-value pairs) to print the `type` of each item. Do all items have the same type? What if the dictionary keys and values are a mix of integers and strings?
+MW	Let's improve our dictionary `en_to_nl` from before, and the way we constructed its inverse. Instead of mapping a single English word to a single Dutch word, it maps each English word to a _list_ of Dutch words, e.g., `{'bat': ['vleermuis', 'knuppel'], ...}`. Now implement a function that takes this type of dictionary, and constructs the inverse dictionary `nl_to_en`, again a list from words to lists of words. If you invert the new `nl_to_end` back again, do you return to the dictionary with which you started, or is information lost along the way?
+
+MW	Dictionaries are also useful for representing so-called _feature structures_, i.e., bundles of features with values. You can represent all relevant features of a certain student by a dictionary, e.g., `{'name': 'John', 'age': 22, 'student_id': '1249871', 'major': 'linguistics'}`. Create a list `students` and populate it with a number of fictitious students of different majors. To keep your code readable, can you spread your definition of the list across multiple lines, with one dictionary per line?
+MW	From the list `students`, how do you extract all students that major in linguistics? And all students between age 21 and 25?
+MW	Construct a similar database of university courses, each with its name, course code, number of ECTS, and name of the professor. Then query it, e.g., select all courses that give you at least 5 ECTS, or that are taught by a professor with a name shorter than 5 characters.
+MW	Can you use list comprehension syntax (see earlier) with dictionaries? Suppose we have a plain list of names `student_names`, and a plain list of numbers `student_ages` containing the age of each student (in the same order). Now try `{name: age for name, age in zip(student_names, student_ages)}`.
+MW	Use list comprehension to take an existing dictionary with strings as keys (e.g., `name_to_id`), and filter it, constructing a new dictionary that contains only those items whose key started with a vowel.
+MW	Use list comprehension to take an existing dictionary and invert it, swapping the keys with the values, in a single line of code. (But remember, _brevity_ is not the point; use list comprehension only if it makes the code _easier to read and understand_!)
+
+***Insert this here somewhere, also saying that ngrams need to be strings (or tuples, but introduced later), not lists, and asking why.
+MW	Remember the `text` and its `word_counts` dictionary from above? Now go through the text again to count not single words, but _bigrams_: pairs of words that occur next to each other. Store each bigram, with its counts, in a dictionary `bigram_counts`. If every bigram occurs only once, consider using a larger `text` for more interesting results. Now print the top 10 most common bigrams with their counts.
+MW	Generalize the foregoing to allow counting unigrams (single words), bigrams, trigrams, 4-grams, etc.: define a function `count_ngrams` that takes two parameters, namely a text (string) and an integer `n`, and returns a dictionary containing all n-grams, with their counts. What happens to the counts as `n` becomes higher and higher?
+
+
+
+
+Title	Breaking out of loops (`break`, `while`)
+
+Text    We have seen before that `return` can be used (inside a function) to escape a loop when some condition has been met. This is an important programming pattern to acquire. It results in cleaner code, and can benefit efficiency (e.g., in case a certain function containing a loop is executed millions of times, for each token in a large corpus). The exercises in this section let you practice with escaping loops. As you will see in this section, Python also has a more specialized tool for escaping loops: the `break` keyword. You will also get to know a new type of loop (`while`), which is especially suitable if you're not sure how long to loop for. You will learn that, when writing a loop, you should always consider: Do I know in advance over which elements I need to loop, or how often to repeat something? Do I need to look at all elements in all cases? Or can I take an early exit? Under what conditions?
+
+MW  What is wrong with the following function? Can you fix it? **Note:** For the sake of practice, in this and the following exercises, stick to the multi-line loop structure (e.g., don't use list comprehension, or Python's built-in `len` or `any`; the solutions will show such variants too though, which are ultimately preferable).\n```
+def has_any_odd(numbers):   # Note: The docstring is a lie.
+    """
+    Returns True if the list of numbers has any odd number; False otherwise.
+    """
+    for number in numbers:
+        if number % 2 == 1:
+            return True
+        else:
+            return False
+```
+MW	Write a function `has_any_vowel` that takes a _string_ as argument, and returns `True` if it contains at least one vowel, and `False` if it contains no vowels. Does your function ever inspect more list elements than necessary to reach a conclusion? If so, try to streamline your function.
+MW	Write a function `has_only_odd` that takes a list of integers as argument, and returns `True` if all numbers in the list are odd, and `False` otherwise.
+MW	Write a function `has_three_odd` that takes a list of integers as argument, and returns `True` if, and only if, at least three numbers in the list are odd.
+
+Note  Whereas `return` lets you escape from a function (hence also from any intervening loop), `break` is more specialized: it lets you escape only the immediately enclosing loop, nothing else. This means that `break` is in many cases more suitable than `return`; we will review some cases below, after some initial practice.
+
+MW  Execute the following code and try to understand the output:\n```
+names = ['Alf', 'Beth', 'Chris', 'Dave', 'Esra']
+
+for name in names:
+    print('Checking:', name)
+    if name[0].lower() not in 'aeiou':
+        print('Got one!')       # Beth is the first consonant person, and the only printed name
+        break
+```
+MW	How many names do you expect this loop to print? Test your expectation.\n```
+for name in names:
+    print(name)
+    break
+```
+MW	And this one?\n```
+for name in names:
+    break
+    print(name)
+```
+MW	Try to predict the output of the following program, then test your expectation:\n```
+for name in names:
+    if len(name) > 4:
+        break
+    print(name)
+```
+
+Note    As mentioned, `break` can often be more suitable than `return` for escaping a loop. For one, `return` is only available inside a function (but most code should be organized in functions so that's not a real limitation). In addition, `return` is not suitable for escaping a loop if the function should still do some further processing _after_ escaping the loop (see next exercise), instead of return right away. Relatedly, if `return` occurs inside nested loops, it escapes _all_ enclosing loops at once, whereas `break` escapes only the directly enclosing loop. Some programmers take a more principled stance: `break` would be preferable in almost all cases because it results in cleaner code: while `break` was _designed_ for breaking out of loops -- it wears its purpose on its sleeve -- in the case of `return` escaping from a loop feels more like a side effect.
+
+MW  Write a function `print_until_vowel` that takes a list of strings, and prints all strings until one is encountered that begins with a vowel, in which case it should break out of the loop and end by printing `Done!` (the latter makes `break` more suitable than `return` in this case).
+MW  To practice with 'default arguments' from an earlier section: give your function `print_until_vowel` a boolean parameter `inclusive`, with `True` as a default value. If this parameter is set to True, the string that begins with a vowel should also itself be printed; if it is set to False, only the strings that precede it should be printed.
+MW  Write code with nested loops to illustrate one of the differences between `return` and `break` mentioned above: that `return` escapes all enclosing loops, whereas `break` escapes only the directly enclosing loop.
+MW	What happens if you use `break` in some other place in your code, not inside a loop?
+MW  What is wrong with the following code (analogous to the example with `return` above)? Can you fix it? (Maintaining the printout of 'Zero odd numbers here!' in the negative case can be a bit tricky.)\n```
+def print_if_has_any_odd(numbers):
+    for number in numbers:
+        if number % 2 == 1:
+            print('It has an odd number!')
+            break
+        else:
+            print('Zero odd numbers here!')
+            break
+    print('Done!')    # this final command is mainly why we use break to escape the loop, not return
+```
+MW  Fixing the preceding code is easier if you know that `for` clauses can actually be combined with an `else` clause, just like `if` can. Notice the indentation in the following code, ensuring that the `else` belongs with the `for`, not with the `if`. Does the following function work correctly?\n```
+def has_any_odd3(number)
+    for number in numbers:
+        if number % 2 == 1:
+            print('It has an odd number!')
+            break
+    else:
+        print('Zero odd numbers here!')
+```
+
+Note    Similar to if-clauses, for-loops can have an `else`-clause too. The else-clause of a for-loop is executed only if the for-loop finishes _without_ any `break`. Typically (but not always) `break` represents that some target element, that meets some criterion, has been found (e.g., the first odd number, the third name that begins with a vowel...). Therefore, you can often read the `else`-clause of a for-loop as "if no such element was found...". (If you pronounce it simply as 'else', it can be confusing.)
+
+MW	Can a single loop contain multiple `break` statements, e.g., in different if-clauses? Can you think of an (imaginary) use-case where one might need this?
+MW  A rich client needs four functions, that each take a nested _list of lists_ of numbers as parameter and return a boolean. One checks if each inner list contains an (any) odd number (return True if so, False otherwise). The second checks if each inner list contains _only_ odd numbers. The third checks if _some_ (any) inner list contains an odd number. The fourth checks if some inner list contains _only_ odd numbers. Implement a first version of these functions, where each function is self-contained and does _not_ rely on auxiliary functions (e.g., `has_any_odd` from before). Each function will, therefore, contain nested loops.
+MW  Our client cares a lot of about efficiency (but insists on using Python). Do all of your loops escape early where possible?
+MW  Our client also cares a lot about clean code, and hates repetition. Implement a second version of the four functions where each contains only a single (non-nested) loop, within which some auxiliary function is called that does the rest (e.g., `has_any_odd` from before, and you may need to define another).
+
+***Revised down to here.
+
+
+MW	The `while` keyword lets you loop in a way that is different from for-loops. Run the following and make sure you understand what's happening. As before, try to break it in various ways.\n```
+counter = 0
+while counter < 10:
+    print(counter)
+    counter += 1
+```
+MW  Write a program that does the same, but using a `for`-loop instead of the `while`-loop above (this is not just a matter of replacing the keyword; more things have to change).
+
+Note	For the above use-case, where you know in advance how often to repeat something, for-loops are normally the way to go. But **while-loops** can be convenient if you don't quite know how long to loop, e.g., until some unpredictable condition is met, such as a particular user input. We will see some examples of this.
+
+MW	If a program keeps on running, do you know how to intervene to stop it? This is often the keyboard shortcut `ctrl`+`c` or `cmd`+`c`, but your IDE may also offer a stop button (e.g., red square).
+MW	In the above while-loop, replace the condition (`counter < 10`) simply by `True`. What do you expect will happen? Do you see the importance of the previous exercise?
+
+***Add exercise to introduce the idea of setting a boolean check inside the while loop. Sentinel? Or break?
+
+P4E	Write a function that repeatedly gets numbers from the user (using the `input` function), until the user enters _done_. Once _done_ is entered, print out the total, count, and average of the numbers. If the user enters anything other than a number, print an error message and skip to the next number.
+
+
+MW	Write an infinite loop that prints the next prime number each time the user hits enter (you can use `input()` for this).
+TP3	Write a number guessing game. Start your program with `import random`. Now write a loop containing `number = random.randrange(1,100)` (what does it do?) and ask the user to guess that number. Upon each guess, the program prints whether it is too high or too low, or, if the guess is exactly right, exit the loop and print _Congratulations! You won in [n] guesses!_ where _n_ is the number of guesses.
+MW	Modify the guessing game: if the player guesses correctly, after congratulating them, ask the player if they want to play again, and if so, sample a new random number and start over. After each game, give the player some additional feedback: did they use more or fewer turns than the average of previous rounds (within the same session)?
+MW	Write a program with a while-loop that repeatedly takes a string from the user, and simply repeats it back to you _unless_ it contains a profanity, in that case it remains silent. You can get creative (and naughty), or find lists of profanities on the web. (Further below we will learn how to read such words from a separate file, so you don't need to copy them into your program.) If you enter more than 5 profanities, the program should say _I've had enough of this_ and change the value of a boolean such that the while-loop stops.
+MW	Write a program that repeatedly asks for user input; it ignores all user input except the string _knock_. Only if the user writes _knock_ three times in a row (as three separate inputs), the program should print _Go away!_ Note: if you enter _knock_ twice, then something else, then _knock_ a third time, nothing should happen; the three knocks should be consecutive.
+
+
+MW  Besides `break` (and to some extent `return`), another keyword that helps you control your loops is `continue`. It lets you skip an element. Can you predict what the following code prints? Test your prediction and verify your understanding.\n```
+for i in range(100):
+    if i % 2 == 0 or i % 5 == 0:
+        continue
+    print(i)
+```
+MW  What `continue` achieves can also be done with an if-clause alone, without `continue`. Show this by duplicating and then modifying the above example.
+MW  Despite the foregoing, sometimes `continue` is considered preferable to a plain if-clause. A typical use case is to filter out cases that don't need to be processed, right at the start of the body of a for-loop. This is particularly desirable if the body of your loop is substantial. Compare program 1 and 2 in the code below (verify that the result is the same). In Program 1 the body is more deeply nested (under the if-clause), which means more stuff to keep in working memory as you try to understand the code. In Program 2, the body is less deeply nested, and `continue` directly, transparently signals that certain cases can simply be ignored, which is easier on our working memory.\n```
+# Program 1, not using continue:
+for i in range(1000):
+    if i % 3 == 0:
+        print(i)
+        ... # imagine a substantial program here
+
+# Program 2, using continue:
+for i in range(1000):
+    if i % 3 != 0:
+        continue
+
+    print(i)
+    ... # substantial program is now not as deeply nested
+```
+MW  Use `continue` to define a function that takes a list of strings and loops over it. Inside the loop it should ignore (with `continue`) strings that have an even number of consonants, and for those strings which it does not ignore, inverts them and appends them to a new list, which is returned in the end.
+MW	In the Python console enter `import keyword` and then print `keyword.kwlist` (we will learn the details of `import` later). For which of these keywords do you already know some purpose?
+
+Note    **Keywords** are core language constructs handled by the syntactic parser before Python code is interpreted. Keywords are _reserved_ and cannot be used as ordinary variables, e.g., reassigned new values. **Built-ins** are commonly used, preloaded functions (e.g., `print`, `round`), constants (e.g., `__name__`, in which Python stores a name for the current script), classes (e.g., `list`, but also various error classes such as `TypeError` -- if you encounter a TypeError, it is an instance of this class).
+
+MW  Test that keywords are indeed special, reserved expressions, by showing that trying to assign something to a keyword leads to an error.
+MW  Built-in objects can be found in `__builtins__`. Verify with `type` that `__builtins__` is a _dictionary_, about which we learn in the next section. If you call `print('apple')`, this is essentially shorthand for looking up `'print'` in the dictionary and calling it: `__builtins__['print']('apple')`. For an overview of `__builtins__` it is convenient to convert it to a list: `print(list(__builtins__))`. For which of the built-ins do you already know some purpose?
+MW  Unlike keywords, built-ins are assigned to ordinary variables, hence these can be reassigned new values. Try this in the console: enter `print = 'bla'`, and subsequently try to print something, like `print('apple')`. Overriding builtins like this is not a good idea. (Consider restarting the console to prevent confusing your future self.)
+MW  Try to review the past section from memory: which new keywords did you learn, and what are their uses compared to the tools you already acquired before?
 
 
 Title   Looping while counting (`enumerate`, `range`)
