@@ -214,9 +214,9 @@ def count_until_the(words):
     """
     count = 0
     for word in words:
-        count += 1
         if word == 'the':
             return count
+        count += 1
     return count
 
 
