@@ -282,19 +282,19 @@ print(multiply_and_add.__defaults__)
 # 10.33
 directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
 
-def turn_clockwise(direction, n_turns=1):
+def turn_clockwise(start_direction, n_turns=1):
     """
     Takes a string representation of a direction and returns the new direction after
     turning n_turns 'steps' clockwise. Default is 1 step.
     """
-    index = directions.index(direction)
+    index = directions.index(start_direction)
     turned_index = (index + n_turns) % len(directions)
     return directions[turned_index]
 
-def turn_counterclockwise(direction, n_turns=1):
+def turn_counterclockwise(start_direction, n_turns=1):
     """Takes a string representation of a direction and returns the new direction after
     turning n_turns 'steps' counterclockwise. Default is 1 step."""
-    index = directions.index(direction)
+    index = directions.index(start_direction)
     turned_index = (index - n_turns) % len(directions)
     return directions[turned_index]
 
