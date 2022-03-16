@@ -307,12 +307,12 @@ generate_all_sentences()
 # 9.27
 directions = ['N', 'E', 'S', 'W']
 
-def turn_clockwise(direction):
+def turn_clockwise(start_direction):
     """
     Takes a string representation of a direction (NESW) and returns the new direction after
     turning one 'step' clockwise.
     """
-    index = directions.index(direction)
+    index = directions.index(start_direction)
     turned_index = (index + 1) % len(directions)
     return directions[turned_index]
 
@@ -323,10 +323,10 @@ print(turn_clockwise('N'))
 # One is the type of the function itself, the other is the type of the result of calling the function.
 
 # 9.29
-def turn_counterclockwise(direction):
+def turn_counterclockwise(start_direction):
     """Takes a string representation of a direction (NESW) and returns the new direction after
     turning one 'step' counterclockwise."""
-    index = directions.index(direction)
+    index = directions.index(start_direction)
     turned_index = (index - 1) % len(directions)
     return directions[turned_index]
 
