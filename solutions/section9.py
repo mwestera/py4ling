@@ -81,7 +81,14 @@ def index_in_string(string, character):
 print(index_in_string('david', 'v'))
 
 # It is the inverse of accessing a character by index, so we can go back and forth:
+
 print('david'[index_in_string('david', 'v')] == 'v')
+
+# going back and forth more slowly:
+# index_of_v = index_in_string('david', 'v')
+# character_at_index_of_v = 'david'[index_of_v]
+# index_of_character_at_index_of_v = index_in_string('david', character_at_index_of_v)
+# print(index_of_character_at_index_of_v)
 
 
 # 9.4
