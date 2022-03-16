@@ -705,7 +705,7 @@ MW  This section introduced some tricky and important concepts, so it is importa
 Title   Encapsulation and variable scope
 
 MW	Earlier we saw what happens if you call a function before defining it. Try this again.
-MW  The foregoing exercise should have resulted in an error. A Python program will terminate when an error is encountered (or more accurately: when an exception is _thrown_ and not _caught_ somewhere higher up). Nevertheless, you may occasionally have seen noticed printed output appearing _after_ (i.e., below) an error message. Try to reproduce this oddity: Write some code that prints a bunch of stuff and then, at the end, does something illegal (e.g., reference a function before it is defined). Run it to verify that the error message can (at least sometimes) appear in the output before (i.e., above) the printed message. (If this never happens, perhaps your system is configured in a way that prevents this.)
+MW  The foregoing exercise should have resulted in an error. A Python program will terminate when an error is encountered (or more accurately: when an exception is _raised_ and not _caught_ somewhere higher up). Nevertheless, you may occasionally have seen noticed printed output appearing _after_ (i.e., below) an error message. Try to reproduce this oddity: Write some code that prints a bunch of stuff and then, at the end, does something illegal (e.g., reference a function before it is defined). Run it to verify that the error message can (at least sometimes) appear in the output before (i.e., above) the printed message. (If this never happens, perhaps your system is configured in a way that prevents this.)
 
 Note    The command `print` sends content to the **standard output stream**, while error messages go through a separate **error stream**. Each stream is 'buffered', meaning messages are first stored in a 'buffer' that is then, periodically, 'flushed' onto the Run output window on your screen -- only _then_ do you see the output. It can happen that the error buffer is flushed _before_ the standard output buffer, and thereby cause an error message to appear _before_ certain printed messages, even if the error was in fact encountered a few nanoseconds _after_ the last `print` command. This is a technicality, but knowing about this can prevent confusion about the (apparent) source of an error.
 
@@ -748,29 +748,28 @@ MW  Our client requests that n-grams be represented as strings instead of lists 
 MW  Define a function `filter_by_twos` that takes a list, and returns a new list containing every second element (so given `['a', 'b', 'c', 'd', 'e', 'f']` it will return `['b', 'd', 'f']`). Define another function `filter_by_threes` that does the same but for every _third_ element (for the same example, it will return `['c', 'f']`). There is likely some code repetition (or a lot, depending on how concise your code is). Define a generalized function `filter_by_n` that takes an additional argument `n` and returns a list with every `n`th element, then redefine your original functions in terms of this, as shortcuts.
 MW  In section 10 you defined `turn_clockwise` and `turn_counterclockwise`, taking a string representation of a direction (`N`, `E`, `S`, `W`) and returning a string representation of the new direction after turning. (Copy these to your current file if needed.) There is likely considerably overlap between the two functions. If so, try to minimize overlap, for instance by defining a generalized function `turn` that can turn in both directions depending on whether a given integer argument is negative or positive.
 
-***Proofed until here.
-
 MW  Another reason for chunking your code into functions is **encapsulation**: variables assigned inside a function, are not accessible outside it. This keeps the number of accessible variables at a given place in your code smaller, which helps prevent certain types of programming errors. Explain how the following code illustrates encapsulation. (Remember we add `flush=True` to a print statement to flush the print buffer directly, in order for printed output and error messages to appear in order of execution.)\n```
-def my_little_function():
+def some_function():
     b = 123
-    print('from inside the function (local scope):', b, flush=True)
+    print('inside the function, b =', b, flush=True)
 
-my_little_function()
-print('from the global scope:', b)
+some_function()
+print('outside the function, after calling the function, b =', b)
 ```
-MW  In the previous example, what happens if you assign something to b also in the global scope, before the function definition? For instance, add  `b = 789` above the definition of `my_little_function`.
+MW  In the previous example, what happens if you assign something to `b` also in the global scope, before the function definition? For instance, add  `b = 789` (a different value) above the definition of `my_little_function`.
+MW  And what happens if you now remove the line `b = 123` from the function (while keeping `b = 789` above the function definition)? What gets printed? This and the foregoing exercises show that there is some kind of asymmetry between local scope and global scope with regard to variable accessibility. Try to formulate in your own words what this asymmetry is (further below it will be stated in more precise terms).
 MW  Unlike `def`-clauses (function definitions), `if`-clauses do not create a local scope, i.e., do not encapsulate the variables assigned within it. Explain how the following example demonstrates this:\n```
 if 1 + 1 == 2:
     x = 'test'
-    print('inside:', x)
+    print('inside the if:', x)
 
-print('outside:', x)
+print('outside the if:', x)
 ```
 MW  Does the following example demonstrate that `for`-clauses likewise do not encapsulate their variables?\n```
 for x in [1, 2, 3]:
-    print('inside:', x)
+    print('inside the for:', x)
 
-print('outside:', x)
+print('outside the for:', x)
 ```
 MW  Does the following code show that `if`-clauses do create a local scope after all? Or does it show something else?\n```
 if 1 + 1 == 3:      # Notice the 3!
@@ -779,8 +778,8 @@ if 1 + 1 == 3:      # Notice the 3!
 
 print('outside:', x)
 ```
-MW  Construct an example to test whether `while`-clauses create a local scope.
-MW  The built-in functions `locals` and `globals` give you a _dictionary_ containing all local/global variables and their values. We will learn about dictionaries later, but you can already try them out as follows. Note that among the global variables are many 'dunder' (double underscore) variables like `__name__` that Python relies upon for bookkeeping, so you may need to scroll to the right to see the variables you yourself assigned.\n```
+MW  What about an `if`-`elif`-`else` compound clause? Are variables assigned in the initial `if`-clause accessible in subsequent `elif` and `else` clauses? (Does the question even make sense?)
+MW  The built-in functions `locals` and `globals` give you a _dictionary_ containing all local/global variables and their values. We will learn about dictionaries later, but you can already try them out by running the code below. Note that among the global variables are many 'dunder' (double underscore) variables like `__name__` that Python relies upon for bookkeeping, so you may need to scroll to the right to see the variables you yourself assigned.\n```
 a = 3
 b = 4
 
@@ -792,36 +791,33 @@ def my_function(c):
 
 my_function(5)
 ```
-MW  In the above example, the local scope also contains a variable `c`. Where does it come from, i.e., where is it assigned its value?
+MW  In the above example, the local scope also contains a variable `c`. Where does it come from, i.e., where is it assigned its value? (Recall the ctrl+click exercise of the previous section.)
 MW  Modify the above example to print `globals()` and `locals()` also from _outside_ the function definition, e.g., put the print statements below the function call. What does this demonstrate?
 
-Note  When a variable is assigned inside a local scope (e.g., function definition), it will be added to `locals()`, not `globals()`. When a variable is called upon (its value retrieved) inside a local scope, then Python will first try to find it in the `locals()` dictionary, and only if it does not find the variable there it will look in `globals()`. (Actually there are two other 'namespaces' in which Python will search for a variable, but this will not really matter for us: Python indeed first looks in the local scope, but then it checks the immediately 'enclosing scope' (e.g., if the function is itself contained in a function), before considering the global scope, and finally it looks among the _builtins_, for built-in functions such as `len` and `print`.)
+Note  When Python enters a local scope, `locals()` is initially empty. If a variable is _assigned_ a value inside a local scope (e.g., function definition), this variable+value will be stored in `locals()`, not `globals()`. When a variable's value is _retrieved_ inside a local scope, Python will first try to find it in the `locals()` dictionary, and only if it does not find the variable there it will look in `globals()`. (Actually there are two other 'namespaces' in which Python will search for a variable: Python indeed first looks in the local scope, but then it checks the immediately 'enclosing scope' (e.g., if the function is itself contained in a function or class), before considering the global scope, and finally it looks among the `__builtins__`, for built-in functions such as `len` and `print`.)
 
-MW  Explain how this rule explains what is happening in the following code. Subsequently, insert statements in the code (in different places) to print the `locals()` and `globals()`, to test and if needed refine your explanation.\n```
-x = 10
-
-def my_other_function():
-    x = 20
-    print('x inside function:', x)
-
-my_other_function()
-print('x in global scope:', x)
-```
-MW  For each variable occurrence in the following code, determine the place where its current value was assigned. (Suggestion: print (or manually write) the code and use arrows to connect each variable occurrence to the place where its current value was assigned.) Beware that (i) the same variable can be (re)assigned a value multiple times (but it will still count as the _same_ variable); (ii) two different variables can have the same name, if one is in `locals()` and the other in `globals()` (in that case you _should_ distinguish them); and (iii) not every assignment has an explicit `=`-sign.\n```
+MW  We have seen that variables defined inside functions can have the same name of an existing variable from outside the function, without the latter being affected. Explain exactly how this can be.
+MW  For every place in the following code where the value of a variable is retrieved, determine the place where its value at that point was assigned. Take into account mutability: mutable objects like lists can be changed _without_ this involving reassigning the variable. While you're at it, a good exercise is to try to predict the exact output of this program.\n```
 students = ['ann', 'beth', 'gemma']
-more_students = ['dale', 'ebby']
+more_students = ['dale', 'ebba']
+message = 'Hello!'
 
 def print_students(students):
-    students = [name.upper() for name in students]
+    students = [name.capitalize() for name in students]
     for student in students:
-        print(student)
+        print(message, student)
 
-print_students(students + more_students)
+students[1] = 'elisabeth'
+all_students = students + more_students
+all_students.append('philip')
+print_students(all_students)
+
+if len(all_students) > 3:
+    message += ' Nice crowd!'
+    print(message, flush=True)
 ```
 
-Note  The previous 'something to keep in mind' stated the general rule for assigning/retrieving variables in a local scope. An important exception is the following: when a variable is assigned a value _anywhere_ in the local scope, then that variable becomes _strictly local_ to that scope, meaning Python will only try to find it in `locals()`, and never `globals()`, notably _even if the first lookup fails_ (e.g., if a variable is called upon in the local scope _before_ it is assigned a value).
-
-MW  The aforementioned exception can cause surprising behavior. In the following code, one might have expected that even though the variable `a` is locally assigned (`a = 8`) only after the print statement, it is also available globally (`a = 5`), so the function should print `5`. Explain why this isn't the case, and what causes the error when you run the following:\n```
+MW  The above 'something to keep in mind' left out an important detail: when a variable is assigned a value _anywhere_ in the local scope, then that variable becomes _strictly local_ to that scope, meaning Python will _only_ try to find it in `locals()`, and _never_ look for that variable in`globals()`, _even if the lookup in locals() fails_. This can cause surprising behavior. Try to predict what the following code does, test your prediction, and reconcile your findings with the rules for encapsulation explained so far.\n```
 a = 5
 
 def erroneous_function():
@@ -830,7 +826,7 @@ def erroneous_function():
 
 erroneous_function()
 ```
-AMY  What might one naively expect the following function to print? Explain why this expectation is wrong, namely, why the following gives an error (recall that `a += 3` means `a = a + 3`):\n```
+AMY  What might one naively expect the following function to print? Explain why this expectation is wrong, namely, why the following gives an error:\n```
 b = 10
 
 def bad_function():
@@ -839,55 +835,38 @@ def bad_function():
 
 bad_function()
 ```
-
-***MW  (Like a previous exercise:) For each variable occurrence in the following code, determine the place where its current value was assigned.\n```
-abc = 123
-
-for d in str(abc):
-    print(d)
-
-```
-
-***TODO Add some recap exercise, e.g., about local precedence over global:
-MW  In the following code, what gets printed?\n```
+MW  The foregoing exercises reveal that a variable inside a function is either local or global, _never_ local on some lines (in the function) and global on other lines (in that same function). Can you think of a possible benefit of this all-or-nothing behavior?
+MW  Try to predict the entire printed output of the following program, and test your prediction:\n```
 x = 6
 
 print(x)
 
-def my_function(x):
+def first_function(x):
     print(x)
 
-def my_function2():
+def second_function():
     print(x)
 
-def my_function3(y):
-    x = y
+def third_function(y):
+    x = y - 3
     print(x)
 
 print(x)
-my_function(3)
+first_function(3)
 print(x)
-my_function2()
+second_function()
 print(x)
-my_function2(x)
+third_function(x)
 print(x)
 ```
+MW  Does the foregoing mean that there is _no_ way to have a function assign a value to a global variable? Well, you may not ever need this, but there is a way: for a given variable `x`, typing `global x` at the top of the body of a function definition will make sure that `x` in that function serves as a global variable, even if you assign something to `x` in that function later (result: it will assign to a global variable). Play around with this if you like. But the more important take-away of this section is how Python governs variable scope (hence, why something like the `global` keyword would be needed in the first place) -- try to summarize that.
 
-***TODO Also an analogous exercise but with a mutable argument being passed around and modified.
-
-
-
-***TODO include the following, on local vs. global variables  MW  Remember to ctrl+click (or cmd+click) on a function or variable to go to the place where it was defined? Try this a couple of times on your new functions, just to build some muscle memory with this extremely useful functionality.
 
 ***Probably superfluous here: Note	_Code is read much more often than it is written._ For this reason, when 'streamlining' your code, the goal is never brevity in and of itself. The goal, rather, is to improve the *readability* of your code.
 *** MW  Speaking of readability, did you remember to add docstrings to all your functions?
 
-***TODO add a summarization exercise.
-
 
 Title	Dictionaries
-
-***Todo: Text   introduction
 
 ***Maybe introduce del (also for lists, but rarely used)
 ***tuple syntax, e.g.,  a = 3 + 4,  error.
