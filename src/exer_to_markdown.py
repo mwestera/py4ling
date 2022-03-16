@@ -83,7 +83,7 @@ if __name__ == "__main__":
         elif line['mode'] == 'note':
             string = f'- - - - - -\n**Something to keep in mind:** {line["content"]}\n- - - - -'
         elif line['mode'] == 'text':
-            string = line["content"]
+            string = f'_{line["content"]}_'
         else:
             exercises += 1
             exercises_total += 1
