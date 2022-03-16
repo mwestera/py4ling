@@ -3,6 +3,12 @@
 """
 
 # 10.1
+# up to you :)
+
+# 10.2
+# up to you :)
+
+# 10.3
 def print_spam():
     print('spam')
 
@@ -12,15 +18,15 @@ print(type(print_spam()))
 print(print_spam)     # this prints the function itself
 print(type(print_spam))
 
-# 10.2
-print('10.2')
+# 10.4
+print('10.4')
 
 shout_nonsense = print_spam
 
 shout_nonsense() # yes, this works!
 
-# 10.3
-print('10.3')
+# 10.5
+print('10.5')
 
 def do_twice(func):
     """
@@ -36,8 +42,8 @@ do_twice(print_spam)
 #    and passing None as argument to the function do_twice will result in 'calling' None as if it
 #    is a function, which it isn't.
 
-# 10.4
-print('10.4')
+# 10.6
+print('10.6')
 
 def do_twice_with_argument(func, arg):
     """
@@ -48,12 +54,12 @@ def do_twice_with_argument(func, arg):
 
 do_twice_with_argument(print, 'test')
 
-# 10.5
-print('10.5')
+# 10.7
+print('10.7')
 do_twice_with_argument(do_twice, print_spam)
 
-# 10.6
-print('10.6')
+# 10.8
+print('10.8')
 def do_multiple(func, n):
     """
     Takes a function and an integer n, and calls the function n times.
@@ -72,18 +78,18 @@ def do_multiple_with_arg(func, arg, n):
 
 do_multiple_with_arg(print, 'test', 10)
 
-# 10.7
-print('10.7')
+# 10.9
+print('10.9')
 print(print_spam.__name__)  # this just prints the name: print_spam
 # print(print_spam().__name__)    # this prints 'spam' and then throws an error because the object None (returned
     # by print_spam()) does not have a __name__ attribute.
 
-# 10.8
-print('10.8')
+# 10.10
+print('10.10')
 print(shout_nonsense.__name__)  # it still has the old name! It's an actual property of the function object, not just a variable.
 
-# 10.9
-print('10.9')
+# 10.11
+print('10.11')
 
 print('apple')
 print.__call__('apple') # same result
@@ -91,7 +97,16 @@ print.__call__('apple') # same result
 shout_nonsense()
 shout_nonsense.__call__()   # this too
 
-# 10.10
+# 10.12
+def example_function(var):
+    print('blablabla')
+    print('1234567')    # just some filler material
+    print(var)
+
+# According to ctrl+click, the variable var is assigned a value in the definition header.
+
+
+# 10.13
 def print_diff(a, b):
     """
     Prints the difference a - b.
@@ -105,31 +120,31 @@ print_diff(2, 5)
 print_diff(a=2, b=5)
 print_diff(b=5, a=2)
 
-# 10.11
+# 10.14
 # Arguments without keywords are matched to the function's parameters based on position: first argument sets the first
 #     parameter, second argument sets the second parameter, etc. For keyword arguments, the position doesn't matter.
 
-# 10.12
+# 10.15
 print_diff(5, b=2)      # fine; 5 is treated as positional argumente, hence mapped to the first parameter, a.
 # print_diff(2, a=5)    # TypeError: print_diff() got multiple values for argument 'a'
 # The second one crashes, because 2 (no keyword) is treated as a positional argument, hence it is used to set
 #   the parameter a, but then the subsequent a=5 sets the same parameter, leaving b unspecified.
 
-# 10.13
+# 10.16
 # print_diff(a=5, 2)  # SyntaxError: positional argument follows keyword argument.
 
-# 10.14
+# 10.17
 print('apple', 'pear', 'banana', sep='-', end='.')
 print()
 print('apple', 'pear', 'banana', '-', '.')
 # In the latter case the dash and point are simply printed, not treated as values for the parameters sep and end.
 
-# 10.15
+# 10.18
 # Keyword arguments make explicit the role that the argument will play in the function (i.e., the parameter name),
 #   whereas to understand the role of a positional argument (i.e., without parameter name) you need to remember or
 #   look up the order of parameters of the function.
 
-# 10.16
+# 10.19
 def some_weird_function(*a, b, c):
     print('a:', a)
     print('b:', b)
@@ -142,12 +157,17 @@ some_weird_function(1, 2, 3, 4, b=5, c=6)   # this also works fine
 # The asterisk *a makes the parameter a 'use up' all the positional arguments. They are stored in a tuple (about
 #    which we will learn more later) and assigned to a.
 
-# 10.17
+# 10.20
 # The asterisked parameter of the print function eats up all positional arguments; it enables the print function
 # to be used with a variable number of positional arguments, each getting printed. It also means the later parameters,
 # like sep and end, can only be specified using keyword arguments.
 
-# 10.18
+# 10.21
+# No, this is a bit of a trick question, as the subsequent note in the exercises shows. The definition of the print
+# function is NOT a function call, but a function definition. The '='-syntax signifies keyword argumnts only in
+# a function call. In a function definition it does something else, as we'll see...
+
+# 10.22
 def multiply_and_add(a, b, c=1):
     """
     Prints the product of a and b, plus c.
@@ -157,12 +177,12 @@ def multiply_and_add(a, b, c=1):
 multiply_and_add(2, 3)  # no third argument provided, so the third parameter is given its default value of 1
 multiply_and_add(2, 3, 4)   # third argument provided, overrules the default value of the third parameter.
 
-# 10.19
+# 10.23
 # Parameters with defaults do not need an argument in the function call in order to be given a value, and in that
 # sense the corresponding argument is 'optional'; parameters with no defaults do need an argument in the function
 # call in order to be given a value, hence those arguments are effectively 'mandatory'.
 
-# 10.20
+# 10.24
 def subtract(a, b, absolute=False):
     """
     Returns a - b by default, or its absolute value if absolute is set to True.
@@ -178,7 +198,7 @@ def subtract(a, b, absolute=False):
 print(subtract(3, 5))
 print(subtract(3, 5, True))
 
-# 10.21
+# 10.25
 def tokenize(sentence, keep_spaces=False):
     """
     Split the sentence into tokens, returning the list of tokens. (Based on 9.14)
@@ -198,15 +218,15 @@ def tokenize(sentence, keep_spaces=False):
 print(tokenize('the quick brown fox jumped, over the lazy dog.'))
 print(tokenize('the quick brown fox jumped, over the lazy dog.', keep_spaces=True))
 
-# 10.22
-print('10.22')
+# 10.26
+print('10.26')
 subtract(5, 3, absolute=True)
 subtract(5, 3, True)
 print(tokenize('the quick brown fox jumped, over the lazy dog.', keep_spaces=True))
 print(tokenize('the quick brown fox jumped, over the lazy dog.', True))
 
-# 10.23
-print('10.23')
+# 10.27
+print('10.27')
 multiply_and_add(2, 3, 5)
 multiply_and_add(a=2, b=3, c=5)
 multiply_and_add(c=5, a=2, b=3)
@@ -215,17 +235,17 @@ multiply_and_add(2, b=3, c=5)
 multiply_and_add(a=2, b=3)
 multiply_and_add(b=3, a=2)
 
-# 10.24
+# 10.28
 # def my_function(a, b=1, c): # SyntaxError: non-default argument follows default argument
 #     print('test')
 
-# 10.25
+# 10.29
 multiply_and_add(c=5, a=2, b=3)
 # That rule is about function definitions, but here we are dealing with a function call. How you specify your
 # arguments (as positional or keyword arguments) is independent of whether the corresponding parameters have
 # defaults or not.
 
-# 10.26
+# 10.30
 def append_to(element, l=[]):       # note: the docstring is a lie
     """
     Appends the element to the provided list, returning it, or to an empty list if none was provided (resulting in [element]).
@@ -233,33 +253,33 @@ def append_to(element, l=[]):       # note: the docstring is a lie
     l.append(element)
     return l
 
-print(append_to.__defaults__)   # from 10.28
+print(append_to.__defaults__)   # from 10.32
 
 print(append_to('cat', ['dog', 'horse']))
 print(append_to('cat'))
 
-print(append_to.__defaults__)   # from 10.28
+print(append_to.__defaults__)   # from 10.32
 
 print(append_to('cat', ['mouse']))
 print(append_to('cat'))
 
-print(append_to.__defaults__)   # from 10.28
+print(append_to.__defaults__)   # from 10.32
 
 # The first call that uses the default list, append_to('cat'), changes the default list, from the initial [] to
 # the singleton list ['cat']. The second call that relies on the default list, append_to('cat') again, therefore
 # does not start from an empty list, contrary to appearances.
 
-# 10.27
+# 10.31
 # None is treated as a 'placeholder' for a default value, that is replaced by an empty list *each time the function
 # is executed*. This is unlike the empty list in the previous version, which was created only once at the start, when
 # the function was defined.
 
-# 10.28
-print('10.28')
+# 10.32
+print('10.32')
 print(append_to.__defaults__)   # (see also above)
 print(multiply_and_add.__defaults__)
 
-# 10.29
+# 10.33
 directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
 
 def turn_clockwise(direction, n_turns=1):
@@ -286,3 +306,5 @@ print(turn_counterclockwise('NW', n_turns=3))
 # These two functions still contain a lot of duplicated code, so there is some 'refactoring' to be done.
 # There will be an exercise about this later.
 
+# 10.34
+# Up to you, but feel free to share your answers in the forum for some feedback!
