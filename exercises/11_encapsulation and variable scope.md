@@ -67,13 +67,19 @@ def add_numbers(a, b):
 
 **11.12.** Our client requests that we add a boolean parameter `as_strings` to the function `ngrams`, with default value `False`. If this boolean is set to `True`, the n-grams in the returned list should be represented as single strings, not lists of strings (e.g., `'the cat eats'` instead of `['the', 'cat', 'eats']` to represent a trigram). Make the required change. What is an advantage of having refactored your code in terms of the `ngrams` function?
 
-**11.13.** Define a function `filter_by_twos` that takes a list, and returns a new list containing every second element (so given `['a', 'b', 'c', 'd', 'e', 'f']` it will return `['b', 'd', 'f']`). Define another function `filter_by_threes` that does the same but for every _third_ element (for the same example, it will return `['c', 'f']`). There is likely some code repetition (or a lot, depending on how concise your code is). Define a generalized function `filter_by_n` that takes an additional argument `n` and returns a list with every `n`th element, then redefine your original functions in terms of this, as shortcuts.
+**11.13.** Remove your functions `ngrams` and `tokenize` from your current working file, and move them to a new, empty Python file you call `text_utils.py` (in the same directory as your current working file). We will be importing `text_utils.py` as a module, so make sure it contains only function definitions, no function calls. Having made this change, your `bigrams`, `trigrams` and `quadrigrams` functions (which remained in your main working file) will no longer work (test this!), as after the above refactoring they rely on `ngrams`. To restore them, place `import text_utils` (note without the `.py`) at the top of your current working file, and replace every reference to `ngrams` by a relative reference to `text_utils.ngrams`. Verify that everything now works properly again. Future sections will likewise rely on `import text_utils` for easy access to `ngrams` and `tokenize` (or else we'd have to duplicate the code into each new file).
 
-**11.14.** In section 10 you defined `turn_clockwise` and `turn_counterclockwise`, taking a string representation of a direction (`N`, `E`, `S`, `W`) and returning a string representation of the new direction after turning. (Copy these to your current file if needed.) There is likely considerably overlap between the two functions. If so, try to minimize overlap, for instance by defining a generalized function `turn` that can turn in both directions depending on whether a given integer argument is negative or positive.
+- - - - - -
+**Something to keep in mind:** The `import` keyword lets us use not only existing modules (such as `random` or `math`), but also reuse our own Python files. It is generally advisable that files that are imported only _define_ functions, not _call_ them, lest the import has 'side effects'. We will learn more about `import` and modules later.
+- - - - -
+
+**11.14.** Define a function `filter_by_twos` that takes a list, and returns a new list containing every second element (so given `['a', 'b', 'c', 'd', 'e', 'f']` it will return `['b', 'd', 'f']`). Define another function `filter_by_threes` that does the same but for every _third_ element (for the same example, it will return `['c', 'f']`). There is likely some code repetition (or a lot, depending on how concise your code is). Define a generalized function `filter_by_n` that takes an additional argument `n` and returns a list with every `n`th element, then redefine your original functions in terms of this, as shortcuts.
+
+**11.15.** In section 10 you defined `turn_clockwise` and `turn_counterclockwise`, taking a string representation of a direction (`N`, `E`, `S`, `W`) and returning a string representation of the new direction after turning. (Copy these to your current file if needed; we won't use them later so no need to put them in a separate module.) There is likely considerably overlap between the two functions. If so, try to minimize overlap, for instance by defining a generalized function `turn` that can turn in both directions depending on whether a given integer argument is negative or positive.
 
 <br>**_Encapsulation and variable scope_**
 
-**11.15.** Another reason for chunking your code into functions is **encapsulation**: variables assigned inside a function, are not accessible outside it. This keeps the number of accessible variables at a given place in your code smaller, which helps prevent certain types of programming errors. Explain how the following code illustrates encapsulation. (Remember we add `flush=True` to a print statement to flush the print buffer directly, in order for printed output and error messages to appear in order of execution.)
+**11.16.** Another reason for chunking your code into functions is **encapsulation**: variables assigned inside a function, are not accessible outside it. This keeps the number of accessible variables at a given place in your code smaller, which helps prevent certain types of programming errors. Explain how the following code illustrates encapsulation. (Remember we add `flush=True` to a print statement to flush the print buffer directly, in order for printed output and error messages to appear in order of execution.)
 
 ```python
 def some_function():
@@ -85,11 +91,11 @@ print('outside the function, after calling the function, b =', b)
 ```
 
 
-**11.16.** In the previous example, what happens if you assign something to `b` also in the global scope, before the function definition? For instance, add  `b = 789` (a different value) above the definition of `my_little_function`.
+**11.17.** In the previous example, what happens if you assign something to `b` also in the global scope, before the function definition? For instance, add  `b = 789` (a different value) above the definition of `my_little_function`.
 
-**11.17.** And what happens if you now remove the line `b = 123` from the function (while keeping `b = 789` above the function definition)? What gets printed? This and the foregoing exercises show that there is some kind of asymmetry between local scope and global scope with regard to variable accessibility. Try to formulate in your own words what this asymmetry is (further below it will be stated in more precise terms).
+**11.18.** And what happens if you now remove the line `b = 123` from the function (while keeping `b = 789` above the function definition)? What gets printed? This and the foregoing exercises show that there is some kind of asymmetry between local scope and global scope with regard to variable accessibility. Try to formulate in your own words what this asymmetry is (further below it will be stated in more precise terms).
 
-**11.18.** Unlike `def`-clauses (function definitions), `if`-clauses do not create a local scope, i.e., do not encapsulate the variables assigned within it. Explain how the following example demonstrates this:
+**11.19.** Unlike `def`-clauses (function definitions), `if`-clauses do not create a local scope, i.e., do not encapsulate the variables assigned within it. Explain how the following example demonstrates this:
 
 ```python
 if 1 + 1 == 2:
@@ -100,7 +106,7 @@ print('outside the if:', x)
 ```
 
 
-**11.19.** Does the following example demonstrate that `for`-clauses likewise do not encapsulate their variables?
+**11.20.** Does the following example demonstrate that `for`-clauses likewise do not encapsulate their variables?
 
 ```python
 for x in [1, 2, 3]:
@@ -110,7 +116,7 @@ print('outside the for:', x)
 ```
 
 
-**11.20.** Does the following code show that `if`-clauses do create a local scope after all? Or does it show something else?
+**11.21.** Does the following code show that `if`-clauses do create a local scope after all? Or does it show something else?
 
 ```python
 if 1 + 1 == 3:      # Notice the 3!
@@ -121,9 +127,9 @@ print('outside:', x)
 ```
 
 
-**11.21.** What about an `if`-`elif`-`else` compound clause? Are variables assigned in the initial `if`-clause accessible in subsequent `elif` and `else` clauses? (Does the question even make sense?)
+**11.22.** What about an `if`-`elif`-`else` compound clause? Are variables assigned in the initial `if`-clause accessible in subsequent `elif` and `else` clauses? (Does the question even make sense?)
 
-**11.22.** The built-in functions `locals` and `globals` give you a _dictionary_ containing all local/global variables and their values. We will learn about dictionaries later, but you can already try them out by running the code below. Note that among the global variables are many 'dunder' (double underscore) variables like `__name__` that Python relies upon for bookkeeping, so you may need to scroll to the right to see the variables you yourself assigned.
+**11.23.** The built-in functions `locals` and `globals` give you a _dictionary_ containing all local/global variables and their values. We will learn about dictionaries later, but you can already try them out by running the code below. Note that among the global variables are many 'dunder' (double underscore) variables like `__name__` that Python relies upon for bookkeeping, so you may need to scroll to the right to see the variables you yourself assigned.
 
 ```python
 a = 3
@@ -139,17 +145,17 @@ my_function(5)
 ```
 
 
-**11.23.** In the above example, the local scope also contains a variable `c`. Where does it come from, i.e., where is it assigned its value? (Recall the ctrl+click exercise of the previous section.)
+**11.24.** In the above example, the local scope also contains a variable `c`. Where does it come from, i.e., where is it assigned its value? (Recall the ctrl+click exercise of the previous section.)
 
-**11.24.** Modify the above example to print `globals()` and `locals()` also from _outside_ the function definition, e.g., put the print statements below the function call. What does this demonstrate?
+**11.25.** Modify the above example to print `globals()` and `locals()` also from _outside_ the function definition, e.g., put the print statements below the function call. What does this demonstrate?
 
 - - - - - -
 **Something to keep in mind:** When Python enters a local scope, `locals()` is initially empty. If a variable is _assigned_ a value inside a local scope (e.g., function definition), this variable+value will be stored in `locals()`, not `globals()`. When a variable's value is _retrieved_ inside a local scope, Python will first try to find it in the `locals()` dictionary, and only if it does not find the variable there it will look in `globals()`. (Actually there are two other 'namespaces' in which Python will search for a variable: Python indeed first looks in the local scope, but then it checks the immediately 'enclosing scope' (e.g., if the function is itself contained in a function or class), before considering the global scope, and finally it looks among the `__builtins__`, for built-in functions such as `len` and `print`.)
 - - - - -
 
-**11.25.** We have seen that variables defined inside functions can have the same name of an existing variable from outside the function, without the latter being affected. Explain exactly how this can be.
+**11.26.** We have seen that variables defined inside functions can have the same name of an existing variable from outside the function, without the latter being affected. Explain exactly how this can be.
 
-**11.26.** For every place in the following code where the value of a variable is retrieved, determine the place where its value at that point was assigned. Take into account mutability: mutable objects like lists can be changed _without_ this involving reassigning the variable. While you're at it, a good exercise is to try to predict the exact output of this program.
+**11.27.** For every place in the following code where the value of a variable is retrieved, determine the place where its value at that point was assigned. Take into account mutability: mutable objects like lists can be changed _without_ this involving reassigning the variable. While you're at it, a good exercise is to try to predict the exact output of this program.
 
 ```python
 students = ['ann', 'beth', 'gemma']
@@ -172,7 +178,7 @@ if len(all_students) > 3:
 ```
 
 
-**11.27.** The above 'something to keep in mind' left out an important detail: when a variable is assigned a value _anywhere_ in the local scope, then that variable becomes _strictly local_ to that scope, meaning Python will _only_ try to find it in `locals()`, and _never_ look for that variable in`globals()`, _even if the lookup in locals() fails_. This can cause surprising behavior. Try to predict what the following code does, test your prediction, and reconcile your findings with the rules for encapsulation explained so far.
+**11.28.** The above 'something to keep in mind' left out an important detail: when a variable is assigned a value _anywhere_ in the local scope, then that variable becomes _strictly local_ to that scope, meaning Python will _only_ try to find it in `locals()`, and _never_ look for that variable in`globals()`, _even if the lookup in locals() fails_. This can cause surprising behavior. Try to predict what the following code does, test your prediction, and reconcile your findings with the rules for encapsulation explained so far.
 
 ```python
 a = 5
@@ -185,7 +191,7 @@ erroneous_function()
 ```
 
 
-**11.28.** What might one naively expect the following function to print? Explain why this expectation is wrong, namely, why the following gives an error:
+**11.29.** What might one naively expect the following function to print? Explain why this expectation is wrong, namely, why the following gives an error:
 
 ```python
 b = 10
@@ -198,9 +204,9 @@ bad_function()
 ```
 
 
-**11.29.** The foregoing exercises reveal that a variable inside a function is either local or global, _never_ local on some lines (in the function) and global on other lines (in that same function). Can you think of a possible benefit of this all-or-nothing behavior?
+**11.30.** The foregoing exercises reveal that a variable inside a function is either local or global, _never_ local on some lines (in the function) and global on other lines (in that same function). Can you think of a possible benefit of this all-or-nothing behavior?
 
-**11.30.** Try to predict the entire printed output of the following program, and test your prediction:
+**11.31.** Try to predict the entire printed output of the following program, and test your prediction:
 
 ```python
 x = 6
@@ -227,5 +233,5 @@ print(x)
 ```
 
 
-**11.31.** Does the foregoing mean that there is _no_ way to have a function assign a value to a global variable? Well, you may not ever need this, but there is a way: for a given variable `x`, typing `global x` at the top of the body of a function definition will make sure that `x` in that function serves as a global variable, even if you assign something to `x` in that function later (result: it will assign to a global variable). Play around with this if you like. But the more important take-away of this section is how Python governs variable scope (hence, why something like the `global` keyword would be needed in the first place) -- try to summarize that.
+**11.32.** Does the foregoing mean that there is _no_ way to have a function assign a value to a global variable? Well, you may not ever need this, but there is a way: for a given variable `x`, typing `global x` at the top of the body of a function definition will make sure that `x` in that function serves as a global variable, even if you assign something to `x` in that function later (result: it will assign to a global variable). Play around with this if you like. But the more important take-away of this section is how Python governs variable scope (hence, why something like the `global` keyword would be needed in the first place) -- try to summarize that.
 

@@ -87,55 +87,29 @@ print(secs_to_time(3600))
 print(secs_to_time(124124))
 
 # 11.10
-# Copied from 9.14:
-def tokenize(sentence):
-    """
-    Split the sentence into tokens, returning the list of tokens.
-    """
-    tokens = ['']
-    for char in sentence:
-        if char == ' ':
-            tokens.append('')
-        elif char in '.,:;?!':    # treat each punctuation mark as separate token as well
-            tokens.append(char)
-        else:
-            tokens[-1] += char
-    return tokens
+import text_utils   # for 11.13; imports should normally be at the top of the file.
 
 def bigrams(sentence):
     """
     Return a list of all bigrams of the sentence.
     """
-    return ngrams(sentence, 2)
+    return text_utils.ngrams(sentence, 2)
 
 def trigrams(sentence):
     """
     Returns a list of all trigrams of the sentence.
     """
-    return ngrams(sentence, 3)
+    return text_utils.ngrams(sentence, 3)
 
 def quadrigrams(sentence):
     """
     Returns a list of all quadrigrams of the sentence.
     """
-    return ngrams(sentence, 4)
-
-def ngrams(sentence, n, as_strings=False):
-    """
-    Returns a list of n-grams of the sentence.
-    """
-    tokens = tokenize(sentence)
-    ngrams = [tokens[i:i+n] for i in range(len(tokens) - (n - 1))]
-    if as_strings:
-        ngrams = [' '.join(ngram) for ngram in ngrams]  # change requested by client, from 11.12
-    # Of course you can also achieve this without list comprehension, and without join, by using.
-    # multi-line loops.
-    return ngrams
+    return text_utils.ngrams(sentence, 4)
 
 print(bigrams('the quick brown fox jumped over the lazy dog'))
 print(trigrams('the quick brown fox jumped over the lazy dog'))
 print(quadrigrams('the quick brown fox jumped over the lazy dog'))
-print(ngrams('the quick brown fox jumped over the lazy dog', 3, True))
 
 # 11.11
 # Repetition in code typically makes it take longer to read and understand; and harder to maintain (if you need to
@@ -143,9 +117,13 @@ print(ngrams('the quick brown fox jumped over the lazy dog', 3, True))
 # (it's easy to make a change in one place and forget to make the corresponding place in another).
 
 # 11.12
-# See above for the change. Advantage is we only needed to make the change in one place.
+# See the text_utils.py file for the change made.
+print(text_utils.ngrams('the quick brown fox jumped over the lazy dog', 3, True))
 
 # 11.13
+# Done, see text_utils.py and the required import statement above.
+
+# 11.14
 def filter_by_twos(l):
     """
     Return a new list containing only every second element.
@@ -167,7 +145,7 @@ def filter_by_n(l,n):
 print(filter_by_twos([1, 2, 3, 4, 5, 6]))
 print(filter_by_threes([1, 2, 3, 4, 5, 6]))
 
-# 11.14
+# 11.15
 directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
 
 def turn_clockwise(start_direction, n_turns=1):
@@ -196,9 +174,9 @@ print(turn_clockwise('NE', n_turns=2))
 print(turn_counterclockwise('W'))
 print(turn_counterclockwise('NW', n_turns=3))
 
-# 11.15, 11.16
-print('11.15')
-b = 987 # added for 11.16
+# 11.16, 11.17
+print('11.16')
+b = 987 # added for 11.17
 
 def some_function():
     b = 123
@@ -207,37 +185,37 @@ def some_function():
 some_function()
 print('outside the function, after calling the function, b =', b)
 
-# In 11.15 the last line gave a NameError: name 'b' is not defined.
+# In 11.16 the last line gave a NameError: name 'b' is not defined.
 #   It reflects encapsulation: b is assigned inside the function, hence only available in that 'local scope'.
 
-# In 11.16, the last line prints 987, again showing that the variable b inside the function, while the same name,
+# In 11.17, the last line prints 987, again showing that the variable b inside the function, while the same name,
     # is a different, 'local' variable.
 
-# 11.17
+# 11.18
 # If you comment-out the b = 123 inside the function, what gets printed inside the function is the value 987.
 # There is, therefore, an asymmetry: in the local scope (function) I can access the global variable b with value 987;
 # but in the global scope (outside the function) I cannot access the local variable b with value 123.
 
-# 11.18
+# 11.19
 # That code runs fine, so if-clauses do not create a 'local scope' like functions do.
 
-# 11.19
+# 11.20
 # Yes, that's what it shows, as long as we recognize that the 'stepper' variable x is assigned 'inside' the for-clause.
 # For a clearer example, you can add e.g. y = 123 inside the for-clause's body (indented), to show the same.
 
-# 11.20
+# 11.21
 # No, it does not show that if-clauses create a local scope (because they don't). The error is due, instead, to
 # the fact that the if-condition is always False, so the body of the if-clause is not executed, and that's why the
 # variable is simply not assigned. Nothing to do with scope. (Note that PyCharm gives you a warning in the editor:
 # the code inside the if-clause is 'unreachable'.)
 
-# 11.21
+# 11.22
 # That question does not really make sense, because the individual clauses are necessarily mutually exclusive.
 # Again, nothing to do with scope. (But, hypothetically, if they hadn't been mutually exclusive (impossible),
 # one would expect them to share variables, because if-clauses do not create a local scope.)
 
-# 11.22
-print('11.22')
+# 11.23
+print('11.23')
 
 a = 3
 b = 4
@@ -250,22 +228,22 @@ def my_function(c):
 
 my_function(5)
 
-# 11.23
+# 11.24
 # The variable c is a parameter, to which the function assigns the value 5 when the function is called with argument 5.
 
-# 11.24
+# 11.25
 # It shows that, in the global scope, locals and globals return the same dictionary.
 # It also shows that c, d, e are missing, because they are encapsulated inside the function.
 print('outside my_function, locals = ', locals())
 print('outside my_function, globals =', globals())
 
-# 11.25
+# 11.26
 # While the two variables have the same name, one is in locals() and the other in globals(); they are, therefore,
 # technically distinct variables. Inside the function, only the local variable is affected. And it ceases to exist as
 # soon as the function is done and we return to the global scope.
 
-# 11.26
-print('11.26')
+# 11.27
+print('11.27')
 
 students = ['ann', 'beth', 'gemma']
 more_students = ['dale', 'ebba']
@@ -302,8 +280,8 @@ if len(all_students) > 3:   # recall: if-clause creates no local scope
     # this uses the old value of message, assigned near the start, and reassigns a new value to the same variable.
     print(message, flush=True)
 
-# 11.27
-print('11.27')
+# 11.28
+print('11.28')
 a = 5
 
 def erroneous_function():
@@ -315,18 +293,18 @@ erroneous_function()
 # The reason this gave an error is that a is assigned a value inside the function, meaning it is a local variable
 # everywhere in that function, even before it is assigned.
 
-# 11.28
+# 11.29
 # That code creates the same error as before. The reason is that incrementing with += 3 is an assignment operation too,
 # shorthand for b = b + 3, hence b must be local throughout the function.
 
-# 11.29
+# 11.30
 # A possible explanation is that it helps avoid programming errors. Inside a function, moving code around is pretty
 # common. Without the all-or-nothing behavior with regard to local/global, moving code around inside a function
 # could easily accidentally change a variable from local to global instead of raising an explicit error.
 # It would introduce a 'silent' bug in your code (unintended behavior), hence potentially hard-to-discover.
 
-# 11.30
-print('11.30')
+# 11.31
+print('11.31')
 x = 6
 
 print(x)    # 6
@@ -349,5 +327,5 @@ print(x)    # 6
 third_function(x) # 3
 print(x)    # 6
 
-# 11.31
+# 11.32
 # Formulate your own summary of this section! How does Python govern local vs. global scope?
