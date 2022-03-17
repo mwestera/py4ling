@@ -4,7 +4,7 @@ separate_files = True
 out_dir = '../exercises'
 in_file = 'exer_raw.txt'
 
-update_files_from_section = 11
+update_files_from_section = 12
 
 
 if __name__ == "__main__":
@@ -31,7 +31,7 @@ if __name__ == "__main__":
                 prefix = line[0].lower()
                 mode = 'exercise'
                 source = None
-                if prefix in ["note", "title", "text"]:
+                if prefix in ["note", "title", "subtitle", "text"]:
                     mode = prefix
                 else:
                     source = prefix
@@ -80,6 +80,11 @@ if __name__ == "__main__":
                 out_filename = f'{out_dir}/{titles}_{short_title}.md'.lower()
                 with open(out_filename, 'w+') as outfile:
                     outfile.write("# Python for linguists\n")
+
+        elif line['mode'] == 'subtitle':
+            # string = f'\n **_{line["content"]}_**'
+            string = f'<br>**_{line["content"]}_**'
+
         elif line['mode'] == 'note':
             string = f'- - - - - -\n**Something to keep in mind:** {line["content"]}\n- - - - -'
         elif line['mode'] == 'text':
