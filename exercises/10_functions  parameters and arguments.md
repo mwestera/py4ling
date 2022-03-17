@@ -43,6 +43,8 @@ def example_function(var):
 **Something to keep in mind:** It may seem like we use 'argument' and 'parameter' interchangeably, but there is a subtle difference. When you _define_ a function, you specify its **parameters** in the header of the `def`-clause. When you _call_ a function, you can provide it with **arguments**. The called function will use the provided arguments as values for its parameters. But how does Python know which arguments are meant to set which parameters? The following exercises teach you more about that.
 - - - - -
 
+<br>**_Positional arguments and keyword arguments_**
+
 **10.13.** When calling a function, you have seen that sometimes arguments are simply given as a value, and sometimes as a `parameter=value` expression, a so-called **keyword argument** (e.g., `print('apple', end='')` uses both). In Python, you can often choose how to pass values as arguments to a function: the value on its own, or as a keyword argument `parameter=value`. Look carefully at the following code, predict the outcomes and test your predictions.
 
 ```python
@@ -101,6 +103,8 @@ some_weird_function(1, 2, 3, 4, b=5, c=6)   # this also works fine
 def print(*objects, sep=' ', end='\n', file=sys.stdout, flush=False):
 ```
 
+
+<br>**_Parameters with default values_**
 
 **10.21.** We have learned that the syntax `parameter=value` is used in function calls to pass values to the function as keyword arguments. Does it follow that the same syntax in the above definition of `print` shows that `end`, `file` and `flush` are keyword arguments?
 

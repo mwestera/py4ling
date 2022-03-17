@@ -71,6 +71,8 @@ def add_numbers(a, b):
 
 **11.14.** In section 10 you defined `turn_clockwise` and `turn_counterclockwise`, taking a string representation of a direction (`N`, `E`, `S`, `W`) and returning a string representation of the new direction after turning. (Copy these to your current file if needed.) There is likely considerably overlap between the two functions. If so, try to minimize overlap, for instance by defining a generalized function `turn` that can turn in both directions depending on whether a given integer argument is negative or positive.
 
+<br>**_Encapsulation and variable scope_**
+
 **11.15.** Another reason for chunking your code into functions is **encapsulation**: variables assigned inside a function, are not accessible outside it. This keeps the number of accessible variables at a given place in your code smaller, which helps prevent certain types of programming errors. Explain how the following code illustrates encapsulation. (Remember we add `flush=True` to a print statement to flush the print buffer directly, in order for printed output and error messages to appear in order of execution.)
 
 ```python
