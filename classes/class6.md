@@ -14,7 +14,7 @@
 6. Quick review of previous adventure: Concreteness and correlation.
 7. New adventure: Frequencies
 8. Homework for next time:
-   - Section 9.10-end (loops) and 10.1-11.14 (function fundamentals)
+   - Section 9.10-end (loops) and 10.1-11.15 (function fundamentals)
    - Be aware of variable roles (see below).
    - Also: Try to make the adventure code run on your computer.
 
