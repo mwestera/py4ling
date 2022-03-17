@@ -120,13 +120,14 @@ def quadrigrams(sentence):
     """
     return ngrams(sentence, 4)
 
-def ngrams(sentence, n):
+def ngrams(sentence, n, as_strings=False):
     """
     Returns a list of n-grams of the sentence.
     """
     tokens = tokenize(sentence)
     ngrams = [tokens[i:i+n] for i in range(len(tokens) - (n - 1))]
-    ngrams = [' '.join(ngram) for ngram in ngrams]  # change requested by client, from 11.12
+    if as_strings:
+        ngrams = [' '.join(ngram) for ngram in ngrams]  # change requested by client, from 11.12
     # Of course you can also achieve this without list comprehension, and without join, by using.
     # multi-line loops.
     return ngrams
@@ -134,9 +135,10 @@ def ngrams(sentence, n):
 print(bigrams('the quick brown fox jumped over the lazy dog'))
 print(trigrams('the quick brown fox jumped over the lazy dog'))
 print(quadrigrams('the quick brown fox jumped over the lazy dog'))
+print(ngrams('the quick brown fox jumped over the lazy dog', 3, True))
 
 # 11.11
-# Repetition is code typically makes it take longer to read and understand; and harder to maintain (if you need to
+# Repetition in code typically makes it take longer to read and understand; and harder to maintain (if you need to
 # make a change, you often need to make the same change in multiple places); and the latter makes it more error-prone
 # (it's easy to make a change in one place and forget to make the corresponding place in another).
 

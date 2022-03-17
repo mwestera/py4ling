@@ -65,7 +65,7 @@ def add_numbers(a, b):
 
 **11.11.** Can you think of some reasons why it is (often) a good idea to try to avoid repeated chunks of code, i.e., why the DRY principle is a useful guideline?
 
-**11.12.** Our client requests that n-grams be represented as strings instead of lists (e.g., `'the cat eats'` instead of `['the', 'cat', 'eats']` to represent a trigram). Make the required change. What is an advantage of having refactored your code in terms of the `ngrams` function?
+**11.12.** Our client requests that we add a boolean parameter `as_strings` to the function `ngrams`, with default value `False`. If this boolean is set to `True`, the n-grams in the returned list should be represented as single strings, not lists of strings (e.g., `'the cat eats'` instead of `['the', 'cat', 'eats']` to represent a trigram). Make the required change. What is an advantage of having refactored your code in terms of the `ngrams` function?
 
 **11.13.** Define a function `filter_by_twos` that takes a list, and returns a new list containing every second element (so given `['a', 'b', 'c', 'd', 'e', 'f']` it will return `['b', 'd', 'f']`). Define another function `filter_by_threes` that does the same but for every _third_ element (for the same example, it will return `['c', 'f']`). There is likely some code repetition (or a lot, depending on how concise your code is). Define a generalized function `filter_by_n` that takes an additional argument `n` and returns a list with every `n`th element, then redefine your original functions in terms of this, as shortcuts.
 
