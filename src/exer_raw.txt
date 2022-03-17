@@ -153,6 +153,8 @@ MW	Assign a variable `name = 'Michael'`. What do each of the following do: \n- `
 
 Note    The square brackets operator `[]` lets us select characters, contiguous substrings, and even non-contiguous substrings. This is called _slicing_ the string.
 
+***However, out of range slice indexes are handled gracefully when used for slicing:  >>> word[4:42] 'on'  >>> word[42:]  ''
+
 MW  You can also indicate the _step size_ when slicing, by adding another colon and a number. What does `name[::2]` do? What about `name[::-1]`? And `name[1:5:2]`?
 MW  By using _only_ slicing, extract only the odd-position characters from `michael` (assuming the `m` is at position 0, i.e., even). And can you also obtain the string `eh` from the string `michael` by using only slicing? What about the string `ehm`?
 ***[NEW] MW  By using slicing, write a boolean expression that tests if a given word `w` is a _palindrome_. It should work for words of any length.
@@ -190,6 +192,8 @@ MW  Use format strings to improve the printed output of some of your time/clock 
 
 
 Title	Types (`type`, and `int`, `str`, ..., also `help`, `dir`)
+
+***tuple syntax, e.g.,  a = 3 + 4,  error.
 
 MW	What does the built-in function `type` do? Apply it at least to the expressions `4`, `238`, `-6`, `5.3`, `3 ** 4`, `'apple'`, `'apple' * 5`, `True`, `False`, `'True'`, `'False'`, `'987'` (note the quotation marks), `print` and `max`.
 MW	You can _convert_ between types by using `int`, `str`, `float`, `bool`, for instance `int('400')` constructs a string `'400'` from the integer `400`, and `bool(0)` constructs the boolean `False` from the integer `0`. Try to convert between different types, and use `type` to check the result.
@@ -399,6 +403,8 @@ MW	What do you expect will happen if you do `names[len(names)]`? Test your expec
 MW	Recall from slicing with strings that you could specify not only a start and end, but also a step. Does this work with lists? For instance, use slicing to construct a sub-list containing only the elements at even indices (0, 2, 4, ...), or only at odd indices, or to construct the inverse of a list (by slicing it from back to front).
 MW	What happens if you pass an entire list as an argument to `print`, i.e., `print(names)`?
 MW	Assuming you still have the variable `names`, what does the `in` keyword do? Try at least `'Alf' in names` and `'Alwyn' in names`. How do you test whether _Alwyn_ is _not_ in `names`. Is the `in` keyword (or rather, the notion of 'string identity' on which it relies) case-sensitive?
+***TODO add an exercise about repeated slicing to get into a nested list of lists.
+***TODO Add remark/exercise about this: In the case of strings, `in` also tests for subsequence; not so for lists.
 MW	Remember that various numerical operations could be performed on strings, e.g., `'apple' * 5`, and `'apple' + 'pear'`. Do such oprations also work on lists?
 MW	You can change a list element at a given position (index) by assigning a new value using `=`, e.g., `names[3] = 'Nick'`. Afterwards, print the list `names` to see the effect.
 MW	In the list `names`, use assign to replace the last element by 'Suzy' and the first element by 'Bob'. Can you also use assignment to _extend_ the list, by assigning a new element to the final index plus 1?
@@ -606,6 +612,8 @@ def example_function(var):
 
 Note    It may seem like we use 'argument' and 'parameter' interchangeably, but there is a subtle difference. When you _define_ a function, you specify its **parameters** in the header of the `def`-clause. When you _call_ a function, you can provide it with **arguments**. The called function will use the provided arguments as values for its parameters. But how does Python know which arguments are meant to set which parameters? The following exercises teach you more about that.
 
+Subtitle    Positional arguments and keyword arguments
+
 MW  When calling a function, you have seen that sometimes arguments are simply given as a value, and sometimes as a `parameter=value` expression, a so-called **keyword argument** (e.g., `print('apple', end='')` uses both). In Python, you can often choose how to pass values as arguments to a function: the value on its own, or as a keyword argument `parameter=value`. Look carefully at the following code, predict the outcomes and test your predictions.\n```
 def print_diff(a, b):
     print(a - b)
@@ -643,6 +651,9 @@ some_weird_function(1, 2, 3, 4, b=5, c=6)   # this also works fine
 MW  Reflect on the role of the asterisk in the definition of the built-in `print` function:\n```
 def print(*objects, sep=' ', end='\n', file=sys.stdout, flush=False):
 ```
+
+Subtitle    Parameters with default values
+
 MW  We have learned that the syntax `parameter=value` is used in function calls to pass values to the function as keyword arguments. Does it follow that the same syntax in the above definition of `print` shows that `end`, `file` and `flush` are keyword arguments?
 
 Note  When you _define_ a function, you can specify **default values** for some or all of the parameters, using `parameter=value` syntax in the header of the function definition (not to be confused with the same `parameter=value` syntax used when _calling_ a function, to specify keyword arguments!). Parameters with default values can be omitted from the function call, in which case the default value is used.
@@ -747,6 +758,8 @@ MW  Can you think of some reasons why it is (often) a good idea to try to avoid 
 MW  Our client requests that n-grams be represented as strings instead of lists (e.g., `'the cat eats'` instead of `['the', 'cat', 'eats']` to represent a trigram). Make the required change. What is an advantage of having refactored your code in terms of the `ngrams` function?
 MW  Define a function `filter_by_twos` that takes a list, and returns a new list containing every second element (so given `['a', 'b', 'c', 'd', 'e', 'f']` it will return `['b', 'd', 'f']`). Define another function `filter_by_threes` that does the same but for every _third_ element (for the same example, it will return `['c', 'f']`). There is likely some code repetition (or a lot, depending on how concise your code is). Define a generalized function `filter_by_n` that takes an additional argument `n` and returns a list with every `n`th element, then redefine your original functions in terms of this, as shortcuts.
 MW  In section 10 you defined `turn_clockwise` and `turn_counterclockwise`, taking a string representation of a direction (`N`, `E`, `S`, `W`) and returning a string representation of the new direction after turning. (Copy these to your current file if needed.) There is likely considerably overlap between the two functions. If so, try to minimize overlap, for instance by defining a generalized function `turn` that can turn in both directions depending on whether a given integer argument is negative or positive.
+
+Subtitle    Encapsulation and variable scope
 
 MW  Another reason for chunking your code into functions is **encapsulation**: variables assigned inside a function, are not accessible outside it. This keeps the number of accessible variables at a given place in your code smaller, which helps prevent certain types of programming errors. Explain how the following code illustrates encapsulation. (Remember we add `flush=True` to a print statement to flush the print buffer directly, in order for printed output and error messages to appear in order of execution.)\n```
 def some_function():
@@ -868,54 +881,100 @@ MW  Does the foregoing mean that there is _no_ way to have a function assign a v
 
 Title	Dictionaries
 
-***Maybe introduce del (also for lists, but rarely used)
-***tuple syntax, e.g.,  a = 3 + 4,  error.
-
-MW	Let us construct `name_to_id`, a mapping or _dictionary_ from fictional student names (the keys) to student IDs (the values):\n```
+MW	Run the code below to construct `name_to_id`, a mapping or _dictionary_ from fictional student names (the keys) to student IDs (the values). Then inspect the object you created by printing `name_to_id`, as well as `type(name_to_id)`.\n```
 name_to_id = {'Alf': '136124', 'Beth': '008623', 'Chris': '014212', 'Dave': '9123785', 'Esra': '978123'}
 ```
-MW	You can look up a particular value in the dictionary by providing it with a key in square brackets (like list index notation). Look up the student IDs (values) of Alf and Chris (keys).
-MW	What happens if you try to look up the student ID (value) of a student whose name is not a key in the dictionary?
-MW  What happens if you try to treat the dictionary like a list, and select, e.g., the third item (i.e., index 2) by doing `name_to_id[2]`?
-MW	What happens when you try to define a dictionary with strings as keys, but you forget quotation marks around the strings?
-MW	Does a dictionary have a length, just like lists and strings? Can you create an empty dictionary? What is the `type` of a dictionary?
-MW	Similar to assigning a value to a particular index in the list (e.g., `names[3] = 'Bert'`), you can assign a value to a particular key in the dictionary (e.g., `name_to_id['Suzy'] = '124987'). What happens if the key to which you assign a value already exists in the dictionary? What happens if it does not yet exist in the dictionary?
-MW	Oops, the `name_to_id` dictionary contains the wrong ID for Chris! It should be `5987162`, please correct it.
-MW	What happens if you try to define a dictionary in which the same string appears as a key twice? What happens if you define a dictionary in which the same string is both a key and a value?
-MW	What happens if you define a dictionary (like `{'Alf': '36124', 'Beth': '008623'}`) but using `=` instead of the colons `:`? What happens if you update a dictionary via assignment (`name_to_id['Suzy'] = '124987`) but use a colon `:` instead of equals `=`?
+MW	You can look up a particular value in the dictionary by providing it with a key in square brackets (like list index notation). Look up the student IDs (values) of Alf and Chris (keys), and print them.
+MW	What happens if you try to look up the student ID (value) of a student whose name is not a key in the dictionary? What happens if you forget the quotation marks around the key string you're looking up?
+MW	Does a dictionary have a length, just like lists and strings? Can you create an empty dictionary?
+MW  Can you use the keyword `in`, just as with lists, to check if an element is contained in a dictionary? If so, does `in` look at the keys or the values?
+MW  Does a dictionary support integer indexing just like lists and strings? E.g., can you select the third item (index 2) in the above dictionary by doing `name_to_id[2]`?
+MW  What if we have a dictionary with integers as keys instead of strings, like `{1: 'hi', 2: 'hello', 3: 'bye', 4: 'tata'}`? Can we now access an element by its index (or is this a misleading way to put it)?
+
+Note   A **dictionary** is Python's main datastructure for storing a mapping between items, from _keys_ to _values_. Both keys and values in a dictionary can be various types of objects, e.g., integers, floats, strings, and more complex objects. However, since the keys need to function as stable anchor points for the values, keys can only be _immutable_ objects (or more precisely they need to be _hashable_, which can remain a mystery for now). If you need a mapping from _consecutive_ integers to values, the list datastructure may be more suitable; otherwise a dictionary is often the way to go.
+
+MW	What happens if you define a dictionary by specifying key-value pairs (like `{'Alf': '36124', 'Beth': '008623'}`) but using equals signs `=` instead of the colons `:` to connect keys and values? Do you see why this is quite an easy-to-make syntax mistake?
+MW  Try to construct an integer-to-integer dictionary, say, from numbers representing an age (in years) to the number of (hypothetical) students that have that age. Construct a string-to-integer dictionary that could be a (small) example of a mapping from words to their counts in some (hypothetical) corpus. Construct a string-to-list dictionary that maps the name of a hypothetical course (say, `'semantics'`, `'syntax'`, `'python'`) to a list of students taking that course. Lastly, what happens if you try to construct a list-to-integer dictionary that, say, maps a list of numbers to its average? Why?
+MW  Can a single dictionaries mix multiple types (e.g., integers, floats, strings) as values, and/or multiple types as keys?
+MW  Do dictionaries support slicing like lists and strings do, to select a range of elements, e.g., `name_to_id['Alf':'Dave']`? What about dictionaries that have integers as keys, do they support slicing to get a range of elements? Why might this be?
 MW	Do you expect the keys in a dictionary to be case-sensitive? Test this.
-MW  Is a dictionary mutable like a list, or immutable like integers and strings? Illustrate with code.
-MW	Both keys and values in a dictionary can be be integers, strings, or other objects (though the keys cannot be _mutable_, or more precisely they need to be _hashable_, which can remain a mystery for now). Give an argument why in this case the student IDs should be represented as strings, not as integers.
-MW	Can you loop over a dictionary with the same syntax as looping over a list? Try to loop over the dictionary `name_to_id` from above, printing each element. Which elements get printed, the keys, the values, or both?
-MW	There are three other ways of looping over a dictionary. In the above code, replace the occurrence of `name_to_id` in the header of the for-clause by `name_to_id.keys()`, `name_to_id.values()` and `name_to_id.items()`, and see what happens in each case.
-MW	If you loop over `name_to_id.items()`, note that what gets printed are _pairs_ of a key and a value. Earlier we saw that `enumerate` likewise creates pairs (of an integer count and a list element), and that this pair can be 'unpacked' into two separate variables in the for-header: `for i, name in enumerate(names)`. Similarly, try `for key, value in name_to_id.items()`, and print the key and value separately.
-MW	Construct another dictionary `name_to_id2` with a bunch of fictional names and IDs different from those in the original `name_to_id`. Now use a loop to add all items from `name_to_id` to the dictionary `name_to_id2` (in addition to its existing items).
-MW	Do the dictionary methods `keys`, `values` and `items` return an ordinary list, or a different type of object? If they are not lists, can you convert them using `list(...)`?
-MW	Create a dictionary `en_to_nl` that maps English numerals up to ten (_one_, _two_, ..., _ten_) to Dutch numerals (_een_, _twee_, ..., _tien_).
-MW	Create an empty dictionary `{}` and then, without re-typing any numerals, loop through the items of `en_to_nl` to construct the inverse dictionary, `nl_to_en`. Test a number of examples, including translating back and forth, e.g., `nl_to_en[en_to_nl['two']] == 'two'`.
-MW	Add some more words to your original dictionary `en_to_nl`, and see if constructing the inverse `nl_to_en` still works. What problem arises if to `en_to_nl` you now add the English word _note_ meaning Dutch _noot_, and also the English word _nut_ meaning Dutch _noot_, and then construct its inverse again?
-MW	Write a function that takes a list of strings like `['abc', 'hello', '2', 'three', '51', 'john']`, and computes the sum of all numbers it contains (in this example 2 + 52 = 53). What should it return if the list contains no numbers? Now extend your function so it also takes into account English numerals, like _two_, _three_ and _four_, adding them up together with the numbers; let it handle at least all English numerals up to _ten_.
-MW  Copy a short story or blog post from the web and assign it as one long string to a variable `text` (if the copied text contains newlines, remember you can enclose the string in triple quotation marks `'''` or `"""`). Write a program that uses your function `tokenize` from a while ago, to turn the `text` into a list of words. Then loop through the list of words in order to fill a dictionary `word_counts`, that has words (as types) as keys and the number of tokens (occurrences) of each word (tokens) as values. To illustrate: if the text contains _apple_ five times, then `word_counts['apple']` will end up equivalent to `5`.
-MW	Write a function that takes a dictionary and prints its items, one item on each line, with key and value separated by a colon and a space (`: `). Apply this function to `word_counts` from the previous exercise.
-W3R	Write a function to get the minimum and maximum value in a dictionary, and a separate function to get the minimum and maximum key in a dictionary.
-MW	Try defining several dictionaries and iterate over their keys, printing them. What determines the order in which the keys are iterated over?
 
-Note	Conventionally, when iterating over a dictionary the elements will be given in the order in which they were defined / added to the dictionary (so not, e.g., alphabetical). However, this can depend on the particular Python version. By convention, the order of items in a dictionary _must not matter_ and _should not be relied upon_ for critical code. If order matters, use a list instead.
+MW	Similar to assigning a value to a particular index in the list (e.g., `names[3] = 'Bert'`), you can assign a value to a particular key in the dictionary (e.g., `name_to_id['Suzy'] = '124987'`). What happens if the key to which you assign a value already exists in the dictionary? What happens if it does not yet exist in the dictionary? Relatedly, what happens if there are duplicate keys already at the moment you create a dictionary, e.g., `my_dict = {'a': 1, 'b': 2, 'a': 3}`?
+MW  What do you think `del name_to_id['Esra']` does? Try it! In fact, does this syntax also work on lists? Construct a list (like `names` from previous sections) and try to delete the item at one of its indices. Do you expect it to work on a string as well, i.e., to delete a character from the index in a string? Why not?
+MW	Oops, the `name_to_id` dictionary contains the wrong ID for Chris! It should be `'5987162'`. Also, Suzy has quit the course, so let's remove her entry from the dictionary altogether.
+MW  Interestingly, dictionaries are also used under the hood for storing the ordinary variables you create -- remember `globals()` and `locals()` dictionaries from the previous section? What does the following code show?\n```
+x = 5
+print(x)
 
-MW	Loop over a dictionary's `items` (key-value pairs) to print the `type` of each item. Do all items have the same type? What if the dictionary keys and values are a mix of integers and strings?
-MW	Let's improve our dictionary `en_to_nl` from before, and the way we constructed its inverse. Instead of mapping a single English word to a single Dutch word, it maps each English word to a _list_ of Dutch words, e.g., `{'bat': ['vleermuis', 'knuppel'], ...}`. Now implement a function that takes this type of dictionary, and constructs the inverse dictionary `nl_to_en`, again a list from words to lists of words. If you invert the new `nl_to_end` back again, do you return to the dictionary with which you started, or is information lost along the way?
+globals()['y'] = 10
+print(y)
+```
+MW  In the above example, PyCharm will likely warn you, with a red squiggle on the last line, that the variable `y` has not been defined. But Python itself doesn't care; the code runs fine! This means that PyCharm's warnings are based on a more shallow parsing of the code (called **linting**), not on actually interpreting it fully like Python does. Why might that be?
 
-MW	Dictionaries are also useful for representing so-called _feature structures_, i.e., bundles of features with values. You can represent all relevant features of a certain student by a dictionary, e.g., `{'name': 'John', 'age': 22, 'student_id': '1249871', 'major': 'linguistics'}`. Create a list `students` and populate it with a number of fictitious students of different majors. To keep your code readable, can you spread your definition of the list across multiple lines, with one dictionary per line?
-MW	From the list `students`, how do you extract all students that major in linguistics? And all students between age 21 and 25?
-MW	Construct a similar database of university courses, each with its name, course code, number of ECTS, and name of the professor. Then query it, e.g., select all courses that give you at least 5 ECTS, or that are taught by a professor with a name shorter than 5 characters.
-MW	Can you use list comprehension syntax (see earlier) with dictionaries? Suppose we have a plain list of names `student_names`, and a plain list of numbers `student_ages` containing the age of each student (in the same order). Now try `{name: age for name, age in zip(student_names, student_ages)}`.
+Subtitle    Looping over dictionaries
+
+MW	Can you loop over a dictionary with `for` by using the same syntax as looping over a list? Try to loop over the dictionary `name_to_id` from above, printing each element. Which elements get printed, the keys, the values, or both?
+MW	There are three other ways of looping over a dictionary: you can loop over elements in `name_to_id.keys()` (e.g., `for key in name_to_id.keys()`), over elements in `name_to_id.values()` and over elements in `name_to_id.items()`. Try the three versions, in each case simply printing the elements in the loop, and see what gets printed.
+MW	If you loop with `for item in name_to_id.items():`, note that what gets printed (each `item`) are _pairs_ of a key and a value. A pair (or more generally _tuple_) can be _unpacked_ by assigning it to two variables separated by a comma, like this: `for key, value in name_to_id.items():`. (Recall that we saw tuple unpacking before, in the Pythonic way of switching two variables, `x, y = y, x`.) Use this to define a function `print_dict` that takes a dictionary, and loops over its items to print keys and their associated values separated by a colon: `key: value`.
+MW	Define a function that takes two dictionaries, and adds all items of the second to the first (modifying the first dictionary in-place). To test this function, construct another dictionary `name_to_id2` with a bunch of fictional names and IDs different from those in the original `name_to_id`.
+MW  In fact, the function you just defined should achieve the same as the built-in dictionary method `update`, i.e., `name_to_id.update(name_to_id2)`. Test this! (I hope you see this doesn't make the previous exercise pointless; it has given you experience with looping over dictionaries, and, having implemented an `update` function yourself, it will be easier to remember what the built-in `update` does.) What are differences (in functionality) between the `update` method and assigning a value to a key using direct assignment (`=`)?
+MW	Do the dictionary methods `keys`, `values` and `items` return an ordinary list, or a different type of object? Do these types of objects support slicing like a list? If not, it might occasionally be convenient to convert them to a list with `list(...)`. Try this, and see if the resulting list does support slicing (as one would expect).
+MW	What determines the order in which the keys are iterated over? Form a hypothesis by defining several dictionaries (and also adding some new items to them later) and iterating over their keys, printing them (you can use your own `print_dict` from before).
+
+Note	Until Python 3.6, the **order** of items in a dictionary could depend on the particular implementation of Python, and was not to be relied upon in Python code. Since Python 3.7, however, dictionary order has been promoted from an implementational side-effect to a core feature of dictionaries: when iterating over a dictionary, the elements are now guaranteed to be given in the order in which they were added to the dictionary (whether in the initial dictionary definition (from left to right) or through subsequent assignment or update).
+
+W3R	Write a function to get the maximum value in a dictionary, and a separate function to get the maximum key in a dictionary.
+
+MW	Recall that **list comprehension** syntax can be used for concisely constructing one list from another. The same can be done with dictionaries (it is generally still called 'list comprehension' though, not 'dictionary comprehension'). What do you think the following does?\n```
+new_dict = {key: value for key, value in name_to_id.items() if key[0].lower() in 'aeiou'}
+```
 MW	Use list comprehension to take an existing dictionary with strings as keys (e.g., `name_to_id`), and filter it, constructing a new dictionary that contains only those items whose key started with a vowel.
-MW	Use list comprehension to take an existing dictionary and invert it, swapping the keys with the values, in a single line of code. (But remember, _brevity_ is not the point; use list comprehension only if it makes the code _easier to read and understand_!)
+MW  Explain in ordinary English what the following list comprehensions do: \n - `{name: len(name) for name in name_to_id}` \n - `{i: i**2 for i in range(10)}` \n - `{name: name[::-1] for name in name_to_id.keys()}` \n - `{key: value for key, value in name_to_id.items() if int(value) % 2 == 0}`
+MW	Use list comprehension to take an existing dictionary and invert it, swapping the keys with the values.
+MW  Suppose we have a predefined list of English numerals `numerals = ['zero', 'one', 'two', 'three', 'four', 'five']`. Use list comprehension and `range` to create a dictionary from English numerals to arabic numbers, and another one for the reverse mapping.
+MW  Define a function that takes a tokenized text (list of strings) and returns a dictionary of token counts, mapping each token to how often it occurs in the text. You can use list comprehension to initialize a counts dictionary (mapping all words to 0), and then loop through the tokens list while updating the counts.
 
-***Insert this here somewhere, also saying that ngrams need to be strings (or tuples, but introduced later), not lists, and asking why.
-MW	Remember the `text` and its `word_counts` dictionary from above? Now go through the text again to count not single words, but _bigrams_: pairs of words that occur next to each other. Store each bigram, with its counts, in a dictionary `bigram_counts`. If every bigram occurs only once, consider using a larger `text` for more interesting results. Now print the top 10 most common bigrams with their counts.
-MW	Generalize the foregoing to allow counting unigrams (single words), bigrams, trigrams, 4-grams, etc.: define a function `count_ngrams` that takes two parameters, namely a text (string) and an integer `n`, and returns a dictionary containing all n-grams, with their counts. What happens to the counts as `n` becomes higher and higher?
+***Too uninteresting  MW	Write a function that takes a list of strings like `['abc', 'hello', '2', 'three', '51', 'john']`, and computes the sum of all numbers it contains (in this example 2 + 52 = 53). Now extend your function so it also takes into account English numerals, like _two_, _three_ and _four_, adding them up together with the numbers; let it handle at least all English numerals up to _ten_.
 
+
+
+Subtitle    Mini-adventure: Translation
+
+MW	Create a dictionary `en_to_nl` that maps some English words to Dutch words. (You can also use another language pair of choice for these exercises.)
+MW  Write a function `invert_dict` that takes a dictionary and returns a new, inverse dictionary, mapping the original values back to the original keys. Use this to construct a dictionary `nl_to_en` from the original `en_to_nl` you defined in the previous exercsie. Can you now use the two dictionaries to translate back and forth, e.g., assuming your original dictionary contained the word _tree_, what is the outcome of `nl_to_en[en_to_nl[nl_to_en[en_to_nl['tree']]]]`.
+MW	To `en_to_nl`, add the English word _feather_ mapping to Dutch _veer_, as well as the English word _spring_, which also happens to translate into Dutch _veer_. Feed it into your function `invert_dict`. What is the problem, technically and conceptually? Illustrate this in code by inverting your dictionary `en_to_nl` once, and then inverting the result again, comparing the outcome to the original. (You can use your function `print_dict` from above to print the dictionaries in a more readable way.)
+MW  In general, a single word can multiple adequate translations, for instance if the word is ambiguous or of the target language has multiple synonyms. To account for this, define a different type of dictionary, `en_to_nl_multi` that maps each English word to a _list_ of Dutch words, e.g., `{'bat': ['vleermuis', 'knuppel'], 'tree': ['boom'], ...}`. Your previous function `invert_dict` does not work on this type of mapping (explain what the problem is), so write a new function `invert_dict_multi` that does work. Note that just switching keys and values won't be adequate; the inverted dictionary `nl_to_en_multi` should again be a mapping from strings to lists, just like the original. Your new inversion function should handle the _bat_ (_vleermuis_/_knuppel_) example correctly, and also solve the _feather_/_spring_ (_veer_) problem from the previous exercise.
+MW  Write a function that takes a text and a dictionary as parameters, and returns a word-by-word translation of the text. Add enough words to your dictionary to enable the translation of some simple sentences. For instance, feeding this function _The feather was very light_ (together with the `en_to_nl` dictionary) should result into _De veer was heel licht_.
+MW  What if your text contains a word that is not in the dictionary? Give your translation function a third parameter `mask_unknown` that is a boolean with a default value True. If it is set to True, unknown words should appear as `<UNKOWN>` in the resulting string. If it is set to False, unknown words should simply be left untranslated (e.g., resulting in a mostly-Dutch sentence with some untranslated English words). You can of course use `in` to check if a word is included in the dictionary or not, but doing so will often lead to two dictionary lookups where one should suffice (consider why). The `get` method of dictionary objects is better here; enter `help({}.get)` in the Python console to see how you can use it.
+MW  Naturally, a shortcoming of word-by-word translation is that any word order differences between languages are not accounted for. Illustrate this with a sentence of choice.
+
+
+Subtitle    Mini-adventure: Counting n-grams
+
+MW  In the following exercises we will see if n-grams follow a Zipfian distribution just like individual words. We will be using some techniques from the Week 6 adventure that we haven't covered in the homework yet, so don't be afraid to copy-paste. Create a new Python file, where you either start from scratch or copy the entire Week 6 adventure code as your starting point.
+MW  Go to https://www.gutenberg.org/ to download several books in 'plaintext' format (or use another source of text data of your choosing). In the same directory as your current Python file, create a folder `data` (if it doesn't exist yet) and put your downloaded text files in that folder (the same way as for our Week 6 adventure).
+MW  In your Python program, read all of the text data from the aforementioned files and concatenate them into a single string. Tokenize this string (with some cleanup).
+MW  Program (or copy from a previous homework section) an `ngrams` function that takes a list of tokens and an integer `n`, and returns a list of n-grams. It is best if these n-grams are themselves represented as strings (or tuples), not as lists of strings, because we will be using them as keys in a counting dictionary: dictionary keys must be immutable.
+MW  Write code (could be divided into several functions) to print the 10 most frequent and 10 least frequent bigrams and trigrams.
+MW  Review how in our Week 6 adventure we sorted the tokens by their counts and plotted them, and write code to do the same for bigrams and trigrams. Do these show a Zipfian distribution? What are some differences between the distribution of single tokens? Is there some `n` for which the distribution of `n`-grams ceases to be Zipfian?
+
+
+Subtitle    Mini-adventure: Language generation with feature structures
+
+MW  Briefly review your random sentence generation code from Section 7. In the current section we will explore a different approach, relying heavily on dictionaries.
+MW	Dictionaries are useful for representing so-called _feature structures_, i.e., bundles of features with values. This lets us represent a vocabulary as a list of dictionaries, as illustrated below. Extend this vocabulary by adding different words:\n```
+vocabulary = [
+{'word': 'walk', 'category': 'verb', 'frame': 'intransitive'},
+{'word': 'see', 'category': 'verb', 'frame': 'transitive'},
+{'word': 'student', 'category': 'noun'},
+{'word': 'the', 'category': 'det'},
+]
+```
+MW  As a warming up, use list comprehension to construct a new list from this vocabulary containing only all verb entries, and another one containing only nouns.
+MW  As another warming up, use `import random` and then `random.choices(...)` to select a random determiner from the vocabulary, a random noun, and a random intransitive verb, and concatenate them into a simple sentence.
+MW  Now create a more general function that randomly generates a sentence based on the above vocabulary. Try to do so by defining and calling auxiliary functions corresponding roughly to natural language constituents, e.g., a `vp` function that generates a random verb phrase, a `dp` function that generates a random determiner phrase, and so on. Your `vp` function should be sensitive to the `frame` feature in the vocabulary entries of verbs, and include an object `dp` where necessary. You can also make your `dp` function refer to an `np` function that generates noun phrases with an optional adjective.
+MW  For testing, implement a simple loop that prints out, say, 100 random sentences generated by your grammar.
+MW  Add thematic role information as a feature to your verb entries (e.g., `'subject': 'agent'`), and relevant semantic information to your noun entries (e.g., `'animate': True`). If you let the `vp` function return not just a string but also the subject's thematic role, you can feed this role as an argument to the `np` function that generates the subject, in order for that function to generate a subject with appropriate semantic features (e.g., if an 'agent' is required, it will check the 'animate' feature).
 
 
 
@@ -1248,6 +1307,8 @@ mydict: Dict[str, bool]: {}
 
 
 Title   More about tuples (also `dict`, `zip`)
+
+***tuple syntax, e.g.,  a = 3 + 4,  error.
 
 MW	We have seen tuples in the context of dictionaries, and also with `enumerate` earlier (pairs of an index and an element). You can create a tuple as in `my_tuple = (5, 2, 3)`. (In various contexts the parentheses for tuples are optional for reasons that can remain a mystery for now.) Print `my_tuple` to see what it looks like, and explore how tuples work.
 MW	Can you create a tuple of numbers, a tuple of strings, a mixed tuple? Can you look up an element by its index, like with lists? Does a tuple have a length? Can you concatenate two tuples into a new one using `+`? Is a tuple mutable like a list (i.e., can you assign a new value to a slot in an existing tuple), or immutable like a string? Can you loop over the elements of a tuple? Can you append an extra element to a tuple? Can an element of a tuple be itself a tuple? Can tuples be compared with operators like `<` and `>`? What does it mean?
