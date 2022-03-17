@@ -9,7 +9,7 @@ Goals:
     Zipf's law
 """
 
-path_to_textfile = 'data/pg67352.txt'       # from project Gutenberg
+path_to_textfile = 'data/pg67352.txt'   # free plaintext book from Project Gutenberg, https://www.gutenberg.org/
 
 def main():
     text = read_data(path_to_textfile)
@@ -43,8 +43,12 @@ def tokenize(text):
 
 
 def count_tokens(tokens):
-    unique_tokens = set(tokens)
-    counts = {token: 0 for token in unique_tokens}
+    counts = {token: 0 for token in tokens}
+
+    # In class we did the following, which is unnecessarily complex, as a dictionary already ensures all keys are unique:
+    # unique_tokens = set(tokens)
+    # counts = {token: 0 for token in unique_tokens}
+
     for token in tokens:
         counts[token] += 1
     return counts
