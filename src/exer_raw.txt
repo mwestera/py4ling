@@ -165,7 +165,9 @@ MW	Predict the outcomes of `len('apple' * 5)`, `len('apple') * 5` and `len('appl
 MW  Based on what you know about parentheses and spaces in relation to functions vs. operators (see exercise further above), is `len` a function or an operator?
 MW	Python's strings have various methods 'attached to them', including `upper` and `lower`. What would you expect them to do? As methods of the string class, you call them like this: `'apple'.upper()`.
 MW	For some arbitrary string assigned to variable `s`, is the following true: `s == s.upper().lower()`.
-MW  In other programming languages, `len` is sometimes 'attached to' string objects similar to `upper` and `lower`, requiring you to type for example `'apple'.len()` instead of `len('apple')`. What happens if you try the same in Python? Also try the weird-looking `'apple'.__len__()`? Operators in Python are effectively shortcuts for (or implemented via) so-called _dunder_ (double underscore) methods, like `len` is for `.__len__()`.
+MW  In other programming languages, `len` is sometimes 'attached to' string objects similar to `upper` and `lower`, requiring you to type for example `'apple'.len()` instead of `len('apple')`. What happens if you try the same in Python? Also try the weird-looking `'apple'.__len__()`? Built-in functions and operators in Python are effectively shortcuts for (or implemented via) so-called _dunder_ (double underscore) methods, like `len` is for `.__len__()`.
+***Insert A note about functions vs. methods that live on objects.
+
 MW  In a Python script write a program that uses `input` to ask for the user's name, and in response let it print `Hi [name], how are you?`, with the name the user entered.
 ***[NEW] TP3	Try placing a hashtag `#` before a line of code that previously worked, and record what happens when you rerun the program. Whatever follows `#` is treated as a _comment_ and ignored by Python.
 MW	In all of the Python scripts you create, add a _comment_ with the exercise number above the relevant chunk of code, e.g., `# Ex 3.29`, so that you can retrieve your own solutions later. Any text or code preceded by `#` is ignored by Python, as it represents a comment meant for humans.
@@ -215,7 +217,7 @@ MW	Write a program that gets one number from the user, then another one, and pri
 MW	To test if an object is of a certain type, use `isinstance`, for instance `isinstance(500, int)` and `isinstance('apple', str)`. What is the type of `isinstance` itself?
 MW	Types form a hierarchy, as you would expect, e.g., just like a mammal is also an animal, a string (type `str`) is at the same time also an object (type `object`), which is a more general, super-type. Test this with `isinstance('apple', str)` and `isinstance('apple', object)`. When you use `type`, it looks only at its lowest type in the hierarchy. Can you compare and explain the values of `isinstance('apple', object)` and `type('apple') == object`?
 P4L	What does this code do: `isinstance(bool == bool, bool)`? What is the output and why?
-MW  What might be going on here: `0.1 + 0.2 == 0.3`? It tells you _something_ (but not much) about how Python (and many other programming languages) internally represents floats.
+***Not very informative: MW  What might be going on here: `0.1 + 0.2 == 0.3`? It tells you _something_ (but not much) about how Python (and many other programming languages) internally represents floats.
 MW	`help` is a built-in function that gives you information about other functions. Try `help(max)`, `help(min)` (pressing `q` lets you quit the help screen).
 P4L	Use the `help` function to find out about the `round` function. Explore how to use it, with one and with two arguments.
 MW	Use `type` to test whether `round` changes a float into an int. Does it _always_ do this?
@@ -466,6 +468,8 @@ MW  If applicable, improve your function `is_determiner` from the end of the pre
 MW	Define a function that generates random, simple sentences of the shape "{determiner} {noun} {verb}s" (e.g., "the student walks"). Use separate lists to store a bunch of lexical items of the required syntactic categories. At the top of your program add `import random`, which lets you use the function `random.choice` to randomly select an item from a list. (We will learn more about `import` as well as `random` later.) Select random items from the appropriate lists and compose a string from them, printing the final result.
 MW  Make your random sentence generator as advanced as you like (though try to use only Python constructs that have been introduced in the exercises so far). For instance, can you extend it to randomly choose between an intransitive and a transitive verb frame, and then choose the right type of verb and include a direct object if the verb is transitive?
 
+***Consider introducing list-to-string methods join and split here. May require revising some exercises in next section about tokenizing etc.
+
 
 Title	For-loops (`for`)
 
@@ -499,6 +503,9 @@ TP3	Write a function that counts how many words occur in a list up to (and inclu
 MW	Just as you can loop through a list, you can loop through the characters of a string. Write a function `has_even_vowel_count` that uses a loop to count the number of vowels in a string, and returns a boolean that indicates whether that number is even or not.
 MW  Did you remember to add docstrings to your functions?
 TP3	Write a function that counts the number of even digits in a number `n`, e.g., the number `5671238` has 3 even digits (6, 2 and 8).
+
+Subtitle    List comprehension
+
 MW	The keyword `for` also appears in a powerful and 'Pythonic' pattern called **list comprehension**. With a single line of code, it lets you construct a new list from an old one by changing or filtering the original elements. Try to predict (and test) what the following do:\n- Let `numbers = [9, 5, 8, 3, 2, 6]`, and try `[n for n in numbers if n > 4]` \n- Assuming you still have `names` assigned: `[s[0] for s in names]` (if you were to assign the result to a variable, what would be a fitting variable name?) \n- `[name[::-1] for name in names]` \n- `[s for s in names if s[0].lower() in 'aeiou']` (try to describe what this means, in plain English)
 MW  Use list comprehension to take a list of words, and construct a list of the same words but in full capitals. Does your code demonstrate that strings are mutable? Does it demonstrate that lists are mutable?
 MW	Use list comprehension to take a list of numbers, and return a list of squares of those numbers, but only of those numbers which were even.
@@ -510,12 +517,15 @@ MW	Redo the previous two exercises _without_ list comprehension, by using an ord
 MW  Use list comprehension to write a function that takes two lists, `source` and `filter`, and returns a new list that is exactly like `source` but with all elements removed that are not in `filter`. Test at least an example where the resulting list should be equivalent to the filter, and an example where it should not.
 ***Replace the foregoing by exercises to implement union, intersection, complement?
 
+
+
 Title	More practice with lists and loops (also `index`, `range`)
 
 MW	Define three functions, each of which takes a list of numbers (e.g., the outcomes of an experiment) and returns a number. The first returns the sum of all elements. The second uses the summation function to compute and returns the list's average. The third uses the averaging function to compute and return the list's standard deviation. For the latter, you can do `import math` to use the `math.sqrt` function.
 MW	Write a function that takes a list of words like `words = ['the', 'dog', 'is', 'in', 'the', 'garden']`, takes the length of each word, and prints the total sum of word lengths. Do you get the same number as `len('the dog is in the garden')`? Why (not)? What about `len(words)`?
 MW	Write a function `index_in_string` that takes a string and a character, and returns the index of the first occurrence of that character in the string. For instance, `index_in_string('david', 'v')` returns `2`. Explain why `index_in_string` can be seen as the inverse of the square brackets slicing notation for retrieving a character by index.
 MW	Write a function `index_in_list` that does the same, but for a list instead of a string. Could you reuse any of the previous code?
+***Add a remark about frustration here.
 MW  Lists and strings in fact already come with a method `index`, which is called like this: `'david'.index('v')` or `[6, 4, 8, 6].index(8)`. Does this method behave the same as your own implementation from the foregoing exercises? What happens if the string or list does not contain the element you request the index for? Which index is returned if it contains the requested element multiple times? After testing this empirically, call for `help` on the `index` method to confirm your findings.
 
 Note    Lists and strings have a method **index**, which you can use to find the (first) index of an element in the list, provided it exists.
@@ -530,6 +540,8 @@ MW	Write a function that takes a string, namely an English sentence, and loops t
 
 MW	Write a function that takes a string and returns a new string where all vowels have been replaced by the character _y_. Could you change the function to modify the original string _in-place_, instead of returning a changed copy? What if you give it a list of characters instead of a string, e.g., `vowels_to_y(['b', 'a', 'n', 'a', 'n', 'a'])`?
 
+Subtitle    Looping over consecutive numbers with `range`
+
 MW	It is often convenient to loop over consecutive numbers (0, 1, 2, 3, ...). One way to achieve this is to create a list of numbers and loop over those list elements just as we did before, e.g., `for n in [0, 1, 2, 3]:`. Use this technique to print each number from 0 to 9. To understand a downside of this technique, consider printing the numbers up to 999 in the same way (but don't).
 MW	A more convenient way to loop over consecutive numbers is to use `range`, e.g., `for i in range(10):` loops over all integers from 0 to 9. Try this, and see how easily it scales up to larger ranges.
 
@@ -538,6 +550,8 @@ Note    To loop over a **range** of consecutive integers from 0 to some integer 
 MW  For a list like `words` from above, what does looping over `range(len(words))` achieve? Use it to print each index (0, 1, 2, ...) next to the corresponding element in the list (`0 the`, `1 dog`, `2 is`, etc.). (Later we will learn a slightly more Pythonic way to achieve this, using `enumerate`.)
 MW  What happens if in the above `range` construction, you forget the `len`, so it reads `for i in range(words)`? This type of mistake is easily made, so it is helpful if you can recognize it. And what happens if you accidentally do `for i in range(len(words - 1))`? (Do you see the mistake?)
 MW  Use `range` to iterate over indices of the list `words`, in a way that lets you print _pairs_ of consecutive words, or **bigrams** (`the dog`, `dog is`, `is in`, etc.). What should be the upper bound of your range?
+
+Subtitle    Further practice with lists and loops
 
 MW	The code below implements a simple tokenizer, that takes a text and returns a list of words. (Later we will learn more convenient methods for this, but the code below illustrates a useful pattern.) Try to understand how the function works and apply it to a number of sentences. Can you improve the tokenizer to ensure that punctuation marks are treated as separate tokens? For example, `tokenize('Hello, world!')` should return `['Hello', ',', 'world', '!']`. Subsequently, can you think of some other shortcomings and possible fixes?\n```
 def tokenize(sentence):
@@ -755,9 +769,14 @@ MW  In an earlier section you defined functions `bigrams` and `trigrams`. (Copy 
 Note	Streamlining your code is called **refactoring**, one aspect of which is dividing your code into functions, sometimes called **chunking**. One rule of thumb for refactoring/chunking is **Don't Repeat Yourself** (DRY), i.e., consider defining a function when you find you are repeating chunks of code. Another is the **Single Level of Abstraction Principle** (SLAP): a function should do a single thing at a single level of abstraction. The latter is related to the ideal of **Separation of Concerns** (SoC), e.g., when you're defining an `ngrams` function, you shouldn't need to worry about how to tokenize a text, and vice versa).
 
 MW  Can you think of some reasons why it is (often) a good idea to try to avoid repeated chunks of code, i.e., why the DRY principle is a useful guideline?
-MW  Our client requests that n-grams be represented as strings instead of lists (e.g., `'the cat eats'` instead of `['the', 'cat', 'eats']` to represent a trigram). Make the required change. What is an advantage of having refactored your code in terms of the `ngrams` function?
+MW  Our client requests that we add a boolean parameter `as_strings` to the function `ngrams`, with default value `False`. If this boolean is set to `True`, the n-grams in the returned list should be represented as single strings, not lists of strings (e.g., `'the cat eats'` instead of `['the', 'cat', 'eats']` to represent a trigram). Make the required change. What is an advantage of having refactored your code in terms of the `ngrams` function?
+Mw  Remove your functions `ngrams` and `tokenize` from your current working file, and move them to a new, empty Python file you call `text_utils.py` (in the same directory as your current working file). We will be importing `text_utils.py` as a module, so make sure it contains only function definitions, no function calls. Having made this change, your `bigrams`, `trigrams` and `quadrigrams` functions (which remained in your main working file) will no longer work (test this!), as after the above refactoring they rely on `ngrams`. To restore them, place `import text_utils` (note without the `.py`) at the top of your current working file, and replace every reference to `ngrams` by a relative reference to `text_utils.ngrams`. Verify that everything now works properly again. Future sections will likewise rely on `import text_utils` for easy access to `ngrams` and `tokenize` (or else we'd have to duplicate the code into each new file).
+
+Note    The `import` keyword lets us use not only existing modules (such as `random` or `math`), but also reuse our own Python files. It is generally advisable that files that are imported only _define_ functions, not _call_ them, lest the import has 'side effects'. We will learn more about `import` and modules later.
+
 MW  Define a function `filter_by_twos` that takes a list, and returns a new list containing every second element (so given `['a', 'b', 'c', 'd', 'e', 'f']` it will return `['b', 'd', 'f']`). Define another function `filter_by_threes` that does the same but for every _third_ element (for the same example, it will return `['c', 'f']`). There is likely some code repetition (or a lot, depending on how concise your code is). Define a generalized function `filter_by_n` that takes an additional argument `n` and returns a list with every `n`th element, then redefine your original functions in terms of this, as shortcuts.
-MW  In section 10 you defined `turn_clockwise` and `turn_counterclockwise`, taking a string representation of a direction (`N`, `E`, `S`, `W`) and returning a string representation of the new direction after turning. (Copy these to your current file if needed.) There is likely considerably overlap between the two functions. If so, try to minimize overlap, for instance by defining a generalized function `turn` that can turn in both directions depending on whether a given integer argument is negative or positive.
+MW  In section 10 you defined `turn_clockwise` and `turn_counterclockwise`, taking a string representation of a direction (`N`, `E`, `S`, `W`) and returning a string representation of the new direction after turning. (Copy these to your current file if needed; we won't use them later so no need to put them in a separate module.) There is likely considerably overlap between the two functions. If so, try to minimize overlap, for instance by defining a generalized function `turn` that can turn in both directions depending on whether a given integer argument is negative or positive.
+
 
 Subtitle    Encapsulation and variable scope
 
@@ -807,7 +826,7 @@ my_function(5)
 MW  In the above example, the local scope also contains a variable `c`. Where does it come from, i.e., where is it assigned its value? (Recall the ctrl+click exercise of the previous section.)
 MW  Modify the above example to print `globals()` and `locals()` also from _outside_ the function definition, e.g., put the print statements below the function call. What does this demonstrate?
 
-Note  When Python enters a local scope, `locals()` is initially empty. If a variable is _assigned_ a value inside a local scope (e.g., function definition), this variable+value will be stored in `locals()`, not `globals()`. When a variable's value is _retrieved_ inside a local scope, Python will first try to find it in the `locals()` dictionary, and only if it does not find the variable there it will look in `globals()`. (Actually there are two other 'namespaces' in which Python will search for a variable: Python indeed first looks in the local scope, but then it checks the immediately 'enclosing scope' (e.g., if the function is itself contained in a function or class), before considering the global scope, and finally it looks among the `__builtins__`, for built-in functions such as `len` and `print`.)
+Note  When Python enters a local scope (e.g., function definition), `locals()` is initially empty. If a variable is _assigned_ a value inside a local scope (e.g., inside a function definition), this variable+value will be stored in `locals()`, not `globals()`. When a variable's value is _retrieved_ inside a local scope, Python will first try to find it in the `locals()` dictionary, and only if it does not find the variable there it will look in `globals()`. (Actually there are two other 'namespaces' in which Python will search for a variable: Python indeed first looks in the local scope, but then it checks the immediately 'enclosing scope' (e.g., if the function is itself contained in a function or class), before considering the global scope, and finally it looks among the `__builtins__`, for built-in functions such as `len` and `print`.)
 
 MW  We have seen that variables defined inside functions can have the same name of an existing variable from outside the function, without the latter being affected. Explain exactly how this can be.
 MW  For every place in the following code where the value of a variable is retrieved, determine the place where its value at that point was assigned. Take into account mutability: mutable objects like lists can be changed _without_ this involving reassigning the variable. While you're at it, a good exercise is to try to predict the exact output of this program.\n```
@@ -879,7 +898,7 @@ MW  Does the foregoing mean that there is _no_ way to have a function assign a v
 *** MW  Speaking of readability, did you remember to add docstrings to all your functions?
 
 
-Title	Dictionaries
+Title	Dictionary basics
 
 MW	Run the code below to construct `name_to_id`, a mapping or _dictionary_ from fictional student names (the keys) to student IDs (the values). Then inspect the object you created by printing `name_to_id`, as well as `type(name_to_id)`.\n```
 name_to_id = {'Alf': '136124', 'Beth': '008623', 'Chris': '014212', 'Dave': '9123785', 'Esra': '978123'}
@@ -887,7 +906,7 @@ name_to_id = {'Alf': '136124', 'Beth': '008623', 'Chris': '014212', 'Dave': '912
 MW	You can look up a particular value in the dictionary by providing it with a key in square brackets (like list index notation). Look up the student IDs (values) of Alf and Chris (keys), and print them.
 MW	What happens if you try to look up the student ID (value) of a student whose name is not a key in the dictionary? What happens if you forget the quotation marks around the key string you're looking up?
 MW	Does a dictionary have a length, just like lists and strings? Can you create an empty dictionary?
-MW  Can you use the keyword `in`, just as with lists, to check if an element is contained in a dictionary? If so, does `in` look at the keys or the values?
+MW  Can you use the keyword `in`, just as with lists, to check if an element is contained in a dictionary? If so, does `in` look at the keys or the values, or both?
 MW  Does a dictionary support integer indexing just like lists and strings? E.g., can you select the third item (index 2) in the above dictionary by doing `name_to_id[2]`?
 MW  What if we have a dictionary with integers as keys instead of strings, like `{1: 'hi', 2: 'hello', 3: 'bye', 4: 'tata'}`? Can we now access an element by its index (or is this a misleading way to put it)?
 
@@ -902,7 +921,7 @@ MW	Do you expect the keys in a dictionary to be case-sensitive? Test this.
 MW	Similar to assigning a value to a particular index in the list (e.g., `names[3] = 'Bert'`), you can assign a value to a particular key in the dictionary (e.g., `name_to_id['Suzy'] = '124987'`). What happens if the key to which you assign a value already exists in the dictionary? What happens if it does not yet exist in the dictionary? Relatedly, what happens if there are duplicate keys already at the moment you create a dictionary, e.g., `my_dict = {'a': 1, 'b': 2, 'a': 3}`?
 MW  What do you think `del name_to_id['Esra']` does? Try it! In fact, does this syntax also work on lists? Construct a list (like `names` from previous sections) and try to delete the item at one of its indices. Do you expect it to work on a string as well, i.e., to delete a character from the index in a string? Why not?
 MW	Oops, the `name_to_id` dictionary contains the wrong ID for Chris! It should be `'5987162'`. Also, Suzy has quit the course, so let's remove her entry from the dictionary altogether.
-MW  Interestingly, dictionaries are also used under the hood for storing the ordinary variables you create -- remember `globals()` and `locals()` dictionaries from the previous section? What does the following code show?\n```
+MW  Interestingly, dictionaries are also used under the hood for storing the ordinary variables you create -- remember the `globals()` and `locals()` dictionaries from the previous section? What does the following code show?\n```
 x = 5
 print(x)
 
@@ -911,7 +930,28 @@ print(y)
 ```
 MW  In the above example, PyCharm will likely warn you, with a red squiggle on the last line, that the variable `y` has not been defined. But Python itself doesn't care; the code runs fine! This means that PyCharm's warnings are based on a more shallow parsing of the code (called **linting**), not on actually interpreting it fully like Python does. Why might that be?
 
-Subtitle    Looping over dictionaries
+
+Subtitle    Mini-adventure: Language generation with feature structures
+
+MW  Briefly review your random sentence generation code from Section 7. In the current section we will explore a different approach, relying heavily on dictionaries.
+MW	Dictionaries are useful for representing so-called _feature structures_, i.e., bundles of features with values. This lets us represent a vocabulary as a list of dictionaries, as illustrated below. Extend this vocabulary by adding different words:\n```
+vocabulary = [
+    {'word': 'walk', 'category': 'verb', 'frame': 'intransitive'},
+    {'word': 'see', 'category': 'verb', 'frame': 'transitive'},
+    {'word': 'student', 'category': 'noun'},
+    {'word': 'the', 'category': 'det'},
+]
+```
+MW  As a warming up, use list comprehension to construct a new list from this vocabulary containing only all verb entries, and another one containing only nouns.
+MW  As another warming up, use `import random` and then `random.choice(...)` to select a random determiner from the vocabulary, a random noun, and a random intransitive verb, and concatenate them with spaces into a simple sentence.
+MW  Now create a more general function that randomly generates a sentence based on the above vocabulary. Try to do so by defining and calling auxiliary functions corresponding roughly to natural language constituents, e.g., a `vp` function that generates a random verb phrase, a `dp` function that generates a random determiner phrase, and so on. Your `vp` function should be sensitive to the `frame` feature in the vocabulary entries of verbs, and include an object `dp` where necessary. You can also make your `dp` function refer to an `np` function that generates noun phrases with an optional adjective.
+MW  For testing, implement a simple loop that prints out, say, 20 random sentences generated by your grammar.
+MW  Add thematic role information as a feature to your verb entries (e.g., `'subject': 'agent'`), and relevant semantic information to your noun entries (e.g., `'animate': True`). If you let the `vp` function return not just a string but also the subject's required thematic role, you can feed this role as an argument to the `np` function to generate a subject with appropriate semantic features (e.g., if an 'agent' is required, it should check the 'animate' feature of the noun).
+MW  There is no limit to the (word-level) information you can store in feature structures. As a final exercise, let us add phonetic information to each vocabulary entry, e.g., for walk add a feature `'phon': '/wɔːk/'`. For our small example vocabulary you can manually copy phonetic transcriptions for instance from Wiktionary (https://en.wiktionary.org/; for a larger vocabulary you would of course write a Python script do to this automatically). Next, add a boolean parameter `phon` to your sentence generator, with default value `False`, that lets you choose whether to return a sentence in orthographic or phonetic format.
+MW  Write down some possible directions in which one could take this mini-adventure, whether as a research project, a practical application or a fun hobby.
+
+
+Title    Dictionaries advanced
 
 MW	Can you loop over a dictionary with `for` by using the same syntax as looping over a list? Try to loop over the dictionary `name_to_id` from above, printing each element. Which elements get printed, the keys, the values, or both?
 MW	There are three other ways of looping over a dictionary: you can loop over elements in `name_to_id.keys()` (e.g., `for key in name_to_id.keys()`), over elements in `name_to_id.values()` and over elements in `name_to_id.items()`. Try the three versions, in each case simply printing the elements in the loop, and see what gets printed.
@@ -925,17 +965,46 @@ Note	Until Python 3.6, the **order** of items in a dictionary could depend on th
 
 W3R	Write a function to get the maximum value in a dictionary, and a separate function to get the maximum key in a dictionary.
 
+
+Subtitle    A bit more about tuples
+
+***tuple syntax, e.g.,  a = 3 + 4,  error.
+***Integrate the following tuple exercises here
+MW	We have seen tuples in the context of dictionaries, and also with `enumerate` earlier (pairs of an index and an element). You can create a tuple as in `my_tuple = (5, 2, 3)`. (In various contexts the parentheses for tuples are optional for reasons that can remain a mystery for now.) Print `my_tuple` to see what it looks like, and explore how tuples work.
+MW	Can you create a tuple of numbers, a tuple of strings, a mixed tuple? Can you look up an element by its index, like with lists? Does a tuple have a length? Can you concatenate two tuples into a new one using `+`? Is a tuple mutable like a list (i.e., can you assign a new value to a slot in an existing tuple), or immutable like a string? Can you loop over the elements of a tuple? Can you append an extra element to a tuple? Can an element of a tuple be itself a tuple? Can tuples be compared with operators like `<` and `>`? What does it mean?
+MW  How do you create an empty tuple? How do you create a singleton tuple (i.e., with one element)? Use `type` to verify that you have indeed constructed a tuple! (Finding the right way may require a web search...)
+MW	Recall that you can convert between types, e.g., `int` to `str`, or `str` to `list`. Can you convert a tuple to list? And a list to a tuple?
+MW	What types of tuples do you get if you `enumerate` the `items` of a dictionary?
+MW	Although when creating tuples the parentheses are sometimes optional, sloppiness can lead to potentially unexpected results. Explain the difference between `(1, 2, 3) + (4, 5)` and `1, 2, 3 + 4, 5`.
+MW	Explain the truth value of `True, True, True == (True, True, True)`
+
+***Integrate the following exercises here, not about tuples:
+MW	Conversion to a dictionary can be done with `dict`. Which types of objects can be converted to a dictionary? Can you convert an ordinary list to a dictionary? What about a list of lists, where each inner list has two elements? What if one of the inner lists has only one element, or three?
+MW	Given that looping over a dictionary loops over the keys, what do you expect conversion to a list to do? *** Assuming `my_list` is a list of pairs, do you expect the following to be true: `list(dict(my_list)) == my_list`? Test your expectation and try to understand what's going on.
+MW	Do you expect that you can create a dictionary from a list containing only two-character strings, like `['ab', 'cd', 'ef']`? What do you think will be the result? Test your expectations.
+MW	Can the keys in a dictionary themselves be tuples? Can the keys be lists? Why (not)? Can a key be a tuple that contains a list as one of its elements?
+
+MW	Can you define your own function that returns not one, but two values at a time (e.g., `return x, y`)? What happens if you call the function and assign whatever the function returns to a single variable? What is the type of the resulting object? Can a function return three values at a time? Or four?
+
+
+Subtitle    List comprehension for dictionaries
+
 MW	Recall that **list comprehension** syntax can be used for concisely constructing one list from another. The same can be done with dictionaries (it is generally still called 'list comprehension' though, not 'dictionary comprehension'). What do you think the following does?\n```
 new_dict = {key: value for key, value in name_to_id.items() if key[0].lower() in 'aeiou'}
 ```
 MW	Use list comprehension to take an existing dictionary with strings as keys (e.g., `name_to_id`), and filter it, constructing a new dictionary that contains only those items whose key started with a vowel.
 MW  Explain in ordinary English what the following list comprehensions do: \n - `{name: len(name) for name in name_to_id}` \n - `{i: i**2 for i in range(10)}` \n - `{name: name[::-1] for name in name_to_id.keys()}` \n - `{key: value for key, value in name_to_id.items() if int(value) % 2 == 0}`
 MW	Use list comprehension to take an existing dictionary and invert it, swapping the keys with the values.
-MW  Suppose we have a predefined list of English numerals `numerals = ['zero', 'one', 'two', 'three', 'four', 'five']`. Use list comprehension and `range` to create a dictionary from English numerals to arabic numbers, and another one for the reverse mapping.
-MW  Define a function that takes a tokenized text (list of strings) and returns a dictionary of token counts, mapping each token to how often it occurs in the text. You can use list comprehension to initialize a counts dictionary (mapping all words to 0), and then loop through the tokens list while updating the counts.
+MW  Suppose we have a predefined list of English numerals `numerals = ['zero', 'one', 'two', 'three', 'four', 'five', ...]`. Use list comprehension and `range` to create a dictionary from English numerals to numbers (0, 1, 2, 3, ...), and another one for the reverse mapping.
 
-***Too uninteresting  MW	Write a function that takes a list of strings like `['abc', 'hello', '2', 'three', '51', 'john']`, and computes the sum of all numbers it contains (in this example 2 + 52 = 53). Now extend your function so it also takes into account English numerals, like _two_, _three_ and _four_, adding them up together with the numbers; let it handle at least all English numerals up to _ten_.
+MW  In section 11 you created the file `text_utils.py`, containing functions `ngrams` and `tokenize`. This means that in your current working file (make sure it is placed in the same directory) you can do `import text_utils`. Do this and apply the `text_utils.tokenize` and `text_utils.ngrams` functions to a short text. For instance, copy a text from Wikipedia, a blog, or an e-book, and simply paste it into your program in between triple quotation marks `'''` (to allow newlines within the copied string), the entire string assigned to a variable `text`. (Mixing code and data in a single file is bad practice of course, but fine for now; we learn about reading text from a file later.)
+MW  (Without peeking in the Week 6 adventure code:) Write a function `count_tokens` that takes a list of strings and returns a dictionary that maps each string to how often it occurs in the list. You can use list comprehension to initialize a counts dictionary (mapping each string to 0), and then loop through the tokens list while updating the counts.
+MW  Does your function `count_tokens` also work if you feed it a list of n-grams instead of a list of single tokens? Remember from section 11 that `text_utils.ngrams` takes an optional argument `as_strings` (if you included an informative docstring, you can now do `help(text_utils.ngrams)` to remind yourself of its meaning). You probably need to set `as_strings` to `True`, otherwise your `count_tokens` function will not work on the resulting list of n-grams. Do you understand why? Altogether, you should now be able to print individual token counts, bigram counts and trigram counts.
+***Not needed: MW  Your function `count_tokens` is likely to be useful again, so place it in `text_utils.py`, and update any references to make sure everything still works.
+***MW   change it to represent ngrams as tuples?
 
+
+***Many more exercises:  https://www.w3resource.com/python-exercises/list/   https://www.w3resource.com/python-exercises/dictionary/
 
 
 Subtitle    Mini-adventure: Translation
@@ -943,42 +1012,14 @@ Subtitle    Mini-adventure: Translation
 MW	Create a dictionary `en_to_nl` that maps some English words to Dutch words. (You can also use another language pair of choice for these exercises.)
 MW  Write a function `invert_dict` that takes a dictionary and returns a new, inverse dictionary, mapping the original values back to the original keys. Use this to construct a dictionary `nl_to_en` from the original `en_to_nl` you defined in the previous exercsie. Can you now use the two dictionaries to translate back and forth, e.g., assuming your original dictionary contained the word _tree_, what is the outcome of `nl_to_en[en_to_nl[nl_to_en[en_to_nl['tree']]]]`.
 MW	To `en_to_nl`, add the English word _feather_ mapping to Dutch _veer_, as well as the English word _spring_, which also happens to translate into Dutch _veer_. Feed it into your function `invert_dict`. What is the problem, technically and conceptually? Illustrate this in code by inverting your dictionary `en_to_nl` once, and then inverting the result again, comparing the outcome to the original. (You can use your function `print_dict` from above to print the dictionaries in a more readable way.)
-MW  In general, a single word can multiple adequate translations, for instance if the word is ambiguous or of the target language has multiple synonyms. To account for this, define a different type of dictionary, `en_to_nl_multi` that maps each English word to a _list_ of Dutch words, e.g., `{'bat': ['vleermuis', 'knuppel'], 'tree': ['boom'], ...}`. Your previous function `invert_dict` does not work on this type of mapping (explain what the problem is), so write a new function `invert_dict_multi` that does work. Note that just switching keys and values won't be adequate; the inverted dictionary `nl_to_en_multi` should again be a mapping from strings to lists, just like the original. Your new inversion function should handle the _bat_ (_vleermuis_/_knuppel_) example correctly, and also solve the _feather_/_spring_ (_veer_) problem from the previous exercise.
-MW  Write a function that takes a text and a dictionary as parameters, and returns a word-by-word translation of the text. Add enough words to your dictionary to enable the translation of some simple sentences. For instance, feeding this function _The feather was very light_ (together with the `en_to_nl` dictionary) should result into _De veer was heel licht_.
+MW  In general, a single word can have multiple adequate translations, for instance if the word is ambiguous or if the target language has multiple synonyms. To account for this, define a different type of dictionary, `en_to_nl_multi` that maps each English word to a _list_ of Dutch words, e.g., `{'bat': ['vleermuis', 'knuppel'], 'tree': ['boom'], ...}`. Your previous function `invert_dict` does not work on this type of mapping (explain what the problem is), so write a new function `invert_dict_multi` that does work. Note that just switching keys and values won't be adequate; the inverted dictionary `nl_to_en_multi` should again be a mapping from strings to lists, just like the original. Your new inversion function should handle the _bat_ (_vleermuis_/_knuppel_) example correctly, and also solve the _feather_/_spring_ (_veer_) problem from the previous exercise.
+MW  Write a function that takes a text and a dictionary as parameters, and returns a word-by-word translation of the text. You can of course use `text_utils.tokenize` to get the individual words for translation. If multiple translations for a given word are possible, choose a random one (using `import random` and then `random.choice(...)`). Add enough words to your dictionary to enable the translation of some simple sentences. For instance, feeding your translation function the sentence _The feather was very light_ (together with the `en_to_nl` dictionary) should result in _De veer was heel licht_.
 MW  What if your text contains a word that is not in the dictionary? Give your translation function a third parameter `mask_unknown` that is a boolean with a default value True. If it is set to True, unknown words should appear as `<UNKOWN>` in the resulting string. If it is set to False, unknown words should simply be left untranslated (e.g., resulting in a mostly-Dutch sentence with some untranslated English words). You can of course use `in` to check if a word is included in the dictionary or not, but doing so will often lead to two dictionary lookups where one should suffice (consider why). The `get` method of dictionary objects is better here; enter `help({}.get)` in the Python console to see how you can use it.
-MW  Naturally, a shortcoming of word-by-word translation is that any word order differences between languages are not accounted for. Illustrate this with a sentence of choice.
-
-
-Subtitle    Mini-adventure: Counting n-grams
-
-MW  In the following exercises we will see if n-grams follow a Zipfian distribution just like individual words. We will be using some techniques from the Week 6 adventure that we haven't covered in the homework yet, so don't be afraid to copy-paste. Create a new Python file, where you either start from scratch or copy the entire Week 6 adventure code as your starting point.
-MW  Go to https://www.gutenberg.org/ to download several books in 'plaintext' format (or use another source of text data of your choosing). In the same directory as your current Python file, create a folder `data` (if it doesn't exist yet) and put your downloaded text files in that folder (the same way as for our Week 6 adventure).
-MW  In your Python program, read all of the text data from the aforementioned files and concatenate them into a single string. Tokenize this string (with some cleanup).
-MW  Program (or copy from a previous homework section) an `ngrams` function that takes a list of tokens and an integer `n`, and returns a list of n-grams. It is best if these n-grams are themselves represented as strings (or tuples), not as lists of strings, because we will be using them as keys in a counting dictionary: dictionary keys must be immutable.
-MW  Write code (could be divided into several functions) to print the 10 most frequent and 10 least frequent bigrams and trigrams.
-MW  Review how in our Week 6 adventure we sorted the tokens by their counts and plotted them, and write code to do the same for bigrams and trigrams. Do these show a Zipfian distribution? What are some differences between the distribution of single tokens? Is there some `n` for which the distribution of `n`-grams ceases to be Zipfian?
-
-
-Subtitle    Mini-adventure: Language generation with feature structures
-
-MW  Briefly review your random sentence generation code from Section 7. In the current section we will explore a different approach, relying heavily on dictionaries.
-MW	Dictionaries are useful for representing so-called _feature structures_, i.e., bundles of features with values. This lets us represent a vocabulary as a list of dictionaries, as illustrated below. Extend this vocabulary by adding different words:\n```
-vocabulary = [
-{'word': 'walk', 'category': 'verb', 'frame': 'intransitive'},
-{'word': 'see', 'category': 'verb', 'frame': 'transitive'},
-{'word': 'student', 'category': 'noun'},
-{'word': 'the', 'category': 'det'},
-]
-```
-MW  As a warming up, use list comprehension to construct a new list from this vocabulary containing only all verb entries, and another one containing only nouns.
-MW  As another warming up, use `import random` and then `random.choices(...)` to select a random determiner from the vocabulary, a random noun, and a random intransitive verb, and concatenate them into a simple sentence.
-MW  Now create a more general function that randomly generates a sentence based on the above vocabulary. Try to do so by defining and calling auxiliary functions corresponding roughly to natural language constituents, e.g., a `vp` function that generates a random verb phrase, a `dp` function that generates a random determiner phrase, and so on. Your `vp` function should be sensitive to the `frame` feature in the vocabulary entries of verbs, and include an object `dp` where necessary. You can also make your `dp` function refer to an `np` function that generates noun phrases with an optional adjective.
-MW  For testing, implement a simple loop that prints out, say, 100 random sentences generated by your grammar.
-MW  Add thematic role information as a feature to your verb entries (e.g., `'subject': 'agent'`), and relevant semantic information to your noun entries (e.g., `'animate': True`). If you let the `vp` function return not just a string but also the subject's thematic role, you can feed this role as an argument to the `np` function that generates the subject, in order for that function to generate a subject with appropriate semantic features (e.g., if an 'agent' is required, it will check the 'animate' feature).
+MW  Naturally, a shortcoming of word-by-word translation is that any word order differences between languages are not accounted for. Illustrate this with a sentence of choice. Without programming, can you think of a reason why (or a way in which) n-grams could be used to improve the accuracy of automatic translation?
 
 
 
-Title	Breaking out of loops (`break`, `while`)
+Title	Jumping out and skipping through loops (`break`, `while`, `continue`, `range`)
 
 MW  We have seen before that `return` can be used (inside a function) to escape a loop when some condition has been met, causing the rest of the elements looped over to be skipped. Escaping a loop early is an important programming pattern to acquire, as it often results in cleaner and more efficient code. Demonstrate this again with a piece of code.
 MW  What is wrong with the following function? Can you fix it? **Note:** For the sake of practice, in this and the following exercises, stick to the multi-line loop structure (e.g., don't use list comprehension, or Python's built-in `len` or `any`; the solutions will show such variants too though, which are ultimately preferable).\n```
@@ -1024,7 +1065,7 @@ for name in names:
     print(name)
 ```
 
-Note    As mentioned, `break` can often be more suitable than `return` for escaping a loop. For one, `return` is only available inside a function (but most code should be organized in functions so that's not a real limitation). In addition, `return` is not suitable for escaping a loop if the function should still do some further processing _after_ escaping the loop (see next exercise), instead of return right away. Relatedly, if `return` occurs inside nested loops, it escapes _all_ enclosing loops at once, whereas `break` escapes only the directly enclosing loop. Some programmers take a more principled stance: `break` would be preferable in almost all cases because it results in cleaner code: while `break` was _designed_ for breaking out of loops -- it wears its purpose on its sleeve -- in the case of `return` escaping from a loop feels more like a side effect.
+Note    As mentioned, `break` can often be more suitable than `return` for escaping a loop. For one, `return` is only available inside a function (but most code should be organized in functions so that's not a real limitation). In addition, `return` is not suitable for escaping a loop if the function should still do some further processing _after_ escaping the loop (see next exercise), instead of return right away. Relatedly, if `return` occurs inside nested loops, it escapes _all_ enclosing loops at once, whereas `break` escapes only the directly enclosing loop. Some programmers take a more principled stance: `break` would be preferable in almost all cases because it results in cleaner code, as it wears its purpose on its sleeve: `break` was _designed_ for breaking out of loops.
 
 MW  Write a function `print_until_vowel` that takes a list of strings, and prints all strings until one is encountered that begins with a vowel, in which case it should break out of the loop and end by printing `Done!` (the latter makes `break` more suitable than `return` in this case).
 MW  To practice with 'default arguments' from an earlier section: give your function `print_until_vowel` a boolean parameter `inclusive`, with `True` as a default value. If this parameter is set to True, the string that begins with a vowel should also itself be printed; if it is set to False, only the strings that precede it should be printed.
@@ -1062,6 +1103,9 @@ MW  Our client also cares a lot about clean code, and hates repetition. Implemen
 
 Note    When writing a loop, you should always consider: Do I know in advance over which elements I need to loop, or how often to repeat something? Do I need to look at all elements in all cases? Or can I take an early exit? Under what conditions?
 
+
+Subtitle    Looping with `while`
+
 MW	The `while` keyword lets you loop in a way that is different from for-loops. Run the following and make sure you understand what's happening. As before, try to break it in various ways.\n```
 counter = 0
 while counter < 10:
@@ -1079,6 +1123,8 @@ MW	In the above while-loop, replace the condition (`counter < 10`) simply by `Tr
 
 P4E	Write a function that repeatedly gets numbers from the user (using the `input` function), until the user enters _done_. Once _done_ is entered, print out the total, count, and average of the numbers. If the user enters anything other than a number, print an error message and skip to the next number.
 
+***Sentence generation example?**
+
 
 MW	Write an infinite loop that prints the next prime number each time the user hits enter (you can use `input()` for this).
 TP3	Write a number guessing game. Start your program with `import random`. Now write a loop containing `number = random.randrange(1,100)` (what does it do?) and ask the user to guess that number. Upon each guess, the program prints whether it is too high or too low, or, if the guess is exactly right, exit the loop and print _Congratulations! You won in [n] guesses!_ where _n_ is the number of guesses.
@@ -1086,6 +1132,7 @@ MW	Modify the guessing game: if the player guesses correctly, after congratulati
 MW	Write a program with a while-loop that repeatedly takes a string from the user, and simply repeats it back to you _unless_ it contains a profanity, in that case it remains silent. You can get creative (and naughty), or find lists of profanities on the web. (Further below we will learn how to read such words from a separate file, so you don't need to copy them into your program.) If you enter more than 5 profanities, the program should say _I've had enough of this_ and change the value of a boolean such that the while-loop stops.
 MW	Write a program that repeatedly asks for user input; it ignores all user input except the string _knock_. Only if the user writes _knock_ three times in a row (as three separate inputs), the program should print _Go away!_ Note: if you enter _knock_ twice, then something else, then _knock_ a third time, nothing should happen; the three knocks should be consecutive.
 
+Subtitle    Skipping elements with `continue`
 
 MW  Besides `break` (and to some extent `return`), another keyword that helps you control your loops is `continue`. It lets you skip an element. Can you predict what the following code prints? Test your prediction and verify your understanding.\n```
 for i in range(100):
@@ -1119,8 +1166,9 @@ MW  Built-in objects can be found in `__builtins__`. Verify with `type` that `__
 MW  Unlike keywords, built-ins are assigned to ordinary variables, hence these can be reassigned new values. Try this in the console: enter `print = 'bla'`, and subsequently try to print something, like `print('apple')`. Overriding builtins like this is not a good idea. (Consider restarting the console to prevent confusing your future self.)
 MW  Try to review the past section from memory: which new keywords did you learn, and what are their uses compared to the tools you already acquired before?
 
+Subtitle    Skipping elements with a smart `range`
 
-Title   Looping while counting (`enumerate`, `range`)
+***Drastically shorten this.
 
 MW  It is time to learn a bit more about `range`, which we used before to iterate over indices of a list or string. As a warming up, write a function that iterates the integers from 1 to 50. For multiples of three print `Fizz` instead of the number and for multiples of five print `Buzz`. For numbers which are multiples of both three and five print `FizzBuzz`. Try to minimize repetition in your code.
 MW	Execute `help(range)` for more information (and remember to press `q` to quit). As you can see, you can construct a range with up to three arguments. What do the other arguments do? E.g., what happens if you loop over `range(3, 50, 5)`? And what about `range(100, 5, -3)`? Is there a relation between the three arguments of `range`, and the three integers you can specify when slicing a string or list?
@@ -1161,192 +1209,10 @@ MW	Define a function that uses a _single_ (!) loop using `range` (without constr
 MW	Now program a clock with both hours and minutes, printing it as, e.g., `16:52`, and let it run for two 'days' (each iteration simulates a minute). If it works, make it also display seconds, and run it for a few 'hours'.
 MW	Can you change the setting of your clock to display times using `am` and `pm` instead of the 24-hour format, e.g., `4:52pm` instead of `16:52`?
 
-MW	Sometimes you want to loop over the elements of a list, while at the same time keeping track of the indices. The built-in function `enumerate` is great for this. Assuming you still have `names` defined, try the following:\n```
-for i, name in enumerate(names):
-    print(i, name)
-```
-MW	Note that looping over a list via `enumerate` iteratively assigns new values to _two_ variables, namely the counter and the element (`i` and `name`, in this example). What happens if you forget the `i` and do `for name in enumerate(names)`? What is the type of `name` in that case? And what happens if, conversely, you include the `i` but forget the `enumerate`, that is, `for i, name in names`?
-MW	Can you define your own function that returns not one, but two values at a time (e.g., `return x, y`)? What happens if you call the function and assign whatever the function returns to a single variable? What is the type of the resulting object? Can a function return three values at a time? Or four?
-
-Note	Use the built-in function `enumerate` to iterate over the elements of a list together with their indices. `enumerate` takes a list and iteratively yields _pairs_ (2-tuples) of an index and a list element. We will learn more about pairs (and more generally tuples) later.
-
-MW	What happens if you print the object `enumerate(names)` directly? What is its `type`? Note that it is not an ordinary list; instead, an Enumerate object processes `names` _on demand_, numbering each element on the fly, without looking ahead. This avoids having to read the full list and construct a new 'numbered' list, which would unnecessarily take up memory and processing time. But it means that, if you want to collect all enumerated names in an ordinary list, you need to do so explicitly: `list(enumerate(names))`. What is the `type` of the elements in the resulting list? We will learn more about that type of object later.
-MW  Predict what the outcome is of the following statements, and verify your understanding: \n- `list(enumerate(range(10)))` \n- `enumerate(10)` \n- `list(10)` \n- `list(zip(range(10), range(10)))` \n- `list(zip(range(10)))` \n- `list(enumerate(enumerate(range(10))))`
-*** TODO practice more list comprehensions:  \n- `[str(i) + ': ' + name for i, name in enumerate(names)]` \n- `[i % 3 for i in range(20)]`
-
 MW	We have a micro-computer with a tiny display of 8 by 8 pixels, each of which can only be either on or off. We received what appears to be a secret message: `0000000000110110011111110011111000011100000010000000000000000000`. Write a function that takes such strings and prints them to a (simulated) 8 by 8 display, each pixel represented by a one-character space, rendering a `0` as an empty space ` `, and a `1` as a hashtag `#`. If you like, compose your own reply.
 
-***Integrate these exercises:
-MW	Use the list `names` used earlier above, and create an empty dictionary `names_inv`. Now use `enumerate` to loop through all index-name pairs of the list `names`, and assign these to the dictionary `names_inv` by using names as keys and the corresponding list indices as values. Explain why `names_inv` is a suitable name.
-MW	Continuing from before, what do you expect is the result of `names_inv[names[3]]`? And what about `names[names_inv[names[3]]]`? And `names_inv[names[names_inv[names[3]]]]`? Test your expectations!
-MW	How robust is your previous program? What happens if the original list of names contained the same name twice, and you try to construct its inverse? Explain what goes wrong.
 
-
-Title   Clearer, self-documenting code
-
-MW	Your editor may be smart enough to highlight violations of 'Python style', adherence to which will enhance the readability of your code (in addition to docstrings and self-documenting code). The style guides are kept in the eighth _Python Enhancement Proposal_, PEP8 (https://www.python.org/dev/peps/pep-0008/). Have a look at it, and go through some of your previous code to make it PEP8-compliant if needed.
-
-Note	Initially created and long-term maintained by Guido van Rossum, Python is a very open, community-driven programming language. It has come to be the way it is with the help of **Python Enhancement Proposals** or PEPs (https://www.python.org/dev/peps/). **PEP8** is Python's style guide (https://www.python.org/dev/peps/pep-0008/).
-
-MW	Every aspect of the Python language has been purposefully designed, even though we may not always understand the purpose. Should you find yourself frustrated with Python, just enter `import this` in the interpreter and feel your calm returning. (The keyword `import` will be explained later.) The result is an easter egg based on PEP20, that captures some of Python's design principles in poetic form.
-MW	Besides style, documenting your code matters. So far you have been documenting your code in at least two ways: by adding docstrings to your functions, and by adding hashtag-comments to explain specific lines, as also illustrated below. However, often such comments can be made unnecessary by choosing more meaningful variable names, making the code more __self-documenting__. Can you change the variable name in the following snippet to make the following code self-documenting, so the `#`-comment can be deleted?\n```
-d = {}  # create an empty dictionary that will contain word counts
-```
-MW	Make the following code self-documenting by both changing variable names and restructuring the for-loop (avoid the need for `range` and `i`):\n```
-l = ['John', 'Sue', 'Bob', 'Chris']
-# loop over all names in the list to print them
-for i in range(len(l)):
-    print(l[i])
-```
-MW	Make the following code self-documenting:\n```
-mapping = {'John': '098124', 'Sue': '657317', 'Bob': '135809'}
-
-x = '657317'    # this is the student ID that I need to know the name for
-
-mapping2 = {a: b for b, a in mapping.items()}	# construct the inverse mapping
-if x in mapping2:	# this means the student ID was in the original dictionary
-    print(new_mapping[x])	# print the student's name
-```
-MW	For self-documenting code you must often resist the temptation to do too much in a single line of code. Improve the following code by, inside the for-loop, first assigning the computed value to a transparently named variable, and then printing that variable (i.e., instead of printing the output of the computation directly). In that way, the variable name can tell you its meaning. Feel free to make other changes too, to make the code more self-documenting:\n```
-r = [7, 4, 5, 8, 6, 9, 5]
-print('We have 7 circles!')
-for i in range(7):
-    print(3.1415 * r[i]**2)
-```
-MW	So called **magic numbers**, i.e., manually typed numbers in the middle of the code, are also bad for readability and maintainability. In the above example, you can replace two occurrences of the value `7` by `len(r)` (or whatever your name name for `r` is). You can also replace our own pi approximation by pi from Python's built-in math module: first `import math`, then you can use `math.pi`. (We will learn more about `import` later.) Can you think of reasons why 'magic numbers' are often bad?
-
-Note	You can often greatly improve the clarity of your code by making it **self-documenting**. This is achieved by chunking your code into functions (especially the SLAP principle), and by choosing meaningful variable and function names. (However, variables used only for a few lines, such as a counter in a loop or an item in a list comprehension, can often be safely named with a single letter.)
-
-MW	Make the following code as self-documenting as possible; you may have to change quite a bit! Also replace some of the magic numbers by transparently named variables defined at the start of the program instead of in the middle. \n```
-python = ['John', 'Sue', 'Bob', 'Chris', 'Peter', 'Pjotr', 'Maria']  # all students of the python for linguists class
-pts = [80, 60, 43, 75, 27, 92, 94]  # points they earned for the exam
-total = 100
-g = [10 * i/95 for i in pts]   # only 95 because 5 points were bonus
-p = [i > 5.5 for i in g]
-# now print the results in terms of pass/fail, followed by the number of failing students
-print(p)
-print(len([q for q in p if not q]))
-print([s for i, s in enumerate(python) if not p[i]])	# these failed the exam
-```
-MW	If you have been adding `#`-comments to your code, go through any of your previous code and see if such comments can be rendered unnecessary by making the code self-documenting (if it isn't already).
-MW	Variables with meaningful names inevitably carry the implication that they will be subsequently used. If this is not the case, i.e., for variables that will not be reused, the underscore `_` is conventionally used, as below. Go through your code to see if any variables could be replaced by `_` to make the code more readable:\n```
-for _ in range(10):
-    print("Hurrah!")
-```
-MW  A bit of an aside, but try executing something simple in the Python console that returns a value, like `38 * -2`, and then, on the next prompt, simply enter the underscore variable `_` and execute it. What special behavior does this show the underscore variable has in the interpreter? Does `_` work the same way in a Python script? 
-MW  Besides adequate variable and function names, another way to make your code more self-documenting is to use appropriate, informative _data structures_. Make the following code more self-documenting (and more safe!) by using a dictionary instead of two lists:\n```
-# Names of students and the corresponding (!) student IDs. 
-# Warning, if you change one list make sure you change the other!
-names = ['John', 'Sue', 'Bob', 'Chris']
-ids = ['124987', '098513', '098122', '198732']   
-
-# find the student ID of Bob:
-index_of_bob = names.index("Bob")
-x = ids[index_of_bob]
-
-print(x)
-```
-MW  Recall that a list can contain the same object twice. If you don't want this (and if element order does not matter) then Python's _set_ is a more appropriate data structure. Make sure you understand what is happening in the following code:\n```
-my_list = [1, 2, 2, 3]
-print(my_list)
-my_list.append(1)
-print('new:', my_list)
-
-my_set = set([1, 2, 2, 3])
-print(my_set)
-my_list.add(1)
-print('new:', my_set)
-```
-MW  Can you create a set containing strings? A set containing tuples? A set containing lists? What is the `type` of these sets?
-MW  Can you `append` something to a set? Can you `add` something to a list? Try to understand the motivation for this terminological difference.  
-MW  Can you check if a set contains a certain element?
-MW  In maths/set theory, sets are written with curly braces like `{1, 2, 3}`. Does that work in Python? What about creating an empty set like this `{}`? (To be sure, check the type of the resulting object!)
-MW  Do you expect that you can iterate over the elements of a set (try the same syntax as with lists)?
-MW  Do you expect that you can use slicing on a set, as you would with a list? Why (not)?
-MW  Can you convert a dictionary to a set? What do you expect will be the result? And what might happen if you tried to convert a string to a set, e.g., `set('aaabbbccc')`?
-
-Note    The **set** data structure contains each element only once. Moreover, sets are significantly faster than lists when it comes to determining if an object is present in the set. (Though lists are of course much faster if you know the index of the object you are looking for.) The price to pay for this lookup speed is that sets (like a dictionary's keys) can only contain objects that are **hashable**. Technical details: an object is hashable if, roughly, its unique identity can be represented by a relatively short code, or 'hash': you can imagine that looking for short codes is faster than looking for actual Python objects! For the same reason, keys in a dictionary must be hashable.
-
-MW  Do you remember some objects that are, and some objects that aren't hashable? 
-MW  We will find more uses of sets later. For now, use the set data structure to make the following code more self-documenting (and again, more safe!):\n```
-unique_numbers = [1,6,3,2,5,7,9]    # warning: must contain every number only once!
-
-new_number = 8
-if new_number not in unique_numbers:    # to ensure each number remains unique 
-    unique_numbers.append(new_number)
-```
-
-Note    Besides adequate variable and function names and not doing too much in a single line, using appropriate data structures makes your code more self-documenting (and often more robust).
-
-MW  Make the following code more self-documenting (and safer, and in some ways much shorter), mainly by choosing better data structures:\n```
-# student records consist of the fields name, age, student_id and major:
-students = [
-    ['John', 22, '1249871', 'linguistics'],
-    ['Mary', 24, '4198712', 'psychology'],
-    ['Bob', 32, '089123', 'mathematics'],
-]
-
-for x in students:
-    if x[0] == 'Bob':   # name was in the first column, hence 0
-        print(x[2])  # student id is in the third column, hence 2
-        break
-```
-
-MW  ***not sure if include type hints:\n```
-x: int = 1
-x: str = 'Johnny'
-```
-MW ***Can you run the code when type hints are violated? (Does PyCharm execute mypy automatically?)
-MW ***\n```
-from typing import List, Dict, Set
-# now we can do subscripted types:
-my_list: List[List[int]] = []
-mydict: Dict[str, bool]: {}
-```
-
-
-
-Title   More about tuples (also `dict`, `zip`)
-
-***tuple syntax, e.g.,  a = 3 + 4,  error.
-
-MW	We have seen tuples in the context of dictionaries, and also with `enumerate` earlier (pairs of an index and an element). You can create a tuple as in `my_tuple = (5, 2, 3)`. (In various contexts the parentheses for tuples are optional for reasons that can remain a mystery for now.) Print `my_tuple` to see what it looks like, and explore how tuples work.
-MW	Can you create a tuple of numbers, a tuple of strings, a mixed tuple? Can you look up an element by its index, like with lists? Does a tuple have a length? Can you concatenate two tuples into a new one using `+`? Is a tuple mutable like a list (i.e., can you assign a new value to a slot in an existing tuple), or immutable like a string? Can you loop over the elements of a tuple? Can you append an extra element to a tuple? Can an element of a tuple be itself a tuple? Can tuples be compared with operators like `<` and `>`? What does it mean?
-MW  How do you create an empty tuple? How do you create a singleton tuple (i.e., with one element)? Use `type` to verify that you have indeed constructed a tuple! (Finding the right way may require a web search...)
-MW	Recall that you can convert between types, e.g., `int` to `str`, or `str` to `list`. Can you convert a tuple to list? And a list to a tuple?
-MW	What types of tuples do you get if you `enumerate` the `items` of a dictionary?
-MW	Although when creating tuples the parentheses are sometimes optional, sloppiness can lead to potentially unexpected results. Explain the difference between `(1, 2, 3) + (4, 5)` and `1, 2, 3 + 4, 5`.
-MW	Explain the truth value of `True, True, True == (True, True, True)`
-MW	Can you use the `in` keyword as with lists, to check if the dictionary contains a certain key? A certain value? A certain key-value pair?
-MW	Conversion to a dictionary can be done with `dict`. Which types of objects can be converted to a dictionary? Can you convert an ordinary list to a dictionary? What about a list of pairs? What about a list of tuples, where one of the tuples has less than two elements, or more than two?
-MW	Assuming `my_list` is a list of pairs, do you expect the following to be true: `list(dict(my_list)) == my_list`? Test your expectation and try to understand what's going on.
-MW	Instead of a list of pairs, can you also create a dictionary from a list of _lists_, as long as the inner lists all have exactly two elements? What if one list has more or fewer elements? Do you expect that you can create a dictionary from a list containing only two-character strings, like `['ab', 'cd', 'ef']`? What do you think will be the result? Test your expectations.
-MW	Sometimes you want to combine every element from one list, with each corresponding element from another. This can be done with `zip` -- can you see why it is called `zip`?\n```
-for a, b in zip([1, 2, 3], [9, 8, 7]):
-    print(a, b)
-```
-MW	Can the keys in a dictionary themselves be tuples? Can the keys be lists? Why (not)? Can a key be a tuple that contains a list as one of its elements?
-MW	In the above code, can you predict what happens if you use only one variable, e.g., `for a in zip(...):` (and adapt the print statement accordingly)? Or if you accidentally use three variables?
-MW	What do you think will happen if `zip` is provided with two lists of unequal length? Test your expectation.
-MW	As with `enumerate`, `zip` constructs its tuples on the fly. To create a list of pairs, you need to explicitly convert the `zip` object to a `list` again. You can also convert a `zip` object directly to a dictionary using `dict`. Are the results as you would expect?
-MW	Suppose we have a list of place names and a list of inhabitant counts. Write a short function (the body could be a single line) that lets us combine both lists to form a dictionary from place names to inhabitant counts.
-MW  What happens if `zip` is given the same list twice, e.g., `zip(names, names)`? What if it is given the same list twice, but once without the first element: `zip(names, names[1:])`? Explain how the latter could be used to loop through all the _bigrams_ of a text. How would you loop through all trigrams?
-MW	Suppose we have two (disjoint) lists of names, `names1` and `names2`. You can create pairs of names with `name_pairs = list(zip(names1, names2))`. Does the following code achieve the same? As usual, carefully make a prediction before trying it out.\n```
-name_pairs = []
-for name1 in names:
-    for name2 in names:
-        name_pairs.append((name1, name2))
-```
-MW	Write a function `fake_zip` that takes two arguments `list1` and `list2` and returns the same as `list(zip(list1, list2))`, but without using `zip`. Does it handle lists of unequal lengths the way `zip` does?
-MW	Write two functions that together emulate a dictionary: `fake_add_to_dict` takes a list, a key and a value, and (i) if the list has no pair yet with the same key, append the pair to the list, (ii) if the list already has a pair with the same key, update the value of that key; `fake_get_from_dict` takes a list and a key, and (i) if the list has a pair with that key, return the corresponding value; (ii) if the list has no pair with that key, print an error. Test your functions rigorously.
-MW	Write additional functions `fake_keys`, `fake_values` and `fake_items` that take a list of pairs and return a list of keys, values or full pairs. (Recall that the real `keys`, `values` and `items` methods of a dictionary do not return an ordinary list, but for our fake dictionary this suffices.)
-MW	Do you remember to add docstrings to your function definitions?
-MW	With minimal effort, make the keys in your fake dictionary case-insensitive, i.e., such that _Apple_ and _apple_ and _applE_ count as 'the same' key.
-MW	Oh no! Our client wants to use our case-insensitive dictionary code on a game console from the seventies, with tiny memory! Change `fake_add_to_dict` so that the emulated dictionary can contain at most 10 items; if the dictionary is full, simply remove the oldest item to make room for the new item.
-
-
-
-Title	Text processing (advanced string methods, reading/writing files, some statistics)
+Title	Text processing (string methods, reading/writing files)
 
 MW	Python provides many useful string operations, including some which you manually implemented in the previous exercises. 
 MW	Look at `dir(str)`, or equivalently `dir('apple')` (or use some other random instance of the `str` class), for a list of methods available on the string class itself. Remember you've already used `upper` (invoked like `'apple'.upper()`) and `lower`. Explore at least the string methods `strip`, `swapcase`, `isalnum` and `center`; use `help` if needed (e.g., `help(str.strip)`) and illustrate how they work with your own examples.
@@ -1435,11 +1301,212 @@ MW	Did you sufficiently chunk your code, adhering to the SLAP (Single Level of A
 MW	Now that you know how to read text files, you can improve your anti-profanity echo-machine from before -- that repeats your input unless it is a profanity, and quits after five profanities -- by using a more extensive list of profanities, e.g., googling "list of curse words .txt" will get you to the list used by google: `https://code.google.com/archive/p/badwordslist/downloads`. Place this file on your computer in your current project's main directory, and write a program to read this file, store all profanities in a list or set data structure (which one makes more sense?), and use this to increase the vocabulary of your echo machine.
 
 
+Note    (i) Do not experiment with important files. Create toy files to play with.   (ii) When you do want to start working on your own files, do not use those  files directly. It’s much safer to create copies of these files and work with those.  (iii) Finally, it’s safest to create a new directory to learn file operations in. You can create new files there and copy (not move!) other files there.)  [From P4L]
 
-***Many more exercises:  https://www.w3resource.com/python-exercises/list/   https://www.w3resource.com/python-exercises/dictionary/
+***Check Hammond's P4L book for i/o?
 
 
-Title	Modules and scripts (`import`, `main`, `__name__`, `click`)
+
+Subtitle    Pattern matching with regular expressions
+
+***regex with a secondary program (browser based)? or re.verbose? re vs regex?
+***Check Hammond's P4L book for regex exercises
+
+***https://www.w3resource.com/python-exercises/re/index.php
+
+***https://docs.python.org/3/library/re.html#finding-all-adverbs
+
+
+Title   Writing better code
+
+MW	Your editor may be smart enough to highlight violations of 'Python style', adherence to which will enhance the readability of your code (in addition to docstrings and self-documenting code). The style guides are kept in the eighth _Python Enhancement Proposal_, PEP8 (https://www.python.org/dev/peps/pep-0008/). Have a look at it, and go through some of your previous code to make it PEP8-compliant if needed.
+
+Note	Initially created and long-term maintained by Guido van Rossum, Python is a very open, community-driven programming language. It has come to be the way it is with the help of **Python Enhancement Proposals** or PEPs (https://www.python.org/dev/peps/). **PEP8** is Python's style guide (https://www.python.org/dev/peps/pep-0008/).
+
+MW	Every aspect of the Python language has been purposefully designed, even though we may not always understand the purpose. Should you find yourself frustrated with Python, just enter `import this` in the interpreter and feel your calm returning. (The keyword `import` will be explained later.) The result is an easter egg based on PEP20, that captures some of Python's design principles in poetic form.
+
+
+
+Subtitle    Comments vs. self-documenting code
+
+MW	Besides style, documenting your code matters. So far you have been documenting your code in at least two ways: by adding docstrings to your functions, and by adding hashtag-comments to explain specific lines, as also illustrated below. However, often such comments can be made unnecessary by choosing more meaningful variable names, making the code more __self-documenting__. Can you change the variable name in the following snippet to make the following code self-documenting, so the `#`-comment can be deleted?\n```
+d = {}  # create an empty dictionary that will contain word counts
+```
+MW	Make the following code self-documenting by both changing variable names and restructuring the for-loop (avoid the need for `range` and `i`):\n```
+l = ['John', 'Sue', 'Bob', 'Chris']
+# loop over all names in the list to print them
+for i in range(len(l)):
+    print(l[i])
+```
+MW	Make the following code self-documenting:\n```
+mapping = {'John': '098124', 'Sue': '657317', 'Bob': '135809'}
+
+x = '657317'    # this is the student ID that I need to know the name for
+
+mapping2 = {a: b for b, a in mapping.items()}	# construct the inverse mapping
+if x in mapping2:	# this means the student ID was in the original dictionary
+    print(new_mapping[x])	# print the student's name
+```
+MW	For self-documenting code you must often resist the temptation to do too much in a single line of code. Improve the following code by, inside the for-loop, first assigning the computed value to a transparently named variable, and then printing that variable (i.e., instead of printing the output of the computation directly). In that way, the variable name can tell you its meaning. Feel free to make other changes too, to make the code more self-documenting:\n```
+r = [7, 4, 5, 8, 6, 9, 5]
+print('We have 7 circles!')
+for i in range(7):
+    print(3.1415 * r[i]**2)
+```
+MW	So called **magic numbers**, i.e., manually typed numbers in the middle of the code, are also bad for readability and maintainability. In the above example, you can replace two occurrences of the value `7` by `len(r)` (or whatever your name name for `r` is). You can also replace our own pi approximation by pi from Python's built-in math module: first `import math`, then you can use `math.pi`. (We will learn more about `import` later.) Can you think of reasons why 'magic numbers' are often bad?
+
+Note	You can often greatly improve the clarity of your code by making it **self-documenting**. This is achieved by chunking your code into functions (especially the SLAP principle), and by choosing meaningful variable and function names. (However, variables used only for a few lines, such as a counter in a loop or an item in a list comprehension, can often be safely named with a single letter.)
+
+MW	Make the following code as self-documenting as possible; you may have to change quite a bit! Also replace some of the magic numbers by transparently named variables defined at the start of the program instead of in the middle. \n```
+python = ['John', 'Sue', 'Bob', 'Chris', 'Peter', 'Pjotr', 'Maria']  # all students of the python for linguists class
+pts = [80, 60, 43, 75, 27, 92, 94]  # points they earned for the exam
+total = 100
+g = [10 * i/95 for i in pts]   # only 95 because 5 points were bonus
+p = [i > 5.5 for i in g]
+# now print the results in terms of pass/fail, followed by the number of failing students
+print(p)
+print(len([q for q in p if not q]))
+print([s for i, s in enumerate(python) if not p[i]])	# these failed the exam
+```
+MW	If you have been adding `#`-comments to your code, go through any of your previous code and see if such comments can be rendered unnecessary by making the code self-documenting (if it isn't already).
+MW	Variables with meaningful names inevitably carry the implication that they will be subsequently used. If this is not the case, i.e., for variables that will not be reused, the underscore `_` is conventionally used, as below. Go through your code to see if any variables could be replaced by `_` to make the code more readable:\n```
+for _ in range(10):
+    print("Hurrah!")
+```
+MW  A bit of an aside, but try executing something simple in the Python console that returns a value, like `38 * -2`, and then, on the next prompt, simply enter the underscore variable `_` and execute it. What special behavior does this show the underscore variable has in the interpreter? Does `_` work the same way in a Python script?
+
+
+Subtitle    Choosing adequate datastructures
+
+MW  Besides adequate variable and function names, another way to make your code more self-documenting is to use appropriate, informative _data structures_. Make the following code more self-documenting (and more safe!) by using a dictionary instead of two lists:\n```
+# Names of students and the corresponding (!) student IDs.
+# Warning, if you change one list make sure you change the other!
+names = ['John', 'Sue', 'Bob', 'Chris']
+ids = ['124987', '098513', '098122', '198732']
+
+# find the student ID of Bob:
+index_of_bob = names.index("Bob")
+x = ids[index_of_bob]
+
+print(x)
+```
+MW  Recall that a list can contain the same object twice. If you don't want this (and if element order does not matter) then Python's _set_ is a more appropriate data structure. Make sure you understand what is happening in the following code:\n```
+my_list = [1, 2, 2, 3]
+print(my_list)
+my_list.append(1)
+print('new:', my_list)
+
+my_set = set([1, 2, 2, 3])
+print(my_set)
+my_list.add(1)
+print('new:', my_set)
+```
+MW  Can you create a set containing strings? A set containing tuples? A set containing lists? What is the `type` of these sets?
+MW  Can you `append` something to a set? Can you `add` something to a list? Try to understand the motivation for this terminological difference.
+MW  Can you check if a set contains a certain element?
+MW  In maths/set theory, sets are written with curly braces like `{1, 2, 3}`. Does that work in Python? What about creating an empty set like this `{}`? (To be sure, check the type of the resulting object!)
+MW  Do you expect that you can iterate over the elements of a set (try the same syntax as with lists)?
+MW  Do you expect that you can use slicing on a set, as you would with a list? Why (not)?
+MW  Can you convert a dictionary to a set? What do you expect will be the result? And what might happen if you tried to convert a string to a set, e.g., `set('aaabbbccc')`?
+
+Note    The **set** data structure contains each element only once. Moreover, sets are significantly faster than lists when it comes to determining if an object is present in the set. (Though lists are of course much faster if you know the index of the object you are looking for.) The price to pay for this lookup speed is that sets (like a dictionary's keys) can only contain objects that are **hashable**. Technical details: an object is hashable if, roughly, its unique identity can be represented by a relatively short code, or 'hash': you can imagine that looking for short codes is faster than looking for actual Python objects! For the same reason, keys in a dictionary must be hashable.
+
+MW  Do you remember some objects that are, and some objects that aren't hashable?
+***Improve the following as a function for add_keep_unique or something?
+MW  We will find more uses of sets later. For now, use the set data structure to make the following code more self-documenting (and again, more safe!):\n```
+unique_numbers = [1,6,3,2,5,7,9]    # warning: must contain every number only once!
+
+new_number = 8
+if new_number not in unique_numbers:    # to ensure each number remains unique
+    unique_numbers.append(new_number)
+```
+
+Note    Besides adequate variable and function names and not doing too much in a single line, using appropriate data structures makes your code more self-documenting (and often more robust).
+
+MW  Make the following code more self-documenting (and safer, and in some ways much shorter), mainly by choosing better data structures:\n```
+# student records consist of the fields name, age, student_id and major:
+students = [
+    ['John', 22, '1249871', 'linguistics'],
+    ['Mary', 24, '4198712', 'psychology'],
+    ['Bob', 32, '089123', 'mathematics'],
+]
+
+for x in students:
+    if x[0] == 'Bob':   # name was in the first column, hence 0
+        print(x[2])  # student id is in the third column, hence 2
+        break
+```
+
+
+Subtitle    Some handy built-ins to streamline your loops (`zip`, `enumerate`, `any`, `all`)
+
+MW  ***Expand intro** In general Python programmers are weary of _indices_. Example of code to be improved.
+
+MW	Sometimes you want to loop over the elements of a list, while at the same time keeping track of the indices. The built-in function `enumerate` is great for this. Assuming you still have `names` defined, try the following:\n```
+for i, name in enumerate(names):
+    print(i, name)
+```
+MW	Note that looping over a list via `enumerate` iteratively assigns new values to _two_ variables, namely the counter and the element (`i` and `name`, in this example). What happens if you forget the `i` and do `for name in enumerate(names)`? What is the type of `name` in that case? And what happens if, conversely, you include the `i` but forget the `enumerate`, that is, `for i, name in names`?
+
+Note	Use the built-in function `enumerate` to iterate over the elements of a list together with their indices. `enumerate` takes a list and iteratively yields _pairs_ (2-tuples) of an index and a list element. We will learn more about pairs (and more generally tuples) later.
+
+MW	What happens if you print the object `enumerate(names)` directly? What is its `type`? Note that it is not an ordinary list; instead, an Enumerate object processes `names` _on demand_, numbering each element on the fly, without looking ahead. This avoids having to read the full list and construct a new 'numbered' list, which would unnecessarily take up memory and processing time. But it means that, if you want to collect all enumerated names in an ordinary list, you need to do so explicitly: `list(enumerate(names))`. What is the `type` of the elements in the resulting list? We will learn more about that type of object later.
+MW  Predict what the outcome is of the following statements, and verify your understanding: \n- `list(enumerate(range(10)))` \n- `enumerate(10)` \n- `list(10)` \n- `list(zip(range(10), range(10)))` \n- `list(zip(range(10)))` \n- `list(enumerate(enumerate(range(10))))`
+*** TODO practice more list comprehensions, also with dictionaries:  \n- `[str(i) + ': ' + name for i, name in enumerate(names)]` \n- `[i % 3 for i in range(20)]`
+
+***Integrate these exercises:
+MW	Use the list `names` used earlier above, and create an empty dictionary `names_inv`. Now use `enumerate` to loop through all index-name pairs of the list `names`, and assign these to the dictionary `names_inv` by using names as keys and the corresponding list indices as values. Explain why `names_inv` is a suitable name.
+MW	Continuing from before, what do you expect is the result of `names_inv[names[3]]`? And what about `names[names_inv[names[3]]]`? And `names_inv[names[names_inv[names[3]]]]`? Test your expectations!
+MW	How robust is your previous program? What happens if the original list of names contained the same name twice, and you try to construct its inverse? Explain what goes wrong.
+
+***Again, start with code with indices, to be improved with zip.
+
+MW	Sometimes you want to combine every element from one list, with each corresponding element from another. This can be done with `zip` -- can you see why it is called `zip`?\n```
+for a, b in zip([1, 2, 3], [9, 8, 7]):
+    print(a, b)
+```
+MW	In the above code, can you predict what happens if you use only one variable, e.g., `for a in zip(...):` (and adapt the print statement accordingly)? Or if you accidentally use three variables?
+MW	What do you think will happen if `zip` is provided with two lists of unequal length? Test your expectation.
+MW	As with `enumerate`, `zip` constructs its tuples on the fly. To create a list of pairs, you need to explicitly convert the `zip` object to a `list` again. You can also convert a `zip` object directly to a dictionary using `dict`. Are the results as you would expect?
+MW	Suppose we have a list of place names and a list of inhabitant counts. Write a short function (the body could be a single line) that lets us combine both lists to form a dictionary from place names to inhabitant counts.
+MW  What happens if `zip` is given the same list twice, e.g., `zip(names, names)`? What if it is given the same list twice, but once without the first element: `zip(names, names[1:])`? Explain how the latter could be used to loop through all the _bigrams_ of a text. How would you loop through all trigrams?
+MW	Suppose we have two (disjoint) lists of names, `names1` and `names2`. You can create pairs of names with `name_pairs = list(zip(names1, names2))`. Does the following code achieve the same? As usual, make a prediction before trying it out.\n```
+name_pairs = []
+for name1 in names:
+    for name2 in names:
+        name_pairs.append((name1, name2))
+```
+
+***Create exercises with `any` and `all`
+
+
+Subtitle    Adding type hints to your functions
+
+MW  ***not sure if include type hints:\n```
+x: int = 1
+x: str = 'Johnny'
+```
+MW ***Can you run the code when type hints are violated? (Does PyCharm execute mypy automatically?)
+MW ***\n```
+from typing import List, Dict, Set
+# now we can do subscripted types:
+my_list: List[List[int]] = []
+mydict: Dict[str, bool]: {}
+```
+
+
+Title	Data loading and exploration  (`csv`, `json`, `xml`, `html`, `pandas`)
+
+***Installation of non-base libraries.**
+***https://www.w3schools.com/python/pandas/pandas_exercises.asp
+***https://www.w3resource.com/python-exercises/pandas/index.php
+
+
+***Bit of web scraping too?   https://www.w3resource.com/python-exercises/web-scraping/index.php
+
+
+
+Title	Project management (`import`, `main`, `__name__`, testing, git)
 
 MW	We have already seen some uses of the `import` keyword (e.g., `import random` to be able to use `random.randrange(1, 100)`). To understand how `import` works, create two files, `file_a.py` and `file_b.py`. In one, write `print('Hello from file_a.py!')`, in the other, `print('Hello from file_b.py!')`. To test, run `file_a.py`, and then run `file_b.py` separately.
 MW	Now, at the top of `file_a.py`, add `import file_b`. Run `file_a.py` again and see what happens. Try to understand where the different printouts come from.
@@ -1517,68 +1584,26 @@ MW	Python interprets files from top to bottom, right? Then how come in the restr
 MW	Add docstrings to your functions, at least in files `file_c.py` and `file_d.py`. When importing a file, do you get access to the docstrings of its functions (try with `help`)?
 MW  In the previous block of exercises we learned how to read text files. What happens if instead of _importing_ a python file, you read it with `open` and `read()` like before? Do you expect the resulting object to be a module, as with `import`? Test this.
 
-***Turning your script into a useful command-line tool; command line sys.args, piping, 
-***check OS interoperability; shebangs?  #!/usr/bin/env python
-***using the **click** library
+Subtitle    Version management
+***Version management (`git`)   easy in PyCharm.
 
-
-
-Title	Language generation (& testing and version management)
-
-
-***remember name == main.
-*** recursion, grammar, string replacement
-*** reading, writing to files  
-Note    (i) Do not experiment with important files. Create toy files to play with.   (ii) When you do want to start working on your own files, do not use those  files directly. It’s much safer to create copies of these files and work with those.  (iii) Finally, it’s safest to create a new directory to learn file operations in. You can create new files there and copy (not move!) other files there.)  [From P4L]
-
-*** rule-based chatbot
-*** yield again
-***testing**
-*** creating scripts again, with click?
-
+Subtitle    Testing
 Note	Test, test, test! Untested code is useless. Tested code _might_ be useful.
 
-***Version management (`git`)   yes, easy in PyCharm.
-
-*** probabilistic based on tri-grams.
-*** state-of-the-art generation
 
 
 
+Title   Advanced text processing (`textblob`, `spacy`)
 
-***Check Hammond's P4L book for i/o?
-
-
-Title   Search (literal, patterns, fuzzy, semantic)
-
-***regex with a secondary program (browser based)? or re.verbose? re vs regex?
-***Check Hammond's P4L book for regex exercises
 ***stopwords, diflib, spacy --> explain import
 	***Maybe search as a theme, then use pattern-based (re), fuzzy (diflib) and meaning-based (embeddings)?
 
-***again turning script into a useful command-line tool.
-***https://www.w3resource.com/python-exercises/re/index.php
-
-***Bit of web scraping too?   https://www.w3resource.com/python-exercises/web-scraping/index.php
 
 
-
-Title	Pandas, csv files, json files
-
-***Installation of non-base libraries.**
-***https://www.w3schools.com/python/pandas/pandas_exercises.asp
-***https://www.w3resource.com/python-exercises/pandas/index.php
-
-Title	Statistical analysis
+Title	Testing hypotheses (`pandas`, `matplotlib`, `sklearn`)
 
 
 
-
-Title   Making things look nice
-
-
-
-Title   APIs
 
 
 
@@ -1644,6 +1669,39 @@ Title   Building useful scripts
 
 
 
+Subtitle    Mini-adventure: Counting n-grams
+
+MW  In the following exercises we will see if n-grams follow a Zipfian distribution just like individual words. We will be using some techniques from the Week 6 adventure that we haven't covered in the homework yet, so don't be afraid to copy-paste. Create a new Python file, where you either start from scratch or copy the entire Week 6 adventure code as your starting point.
+MW  Go to https://www.gutenberg.org/ to download several books in 'plaintext' format (or use another source of text data of your choosing). In the same directory as your current Python file, create a folder `data` (if it doesn't exist yet) and put your downloaded text files in that folder (the same way as for our Week 6 adventure).
+MW  In your Python program, read all of the text data from the aforementioned files and concatenate them into a single string. Tokenize this string (with some cleanup).
+MW  Program (or copy from a previous homework section) an `ngrams` function that takes a list of tokens and an integer `n`, and returns a list of n-grams. It is best if these n-grams are themselves represented as strings (or tuples), not as lists of strings, because we will be using them as keys in a counting dictionary: only immutable objects can be dictionary keys.
+MW  Write (or cleverly reuse...) a function that takes a list of n-grams (as strings) and returns their counts in a dictionary.
+MW  Review how in our Week 6 adventure we sorted the tokens by their counts, and reuse this code to do the same for bigrams and trigrams. Print the 10 most frequent and 10 least frequent bigrams and trigrams.
+MW  Do bigrams and trigrams show a Zipfian distribution? What are some differences compared to the distribution of single tokens? Is there some `n` for which the distribution of `n`-grams ceases to be (roughly) Zipfian? Can you reflect on why this might be?
+
+
+
+
+Title   More about tuples (also `dict`, `zip`)
+
+***The following are not too relevant:
+MW	Write a function `fake_zip` that takes two arguments `list1` and `list2` and returns the same as `list(zip(list1, list2))`, but without using `zip`. Does it handle lists of unequal lengths the way `zip` does?
+MW	Write two functions that together emulate a dictionary: `fake_add_to_dict` takes a list, a key and a value, and (i) if the list has no pair yet with the same key, append the pair to the list, (ii) if the list already has a pair with the same key, update the value of that key; `fake_get_from_dict` takes a list and a key, and (i) if the list has a pair with that key, return the corresponding value; (ii) if the list has no pair with that key, print an error. Test your functions rigorously.
+MW	Write additional functions `fake_keys`, `fake_values` and `fake_items` that take a list of pairs and return a list of keys, values or full pairs. (Recall that the real `keys`, `values` and `items` methods of a dictionary do not return an ordinary list, but for our fake dictionary this suffices.)
+MW	Do you remember to add docstrings to your function definitions?
+MW	With minimal effort, make the keys in your fake dictionary case-insensitive, i.e., such that _Apple_ and _apple_ and _applE_ count as 'the same' key.
+MW	Oh no! Our client wants to use our case-insensitive dictionary code on a game console from the seventies, with tiny memory! Change `fake_add_to_dict` so that the emulated dictionary can contain at most 10 items; if the dictionary is full, simply remove the oldest item to make room for the new item.
+
+
+
+
+
+Title   Building useful and reliable tools
+***Turning your script into a useful command-line tool; command line sys.args, piping,
+***check OS interoperability; shebangs?  #!/usr/bin/env python
+***using the **click** library
+
+
 
 ***Bytecode disassembler?
 
@@ -1658,3 +1716,7 @@ P4E up to chapter 3.
 P4L up to chapter 3.3.
 AMY https://www.youtube.com/watch?v=sH4XF6pKKmk
 NED https://www.youtube.com/watch?v=_AEJHKGk9ns&t=2s
+
+
+
+
