@@ -91,7 +91,7 @@ print('outside the function, after calling the function, b =', b)
 ```
 
 
-**11.17.** In the previous example, what happens if you assign something to `b` also in the global scope, before the function definition? For instance, add  `b = 789` (a different value) above the definition of `my_little_function`.
+**11.17.** In the previous example, what happens if you assign something to `b` also in the global scope, before the function definition? For instance, add  `b = 789` (a different value) above the definition of `some_function`.
 
 **11.18.** And what happens if you now remove the line `b = 123` from the function (while keeping `b = 789` above the function definition)? What gets printed? This and the foregoing exercises show that there is some kind of asymmetry between local scope and global scope with regard to variable accessibility. Try to formulate in your own words what this asymmetry is (further below it will be stated in more precise terms).
 
