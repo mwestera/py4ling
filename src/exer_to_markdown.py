@@ -4,7 +4,7 @@ separate_files = True
 out_dir = '../exercises'
 in_file = 'exer_raw.txt'
 
-update_files_from_section = 12
+update_files_from_section = 13
 
 
 if __name__ == "__main__":

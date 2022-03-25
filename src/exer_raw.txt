@@ -506,6 +506,8 @@ TP3	Write a function that counts the number of even digits in a number `n`, e.g.
 
 Subtitle    List comprehension
 
+***Explain generator objects here**
+
 MW	The keyword `for` also appears in a powerful and 'Pythonic' pattern called **list comprehension**. With a single line of code, it lets you construct a new list from an old one by changing or filtering the original elements. Try to predict (and test) what the following do:\n- Let `numbers = [9, 5, 8, 3, 2, 6]`, and try `[n for n in numbers if n > 4]` \n- Assuming you still have `names` assigned: `[s[0] for s in names]` (if you were to assign the result to a variable, what would be a fitting variable name?) \n- `[name[::-1] for name in names]` \n- `[s for s in names if s[0].lower() in 'aeiou']` (try to describe what this means, in plain English)
 MW  Use list comprehension to take a list of words, and construct a list of the same words but in full capitals. Does your code demonstrate that strings are mutable? Does it demonstrate that lists are mutable?
 MW	Use list comprehension to take a list of numbers, and return a list of squares of those numbers, but only of those numbers which were even.
@@ -984,13 +986,12 @@ MW	Explain the truth value of `True, True, True == (True, True, True)`
 MW  Tuples are ideal for storing a (small) number of fixed values with a fixed order, such as a name with a student ID and email address, or the coordinates of a point in 3D-space `(x, y, z)`. If you need to store more data fields (e.g., email address, average grade, place of birth...) then a dictionary usually becomes more convenient than a tuple, and if you need to store an in principle unbounded number of (typically more homogeneous) elements, a list is preferable. Can you identify reasons for these preferences? Reflect on the varying use-cases of these three data structures.
 MW  Try to recall (or look back to) the relation between dictionaries and mutability/hashability. Is the following understanding correct? 'The fact the items of a dictionary are tuples, shows that tuples are immutable.' Regardless, find some (other) ways to test whether tuples are mutable or not.
 MW	Tuples are immutable, lists are mutable, but tuples can contain lists... Can a tuple that contains a list as one of its elements, be used as a dictionary key?
-MW	Conversion to a dictionary can be done with `dict`. Which types of objects can be converted to a dictionary? Can you convert an ordinary list to a dictionary? A string? (In each case, try to form an expectation before testing it.) What about a list of lists, where each inner list has two elements? What if one of the inner lists has only one element, or three? What about a list of two-character strings?
-MW	Given that looping over a dictionary loops over the keys, what do you expect conversion to a list to do? Does converting a list to a dictionary and back to a list bring you back to where you started (e.g., `list(dict(some_list_of_pairs))`)?
+MW  Recall that **list comprehension** syntax can be used for concisely constructing a list (e.g., from an existing list, a range, or more generally a 'generator expression'), like `[i**2 for i in range(10)]`. To construct a tuple in this way, instead of a list, merely surrounding it with round parentheses instead of square brackets doesn't work: `(i**2 for i in range(10))`. Does this match what you learned about defining tuples in Python? Instead, you need to explicitly construct a tuple using `tuple(i**2 for i in range(10))` (note that the same also works with lists: `list(i**2 for i in range(10))`). Try this.
 
 
 Subtitle    List comprehension for dictionaries
 
-MW	Recall that **list comprehension** syntax can be used for concisely constructing one list from another. The same can be done with dictionaries (it is generally still called 'list comprehension' though, not 'dictionary comprehension'). What do you think the following does?\n```
+MW	List comprehension also works with dictionaries (it is generally still called 'list comprehension' though, not 'dictionary comprehension'). What do you think the following does?\n```
 new_dict = {key: value for key, value in name_to_id.items() if key[0].lower() in 'aeiou'}
 ```
 MW	Use list comprehension to take an existing dictionary with strings as keys (e.g., `name_to_id`), and filter it, constructing a new dictionary that contains only those items whose key has an even length.
@@ -1001,7 +1002,8 @@ MW  Suppose we have a predefined list of English numerals `numerals = ['zero', '
 MW  In section 11 you created the file `text_utils.py`, containing functions `ngrams` and `tokenize`. This means that in your current working file (make sure it is placed in the same directory) you can do `import text_utils`. Do this and apply the `text_utils.tokenize` and `text_utils.ngrams` functions to a short text. For instance, copy a text from Wikipedia, a blog, or an e-book, and simply paste it into your program in between triple quotation marks `'''` (to allow newlines within the copied string), the entire string assigned to a variable `text`. (Mixing code and data in a single file is bad practice of course, but fine for now. We learn about reading text from a separate file later.)
 MW  (Without peeking in the Week 6 adventure code:) Write a function `count_tokens` that takes a list of strings and returns a dictionary that maps each string to how often it occurs in the list. You can use list comprehension to initialize a counts dictionary (mapping each string to 0), and then loop through the tokens list while updating the counts.
 MW  Does your function `count_tokens` also work if you feed it a list of n-grams instead of a list of single tokens? If not, find a way to fix this (in your current working file or by changing the `text_utils.ngrams` function itself). You should then be able to print individual token counts, bigram counts and trigram counts.
-
+MW	Conversion to a dictionary can be done with `dict`. Which types of objects can be converted to a dictionary? Can you convert an ordinary list to a dictionary? A string? (In each case, try to form an expectation before testing it.) What about a list of pairs (2-tuples)? What about a list of lists, where each inner list has two elements? What if one of the inner lists has only one element, or three? What about a list of two-character strings?
+MW	Given that looping over a dictionary loops over the keys, what do you expect conversion to a list to do? Does converting a list to a dictionary and back to a list bring you back to where you started (e.g., `list(dict(some_list_of_pairs))`)?
 
 ***Many more exercises:  https://www.w3resource.com/python-exercises/list/   https://www.w3resource.com/python-exercises/dictionary/
 
@@ -1020,7 +1022,7 @@ MW  Naturally, a shortcoming of word-by-word translation is that any word order 
 
 Title	Jumping out and skipping through loops (`break`, `while`, `continue`, `range`)
 
-MW  We have seen before that `return` can be used (inside a function) to escape a loop when some condition has been met, causing the rest of the elements looped over to be skipped. Escaping a loop early is an important programming pattern to acquire, as it often results in cleaner and more efficient code. Demonstrate this again with a piece of code.
+MW  We have seen before that `return` can be used (inside a function) to escape a loop when some condition has been met, causing the rest of the elements looped over to be skipped. Escaping a loop early is an important programming pattern to acquire, as it often results in cleaner and more efficient code. As a warming up, review your own solutions to the exercises of section 8 that involved this pattern.
 MW  What is wrong with the following function? Can you fix it? **Note:** For the sake of practice, in this and the following exercises, stick to the multi-line loop structure (e.g., don't use list comprehension, or Python's built-in `len` or `any`; the solutions will show such variants too though, which are ultimately preferable).\n```
 def has_any_odd(numbers):   # Note: The docstring is a lie.
     """
@@ -1034,7 +1036,8 @@ def has_any_odd(numbers):   # Note: The docstring is a lie.
 ```
 MW	Write a function `has_any_vowel` that takes a _string_ as argument, and returns `True` if it contains at least one vowel, and `False` if it contains no vowels. Does your function ever inspect more list elements than necessary to reach a conclusion? If so, try to streamline your function.
 MW	Write a function `has_only_odd` that takes a list of integers as argument, and returns `True` if all numbers in the list are odd, and `False` otherwise.
-MW	Write a function `has_three_odd` that takes a list of integers as argument, and returns `True` if, and only if, at least three numbers in the list are odd.
+MW	Write a function `has_three_odd` that takes a list of integers as argument, and returns `True` if, and only if, at _least_ three numbers in the list are odd.
+MW	Write a function `has_at_most_n_vowels` that takes a list of strings and a number `n` as argument, and returns `True` if, and only if, there are no more than `n` vowels in the list of strings (also looking inside individual strings).
 
 Note  Whereas `return` lets you escape from a function (hence also from any intervening loop), `break` is more specialized: it lets you escape only the immediately enclosing loop, nothing else. This means that `break` is in many cases more suitable than `return`; we will review some cases below, after some initial practice.
 
@@ -1071,7 +1074,10 @@ MW  To practice with 'default arguments' from an earlier section: give your func
 MW  Write code with nested loops to illustrate one of the differences between `return` and `break` mentioned above: that `return` escapes all enclosing loops, whereas `break` escapes only the directly enclosing loop.
 MW	What happens if you use `break` in some other place in your code, not inside a loop?
 MW  What is wrong with the following code (analogous to the example with `return` above)? Can you fix it? (Maintaining the printout of 'Zero odd numbers here!' in the negative case can be a bit tricky.)\n```
-def print_if_has_any_odd(numbers):
+def print_whether_has_any_odd(numbers): # the docstring is a lie
+    """
+    Prints whether or not the list contains an odd number, and 'Done!' afterwards.
+    """
     for number in numbers:
         if number % 2 == 1:
             print('It has an odd number!')
@@ -1079,28 +1085,48 @@ def print_if_has_any_odd(numbers):
         else:
             print('Zero odd numbers here!')
             break
-    print('Done!')    # this final command is mainly why we use break to escape the loop, not return
+    print('   ...really!')    # this final command is mainly why we use break to escape the loop, not return
 ```
-MW  Fixing the preceding code is easier if you know that `for` clauses can actually be combined with an `else` clause, just like `if` can. Notice the indentation in the following code, ensuring that the `else` belongs with the `for`, not with the `if`. Does the following function work correctly?\n```
-def has_any_odd3(number)
+MW  Fixing the preceding code is easier if you know that `for` clauses can actually be combined with an `else` clause, just like `if` can. Consider the following fix, and notice the indentation ensuring that the `else` belongs with the `for`, not with the `if`. Does it work correctly?\n```
+def print_whether_has_any_odd_2(numbers):
     for number in numbers:
         if number % 2 == 1:
             print('It has an odd number!')
             break
     else:
         print('Zero odd numbers here!')
+    print('   ...really!')
 ```
 
 Note    Similar to if-clauses, for-loops can have an `else`-clause too. The else-clause of a for-loop is executed only if the for-loop finishes _without_ any `break`. Typically (but not always) `break` represents that some target element, that meets some criterion, has been found (e.g., the first odd number, the third name that begins with a vowel...). Therefore, you can often read the `else`-clause of a for-loop as "if no such element was found...". (If you pronounce it simply as 'else', it can be confusing.)
 
 MW	Can a single loop contain multiple `break` statements, e.g., in different if-clauses? Can you think of an (imaginary) use-case where one might need this?
-MW  A rich client needs four functions, that each take a nested _list of lists_ of numbers as parameter and return a boolean. One checks if each inner list contains an (any) odd number (return True if so, False otherwise). The second checks if each inner list contains _only_ odd numbers. The third checks if _some_ (any) inner list contains an odd number. The fourth checks if some inner list contains _only_ odd numbers. Implement a first version of these functions, where each function is self-contained and does _not_ rely on auxiliary functions (e.g., `has_any_odd` from before). Each function will, therefore, contain nested loops.
+MW  _(You can do this and the next two exercises all at once, or one at a time.)_ A rich client needs four functions, that each take a nested _list of lists_ of numbers as parameter and return a boolean. One checks if _some_ (any) inner list contains an odd number (return True if so, False otherwise). The second checks if some inner list contains _only_ odd numbers. The third checks if _each_ inner list contains an (any) odd number. The fourth checks if _each_ inner list contains _only_ odd numbers. Implement a first version of these functions, where each function is self-contained and does _not_ rely on auxiliary functions (e.g., `has_any_odd` from before). Each function will, therefore, contain nested loops.
 MW  Our client cares a lot of about efficiency (but insists on using Python). Do all of your loops escape early where possible?
-MW  Our client also cares a lot about clean code, and hates repetition. Implement a second version of the four functions where each contains only a single (non-nested) loop, within which some auxiliary function is called that does the rest (e.g., `has_any_odd` from before, and you may need to define another).
+MW  Our client also cares a lot about readability, and hates repetition. Improve the four functions such that each contains only a single (non-nested) loop, within which some auxiliary function is called that does the rest (e.g., `has_any_odd` from before, and you may need to define another).
 
-***Revised down to here.
+MW  Besides `break` (and to some extent `return`), another keyword that helps you control your loops is `continue`. It lets you skip an element. Can you predict what the following code prints? Test your prediction and verify your understanding.\n```
+for i in range(10):
+    if i % 2 == 0 or i % 5 == 0:
+        continue
+    print(i)
+```
+MW  What `continue` achieves can also be done with an if-clause alone, without `continue`. Show this by re-implementing the above `for i in range(10)` example _without_ using `continue`.
+MW  The foregoing notwithstanding, sometimes `continue` is considered preferable to a plain if-clause. A typical use case is to filter out cases that don't need to be processed, right at the start of the body of a for-loop. This is particularly desirable if the body of your loop is substantial. Compare program 1 and 2 in the code below (verify that the result is the same). In Program 1 the body is more deeply nested (under the if-clause), which means more stuff to keep in working memory as you try to understand the code. In Program 2, the body is less deeply nested, and `continue` directly, transparently signals that certain cases can simply be ignored, which is easier on our working memory.\n```
+# Program 1, not using continue:
+for i in range(1000):
+    if i % 3 == 0:
+        print(i)
+        ... # imagine a substantial program here
 
-Note    When writing a loop, you should always consider: Do I know in advance over which elements I need to loop, or how often to repeat something? Do I need to look at all elements in all cases? Or can I take an early exit? Under what conditions?
+# Program 2, using continue:
+for i in range(1000):
+    if i % 3 != 0:
+        continue        # exception-status immediately clear
+
+    print(i)
+    ... # main program is now not as deeply nested, which is also nice
+```
 
 
 Subtitle    Looping with `while`
@@ -1115,100 +1141,55 @@ MW  Write a program that does the same, but using a `for`-loop instead of the `w
 
 Note	For the above use-case, where you know in advance how often to repeat something, for-loops are normally the way to go. But **while-loops** can be convenient if you don't quite know how long to loop, e.g., until some unpredictable condition is met, such as a particular user input. We will see some examples of this.
 
-MW	If a program keeps on running, do you know how to intervene to stop it? This is often the keyboard shortcut `ctrl`+`c` or `cmd`+`c`, but your IDE may also offer a stop button (e.g., red square).
+MW	If a program keeps on running, do you know how to intervene to stop it? In the Python Console this is often the keyboard shortcut `ctrl`+`c` or `cmd`+`c`; when executing a script it may be `ctrl`+`F2`, but the PyCharm IDE also has a visual stop button for this (red square).
 MW	In the above while-loop, replace the condition (`counter < 10`) simply by `True`. What do you expect will happen? Do you see the importance of the previous exercise?
+P4E	Write a function that repeatedly gets numbers from the user (using the `input` function), until the user enters _done_. Once _done_ is entered, print out the total, count, and average of the numbers. You can assume the user will only enter either `done` or a valid number.
+TP3	Write a number guessing game. Start your program with `import random`. Write a function that contains `number = random.randint(100)` (what does it do?), followed by a loop asking the user to guess that number. Upon each guess (you can assume the user enters only valid numbers), the program prints whether it is too high or too low, or, if the guess is exactly right, exit the loop and print _Congratulations! You won in [n] guesses!_ where _n_ is the number of guesses.
+MW  Use `continue` to make your number guessing game, from the exercise above, more user-friendly: if the user enters anything other than a number, skip ahead (with the effect of asking for new input right away). You can use the string method `is_numeric`, which returns True if the string contains only numeric digits.
 
-***Add exercise to introduce the idea of setting a boolean check inside the while loop. Sentinel? Or break?
+***Much work for little gain: MW  Using your sentence generation code from Section 12 (or the simpler variant from Section 7), write a while-loop that generates a random sentence every time the user presses `enter`, and stops when the user enters `quit`.
+***Not very relevant: MW	Write an infinite loop that prints the next prime number each time the user hits enter (you can use `input()` for this).
+***MW	Modify the guessing game: if the player guesses correctly, after congratulating them, ask the player if they want to play again, and if so, sample a new random number and start over. After each game, give the player some additional feedback: did they use more or fewer turns than the average of previous rounds (within the same session)?
+***MW	Write a program with a while-loop that repeatedly takes a string from the user, and simply repeats it back to you _unless_ it contains a profanity, in that case it remains silent. You can get creative (and naughty), or find lists of profanities on the web. (In a later section we will learn how to read such words from a separate file, so you don't need to copy them into your program.) If you enter more than 5 profanities, the program should say _I've had enough of this_ and change the value of a boolean such that the while-loop stops.
+***Not super needed: MW	Write a program that repeatedly asks for user input; it ignores all user input except the string _knock_. Only if the user writes _knock_ three times in a row (as three separate inputs), the program should print _Go away!_ Note: if you enter _knock_ twice, then something else, then _knock_ a third time, nothing should happen; the three knocks should be consecutive.
 
-P4E	Write a function that repeatedly gets numbers from the user (using the `input` function), until the user enters _done_. Once _done_ is entered, print out the total, count, and average of the numbers. If the user enters anything other than a number, print an error message and skip to the next number.
+***redundant.** Note    When writing a loop, you should always consider: Do I know in advance over which elements I need to loop, or how often to repeat something? (If so, use `for`; if not, perhaps `while`.) Do I need to look at all elements in all cases? Or can I take an early exit (`break`, sometimes `return`)? Under what conditions? Are there exceptions I can skip right away (`continue`)?
 
-***Sentence generation example?**
+***Not very relevant: MW  As a final practice with `continue`, define a function that takes a list of strings and loops over it. Inside the loop it should ignore (with `continue`) strings that have an even number of consonants, and for those strings which it does not ignore, invert them and append them to a new list, which is returned in the end.
 
 
-MW	Write an infinite loop that prints the next prime number each time the user hits enter (you can use `input()` for this).
-TP3	Write a number guessing game. Start your program with `import random`. Now write a loop containing `number = random.randrange(1,100)` (what does it do?) and ask the user to guess that number. Upon each guess, the program prints whether it is too high or too low, or, if the guess is exactly right, exit the loop and print _Congratulations! You won in [n] guesses!_ where _n_ is the number of guesses.
-MW	Modify the guessing game: if the player guesses correctly, after congratulating them, ask the player if they want to play again, and if so, sample a new random number and start over. After each game, give the player some additional feedback: did they use more or fewer turns than the average of previous rounds (within the same session)?
-MW	Write a program with a while-loop that repeatedly takes a string from the user, and simply repeats it back to you _unless_ it contains a profanity, in that case it remains silent. You can get creative (and naughty), or find lists of profanities on the web. (Further below we will learn how to read such words from a separate file, so you don't need to copy them into your program.) If you enter more than 5 profanities, the program should say _I've had enough of this_ and change the value of a boolean such that the while-loop stops.
-MW	Write a program that repeatedly asks for user input; it ignores all user input except the string _knock_. Only if the user writes _knock_ three times in a row (as three separate inputs), the program should print _Go away!_ Note: if you enter _knock_ twice, then something else, then _knock_ a third time, nothing should happen; the three knocks should be consecutive.
+Subtitle    Looping over `range`
 
-Subtitle    Skipping elements with `continue`
+***Not super relevant here: MW  As a warming up, consider the following, famous programming job interview question, known as `FizzBuzz'. Write a function that iterates the integers from 1 to 50, printing the numbers. However, for multiples of three print `Fizz` instead of the number, and for multiples of five print `Buzz` instead of the number. For numbers which are multiples of both three and five print `FizzBuzz`. Try to minimize repetition in your code.
+MW	We have already used `range` to loop over a range of integers, e.g., `for i in range(10):`, but `range` is quite a bit more flexible. Execute `help(range)` in the Python console for more information (and remember to press `q` to quit). As you can see, you can construct a range with up to three arguments. What do the other arguments do? E.g., what happens if you loop over `range(3, 50, 5)`? And what about `range(100, 5, -3)`? Is there a relation between the three arguments of `range`, and the three integers you can specify when slicing a string or list?
+MW	Write a function that counts down from 10 to 1, and then prints _Lift off!_. (Consider printing all numbers on the same line, to more easily keep an overview in your printed output. Also consider adding `flush=True` to a print statement now and then, so you don't have to scroll all the way up to see an error message.)
+MW	Generalize the preceding function by providing it a start and a step parameter, where the default start is 10 and the default step is -1. Use it to count down from 20 in steps of 2.
+MW	Define a function that uses nested loops to print all pairs of numbers, each between 0 and 10 (inclusive), where the first is odd and the second is even. Did you use if-clauses inside the loops, or did you solve it with particular `range` objects instead?
+MW	Define a function that uses nested loops to print all pairs of numbers, each between 0 and 10 (inclusive), where the second is higher than the first -- but, for the sake of practice, _without_ using an `if`-statement (hint: the inner loop can use a range of which the starting point is determined by the outer loop). (Can you reason about how many such pairs there will be?)
 
-MW  Besides `break` (and to some extent `return`), another keyword that helps you control your loops is `continue`. It lets you skip an element. Can you predict what the following code prints? Test your prediction and verify your understanding.\n```
-for i in range(100):
-    if i % 2 == 0 or i % 5 == 0:
-        continue
-    print(i)
-```
-MW  What `continue` achieves can also be done with an if-clause alone, without `continue`. Show this by duplicating and then modifying the above example.
-MW  Despite the foregoing, sometimes `continue` is considered preferable to a plain if-clause. A typical use case is to filter out cases that don't need to be processed, right at the start of the body of a for-loop. This is particularly desirable if the body of your loop is substantial. Compare program 1 and 2 in the code below (verify that the result is the same). In Program 1 the body is more deeply nested (under the if-clause), which means more stuff to keep in working memory as you try to understand the code. In Program 2, the body is less deeply nested, and `continue` directly, transparently signals that certain cases can simply be ignored, which is easier on our working memory.\n```
-# Program 1, not using continue:
-for i in range(1000):
-    if i % 3 == 0:
-        print(i)
-        ... # imagine a substantial program here
+Note	When you need to loop over a range of numbers in a particular way, choosing a smart `range` can sometimes result in more readable code than using if-statements inside the loop, especially in list comprehensions.
 
-# Program 2, using continue:
-for i in range(1000):
-    if i % 3 != 0:
-        continue
+MW	Write a function that takes a list, and returns a new list containing all elements that occurred at even indices (0, 2, 4, ...) in the original list. Write a version that uses a multi-line loop, and a version with only list comprehension.
+MW  Write a function that takes a list and returns a new list containing all non-overlapping _pairs_ of elements in the original list. So for input `[1, 2, 3, 4, 5, 6]` it would return `[(1, 2), (3, 4), (5, 6)]`. Try two variants: a multi-line loop and list comprehension. Which do you find more readable in this case?
+MW  Generalize the foregoing function with an integer parameter `n`, returning the list of non-overlapping n-tuples (pairs, triples, quadruples, etc.). This is likely too complex for a single-line list comprehension. Moreover, you will likely need two `range` objects, one for looping through the list, one for constructing each tuple (from index `i` to index `i + n`). Remember from the previous section that constructing a tuple using list comprehension requires an explicit `tuple(...)` expression.
+MW	Can you create a `range` with non-integer steps, e.g., 0.1? What about using a float as a starting point or end point, is that allowed? Can you think of a more indirect way to nevertheless achieve such things (e.g., float steps or start/end points) whilst still using `range`?
+MW	Define a function that takes an integer parameter `n` and uses a _single_ loop to repeatedly, `n` times, print the numbers 0, 1, 2, ..., 23 (as if `n` days pass on a 24-hour clock).
+MW	Remember that objects can sometimes be converted from one type to another. A `range` object can be converted to a `list`, e.g., `list(range(100))`. Try this. Can you also convert a list back to a range? What happens if you try, and why might this be?
+MW	In the Python console compare `x = range(9999)` to `x = list(range(9999))` (without printing the result). Keep increasing nines and try again, e.g., `99999`, `999999`, `9999999`, and beyond (take it easy, don't crash your computer). At some point you will notice that the version `x = list(range(999...9)` gets much slower, while the version `x = range(999...9)` remains fast. Why would this be?
+MW  If you do `import sys`, you can access various operating-system-related functions in Python. One of these is the function `sys.getsizeof`. First call `help` on this function to read what it does. Then use the function to compare `range(9)` to `range(9999)`, and `list(range(9))` to `list(range(9999))`. Do your findings align with your answer to the previous exercise?
+MW	We have a micro-computer with a tiny display of 8 by 8 pixels, each of which can only be either on or off. We received what appears to be a secret message: `0000000000110110011111110011111000011100000010000000000000000000`. Write a function that takes such strings and prints them to a (simulated) 8 by 8 display, each pixel represented by a one-character space, rendering a `0` as an empty space ` `, and a `1` as a hashtag `#` (use a dictionary to implement this mapping, rather than if-statements). If you like, compose your own reply.
 
-    print(i)
-    ... # substantial program is now not as deeply nested
-```
-MW  Use `continue` to define a function that takes a list of strings and loops over it. Inside the loop it should ignore (with `continue`) strings that have an even number of consonants, and for those strings which it does not ignore, inverts them and appends them to a new list, which is returned in the end.
-MW	In the Python console enter `import keyword` and then print `keyword.kwlist` (we will learn the details of `import` later). For which of these keywords do you already know some purpose?
 
-Note    **Keywords** are core language constructs handled by the syntactic parser before Python code is interpreted. Keywords are _reserved_ and cannot be used as ordinary variables, e.g., reassigned new values. **Built-ins** are commonly used, preloaded functions (e.g., `print`, `round`), constants (e.g., `__name__`, in which Python stores a name for the current script), classes (e.g., `list`, but also various error classes such as `TypeError` -- if you encounter a TypeError, it is an instance of this class).
+Subtitle    Wrapping up
+
+MW	To conclude this section, in the Python console enter `import keyword` and then print `keyword.kwlist` (we will learn the details of `import` later). For which of these keywords do you already know some purpose? Try to summarize your understanding, especially of the keywords central to this section (`break`, `continue`, `return`, `for`, `while`): what is the purpose of each of these keywords?
+
+Note    **Keywords** are core language constructs handled by the syntactic parser before Python code is interpreted. Keywords are _reserved_ and cannot be used as ordinary variables, e.g., reassigned new values. **Built-ins** are commonly used, preloaded functions (e.g., `print`, `round`) and classes (e.g., `list`, but also various error classes such as `TypeError` -- if you encounter a TypeError, it is an instance of this class).
 
 MW  Test that keywords are indeed special, reserved expressions, by showing that trying to assign something to a keyword leads to an error.
-MW  Built-in objects can be found in `__builtins__`. Verify with `type` that `__builtins__` is a _dictionary_, about which we learn in the next section. If you call `print('apple')`, this is essentially shorthand for looking up `'print'` in the dictionary and calling it: `__builtins__['print']('apple')`. For an overview of `__builtins__` it is convenient to convert it to a list: `print(list(__builtins__))`. For which of the built-ins do you already know some purpose?
-MW  Unlike keywords, built-ins are assigned to ordinary variables, hence these can be reassigned new values. Try this in the console: enter `print = 'bla'`, and subsequently try to print something, like `print('apple')`. Overriding builtins like this is not a good idea. (Consider restarting the console to prevent confusing your future self.)
-MW  Try to review the past section from memory: which new keywords did you learn, and what are their uses compared to the tools you already acquired before?
+MW  Unlike keywords, built-ins are assigned to ordinary variables, hence these can be reassigned new values. For instance, try `print = 'bla'` and subsequently try to print something, like `print('apple')`. Overriding builtins like this is not a good idea. (If you did this in the Python console, consider restarting it now to prevent confusing your future self.)
+MW  Built-in functions are in fact shortcuts for objects you can also find in `__builtins__`. Try printing `__builtins__`. Depending on implementation it is either of type `module` (the type of thing that results from `import`, about which we will learn later) or a dictionary. In fact, in PyCharm, `__builtins__` in the Python Console is equivalent to `__builtins__.__dict__` in a script. Do `print(dir(__builtins__))` in a script (`dir` lists the contents of a module), or `print(list(__builtins__))` in the Python console (to list the keys of the dictionary). For which of the built-ins do you already know some purpose?
 
-Subtitle    Skipping elements with a smart `range`
-
-***Drastically shorten this.
-
-MW  It is time to learn a bit more about `range`, which we used before to iterate over indices of a list or string. As a warming up, write a function that iterates the integers from 1 to 50. For multiples of three print `Fizz` instead of the number and for multiples of five print `Buzz`. For numbers which are multiples of both three and five print `FizzBuzz`. Try to minimize repetition in your code.
-MW	Execute `help(range)` for more information (and remember to press `q` to quit). As you can see, you can construct a range with up to three arguments. What do the other arguments do? E.g., what happens if you loop over `range(3, 50, 5)`? And what about `range(100, 5, -3)`? Is there a relation between the three arguments of `range`, and the three integers you can specify when slicing a string or list?
-MW	Write a function that counts down from 10 all the way to 0, and then prints _Lift off!_.
-MW	Write a function that counts down from 10 down to -10 in steps of 2.
-MW	Write a function that prints all and only list elements at even positions (0, 2, 4, ...).
-MW  Generalize the previous function with an extra parameter `even`: when set to True, it displays the previous behavior; when set to False, it instead prints only the list elements at odd positions (1, 3, 5, ...).
-MW  Write a function that takes a list like `names`, and loops over list indices (e.g., using `range(len(names)`) in order to print all pairs of consecutive elements. For instance, for `names` as defined at the start of this section, it would first print _Alf Beth_, then _Beth Chris_, then _Chris Dave_, and so on.
-MW  Write a similar function, but now the printed pairs of consecutive elements should not overlap: _Alf Beth_, then _Chris Dave_, and so on.
-MW	What happens if you iterate over an empty list? What happens if you iterate over an empty range, e.g., `range(0)`, or `range(56,56)`?
-MW	Can you think of (dis)advantages of using `range`, defined by a start and end point, instead of a list of all the numbers in that range? For instance, what if you want to loop over a billion gazillion numbers?
-MW	Can you create a `range` with non-integer steps, e.g., 0.1? What about using a float as a starting point or end point, is that allowed? Can you think of a more indirect way to nevertheless achieve such things (e.g., non-integer steps, or start/end points) with the help of `range`?
-NED  In the following example, how come the list `nums` doesn't change?\n```
-nums = [1, 2, 3]
-for x in nums:
-    x *= 10
-
-print(nums)
-```
-MW  Change the above code to have it modify the list `nums` in-place. You can achieve this by only changing the header of the for-clause, and the `x` in its body...
-MW  Can you generalize the previous code so it also works on strings, modifying them in-place?
-MW	Remember that objects can sometimes be converted from one type to another. A `range` object can be converted to a `list`, e.g., `list(range(100))`. Try this. Can you also convert a list back to a range? What happens if you try, and why might this be?
-MW	Compare `x = range(9999)` to `x = list(range(9999))` (without printing the result). Keep increasing nines and try again, e.g., `99999`, `999999`, `9999999`, and beyond (take it easy, don't crash your computer). At some point you will notice that the version `x = list(range(999...9)` gets much slower, while the version `x = range(999...9)` remains fast. Why would this be?
-MW  If you add `import sys` to the top of your file, you can access various operating-system-related functions in Python. One of these is the function `sys.getsizeof`. First call `help` on this function to read what it does. Then use the function to compare `range(9)` to `range(9999)`, and `list(range(9))` to `list(range(9999))`. Do your findings align with your answer to the previous exercise?
-
-*** Not super relevant  Note	Try not to needlessly occupy memory and processing time: `range` lets you iterate over a sequence of integers without having to store the corresponding list of integers anywhere in memory.
-
-TP3	Write a function that takes a number `n` and prints out the first `n` triangular numbers. (For instance, the 5th triangular number is 1+2+3+4+5, i.e., 15.)
-TP3	Write a function that takes a number and prints `True` when it is a prime number and `False` otherwise.
-MW	Define a function that uses nested loops to print all pairs of numbers between 0 and 10, but only if the first member is odd and the second even. Did you use an if-clause, or appropriate `range` objects?
-MW	Define a function that uses nested loops to print all possible two-character strings where the first is a consonant and the second is a vowel.
-MW	Define a function that uses nested loops to print all pairs of numbers between 0 and 10, where the second is higher than the first -- but crucially _without_ using `if`-statements (hint: the inner loop can use a range of which the starting point is determined by the outer loop)!
-
-Note	When you need to loop over a range of numbers in a particular way, choosing a smart `range` can often result in more readable code than using if-statements inside the loop.
-
-MW	Recall that you can directly convert a `range` object to a `list`, but not the other way around. Implement a function `list_to_range` that does allow this. Of course it can only work for lists that correspond to a certain range with an integer start point, end point and regular steps in between.
-MW	Define a function that uses a _single_ (!) loop using `range` (without constructing a list first), that prints the numbers 0, 1, 2, ..., 23, repeating this five times. Remember the operation with which you handled the hours on a clock earlier?
-MW	Now program a clock with both hours and minutes, printing it as, e.g., `16:52`, and let it run for two 'days' (each iteration simulates a minute). If it works, make it also display seconds, and run it for a few 'hours'.
-MW	Can you change the setting of your clock to display times using `am` and `pm` instead of the 24-hour format, e.g., `4:52pm` instead of `16:52`?
-
-MW	We have a micro-computer with a tiny display of 8 by 8 pixels, each of which can only be either on or off. We received what appears to be a secret message: `0000000000110110011111110011111000011100000010000000000000000000`. Write a function that takes such strings and prints them to a (simulated) 8 by 8 display, each pixel represented by a one-character space, rendering a `0` as an empty space ` `, and a `1` as a hashtag `#`. If you like, compose your own reply.
 
 
 Title	Text processing (string methods, reading/writing files)
@@ -1690,6 +1671,42 @@ MW	Write additional functions `fake_keys`, `fake_values` and `fake_items` that t
 MW	Do you remember to add docstrings to your function definitions?
 MW	With minimal effort, make the keys in your fake dictionary case-insensitive, i.e., such that _Apple_ and _apple_ and _applE_ count as 'the same' key.
 MW	Oh no! Our client wants to use our case-insensitive dictionary code on a game console from the seventies, with tiny memory! Change `fake_add_to_dict` so that the emulated dictionary can contain at most 10 items; if the dictionary is full, simply remove the oldest item to make room for the new item.
+
+
+
+
+
+NED  In the following example, how come the list `nums` doesn't change?\n```
+nums = [1, 2, 3]
+for x in nums:
+    x *= 10
+
+print(nums)
+```
+MW  Change the above code to have it modify the list `nums` in-place. You can achieve this by only changing the header of the for-clause, and the `x` in its body...
+MW  Can you generalize the previous code so it also works on strings, modifying them in-place?
+
+
+
+
+***not needed MW	Can you think of (dis)advantages of using `range`, defined by a start and end point, instead of a list of all the numbers in that range? For instance, what if you want to loop over a billion gazillion numbers?
+
+
+*** Not super relevant  Note	Try not to needlessly occupy memory and processing time: `range` lets you iterate over a sequence of integers without having to store the corresponding list of integers anywhere in memory.
+
+***TP3	Write a function that takes a number `n` and prints out the first `n` triangular numbers. (For instance, the 5th triangular number is 1+2+3+4+5, i.e., 15.)
+***TP3	Write a function that takes a number and prints `True` when it is a prime number and `False` otherwise.
+***Nog relevant here MW	Define a function that uses nested loops to print all possible two-character strings where the first is a consonant and the second is a vowel.
+
+
+
+***Far-fetched:  MW	Recall that you can directly convert a `range` object to a `list`, but not the other way around. Implement a function `list_to_range` that does allow this. Of course it can only work for lists that correspond to a certain range with an integer start point, end point and regular steps in between.
+
+***Nah. MW	Now program a clock with both hours and minutes, printing it as, e.g., `16:52`, and let it run for two 'days' (each iteration simulates a minute). If it works, make it also display seconds, and run it for a few 'hours'.
+***MW	Can you change the setting of your clock to display times using `am` and `pm` instead of the 24-hour format, e.g., `4:52pm` instead of `16:52`?
+
+
+
 
 
 
