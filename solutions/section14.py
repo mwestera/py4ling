@@ -6,6 +6,8 @@
 # See, e.g., exercises 8.18, 8.19.
 
 # 14.2
+print('14.2')
+
 def has_any_odd_INCORRECT(numbers):   # Note: The docstring is a lie.
     """
     Returns True if the list of numbers has any odd number; False otherwise.
@@ -19,6 +21,8 @@ def has_any_odd_INCORRECT(numbers):   # Note: The docstring is a lie.
 print(has_any_odd_INCORRECT([1, 2, 3, 4]))    # works
 print(has_any_odd_INCORRECT([2, 4, 6, 8]))    # works
 print(has_any_odd_INCORRECT([2, 3, 4, 5]))    # fails!
+
+print('14.2 fixed')
 
 def has_any_odd(numbers):
     """
