@@ -5,7 +5,7 @@
 
 **14.1.** We have seen before that `return` can be used (inside a function) to escape a loop when some condition has been met, causing the rest of the elements looped over to be skipped. Escaping a loop early is an important programming pattern to acquire, as it often results in cleaner and more efficient code. As a warming up, review your own solutions to the exercises of section 8 that involved this pattern.
 
-**14.2.** What is wrong with the following function? Can you fix it? **Note:** For the sake of practice, in this and the following exercises, stick to the multi-line loop structure (e.g., don't use list comprehension, or Python's built-in `len` or `any`; the solutions will show such variants too though, which are ultimately preferable).
+**14.2.** What is wrong with the following function? Can you fix it? **Note:** In this and the following exercises, for the sake of practicing the main topics of this section, stick to the multi-line loop structure (e.g., don't use list comprehension, `sum`, or `any` and `all`, about which we will learn in a later section).
 
 ```python
 def has_any_odd(numbers):   # Note: The docstring is a lie.
