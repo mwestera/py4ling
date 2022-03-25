@@ -1023,7 +1023,7 @@ MW  Naturally, a shortcoming of word-by-word translation is that any word order 
 Title	Jumping out and skipping through loops (`break`, `while`, `continue`, `range`)
 
 MW  We have seen before that `return` can be used (inside a function) to escape a loop when some condition has been met, causing the rest of the elements looped over to be skipped. Escaping a loop early is an important programming pattern to acquire, as it often results in cleaner and more efficient code. As a warming up, review your own solutions to the exercises of section 8 that involved this pattern.
-MW  What is wrong with the following function? Can you fix it? **Note:** For the sake of practice, in this and the following exercises, stick to the multi-line loop structure (e.g., don't use list comprehension, or Python's built-in `len` or `any`; the solutions will show such variants too though, which are ultimately preferable).\n```
+MW  What is wrong with the following function? Can you fix it? **Note:** In this and the following exercises, for the sake of practicing the main topics of this section, stick to the multi-line loop structure (e.g., don't use list comprehension, `sum`, or `any` and `all`, about which we will learn in a later section).\n```
 def has_any_odd(numbers):   # Note: The docstring is a lie.
     """
     Returns True if the list of numbers has any odd number; False otherwise.
@@ -1418,7 +1418,9 @@ for x in students:
 ```
 
 
-Subtitle    Some handy built-ins to streamline your loops (`zip`, `enumerate`, `any`, `all`)
+Subtitle    Some handy built-ins to streamline your loops (`zip`, `enumerate`)
+
+***Explain difference between list and generator expression.
 
 MW  ***Expand intro** In general Python programmers are weary of _indices_. Example of code to be improved.
 
@@ -1457,7 +1459,18 @@ for name1 in names:
         name_pairs.append((name1, name2))
 ```
 
-***Create exercises with `any` and `all`
+Subtitle    Powerful list comprehensions with `any`, `all`
+
+***Make this exercise: MW  `all([True, True, True])`, `any([True, True, True])`, `all([True, True, False])`, `any([True, True, False])`.
+***Make this exercise: MW  `len` needs a list, `sum`, `any`, `all` etc. can take any generator description.
+MW  By feeding `all` and `any` a list comprehension (or more generally a generator expression), you can check whether all or any of the elements meet a certain condition. For example, assuming we have a list of strings assigned to `words`, what does `any(len(word) >= 3 for word in words)` check for? Write a similar one-liner that checks whether all words are less than 10 characters long.
+MW  Write three expressions, that check whether none, some, and all of the words contain the letter 't'.
+MW  Can you think of a way to use built-in `sum` to _count_ the number of elements that meet a condition (i.e., more fine-grained than none/some/all)? You can rely on boolean `True` evaluating to `1` (and `False` to `0`) in a numerical context. Use this to write an expression that counts the number of words that have a length of at least 3.
+MW  An alternative way to count how many elements meet a certain condition is to use `len`, applied to a list comprehension that keeps only the elements that meet the condition. Use this to write an alternative expression that does the same task as required for the previous exercise: count the number of words that have a length of at least 3. Which solution do you find more readable?
+MW  Describe at an intuitive level the two approaches you just explored, i.e., using `sum` vs. using `len` to count how many elements meet a condition. How does each work?
+MW  Assuming we have a list of strings assigned to `words`, try to describe in plain English what the following lines compute. First make a prediction, then test and verify your undestanding. Are there expressions among them that are equivalent? \n - `any(w[0].lower() in 'aeiou' for w in words)` \n - `all(w[0].lower() in 'aeiou' for w in words)` \n - `not any(w[0].lower() in 'aeiou' for w in words)` \n - `all(w[0].lower() not in 'aeiou' for w in words)` \n - `sum(w[0].lower() in 'aeiou' for w in words) >= 2` \n - `len([w for w in words if w[0].lower() in 'aeiou']) >= 2` \n - `not any(w[0].lower() not in 'aeiou' for w in words)`
+MW  With the help of the newly acquired built-ins and techniques from this section, reimplement some functions from section 14, in particular `has_any_odd`, `has_only_odd`, `has_three_odd` and `has_at_most_n_vowels`.
+
 
 
 Subtitle    Adding type hints to your functions
