@@ -178,52 +178,41 @@ my_dict = {(1, 2): 3, (6, 5): 11}   # tuples can be keys!
 # my_dict2 = {(1, [2, 3]): 3}     # TypeError: unhashable type: list
 
 # 13.21
-# Can you convert an ordinary list to a dictionary? A string?
-# dict([1, 2, 3, 4])  # nope.
-# dict('ab')  # nope.
-
-# What about a list of lists, where each inner list has two elements?
-print(dict([[1, 2], [3, 4]]))   # yes!
-
-# What if one of the inner lists has only one element, or three?
-# print(dict([[1, 2], [3, 4, 5]]))   # nope!
-
-#  What about a list of two-character strings?
-print(dict(['ab', 'cd', 'ef']))   # yes!
+print('13.21')
+print(i**2 for i in range(10))    # Doesn't work.
+print((i**2 for i in range(10)))    # Doesn't work either.
+print(tuple(i**2 for i in range(10)))    # Finally! This is because parentheses don't define a tuple; it's commas that do.
 
 # 13.22
-# You might expect converting a dictionary to a list to collect only the keys, and you'd be right. Hence, converting
-# a dict to a list and back again does not return you to where you began.
-
-# 13.23
 # form your own expectation, reviewing the earlier list comprehension exercises if needed.
 new_dict = {key: value for key, value in name_to_id.items() if key[0].lower() in 'aeiou'}
 print(new_dict)
 
-# 13.24
+# 13.23
 even_name_to_id = {key: value for key, value in name_to_id.items() if len(key) % 2 == 0}
 print(even_name_to_id)
 
-# 13.25
-print('13.25')
+# 13.24
+print('\n13.24')
 print({name: len(name) for name in name_to_id}) # map all names to their length
 print({i: i**2 for i in range(10)}) # map each number from 0 to 9 to its square
 print({name: name[::-1] for name in name_to_id.keys()}) # map each name from the original keys to its inverse
 print({key: value for key, value in name_to_id.items() if int(value) % 2 == 0}) # take all items for
                                                                         # which the student id is an even number.
 
-# 13.26
+# 13.25
 id_to_name = {value: key for key, value in name_to_id.items()}
 print(id_to_name)
 
-# 13.27
+# 13.26
+print('\n13.26')
 numerals = ['zero', 'one', 'two', 'three', 'four', 'five']
 numerals_to_numbers = {numerals[i]: i for i in range(len(numerals))}
 numbers_to_numerals = {i: numerals[i] for i in range(len(numerals))}
 print(numerals_to_numbers)
 print(numbers_to_numerals)
 
-# 13.28
+# 13.27
 import text_utils       # normally would be at the top of your file
 
 text = '''The following table summarizes the operator precedence in Python, from highest precedence (most binding) to lowest precedence (least binding). 
@@ -236,8 +225,8 @@ trigrams = text_utils.ngrams(text, 3)
 print(tokens)
 print(trigrams)
 
-# 13.29
-print('13.29', flush=True)
+# 13.28
+print('13.28', flush=True)
 def count_tokens(tokens):
     """
     Returns a dictionary with the number of occurrences of each token type in a list of strings (e.g., tokenized text).
@@ -249,7 +238,8 @@ def count_tokens(tokens):
 
 print(count_tokens(tokens))
 
-# 13.30
+# 13.29
+print('13.29')
 # print(count_tokens(trigrams))   # unhashable type: list
 
 # The following does work, since strings are hashable:
@@ -261,4 +251,27 @@ print(count_tokens([tuple(t) for t in trigrams]))
 # You can also change the text_utils.ngrams function to return a list of tuples by default.
 
 
-# 13.31 and beyond: Mini-adventure, up to you!
+# 13.30
+print('13.30')
+# Can you convert an ordinary list to a dictionary? A string?
+# dict([1, 2, 3, 4])  # nope.
+# dict('ab')  # nope.
+
+# List of pairs:
+print(dict([(1, 2), (3, 4)]))   # yes!
+
+# What about a list of lists, where each inner list has two elements?
+print(dict([[1, 2], [3, 4]]))   # yes!
+
+# What if one of the inner lists has only one element, or three?
+# print(dict([[1, 2], [3, 4, 5]]))   # nope!
+
+#  What about a list of two-character strings?
+print(dict(['ab', 'cd', 'ef']))   # yes!
+
+# 13.31
+# You might expect converting a dictionary to a list to collect only the keys, and you'd be right. Hence, converting
+# a dict to a list and back again does not return you to where you began.
+
+
+# 13.32 and beyond: Mini-adventure, up to you!
