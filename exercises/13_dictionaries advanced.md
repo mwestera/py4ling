@@ -57,28 +57,28 @@
 
 <br>**_List comprehension for dictionaries_**
 
-**13.22.** List comprehension also works with dictionaries (it is generally still called 'list comprehension' though, not 'dictionary comprehension'). What do you think the following does?
+**13.22.** List comprehension-type syntax, or more generally 'comprehension', also works with dictionaries. More correctly, `... for X in Y` is a so-called **generator expression**, and the items it 'generates' can be collected not only in a list (`[... for X in Y]`), but also in a dictionary (among other datastructures), as long as `...` has the right format, namely key-value pairs in case of a dictionary. Given this, what do you think the following does?
 
 ```python
 new_dict = {key: value for key, value in name_to_id.items() if key[0].lower() in 'aeiou'}
 ```
 
 
-**13.23.** Use list comprehension to take an existing dictionary with strings as keys (e.g., `name_to_id`), and filter it, constructing a new dictionary that contains only those items whose key has an even length.
+**13.23.** Use comprehension to take an existing dictionary with strings as keys (e.g., `name_to_id`), and filter it, constructing a new dictionary that contains only those items whose key has an even length.
 
-**13.24.** Explain in ordinary English what the following list comprehensions do: 
+**13.24.** Explain in ordinary English what the following comprehensions do: 
  - `{name: len(name) for name in name_to_id}` 
  - `{i: i**2 for i in range(10)}` 
  - `{name: name[::-1] for name in name_to_id.keys()}` 
  - `{key: value for key, value in name_to_id.items() if int(value) % 2 == 0}`
 
-**13.25.** Use list comprehension to take an existing dictionary and invert it, swapping the keys with the values.
+**13.25.** Use comprehension to take an existing dictionary and invert it, swapping the keys with the values.
 
-**13.26.** Suppose we have a predefined list of English numerals `numerals = ['zero', 'one', 'two', 'three', 'four', 'five']` (or more). Use list comprehension and `range` to create a dictionary from English numerals to numbers (0, 1, 2, 3, ...), and another one for the reverse mapping.
+**13.26.** Suppose we have a predefined list of English numerals `numerals = ['zero', 'one', 'two', 'three', 'four', 'five']` (or more). Use comprehension and `range` to create a dictionary from English numerals to numbers (0, 1, 2, 3, ...), and another one for the reverse mapping.
 
 **13.27.** In section 11 you created the file `text_utils.py`, containing functions `ngrams` and `tokenize`. This means that in your current working file (make sure it is placed in the same directory) you can do `import text_utils`. Do this and apply the `text_utils.tokenize` and `text_utils.ngrams` functions to a short text. For instance, copy a text from Wikipedia, a blog, or an e-book, and simply paste it into your program in between triple quotation marks `'''` (to allow newlines within the copied string), the entire string assigned to a variable `text`. (Mixing code and data in a single file is bad practice of course, but fine for now. We learn about reading text from a separate file later.)
 
-**13.28.** (Without peeking in the Week 6 adventure code:) Write a function `count_tokens` that takes a list of strings and returns a dictionary that maps each string to how often it occurs in the list. You can use list comprehension to initialize a counts dictionary (mapping each string to 0), and then loop through the tokens list while updating the counts.
+**13.28.** (Without peeking in the Week 6 adventure code:) Write a function `count_tokens` that takes a list of strings and returns a dictionary that maps each string to how often it occurs in the list. You can use comprehension to initialize a counts dictionary (mapping each string to 0), and then loop through the tokens list while updating the counts.
 
 **13.29.** Does your function `count_tokens` also work if you feed it a list of n-grams instead of a list of single tokens? If not, find a way to fix this (in your current working file or by changing the `text_utils.ngrams` function itself). You should then be able to print individual token counts, bigram counts and trigram counts.
 
