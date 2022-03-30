@@ -246,6 +246,8 @@ multiply_and_add(c=5, a=2, b=3)
 # defaults or not.
 
 # 10.30
+print('10.30')
+
 def append_to(element, l=[]):       # note: the docstring is a lie
     """
     Appends the element to the provided list, returning it, or to an empty list if none was provided (resulting in [element]).
