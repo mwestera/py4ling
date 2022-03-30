@@ -1,4 +1,7 @@
+import math
 
+import seaborn as sns
+from matplotlib import pyplot as plt
 
 """
 Goals:
@@ -55,7 +58,31 @@ def count_tokens(tokens):
 
 
 def plot_frequency_by_rank(counts):
-    ...
+
+    counts = list(counts.items())
+
+    # def get_sorting_key(t):
+    #     return t[1]
+    #
+    # counts.sort(key=get_sorting_key)
+
+    # more pythonic:
+    counts.sort(key=lambda x: x[1], reverse=True)
+
+    print(counts)
+
+    tokens = [t[0] for t in counts]
+    counts = [t[1] for t in counts]
+    ranks = list(range(len(counts)))
+
+    log_counts = [math.log(c) for c in counts]
+    log_ranks = [math.log(r + 1) for r in ranks]    # I've put the +1 here, it felt cleaner.
+
+    # We've seen this syntax based on dataframes:
+    # sns.lineplot(data=dataframe, x='column1', y='column3')
+    # You can also directly give it the x and y values as lists:
+    sns.lineplot(x=log_ranks[:1000], y=log_counts[:1000])
+    plt.show()
 
 
 if __name__ == '__main__':
