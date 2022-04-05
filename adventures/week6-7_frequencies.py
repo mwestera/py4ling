@@ -69,6 +69,9 @@ def plot_frequency_by_rank(counts):
     # more pythonic:
     counts.sort(key=lambda x: x[1], reverse=True)
 
+    # and arguably even more (requires:  import operator ):
+    # counts.sort(key=operator.itemgetter(1), reverse=True)
+
     print(counts)
 
     tokens = [t[0] for t in counts]
