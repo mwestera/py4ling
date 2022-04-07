@@ -49,7 +49,9 @@
 
 **13.18.** Tuples are ideal for storing a (small) number of fixed values with a fixed order, such as a name with a student ID and email address, or the coordinates of a point in 3D-space `(x, y, z)`. If you need to store more data fields (e.g., email address, average grade, place of birth...) then a dictionary usually becomes more convenient than a tuple, and if you need to store an in principle unbounded number of (typically more homogeneous) elements, a list is preferable. Can you identify reasons for these preferences? Reflect on the varying use-cases of these three data structures.
 
-**13.19.** Try to recall (or look back to) the relation between dictionaries and mutability/hashability. Is the following understanding correct? 'The fact the items of a dictionary are tuples, shows that tuples are immutable.' Regardless, find some (other) ways to test whether tuples are mutable or not.
+**13.19a.** **[Recent addition.]** Recall the relation between dictionaries and **hashability**. There is a relation between hashability and mutability: objects that are intended to be mutated, like lists (and also dictionaries themselves), are typically not hashable (try this). This is because the hash code of a container object is computed based on the hash codes of the objects it contains, such that changing the objects it contains (as mutability allows) would cause the hash code of the container object to change, and the latter would cease to be a suitable, fixed 'anchor' for storing and retrieving objects in a dictionary. Test whether tuples are hashable (e.g., can they be used as keys in a dictionary?). Based on this, do you expect tuples to be mutable? Test this, too.
+
+**13.19b.** Is the following statement true? 'The fact the items of a dictionary are tuples, shows that tuples are hashable.'
 
 **13.20.** Tuples are immutable, lists are mutable, but tuples can contain lists... Can a tuple that contains a list as one of its elements, be used as a dictionary key?
 

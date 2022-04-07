@@ -168,11 +168,14 @@ print(True, True, True == (True, True, True))   # it's only comparing the last T
 # With an in principle unbounded (and potentially varying) list of more homogeneous elements (instead of
 # elements with distinct roles, as in the example tuple use cases), one likely wants mutability.
 
-# 13.19
-# Not correct; although items are tuples, this does not show that tuples are immutable/hashable; it is not the items,
-# but the dictionary KEYS that need to be immutable.
+# 13.19a
+# Tuples are hashable:
 my_dict = {(1, 2): 3, (6, 5): 11}   # tuples can be keys!
-# other tests for immutability are whether tuples support item assignment (see above), and perhaps the lack of an append method...
+# Tuples are also immutable; possible tests are whether tuples support item assignment (see above), and perhaps the lack of an append method...
+
+# 13.19b
+# Not correct; although items are tuples, this does not show that tuples are hashable; it is not the items,
+# but the dictionary KEYS that need to be immutable.
 
 # 13.20
 # my_dict2 = {(1, [2, 3]): 3}     # TypeError: unhashable type: list
