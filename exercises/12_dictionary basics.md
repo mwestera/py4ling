@@ -23,7 +23,7 @@ name_to_id = {'Alf': '136124', 'Beth': '008623', 'Chris': '014212', 'Dave': '912
 **12.7.** What if we have a dictionary with integers as keys instead of strings, like `{1: 'hi', 2: 'hello', 3: 'bye', 4: 'tata'}`? Can we now access an element by its index (or is this a misleading way to put it)?
 
 - - - - - -
-**Something to keep in mind:** A **dictionary** is Python's main datastructure for storing a mapping, from _keys_ to _values_. Both keys and values in a dictionary can be various types of objects, e.g., integers, floats, strings, and more complex objects. However, since the keys need to function as stable anchor points for the values, keys can only be _immutable_ objects (or more precisely they need to be _hashable_, which can remain a mystery for now); but values are allowed to be mutable.
+**Something to keep in mind:** A **dictionary** is Python's main datastructure for storing a mapping, from _keys_ to _values_. Both keys and values in a dictionary can be various types of objects, e.g., integers, floats, strings, functions, and more complex objects. However, not every type of object can be used as a dictionary key; keys must have a special property of being **hashable**, which is, roughly, that the object provides a `hash` method that generates a string code that (virtually) uniquely represents the object. It is by these hash strings that the items in a dictionary are stored and retrieved.
 - - - - -
 
 **12.8.** What happens if you define a dictionary by specifying key-value pairs (like `{'Alf': '36124', 'Beth': '008623'}`) but using equals signs `=` instead of the colons `:` to connect keys and values? Do you see why this is quite an easy-to-make syntax mistake?
