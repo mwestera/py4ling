@@ -4,7 +4,7 @@ separate_files = True
 out_dir = '../exercises'
 in_file = 'exer_raw.txt'
 
-update_files_from_section = 13
+update_files_from_section = 15
 
 
 if __name__ == "__main__":
@@ -36,7 +36,13 @@ if __name__ == "__main__":
                 else:
                     source = prefix
                     mode = 'exercise'
-                content = line[1].replace('\\\\', '[ESCAPE]').replace('\\n', '\n').replace('[ESCAPE]', '\\')
+                # if line[0].startswith('>'):
+                #     lines.append({'content': '', 'mode': mode, 'source': source})
+                segments = line[1].split('`')
+                for i, segment in enumerate(segments):
+                    if i % 2 == 0:  # meaning it's outside a code fragment
+                        segments[i] = segment.replace('\\n', '\n')
+                content = '`'.join(segments)
                 if prefix == "title":
                     titles += 1
                     print('-------------', titles, content.split('(')[0].strip(), '------------')
@@ -48,6 +54,7 @@ if __name__ == "__main__":
                         if '```' in codeline:
                             break
                 lines.append({'content': content, 'mode': mode, 'source': source})
+                # lines[-1]['content'] += line
             except Exception as e:
                 print(n + offset, line, e)
 
