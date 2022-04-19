@@ -1201,13 +1201,13 @@ MW  Unlike keywords, built-ins are assigned to ordinary variables, hence these c
 MW  Built-in functions are in fact shortcuts for objects you can also find in `__builtins__`. Try printing `__builtins__`. Depending on implementation it is either of type `module` (the type of thing that results from `import`, about which we will learn later) or a dictionary. In fact, in PyCharm, `__builtins__` in the Python Console is equivalent to `__builtins__.__dict__` in a script. Do `print(dir(__builtins__))` in a script (`dir` lists the contents of a module), or `print(list(__builtins__))` in the Python console (to list the keys of the dictionary). For which of the built-ins do you already know some purpose?
 
 
-Title   Basic text processing (`split`/`strip`, reading/writing files, counting/sorting)
+Title   Basic text processing (`split`/`strip`, reading/writing files)
 
 Subtitle    Some convenient string-cleaning operations
 
-MW	Python provides many useful string operations, including some which you manually implemented in prior exercises. Look at `dir(str)`, or equivalently `dir('some_random_string')`, for a list of methods available on the string class itself. Remember you've already used `upper` (invoked like `'apple'.upper()`) and `lower`. Explore at least the string methods `strip`, `swapcase`, `isalnum` and `center`; use `help` if needed (e.g., `help(str.strip)`) and illustrate how they work with your own examples.
+MW	Python provides many useful string operations, including some which you manually implemented in prior exercises. Look at `dir(str)`, or equivalently `dir('some_random_string')`, for a list of methods available on the string class itself. Explore at least the string methods `strip`, `swapcase`, `isalnum` and `center`; use `help` if needed (e.g., `help(str.strip)`) and illustrate how they work with your own examples.
 MW	What is the difference between the string methods `split` and `rsplit`? Illustrate with your own example.
-MW	Assume that we have assigned `test_string = 'abcblablablaabc'`. For each of the following invocations of `strip`, form an expectation about what it does and then test it (e.g., by printing the result), refining your understanding of `strip`:\n - `test_string.strip('abc')` \n - `test_string.strip('cba')` \n - `test_string.strip('a').strip('b').strip('c')` \n - `test_string.strip('c').strip('b').strip('a')` \n - `test_string.strip('bla')`
+MW	Assume that we have assigned `test_string = 'abcblablablaabc'`. For each of the following invocations of `strip`, form an expectation about what it does (based on the `help` you obtained) and then test it (e.g., by printing the result), refining your understanding of `strip`:\n - `test_string.strip('abc')` \n - `test_string.strip('cba')` \n - `test_string.strip('a').strip('b').strip('c')` \n - `test_string.strip('c').strip('b').strip('a')` \n - `test_string.strip('bla')`
 MW	Call `help` on the `str.join` method, look at the example it provides, and try to apply it to join your own list of strings with a dash `-` in between. Pay attention: on which object is the `join` method called, on the joiner or on the joinees?
 ***Unclear/doesn't add anything: MW	What does the following illustrate?\n```names = ['john', 'sue', 'bob']   names_joined = '-'.join(names)   names_unjoined_again = names_joined.split('-')  print(names == names_unjoined_again)```
 P4L Define a string `s` for which the following is _not_ true: `' '.join(s.split())`.
@@ -1218,6 +1218,7 @@ names_unjoined_again = names_joined.split('-')
 print(names == names_unjoined_again)
 ```
 
+***Frame as being about file reading.
 Note	Two very useful built-in string operations are `split` and `join`. Memorize that `split` is called as a method _on the string to be splitted_ (so _not_ on the string to split by); while `join` is called as a method _on the string to join by_ (so _not_ on the list of strings to be joined). The reason is simple (though ultimately a mere design decision that could have been made otherwise): for `join` to be a string method, it must be called on a string object -- and the object witwh things-to-be-joined is not a string, but a list (or dictionary, set, and any other kind of collection or iterable...). To help you remember, always read `x.join(y)` as "with _x_ join _y_", and read `x.split(y)` as "split _x_ on _y_".
 
 MW	Oh no! I copied a list of student names from a low-quality PDF and now all names are surrounded by weird symbols! See below -- imagine the list is much longer (so manual cleaning is not an option) but the type of 'noise' remains the same. Define a function that uses `split` and `strip` to return a list of separated, cleaned-up names:\n```
@@ -1236,10 +1237,12 @@ names = '''#*T0DD#*
 ```
 MW  How does the string method `replace` work? What if the thing-to-be-replaced isn't there? How can you use `replace` in order to _delete_ all occurrences of a certain substring? What do you expect the result of `'abc'.replace('', ' ')` to be (form an expectation first, then test it)?
 MW	How does the string method `find` work? Call `help` on it if needed, and try it on some examples. What happens if the thing-to-be-found isn't there? (The latter behavior of `find` is known to be error-prone; can you think of why that is?) How does `find` differ from the method `index` that we saw before? Is `find`, just like `index`, available for strings and lists alike?
+MW  Define a simple word-tokenizer that uses `split` on spaces and `strip` to get rid of punctuation, and compare it to your earlier attempt at word-tokenization (e.g., the one you put in `text_utils.py` as part of Section 11), noting some (possibly shared) shortcomings.
+
 
 Subtitle    Reading and writing files
 
-MW  Without searching the web, try to gather and formulate your intuitions: What is file? What is the difference between, and relation between, long-term storage (e.g., your harddisk, or the cloud) and working memory (RAM)? What is a folder (or directory)? What is a path (e.g., `C:\Documents\semantics_report.pdf` or `~\Downloads\Alice_in_wonderland.txt`)? What might be the difference between an _absolute_ and a _relative_ path?
+MW  Without searching the web, try to gather and formulate your intuitions: What is file? What is the difference between, and relation between, long-term storage (e.g., your harddisk, or the cloud) and working memory (RAM)? What is a folder (or directory)? What is a path (such as, depending on your operating system, `C:\Documents\semantics_report.pdf` or `~\Downloads\Alice_in_wonderland.txt`)? What might be the difference between an _absolute_ and a _relative_ path?
 
 Note    WARNING: Before executing any code that involves opening a file, _always_ assume the worst: that the referenced file, if it exists, will be destroyed/overwritten. Make sure you do not loose valuable data in case this happens. Some things we will learn -- using a context manager, opening a file as 'read-only' where possible, using relative paths -- and in general clean code help decrease the chance of unintended changes to your files.
 
@@ -1280,60 +1283,94 @@ with open('test123.txt', 'r') as file:
         print(file)
 ```
 MW  What happens if you duplicate the above loop, such that (within the `with`-statement) it attempts to loop over the file twice? What happens if you duplicate the entire `with`-statement (each containing the loop once)? Does this align with what you learned earlier about calling `read` multiple times?
-MW  To practice, write a function that opens a file and iterates over it, and in the end prints out the average line length.
+*** Maybe change the following to involve writing a file?
+MW  To practice, write a function that opens a file and iterates over it, and in the end prints the average line length in number of characters and number of words (using a simple tokenization function from earlier).
 
 Note    Unlike 'opening' a file in the way you are used to (e.g., opening a document in MS Word), opening a file in Python with `open` does not yet load the contents of the file into working memory. We have seen that calling `.read()` on an open file does the latter. Sometimes, if a file is particularly large (why then?), it is preferable to read it one line at a time, which you can do by iterating over the file itself.
 
 MW  Can you also use list comprehension to iterate over a file? Try this, to collect (for instance) the first character of each line in a file, to construct a list containing the separate lines of the file, or to construct a list containing the separate lines of the file where each line has been _stripped_ of its final newline character `\n`.
-
-***file encodings? also related: str.casefold
-***https://www.w3resource.com/python-exercises/file/index.php
-
-Subtitle    Counting and sorting
-
-
-***Introduce sorting earlier.
-\n```
-from operators import itemgetter
-
-words.sort(key=itemgetter(1))
-```
-
-***Counter?
-
-
-***Sets, illustrated with lexical diversity? See unused set exercises at the bottom.
-
-
-
-MW  Write a function that takes a dictionary of (hypothetical or actual) word counts and a path for the desired output file, and writes all words with their counts to the file. Each line should have a word and its count, separated by a comma. The typical extension for this type of file is `.csv` (do you know what it stands for?).
-MW  Extend your function with an additional boolean parameter `sort_by_count`, with default value False. When True, the words should be written to the file in order of decreasing count (i.e., most frequent first); when False (default), the words should be sorted alphabetically.
-MW  Now write the inverse type of function, that takes a path to such a `.csv` file with word counts, and reads it line by line to construct a Python dictionary from it. (In a later section we will be working more with .csv-type data, using the library `pandas`.)
-
-***Place a text file of your choice somewhere close to your current Python script (e.g., in the same folder or perhaps a `data` subfolder).
-
-TP3	Write a program called `alice_words.py` that creates a text file named alice_word_counts.txt ***nope, no creation** containing an alphabetical listing of all the words, and the number of times each occurs, in the text version of Alice's Adventures in Wonderland. (You can obtain a free plain text version of the book, along with many others, from http://www.gutenberg.org.) How many times does the word alice occur in the book? The first 10 lines of your output file should look something like this:\n```
-Word              Count
-=======================
-a                 631
-a-piece           1
-abide             1
-able              1
-about             94
-above             3
-absence           1
-absurd            2
-```
-MW	What is the longest word in Alice in Wonderland? How many characters does it have?
-
-***P4E More alice exercises end of chapter 4; io3.py, io6.py, etc.
-***zipf's law? some visualisation See unused ngrams adventure at the bottom.
-
+MW  In this and the next few exercises you will be writing a function `read_from_gutenberg`, that will serve as good practice and be useful for subsequent sections. It should take a path to a `.txt` file you downloaded from the Gutenberg project (https://www.gutenberg.org/) and simply return the file's text content as a single string. In the next exercises you will make this function more sophisticated.
+MW  Text files from the Gutenberg project contain some meta-information (title, author, licence, etc.) that must be distinguished from the actual, original text: look in such a file for lines beginning with `*** START` and `*** END`. Enhance your `read_from_gutenberg` function so that only the original text (between the `*** START` and `*** END` lines) is returned.
+MW  Modify your `read_from_gutenberg` function so that instead of ignoring the meta-information, it parses the file-initial portion (with, e.g., title and author information) and returns it as a dictionary. More precisely, any line above `*** START` that contains a colon, should be added to the dictionary as a key-value pair. Your function will thus return both the extracted text and this dictionary.
+MW  One further enhancement: text files from the Gutenberg project are 'hard word-wrapped', meaning a newline character was inserted whenever a line exceeded (e.g.) 75 characters. Since these single newlines (`\n`) were not meaningful parts of the original text, we want to get rid of them (e.g., replace them by a space). However, we do not want to loose the information carried by _double_ newlines (`\n\n`), which _do_ represent a meaningful aspect of the original text, namely paragraph separations.
+MW  Move your `read_from_gutenberg` function to the file `text_utils.py`, as we will use it in the next section.
+***MW  `os`, exists, define a `can_write` function?
 
 ***If you move your entire project (including the referenced file) somewhere else, then the absolute paths will no longer work, while the relative paths keep functioning. On the other hand, if you move only your Python script (containing the path reference) somewhere else on your file system (even within the project folder), then the absolute paths will keep functioning, while the relative paths no longer work (though for changes within the project, executed in PyCharm, the latter may offer some help updating them automatically). And of course if you move the target file someplace else, independently of your Python script, then both absolute and relative paths will break.
 
 
-***Some exercises involving loops, break, functions, dictionaries, default values, user input...
+Subtitle  Unique elements (`set`)
+MW  Use your function `read_from_gutenberg` from `text_utils.py` (Section 15) to load a text file from the Gutenberg project, and tokenize it to obtain the list `tokens`.
+MW  When processing texts it is often useful to get the _unique_ elements (e.g., words, bigrams, part-of-speech combinations, consonant clusters) from our data and _sort_ them (e.g., alphabetically, by occurrence count, by similarity to some search query). Python's _set_ data structure contains every element only once, hence creating a set from a list (or other collection) amounts to filtering out duplicates, leaving each unique element once. Construct a set from the `tokens` list from above by doing `set(tokens)`.
+MW  Print an overview of the methods provided by the resulting set object (with `dir`).
+MW  In maths/set theory, sets are written with curly braces like `{1, 2, 3}`. Does that work in Python, too? What about creating an empty set like this `{}`? (Make a prediction, but also try it and, just to make sure, check the type of the resulting object.) Can you find some (other) way to create an empty set?
+MW  Can you create a set containing strings? A set containing tuples? A set containing lists? Why (not)?
+
+Note    The **set** data structure contains each element only once. Moreover, sets are significantly faster than lists when it comes to determining if an object is present in the set. (Though lists are much faster if you know the index of the object you are looking for.) The price to pay for this lookup speed is that sets can only contain objects that are **hashable**, just like a dictionary's keys.
+
+MW  Do you remember some objects that are, and some objects that aren't hashable?
+MW  Do sets have a 'length' (`len`)? Can you check with `in` whether a set contains a certain element? Can you iterate over a set? Can you construct one set from another using comprehension syntax? Do you expect that you can use slicing on a set, as you would with a list? Why (not)? Test your expectation.
+MW  After creating a set, one can add elements to it with the method `add`, e.g., `my_set.add(5)`. What happens if you try to add an element that is already in the set? Do sets also have an `append` method like lists? Why might this be?
+***MW   Union, intersection and complement?
+MW  Can you predict what happens if you construct a set not from the tokens, but from the original, un-tokenized text directly? Verify your prediction.
+***Write the vocabulary to a file
+***Write code to obtain combined vocabularies from several files? Maybe use glob or os.dir for this?
+
+
+
+
+Title    Counting and sorting
+
+
+Subtitle    Sorting
+
+MW  The _order_ of the elements in a set must _not_ be relied upon (unlike lists and, in recent Python versions, dictionaries), as it depends on hash-codes which (in most Python implementations, for anything but the most basic types of objects) will vary between runs of the same program. Verify this by writing `print({'aaa', 'bbb', 'ccc', 'ddd', 'eee'})` in your script and running the script several times, noting the different orders in which the set gets printed.
+
+***MW  Sorting exercises.
+
+Note  Among Python's built-ins there are two main functions for **sorting** (with various other libraries providing additional, special-purpose sorting functions, e.g., the Pandas library for sorting Dataframes): The function `sorted` takes an 'iterable' (anything over which you can iterate) and turns it into a sorted list; the list method `sort` is available only for lists and modifies a list in-place. Both functions take an optional argument `key`, that lets you specify a function that specifies what to compare the to-be-sorted elements on.
+
+***MW  More sorting exercises
+MW ***Exercise about itemgetter   .\n```
+from operators import itemgetter
+
+words.sort(key=itemgetter(1))
+```
+MW  Returning to the text from Gutenberg, sort its vocabulary in various ways (separately): alphabetically, by word length, and (for practice) by the second character. Can you do this by calling `sort()` on the set itself, or should you use `sorted`? Why?
+MW  Viewing the vocabulary, especially when sorted alphabetically, can reveal some shortcomings of the tokenization and further pre-processing steps currently used. Can you find some vocabulary entries that you think ought to be split up? And pairs of vocabulary entries that you think ought to be treated as one and the same?
+MW  Try to make at least some improvements to the derived vocabulary. Some of these are best handled by improving the tokenizer, others by applying prior standardization steps to the raw text or a subsequent filter to the derived vocabulary.
+***Already introduce Spacy/NLTK/TextBlob's lemmatization here. Maybe just let the student choose a library and figure it out?
+MW  How many unique tokens (or token types) does it have? Compute the _lexical diversity_ of the text, as the total number of tokens divided by the number of unique tokens.
+MW  Assuming our purpose is to compare the lexical diversity of books (as on Gutenberg) and some other textual medium (e.g. tweets). Do you think verbal inflection ought to be standardized when computing it, e.g., treating _walk_, _walked_ and _walks_ as the same entry? If not, can you think of some other purpose (research or applied) for which verbal inflection should probably be standardized? Can you think (in outline) of an algorithm to achieve this? (In Section 17 we will encounter two common approaches: _stemming_ and _lemmatization_.)
+
+Subtitle    Counting
+
+MW  Although sorting by itself is an important tool, the combination of counting-and-then-sorting-by-count is so common that a specialized tool exists: the **Counter** class from the `collections` module. Execute the following code and show with code examples that the `Counter` object behaves in many ways like a dictionary.
+***also update, most_common(5)   (with no argument, returns full sorted list)
+***MW  sort on the first string character only, then by count.
+***MW  How many times does the word ... occur?
+***MW  On a large dataset, compare the efficiency of Counter to that of your own counter function. For a noticable difference, apply it to a sufficiently large (tokenized) text and (if the result is still practically instantaneous) call the function 100 times instead of only once. (Optional: consider using `timeit`.)
+***P4E More alice exercises end of chapter 4; io3.py, io6.py, etc.
+MW  What does `Counter.elements()` represent?
+MW  Write a function that takes a dictionary (or Counter) of word counts and a path for the desired output file, and writes all words with their counts to the file. Each line should have a word and its count, separated by a comma. The typical extension for this type of file is `.csv` (do you know what it stands for?).
+MW  Extend your function with an additional boolean parameter `sort_by_count`, with default value False. When True, the words should be written to the file in order of decreasing count (i.e., most frequent first); when False (default), the words should be written instead in alphabetical order.
+MW  Now write the inverse type of function, that takes a path to such a `.csv` file with word counts, and reads it line by line to construct a Python dictionary from it. (In a later section we will be working more with .csv-type data, using the library `pandas`.)
+MW  Generalize the function for writing counts to a file by adding an additional parameter `ngram_range`, that has the tuple `(1, 1)` as a default value meaning it counts only 1-grams (individual words). Passing, e.g., the pair `(1, 3)` as an argument should instead result in a file containing all 1-gram, 2-gram and 3-gram frequencies; and `(3, 3)` should result in a file contain only tri-gram frequencies. (This is unlike Python's built-in `range`, which, recall, _excludes_ the upper bound, but it aligns with the way n-grams are handled in the popular machine learning library `sklearn` (SciKit-Learn).) The resulting `.csv` should still have only two columns; represent n-grams simply by space-separated words (e.g., the line `the lazy cat,123` should represent that the tri-gram _the lazy cat_ occurs 123 times. If necessary, generalize your inverse function from above, i.e., that reads the counts back from a `.csv` file, to handle n-gram counts correctly.
+MW  A conceptual exercise (though feel free to experiment with code): Do you think token counts obtained from a document could be used to obtain a list of words that represent the main _topic(s)_ of that document? If not directly, can you think of a way to transform (e.g., scale, divide, normalize) the token counts in such a way that the tokens with the highest values will be (more) representative of the topic(s) of a document? (Spoiler: this exercise may lead you to invent the _TF-IDF_ algorithm (Term Frequency, Inverse Document Frequency), which is one of the most popular techniques in topic modeling and information retrieval; we will learn about this in a later section.)
+MW  Another conceptual exercise: Recall that, for our weeks 8-9 adventure on similarity and distributional semantics, we computed a matrix of **co-occurrence counts** given a certain window size (do you remember the relation between co-occurrence counts and similarity, conceptually and technically?). Does such a matrix represent essentially the same information as a table of _n_-gram counts for some suitable _n_ (e.g., _n_ equal to the window size perhaps, or window size + 1 depending on implementation?). That is, can we define some transformation to obtain one representation from the other? Or do they represent genuinely different information, not reducible to one another?
+MW  **Collocations** are words that occur together more often than one would expect based on their individual frequencies. Examples are 'regular exercise', 'fast food', 'richly decorated'. Define a function that takes unigram counts (individual words) and bi-gram counts, computes a degree of 'collocation-hood' for each bigram, and returns the bigrams ranked from most to least 'collocational'. Inspect the top results for a text of your choice. (Hint: First turn the counts into (estimated) probabilities by dividing them by the total number of tokens (or bi-grams), then compare (in pseudo-maths) `prob('word1') * prob('word2')` to `prob('word1 word2')`).
+MW  Generalize the previous function to find potential three-word collocations, and inspect the outcome.
+MW  Generalize the foregoing to be able to find not only word-level collocations, but also character-level collocations (e.g., perhaps 'sh' is more common than one would expect based on 's' and 'h' alone). Can you think of other potentially collocational character combinations? Test your expectation on a text of your choice.
+
+Subtitle    Mini-adventure: _n_-gram-based language models
+MW  Think of a way in which we can automatically generate text by, repeatedly, randomly sampling the next word given previous words, on the basis of _n_-gram counts from a text corpus. While a pretty basic approach to language generation, currently even the largest, state-of-the-art deep learning language models are still a direct generalization of this simple idea.
+MW  If you haven't already, write a function that turns a Counter or dictionary of counts (such as those read from the above `.csv` files) into a dictionary of proportions, which will serve as (estimated) probabilities.
+MW  Write a function that takes a (potentially empty) list of several tokens (representing the beginning of a sentence, e.g., _The dog chased the_), and a list containing one or more dictionaries of n-gram probabilities in order of decreasing _n_ (e.g., `[trigrams, bigrams, monograms]` assuming these are the names containing the n-gram probabilities), and returns a random next word for the sentence (e.g., _cat_). It should do this by probabilistically sampling a word, by first looking at the 3-grams for a partial match, if that fails at the 2-grams, and finally the 1-grams, for instance as follows (ignore the following suggestion if you like a puzzle!). \n - For every _n_ (e.g., 3, then 2, then 1), take the last _n_-1 words of the starting sentence (e.g., for 3-grams, and the sentence _The dog chased the_, take the last 2 words _chased the_) and create a list of all _n_-grams that start with this these _n_-1 words (e.g., _chased the mouse_, _chased the money_, etc.). \n - If that list is empty, decrement _n_ and try again (i.e., if no matching 3-grams are found, try the 2-grams instead, and if that fails use the 1-grams). \n - If a list of matching _n_-grams is found (or if _n_ == 1, simply take all 1-grams), use `random.choices` to choose randomly from among this list of _n_-grams, providing a list with their probabilities as the optional `weights` argument of `random.choices` (actually, the weights can also be raw counts, but using probabilities throughout is conceptually cleaner). \n - The function should then return the final word of the selected _n_-gram (e.g., _mouse_).
+MW  Write a wrapper function that loads a `.csv` file with _n_-gram counts (from earlier exercises), turns them into proportions (probabilities), asks for an `input` from the user (a writing prompt, i.e., the start of a sentence), and then repeatedly uses the above generation function to generate words continuing the writing prompt. Make sure your generator stops either when a sentence separator is generated (e.g., a period `.`) -- assuming these are among your counted tokens! -- or when a chosen maximum of tokens has been generated.
+MW  Use the previous function to inspect the quality of your language generator. For instance, compare the generated sentences if you use 4, 3, 2 and 1-grams vs. only 2 and 1-grams, or even only 1-grams. Do you observe differences in the type of generated language? Which is more human-like?
+MW  Make sure the foregoing code also works at the character-level, i.e., if you provide it with character _n_-gram counts instead of word _n_-gram counts, and let it sample one character at a time. Consider using higher _n_-grams (e.g., 5-grams, 6-grams). What is your impression of the generated language? Can you think of pros/cons of character-level generation vs. word-level generation?
+MW  State-of-the-art deep learning language models are, in essence (but grossly simplifying) still _n_-gram language models (and both character- and word-level models are actively used), but with much higher _n_ and stronger ability to generalize to unseen words and _n_-grams (due to 'hidden layers' in an artificial neural network). With this in mind, can you give one reason why these models need humungous datasets to train on? And can you explain why contrary to the hype of AI achieving 'language understanding', such models have been criticized as being mere 'stochastic parrots'? What, if anything, might make humans different from such models?
+MW  Optional exploration: Apply your language generation pipeline (including the preparation step of generating a .csv file with _n_-gram counts) to a text file from a different genre (e.g., kids stories) or a different language.
 
 
 Title	Pattern matching (regular expressions)
@@ -1362,26 +1399,12 @@ MW  You will have noticed that some characters, escaped by a backslash, have spe
 P4L  Take a moment to appreciate the power of regular expressions; e.g., what would the plain Python code look like for achieving the same as a simple regular expression like `a.*b.*c.*d`?
 MW  Recall that some backslashed characters have special meaning for the Python interpreter, such as `\n` for a newline or `\t` for a tab, and these are mostly handled as expected by the regular expression parser. Illustrate this with examples of your choice.
 MW  The period `.` is not a special character for Python, but it can be for the regular expression parser: outside a square brackets context, the `.` matches _any_ character except newline. Accordingly, to match an _actual_ period, you need to escape it with backslash. Given this, predict what the following regular expressions mean, and verify your prediction on a relevant example string of your choice:\n - `.+` \n - `\.+` \n - `".+"`
-MW  A challenge arises if you want to define a regular expression that matches a backslash `\ `. Since this is a special 'escape' character for Python (i.e., it takes on a special meaning in various contexts, such as `\n` meaning newline), it is often advisable and sometimes necessary to explicitly tell Python you meant the ordinary backslash, which you do by escaping the backslash itself with a backslash: `\\`. Before considering what challenge this creates, first compare `print('nice\nice\nice')` to `print('nice\\nice\\nice')` and explain the difference in your own words.
-MW  The challenge is this: if you want to define a regular expression that matches a plain backslash, escaping it once is not enough. Python interprets the string `'nice\\nice\\nice'` as, essentially, `nice\nice\nice`, and it is the latter that gets passed on to the regular expression parser, for which the backslash is likewise a special character: the regular expression parser will interpret the `\n` (defined via the Python string `'\\n'`) as a newline. Verify this by matching `'nice\\nice\\nice'` as a regular expression on the following multi-line string:\n```
-'''test nice
-ice
-ice test'''
-```
-MW  Because of the foregoing, you must make sure that the regular expression parser, too, receives double backslashes from Python, essentially `nice\\nice\\nice`. But defining the latter string (containing actual double backslashes) in Python requires  _quadruple_ backslashes, i.e., `'nice\\\\nice\\\\nice'`. Verify that the latter, when used to define a regular expression, no longer matches the previous multi-lines string, but does match the single-line string `'test nice\\nice\\nice test'` (which, recall, is Python's representation of `test nice\nice\nice test`).
-MW  Summarize the preceding exercises in your own words, e.g., why does defining a regular expression via an ordinary Python string sometimes require a quadruple backslash?
-MW  To avoid quadruple backslashes in your regular expression definitions, it is customary (when defining regular expressions) to tell Python in advance _not_ to treat the backslash as an escape character, leaving all of them intact for the regular expression parser. This is done by defining what is called a **raw string**, identifiable by the prefix `r`. Predict what the following raw strings, when used to define regular expressions, will match (and verify your predictions):\n - `r'nice\nice\nice'` \n - `r'nice\\nice\\nice'` \n - `r'nice\\\\nice\\\\nice'`.
-
-Note   It is customary to define regular expressions via **raw strings** like `r'abc'`, though often it will also work with plain strings. Note that raw strings are used more generally, as they can improve the readability of your string definitions whenever your strings contain actual backslashes (possible use case: a Python script that helps you generate semantic diagrams or syntax trees in LaTeX code, a common language for typesetting academic papers that is full of backslashes).
-
-MW  To make sure you understand raw strings, predict the lengths (according to `len`, i.e., the number of characters) of the following strings and raw strings, keeping in mind that a special, escaped character like `\t` counts as 1: \n - `'t\t\t'` \n - `'t\\t\\t'` \n - `'t\\\\t\\\\t'` \n - `r't\t\t'` \n - `r't\\t\\t'` \n - `r't\\\\t\\\\t'`
-***I need to introduce `sort` first don't I?
-MW  In a text of your choice (e.g., Alice in Wonderland), find all vowel clusters (single vowels or sequences thereof) and sort them by frequency, printing a top-20 of most frequent vowels and vowel clusters. You can use the following code to read text from a file (this will be explained in more detail in the next section):
-***Give this example code.
+MW  In a text of your choice (e.g., a book from the Gutenberg project), find all vowel clusters (single vowels or sequences thereof) and sort them by frequency, printing a top-20 of most frequent vowels and vowel clusters.
 P4L  Do the same, but now for word-initial consonant clusters, and word-final consonant clusters.
+
 MW  Thus far we have been using `findall` to test various regular expressions. But often we may want to search for a pattern and retrieve not only the matching substrings, but also the _locations_ of these matching substrings in the original string. Such information is returned by the function `re.finditer`, in the form of `Match` objects. Explore how this works by `for match in re.finditer('[a-z]+', example_string): ...`, printing each match object inside the loop.
 MW  From a given `Match` object you can retrieve the matched span (`match.span()`) and the substring (`match.group()`). Modify the previous loop to print, instead of the `Match` objects themselves, more readable lines like `3-6: the` (representing a match with span (3, 6) and substring `the`).
-MW  Why is the matching substring retrieved with a method called 'group'? Explore this with the regular expression `r'(\w+)ly'`, in which the parentheses define a group (`(\w+)`). Use `re.finditer` to find all its matches on the `example_string` from earlier, and for each match print both the entire substring `match.group()` and the substring matching just the first group (`match.group(1)`).
+MW  Why is the matching substring retrieved with a method called 'group'? Explore this with the regular expression `(\w+)ly`, in which the parentheses define a group (`(\w+)`). Use `re.finditer` to find all its matches on the `example_string` from earlier, and for each match print both the entire substring `match.group()` and the substring matching just the first group (`match.group(1)`).
 
 Note    Parentheses in a regular expression define _capture groups_, and a `match` object contains an entry (substring and span) for each separate group. Whereas `match.group()` (in fact shorthand for `match.group(0)`) gives the substring that matches the entire regular expression, `match.group(1)`, `match.group(2)` etc. return a substring for each separate group of the regular expression. Groups let you retrieve substrings that occur in a given context.
 
@@ -1394,13 +1417,31 @@ MW  Write code to find a top-10 of the most frequently reduplicated words, in a 
 MW  Write a regular expression that finds all places where the same _character_ occurs three times in a row, and sort the results by frequency. What is the most frequent such triplet in the text of your choice?
 
 MW  Although round parentheses `(...)` have a special meaning in Python's regular expressions (capture groups, extensions), you can also still use them for governing **operator precedence**. With this in mind, explain the difference between the four regular expressions `(ab)+`, `a+b+`, `ab+` and `(ab+)`. (Beware of using `re.findall` to explore this issue, given the way it implicitly handles groups; best use `re.finditer` instead.)
-MW  We started this section with string methods `replace` and `split`. The module `re` provides analogous functions for replacing by and splitting on a regular expression instead of a literal string, namely `re.sub` (for substitute) and `re.split`. Use these to (separately): \n - replace all vowels in a string by `a` \n - replace all adverbs in a given string by `badly` \n - replace all words that start with a capital letter by the name `Santa` \n - separate a string into words by splitting on spaces, tabs and punctuation \n - separate a string into sentences by splitting on periods, exclamation marks and question marks.
+MW  We started this section with string methods `replace` and `split`. The module `re` provides analogous functions for replacing by and splitting on a regular expression instead of a literal string, namely `re.sub` (short for 'substitute') and `re.split`. Use these to (separately): \n - replace all vowels in a string by `a` \n - replace all adverbs in a given string by `badly` \n - replace all words that start with a capital letter by the name `Santa` \n - separate a string into words by splitting on spaces, tabs and punctuation \n - separate a string into sentences by splitting on periods, exclamation marks and question marks.
 MW  Call `help` on `re.split` to read about what happens if you split on a regular expression that contains capturing parentheses (i.e., a capture group). Subsequently verify this by comparing splitting on `[.!?]+` vs. splitting on `([.!?]+)`.
 MW  Sentence-splitting based on punctuation alone is inadequate. For instance, one should not split on the period in numbers such as `24.95` and abbreviations such as `Dr. Freud`. Define a more sophisticated sentence-splitting function, that, with the help of a list of common abbreviations, first replaces any non-splittable periods by the placeholder `<NOSPLIT>`, then splits on remaining punctuation as before, and in the resulting substrings put the non-splittable periods back. Apply your sentence-tokenizer to a larger text (e.g., Alice in Wonderland) and (by manually inspecting some random passages) estimate both the _recall_ (proportion of actual sentence-separators that were correctly identified and split on) and _precision_ (proportion of splits that are correct) of your sentence-tokenizer. Try to reduce any remaining errors. For instance, can it handle quotation marks?
-MW  Write a function that (with the help of your sentence tokenizer and the way `spit` handles groups), extracts questions from a text. Write another function that groups the questions you found based on the question-word and/or auxiliary verb. Which types of questions are the most frequent in a text of your choice?
+***Compare this to SentTokenize of NTLK, Textblob, Spacy?  TextBlob NLTK word tokenizer PunktSentenceTokenizer uses regex, says so in the doc. The senttokenizer uses regex too, but less transparently.
+MW  Write a function that (with the help of your sentence tokenizer and the way `re.split` handles groups), extracts questions from a text. Write another function that groups the questions you found based on the question-word and/or auxiliary verb. Which types of questions are the most frequent in a text of your choice?
 ***Suggest a particular text to use.
 MW  Write a function that finds quotations in a text, meaning any passage contained in (matching) quotation marks. Be aware of the many types of quotation marks that can in principle be used (https://unicode-table.com/en/sets/quotation-marks/).
 MW  Write a function that extracts all 'dialogues' from a text, where a dialogue is a series of consecutive quotations (previous exercise). Use the `span` method of the retrieved `Match` objects to ensure that quotes within a dialogue are less than some threshold of _N_ words apart; if they are farther apart, assume they belong to separate dialogues. With a big enough corpus of literature, do you think the resulting corpus could be used as a window on actual human dialogue? Why (not), or in which way(s)?
+
+
+Subtitle    Optional appendix: using _raw_ strings to define regular expressions
+
+MW  Since the backslash `\\` is a special 'escape' character for Python (i.e., it takes on a special meaning in various contexts, such as `\n` meaning newline), how do you create a string containing an _actual_ backslash? Compare `print('nice\nice\nice')` to `print('nice\\nice\\nice')` and explain the difference in your own words.
+MW  The backslash is also a special character for the regular expression parser. So, how do you define a regular expression that contains an _actual_ backslash? Crucially, escaping it _once_ is not enough: Python interprets the string `'nice\\nice\\nice'` as, essentially, `nice\nice\nice`, and it is the latter that gets passed on to the regular expression parser, which will interpret the `\n` (which was defined in the Python string by `\\n`) as a newline. Verify this by matching `'nice\\nice\\nice'` as a regular expression on the following multi-line string:\n```
+'''test nice
+ice
+ice test'''
+```
+MW  Because of the foregoing, you must make sure that the regular expression parser, too, receives double backslashes from Python, essentially `nice\\nice\\nice`. And defining the latter string (containing actual double backslashes) in Python requires  _quadruple_ backslashes, i.e., `'nice\\\\nice\\\\nice'`. Verify that the latter, when used to define a regular expression, no longer matches the previous multi-line string, but does match the single-line string `'test nice\\nice\\nice test'` (which, recall, is Python's representation of `test nice\nice\nice test`).
+MW  Summarize the preceding exercises in your own words, e.g., why does defining a regular expression via an ordinary Python string sometimes require a quadruple backslash?
+MW  To avoid quadruple backslashes in your regular expression definitions, it is customary (when defining regular expressions) to tell Python in advance _not_ to treat the backslash as an escape character, leaving all of them intact for the regular expression parser. This is done by defining what is called a **raw string**, identifiable by the prefix `r`. Predict what the following raw strings, when used to define regular expressions, will match (and verify your predictions):\n - `r'nice\nice\nice'` \n - `r'nice\\nice\\nice'` \n - `r'nice\\\\nice\\\\nice'`.
+
+Note   Defining a regular expression involves two steps: first the Python interpreter parses your string definition (turning a piece of your code into a string object), and then the regular expression parser of the `re` module interprets that string object as a regular expression. Using **raw strings** like `r'abc'` makes the first of these two steps as straightforward as possible, thus simplifying the definition of regular expressions. (Note that raw strings are also used more generally, as they can improve the readability of your string definitions whenever your strings contain actual backslashes (possible use case: a Python script that helps you generate LaTeX code, a common, backslash-heavy language for typesetting academic papers).)
+
+MW  To make sure you understand raw strings, predict the lengths (according to `len`, i.e., the number of characters) of the following strings and raw strings, keeping in mind that a special, escaped character like `\t` counts as 1: \n - `'t\t\t'` \n - `'t\\t\\t'` \n - `'t\\\\t\\\\t'` \n - `r't\t\t'` \n - `r't\\t\\t'` \n - `r't\\\\t\\\\t'`
 
 
 
@@ -1424,6 +1465,16 @@ MW
 ***iteration vs lists for big text input etc., fits here! also generator expressions and yield:  https://stackoverflow.com/questions/231767/what-does-the-yield-keyword-do   including this fun example: def f123():      yield 1;    yield 2;   yield 3;    for item in f123():     print item
 
 P4L Write a program that converts active sentences in English to passive sentences. This means changing the verbal morphology and adjusting word order as required.
+
+***OMG yes this: https://spacy.io/usage/rule-based-matching
+
+
+***gensim here?**
+
+Subtitle    Optional appendix: character encodings
+
+***file encodings? also related: str.casefold
+***https://www.w3resource.com/python-exercises/file/index.php
 
 
 
@@ -1608,7 +1659,9 @@ MW	To the (inner) dictionaries for each student, add a key `'average'` with as v
 MW	How robust is your function? What if a student has a double name like `Anna Beth`? What if a student has a missing grade, like `Sue,1,,5,4,3,6`? Improve your function if necessary. Also provide it with a boolean argument `missing_as_zero`: if set to `True`, missing grades are treated as zeros before computing the average; if set to `False`, missing grades are ignored when computing the average (so the remaining grades make up the full 100%).
 
 
-***Some logistic regression.
+
+Title  Logistic regression (also bag-of-words, tf-idf; `sklearn`)
+***Count vectorizer
 
 
 MW	Did you remember to add docstrings to all your function definitions? Is your code as self-documenting as possible?
@@ -1616,26 +1669,6 @@ MW	Did you sufficiently chunk your code, adhering to the SLAP (Single Level of A
 MW	Now that you know how to read text files, you can improve your anti-profanity echo-machine from before -- that repeats your input unless it is a profanity, and quits after five profanities -- by using a more extensive list of profanities, e.g., googling "list of curse words .txt" will get you to the list used by google: `https://code.google.com/archive/p/badwordslist/downloads`. Place this file on your computer in your current project's main directory, and write a program to read this file, store all profanities in a list or set data structure (which one makes more sense?), and use this to increase the vocabulary of your echo machine.
 
 
-
-
-
-
-Title   Topics and similarity
-
-
-Subtitle    Fuzzy matching
-difflib
-string edit distance
-
-
-Subtitle    Topic modeling
-
-*** concordances: the contexts in which a word occurs (window of n words before and after)  cooccurrences: words that are in each other's concordances (i.e., within window n)   collocations: words that cooccur more than one would expect based on chance
-***Do TF-IDF here as well.
-
-
-
-Subtitle    Semantic similarity
 
 
 
@@ -1886,21 +1919,6 @@ Title   Building useful and reliable tools
 ***Bytecode disassembler?
 
 
-
-Subtitle    Intermezzo: Sets, sorting and counting
-MW  When processing texts it is often useful to get the _unique_ elements (e.g., words, bigrams, part-of-speech combinations, consonant clusters) from our data and _sort_ them (e.g., alphabetically, by occurrence count, by similarity to some search query). Python's _set_ data structure contains every element only once, hence creating a set from a list amounts to filtering out duplicates, leaving each unique element once. For an arbitrary list with duplicates, like `my_list = [1, 2, 2, 3, 1]`, try `my_set = set(my_list)`, and print an overview of the methods provided by the resulting set object (with `dir`).
-MW  Can you create a set containing strings? A set containing tuples? A set containing lists? Why (not)?
-MW  In maths/set theory, sets are written with curly braces like `{1, 2, 3}`. Does that work in Python? What about creating an empty set like this `{}`? (Make a prediction, but also try it and, just to make sure, check the type of the resulting object!) Can you find some (other) way to create an empty set?
-MW  What do you expect will be the result if you tried to convert a string to a set, e.g., `set('aaabbbccc')`?
-
-Note    The **set** data structure contains each element only once. Moreover, sets are significantly faster than lists when it comes to determining if an object is present in the set. (Though lists are much faster if you know the index of the object you are looking for.) The price to pay for this lookup speed is that sets can only contain objects that are **hashable**, just like a dictionary's keys.
-
-MW  Do you remember some objects that are, and some objects that aren't hashable?
-MW  Do sets have a 'length' (`len`)? Can you check with `in` whether a set contains a certain element? Can you iterate over a set? Can you construct one set from another using comprehension syntax? Do you expect that you can use slicing on a set, as you would with a list? Why (not)? Test your expectation.
-MW  The _order_ of the elements in a set must _not_ be relied upon (unlike lists and, in recent Python versions, dictionaries), as it depends on hashcodes which (in most Python implementations, for anything but the most basic types of objects) will vary between runs of the same program. Verify this by writing `print({'aaa', 'bbb', 'ccc'})` in your script and running the script several times, noting the order in which the set gets printed.
-MW  Do you remember some objects that are, and some objects that aren't hashable?
-MW  After creating a set, one can add elements to it with the method `add`, e.g., `my_set.add(5)`. What happens if you try to add an element that is already in the set? Do sets also have an `append` method like lists? Why might this be?
-***MW   Union, intersection and complement?
 
 
 
