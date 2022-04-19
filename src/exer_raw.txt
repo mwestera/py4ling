@@ -1201,26 +1201,21 @@ MW  Unlike keywords, built-ins are assigned to ordinary variables, hence these c
 MW  Built-in functions are in fact shortcuts for objects you can also find in `__builtins__`. Try printing `__builtins__`. Depending on implementation it is either of type `module` (the type of thing that results from `import`, about which we will learn later) or a dictionary. In fact, in PyCharm, `__builtins__` in the Python Console is equivalent to `__builtins__.__dict__` in a script. Do `print(dir(__builtins__))` in a script (`dir` lists the contents of a module), or `print(list(__builtins__))` in the Python console (to list the keys of the dictionary). For which of the built-ins do you already know some purpose?
 
 
-Title   Basic text processing (`split`/`strip`, reading/writing files)
+Title   Basic text processing (`split`/`join`, `strip`, `read`/`write`, `set`)
 
-Subtitle    Some convenient string-cleaning operations
-
-MW	Python provides many useful string operations, including some which you manually implemented in prior exercises. Look at `dir(str)`, or equivalently `dir('some_random_string')`, for a list of methods available on the string class itself. Explore at least the string methods `strip`, `swapcase`, `isalnum` and `center`; use `help` if needed (e.g., `help(str.strip)`) and illustrate how they work with your own examples.
+MW	Before learning how to read and write text files, it will be convenient to first learn a couple more basic string methods, that can be helpful for cleaning the data read from a file. As a warming up, look at `dir(str)`, or equivalently `dir('some_random_string')`, for a list of methods available on the string class itself. Explore at least the string methods `strip`, `swapcase`, `isalnum` and `center`; use `help` if needed (e.g., `help(str.strip)`) and illustrate how they work with your own examples.
 MW	What is the difference between the string methods `split` and `rsplit`? Illustrate with your own example.
 MW	Assume that we have assigned `test_string = 'abcblablablaabc'`. For each of the following invocations of `strip`, form an expectation about what it does (based on the `help` you obtained) and then test it (e.g., by printing the result), refining your understanding of `strip`:\n - `test_string.strip('abc')` \n - `test_string.strip('cba')` \n - `test_string.strip('a').strip('b').strip('c')` \n - `test_string.strip('c').strip('b').strip('a')` \n - `test_string.strip('bla')`
 MW	Call `help` on the `str.join` method, look at the example it provides, and try to apply it to join your own list of strings with a dash `-` in between. Pay attention: on which object is the `join` method called, on the joiner or on the joinees?
-***Unclear/doesn't add anything: MW	What does the following illustrate?\n```names = ['john', 'sue', 'bob']   names_joined = '-'.join(names)   names_unjoined_again = names_joined.split('-')  print(names == names_unjoined_again)```
 P4L Define a string `s` for which the following is _not_ true: `' '.join(s.split())`.
-MW	There may be something counterintuitive about `join` and `split`: why is `split` called as a method of the string-to-be-split (with the string that joined them, `'-'`, as an argument), while `join` is _not_ called on the strings to be joined, but rather, on the string used for joining them. For instance, in the above code, `'-'` is the argument of `split`, but not of `join` (for which it is the object providing the method). The following variant would be more 'symmetrical' in this regard, as the connecting character `'-'` would be the argument in both cases. However, test this to see what type of error you get (and then fix it):\n```
+MW  What happens if you try to join a list that contains objects other than strings, e.g., integers?
+MW	There may be something counterintuitive about `join` and `split`: why is `split` called as a method of the string-to-be-split (with the string that joined them, `'-'`, as an argument), while `join` is _not_ called on the strings to be joined, but rather, on the string used for joining them? For instance, in the above code, `'-'` is the argument of `split`, but not of `join` (for which it is the object providing the method). The following variant would be more 'symmetrical' in this regard, as the connecting character `'-'` would be the argument in both cases. However, test this to see what type of error you get (and then fix it):\n```
 names = ['john', 'sue', 'bob']
 names_joined = names.join('-')	# Doesn't work!
 names_unjoined_again = names_joined.split('-')
 print(names == names_unjoined_again)
 ```
-
-***Frame as being about file reading.
-Note	Two very useful built-in string operations are `split` and `join`. Memorize that `split` is called as a method _on the string to be splitted_ (so _not_ on the string to split by); while `join` is called as a method _on the string to join by_ (so _not_ on the list of strings to be joined). The reason is simple (though ultimately a mere design decision that could have been made otherwise): for `join` to be a string method, it must be called on a string object -- and the object witwh things-to-be-joined is not a string, but a list (or dictionary, set, and any other kind of collection or iterable...). To help you remember, always read `x.join(y)` as "with _x_ join _y_", and read `x.split(y)` as "split _x_ on _y_".
-
+MW  Two things can help you remember the aforementioned apparent asymmetry. First, try to think of a natural way in which to read `join` and `spit` commands, respectively, that will help you memorize the aforementioned apparent asymmetry. Second, try to understand _why_ Python was designed this way, i.e., why `join` is _not_ called as a method _of the list to be joined_, but as a method of the string to join by.
 MW	Oh no! I copied a list of student names from a low-quality PDF and now all names are surrounded by weird symbols! See below -- imagine the list is much longer (so manual cleaning is not an option) but the type of 'noise' remains the same. Define a function that uses `split` and `strip` to return a list of separated, cleaned-up names:\n```
 names = '''#*John#*
 #*Mary# *,
@@ -1235,10 +1230,9 @@ names = '''#*T0DD#*
 #*ANN-M4RY#\t*;
 #* R0S5#\t*'''
 ```
-MW  How does the string method `replace` work? What if the thing-to-be-replaced isn't there? How can you use `replace` in order to _delete_ all occurrences of a certain substring? What do you expect the result of `'abc'.replace('', ' ')` to be (form an expectation first, then test it)?
-MW	How does the string method `find` work? Call `help` on it if needed, and try it on some examples. What happens if the thing-to-be-found isn't there? (The latter behavior of `find` is known to be error-prone; can you think of why that is?) How does `find` differ from the method `index` that we saw before? Is `find`, just like `index`, available for strings and lists alike?
+MW  How does the string method `replace` work, exactly? What if the thing-to-be-replaced isn't there? What if it occurs multiple times? How can you use `replace` in order to _delete_ all occurrences of a certain substring? What do you expect the result of `'abc'.replace('', ' ')` to be (form an expectation first, then test it)?
+***Not relevant here: MW	How does the string method `find` work? Call `help` on it if needed, and try it on some examples. What happens if the thing-to-be-found isn't there? (The latter behavior of `find` is known to be error-prone; can you think of why that is?) How does `find` differ from the method `index` that we saw before? Is `find`, just like `index`, available for strings and lists alike?
 MW  Define a simple word-tokenizer that uses `split` on spaces and `strip` to get rid of punctuation, and compare it to your earlier attempt at word-tokenization (e.g., the one you put in `text_utils.py` as part of Section 11), noting some (possibly shared) shortcomings.
-
 
 Subtitle    Reading and writing files
 
@@ -1268,7 +1262,7 @@ Note  If you want to read from or write to a file in Python, you first need to *
 MW  The above code created the file `test123.txt` in the same directory that contains the Python script, because it is a _relative_ path, i.e., it specifies the location _relative to_ the current working directory. An _absolute_ path specifies the location of a file all the way from the root of your file-system or home directory (e.g., `C:\` in Windows, `~` on Mac, Linux). Re-run the above code with different paths (though keeping the above warning in mind!), including an _absolute_ path to a place on your disk (e.g., depending on operating system, `C:\Documents\test123.txt` or `~/Documents/test123.txt`), and a _relative_ path to a sub-folder of the current working directory, e.g., `output/test123.txt` (first create such a folder if none exist yet).
 MW  In PyCharm, you can right-click (or ctrl-click) on a file in the Project tab on the left, choose 'Copy path/reference' and select 'Absolute path' or 'Path from repository root'. Try this (copy, and then paste the copied path somewhere else, e.g., into a string in your python script). If your Python script is in the repository root (i.e., not in a sub-folder), then the latter corresponds to the _relative_ path from your Python script.
 MW  How does writing to and reading from a file in the above manner relate to other input/output methods we have so far, both in purpose and in function? Consider `input`, `print` and `import`. For instance, with regard to function, do `write` and `print` behave differently with regard to newlines? Does `write`, like `print`, allow non-string arguments? Does it allow multiple arguments?
-MW  Do you expect the following two code snippets, when executed separately, have the same end result? What could be reasons for preferring one over the other? (And can you predict the file's contents if the second snippet, too, were to use write mode `w` instead of `a`?)\n```
+MW  Do you expect the following two code snippets, when executed separately, to have the same end result? What could be reasons for preferring one over the other? (And can you predict the file's contents if the second snippet, too, were to use write mode `w` instead of `a`?)\n```
 with open('test123.txt', 'w') as file:
     for i in range(10):
         file.write(f'{i}\n')
@@ -1288,19 +1282,19 @@ MW  To practice, write a function that opens a file and iterates over it, and in
 
 Note    Unlike 'opening' a file in the way you are used to (e.g., opening a document in MS Word), opening a file in Python with `open` does not yet load the contents of the file into working memory. We have seen that calling `.read()` on an open file does the latter. Sometimes, if a file is particularly large (why then?), it is preferable to read it one line at a time, which you can do by iterating over the file itself.
 
-MW  Can you also use list comprehension to iterate over a file? Try this, to collect (for instance) the first character of each line in a file, to construct a list containing the separate lines of the file, or to construct a list containing the separate lines of the file where each line has been _stripped_ of its final newline character `\n`.
+MW  Can you also use list comprehension to iterate over a file? Try this, to collect (for instance) the first character of each line in a file, to construct a list containing the separate lines of the file, and to construct a list containing the separate lines of the file where each line has been _stripped_ of its final newline character `\n`.
 MW  In this and the next few exercises you will be writing a function `read_from_gutenberg`, that will serve as good practice and be useful for subsequent sections. It should take a path to a `.txt` file you downloaded from the Gutenberg project (https://www.gutenberg.org/) and simply return the file's text content as a single string. In the next exercises you will make this function more sophisticated.
 MW  Text files from the Gutenberg project contain some meta-information (title, author, licence, etc.) that must be distinguished from the actual, original text: look in such a file for lines beginning with `*** START` and `*** END`. Enhance your `read_from_gutenberg` function so that only the original text (between the `*** START` and `*** END` lines) is returned.
 MW  Modify your `read_from_gutenberg` function so that instead of ignoring the meta-information, it parses the file-initial portion (with, e.g., title and author information) and returns it as a dictionary. More precisely, any line above `*** START` that contains a colon, should be added to the dictionary as a key-value pair. Your function will thus return both the extracted text and this dictionary.
 MW  One further enhancement: text files from the Gutenberg project are 'hard word-wrapped', meaning a newline character was inserted whenever a line exceeded (e.g.) 75 characters. Since these single newlines (`\n`) were not meaningful parts of the original text, we want to get rid of them (e.g., replace them by a space). However, we do not want to loose the information carried by _double_ newlines (`\n\n`), which _do_ represent a meaningful aspect of the original text, namely paragraph separations.
-MW  Move your `read_from_gutenberg` function to the file `text_utils.py`, as we will use it in the next section.
-***MW  `os`, exists, define a `can_write` function?
+MW  Move your `read_from_gutenberg` function to the file `text_utils.py`, as we will use it in the next section too. Use this function to load a text file from the Gutenberg project, and tokenize it (whether by using split, or a method already in `text_utils.py` from earlier) to obtain the list `tokens`.
+
+***MW  `os`, exists, define a `can_write` function
 
 ***If you move your entire project (including the referenced file) somewhere else, then the absolute paths will no longer work, while the relative paths keep functioning. On the other hand, if you move only your Python script (containing the path reference) somewhere else on your file system (even within the project folder), then the absolute paths will keep functioning, while the relative paths no longer work (though for changes within the project, executed in PyCharm, the latter may offer some help updating them automatically). And of course if you move the target file someplace else, independently of your Python script, then both absolute and relative paths will break.
 
 
 Subtitle  Unique elements (`set`)
-MW  Use your function `read_from_gutenberg` from `text_utils.py` (Section 15) to load a text file from the Gutenberg project, and tokenize it to obtain the list `tokens`.
 MW  When processing texts it is often useful to get the _unique_ elements (e.g., words, bigrams, part-of-speech combinations, consonant clusters) from our data and _sort_ them (e.g., alphabetically, by occurrence count, by similarity to some search query). Python's _set_ data structure contains every element only once, hence creating a set from a list (or other collection) amounts to filtering out duplicates, leaving each unique element once. Construct a set from the `tokens` list from above by doing `set(tokens)`.
 MW  Print an overview of the methods provided by the resulting set object (with `dir`).
 MW  In maths/set theory, sets are written with curly braces like `{1, 2, 3}`. Does that work in Python, too? What about creating an empty set like this `{}`? (Make a prediction, but also try it and, just to make sure, check the type of the resulting object.) Can you find some (other) way to create an empty set?
@@ -1324,7 +1318,8 @@ Title    Counting and sorting
 
 Subtitle    Sorting
 
-MW  The _order_ of the elements in a set must _not_ be relied upon (unlike lists and, in recent Python versions, dictionaries), as it depends on hash-codes which (in most Python implementations, for anything but the most basic types of objects) will vary between runs of the same program. Verify this by writing `print({'aaa', 'bbb', 'ccc', 'ddd', 'eee'})` in your script and running the script several times, noting the different orders in which the set gets printed.
+MW  Use your function `read_from_gutenberg` from `text_utils.py` (Section 15) to load a text file from the Gutenberg project, and tokenize it to obtain the list `tokens`. Additionally, feed the tokens into a `set` to obtain a vocabulary.
+MW  The _order_ of the elements in a set (e.g., the vocabulary) must _not_ be relied upon (unlike lists and, in recent Python versions, dictionaries), as it depends on hash-codes which (in most Python implementations, for anything but the most basic types of objects) will vary between runs of the same program. Verify this by writing `print({'aaa', 'bbb', 'ccc', 'ddd', 'eee'})` in your script and running the script several times, noting the different orders in which the set gets printed.
 
 ***MW  Sorting exercises.
 
