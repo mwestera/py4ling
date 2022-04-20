@@ -10,9 +10,9 @@
 |7. | 30 Mar | Arguments and scope                        | 	(cont.)           | 9.10-11.15 (loops practice, function fundamentals)           |
 |8. | 6 Apr | Cooccurrence matrix                        | 	**Similarity**    | 	11.16-11.31 (scope), 12.1-13.8 (dictionaries)               |
 |   | ~~13 Apr~~ | 	_No class due to Humanities Career Event_ |                    | 13.9-13.35 (dictionary advanced) /                           |
-|9. | 20 Apr | 	NLP pipeline                              | 	(cont.)           | 	14 (skip 'n jumping loops) + revise all previous mini-exams |
+|9. | 20 Apr | 	-                                         | 	(cont.)           | 	14 (skip 'n jumping loops) + revise all previous mini-exams |
 |  | ~~27 Apr~~ | 	_No class (holiday)_	                     | 	                  | 15 (text processing), 16 until 16.8 (counting and sorting)   |
-|10. | 4 May | 	Natural language syntax 	                | (cont.)            | 16 (remainder), 17 (pattern matching)                        |
+|10. | 4 May | 	NLP pipeline 	                 | (cont.)            | 16 (remainder), 17 (pattern matching)                        |
 |11. | 11 May | 	Logistic regression	                      | **Fake news**    | 18 (syntax), 19 (clearer code)                               |
 |12. | 18 May | Deep learning                              | (cont.)           | 20 (tabular data), 21 (logistic regression)                  |
 |    |30 May 14.45u  | 	**Exam**                                  |                    |
