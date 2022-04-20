@@ -14,13 +14,13 @@
  - `test_string.strip('c').strip('b').strip('a')` 
  - `test_string.strip('bla')`
 
-**15.4.** Call `help` on the `str.join` method, look at the example it provides, and try to apply it to join your own list of strings with a dash `-` in between. Pay attention: on which object is the `join` method called, on the joiner or on the joinees?
+**15.4.** Call `help` on the `str.join` method, look at the example it provides, and try to join your own list of strings with a dash `-` in between.
 
 **15.5.** Define a string `s` for which the following is _not_ true: `' '.join(s.split())`.
 
 **15.6.** What happens if you try to join a list that contains objects other than strings, e.g., integers?
 
-**15.7.** There may be something counterintuitive about `join` and `split`: why is `split` called as a method of the string-to-be-split (with the string that joined them, `'-'`, as an argument), while `join` is _not_ called on the strings to be joined, but rather, on the string used for joining them? For instance, in the above code, `'-'` is the argument of `split`, but not of `join` (for which it is the object providing the method). The following variant would be more 'symmetrical' in this regard, as the connecting character `'-'` would be the argument in both cases. However, test this to see what type of error you get (and then fix it):
+**15.7.** There may be something counterintuitive about `join` and `split`: `split` is called as a method of the string-to-be-split (with 'joiner' as an argument of the function call), while `join` is _not_ called on the strings to be joined, but rather, on the string used for joining them. For instance, when splitting/joining on `'-'`, the dash is the argument of `split`, but not of `join` (for which it is, instead, the object on which the method lives). The following variant would be more 'symmetrical' in this regard, as the connecting character `'-'` would be the argument in both cases. However, test this to see what type of error you get (and then fix it):
 
 ```python
 names = ['john', 'sue', 'bob']
@@ -30,7 +30,7 @@ print(names == names_unjoined_again)
 ```
 
 
-**15.8.** Two things can help you remember the aforementioned apparent asymmetry. First, try to think of a natural way in which to read `join` and `spit` commands, respectively, that will help you memorize the aforementioned apparent asymmetry. Second, try to understand _why_ Python was designed this way, i.e., why `join` is _not_ called as a method _of the list to be joined_, but as a method of the string to join by.
+**15.8.** Two things can help you remember the aforementioned apparent asymmetry. First, try to think of a natural way in which to read `join` and `spit` commands, respectively, that will help you memorize the aforementioned apparent asymmetry. Second, try to think of a reason _why_ Python may have been designed this way, i.e., why `join` is _not_ called as a method _of the list to be joined_, but as a method of the string to join by.
 
 **15.9.** Oh no! I copied a list of student names from a low-quality PDF and now all names are surrounded by weird symbols! See below -- imagine the list is much longer (so manual cleaning is not an option) but the type of 'noise' remains the same. Define a function that uses `split` and `strip` to return a list of separated, cleaned-up names:
 
@@ -43,10 +43,10 @@ names = '''#*John#*
 ```
 
 
-**15.10.** Oops, copying from a different PDF resulted in even more mess, where all names are in uppercase and some characters were misread as similarly-shaped numbers. Can you clean it up similarly? Hint: there is a string method called `replace`.
+**15.10.** Oops, copying from a different PDF resulted in even more mess, where all names are in uppercase and some characters were misread as similarly-shaped numbers. Can you tweak your previous cleanup function to handle this? Hint: there is a string method called `replace`.
 
 ```python
-names = '''#*T0DD#*
+worse_names = '''#*T0DD#*
 #*0NA# *,
 *#*SUE#*,
 #*ANN-M4RY#\t*;
@@ -56,7 +56,7 @@ names = '''#*T0DD#*
 
 **15.11.** How does the string method `replace` work, exactly? What if the thing-to-be-replaced isn't there? What if it occurs multiple times? How can you use `replace` in order to _delete_ all occurrences of a certain substring? What do you expect the result of `'abc'.replace('', ' ')` to be (form an expectation first, then test it)?
 
-**15.12.** Define a simple word-tokenizer that uses `split` on spaces and `strip` to get rid of punctuation, and compare it to your earlier attempt at word-tokenization (e.g., the one you put in `text_utils.py` as part of Section 11), noting some (possibly shared) shortcomings.
+**15.12.** Define a simple word-tokenizer function that uses `split` on spaces and `strip` to get rid of punctuation, and apply it to a sufficiently challenging string of your choice. Compare it to your earlier attempt at word-tokenization (e.g., the one you put in `text_utils.py` as part of Section 11), noting some potential differences and (possibly shared) shortcomings.
 
 <br>**_Reading and writing files_**
 
@@ -76,9 +76,13 @@ with open('test123.txt', 'w') as file:
 
 **15.15.** Experiment with the above code. What if, inside the `with`-block, you add a second write statement? What will be in the file if you repeat the entire `with`-block twice? Does a `with`-block create a local scope? Does this align with what happens if you try to write a bit more to the file _after_ (i.e., outside, non-indented) the `with`-block?
 
-**15.16.** What if you omit the second argument of `open`, the string `'w'`? What if you replace it by an `'a'` and run the code several times? In each case inspect the resulting file. The second argument of the `open`-call specifies the **mode**. The most common modes are read-only (`r`, which is the default), write-only (`w`), read-and-write (`r+`) and append (`a`). Call `help(open)` and find the table explaining the different modes. Based on the previous exercise, what is meant by 'trancating' in the explanation given for `w`?
+**15.16.** What if you omit the second argument of `open`, the string `'w'`? What if you replace it by an `'a'` and run the code several times? In each case inspect the resulting file.
 
-**15.17.** Assuming the file `test123.txt` now exists, execute the following code to read it. Does `file.read()` read one line at a time, or the full file contents (create a multi-line file if you want to test this)?
+**15.17.** Call `help(open)` and find the table explaining the different modes. Based on the previous exercise, what is meant by 'truncating' in the explanation given for `w`?
+
+**15.18.** Given a list of strings, use a loop inside the `with`-clause to write all strings to the file, each on a new line.
+
+**15.19.** Assuming you now have a multi-line file `test123.txt`, execute the following code to read it. Does `file.read()` read one character or one line at a time, or the full file contents at once?
 
 ```python
 with open('test123.txt', 'r') as file:
@@ -87,87 +91,113 @@ print(text)
 ```
 
 
-**15.18.** What happens if you try to read the same file twice in a row, _within_ a single `with`-block (and print the results of both reads)? What if you read the same file twice but in _separate_ `with`-blocks? First hypothesize about what may cause this difference, and only subsequently try to reconcile it with the following: When you open a file, a persistent pointer is created that to the 'current position' in the file, i.e., the index of the byte of the file that is to be read next. In read-only mode `r`, this pointer starts at 0 (start of the file) and is incremented while the file is being read. What will be the value of this pointer after reading an entire file?
+**15.20.** What happens if you try to read the same file with `read` twice in a row, _within_ a single `with`-block (and print the results of both reads)? What if you read the same file twice but in _separate_ `with`-blocks? Hypothesize about what may cause this difference.
 
-**15.19.** What do you think the starting value of the pointer of a file will be when you use append mode `a`? And what if you use write mode `w`? You can verify your predictions with code like the following (also try mode `w`), where the `tell` method reveals the value of the pointer.
+**15.21.** The file method `read` optionally takes an integer argument. What does it do? Try it. Then form an expectation: what will happen if you call `read` repeatedly on the same file with this integer argument specified? First formulate your expectation, then test it.
+
+**15.22.** When you open a file, a pointer is kept that tracks the 'current position' in the file, i.e., the index of the byte of the file that is to be read next. In read-only mode `r`, this pointer starts at 0 (start of the file) and is incremented while the file is being read. Can you reconcile this with your findings in the previous two exercises? What will be the value of this pointer after reading an entire file? Calling `.tell()` on the file gives you the value of the pointer -- you can use this to test your prediction.
+
+**15.23.** What do you think the starting value of the pointer of a file will be when you use append mode `a`? And what if you use write mode `w`? Again, test your predictions with the `tell` method.
+
+- - - - - -
+**Something to keep in mind:** If with Python code you want to read from or write to a file, you first need to **open** the file. The standard idiom uses the built-in function `open`, which takes a path and a _mode_ (read-only `r`, write-only `w`, read-and-write `r+`, append `a`) and returns a file object with methods such as `read` and `write` and a pointer to the 'current' position in the file. After opening a file through Python, one should **close** it (because unintentionally leaving files open can have some downsides). In the previous examples, closing the file was automatically handled by wrapping the `open` statement in a **context manager**, `with ... as ...`: whenever the `with`-block ends (i.e., when you un-indent) or an error is encountered, the file is automatically closed.
+- - - - -
+
+**15.24.** Without a context manager, the code for reading a file would have looked as follows (note the manual `close`). Verify that it does the same:
 
 ```python
-with open('test123.txt', 'a') as file:
-    print('Pointer when appending:', file.tell())
+file = open('test123.txt', 'r')
+text = file.read()
+file.close()
+print(text)
 ```
 
 
+**15.25.** Code you executed further above created the file `test123.txt`. Find this file in the Project tab on the left, and open it in the PyCharm editor (e.g., by double-clicking it). Can you manually change the contents of the file in the editor? Do they show up if you subsequently read the file in Python (of course you will not see this if your script overwrites the file prior to reading it)? And if you write something to the file through Python, does your view of the file in the editor update automatically?
+
 - - - - - -
-**Something to keep in mind:** If you want to read from or write to a file in Python, you first need to **open** the file. The standard idiom uses the built-in function `open`, which takes a path and a _mode_ (read-only `r`, write-only `w`, read-and-write `r+`, append `a`), embedded in between the keywords `with ... as` for constructing a _context manager_. The latter ensures that the file is properly closed when you're done (as unintentionally leaving files open can have some downsides depending on Python version and operating-system). To prevent mistakes with reading and writing, keep in mind that files maintain a pointer to a 'current position' in the file.
+**Something to keep in mind:** The file `test123.txt` was created in the same directory that contains the Python script, because `open` was given a **relative path**, i.e., it specified the desired file location _relative to_ the directory of the current (main) script. An **absolute path** specifies the location of a file all the way from the root of your file-system or home directory (e.g., `C:\` in Windows, `~` on Mac, Linux).
 - - - - -
 
-**15.20.** The above code created the file `test123.txt` in the same directory that contains the Python script, because it is a _relative_ path, i.e., it specifies the location _relative to_ the current working directory. An _absolute_ path specifies the location of a file all the way from the root of your file-system or home directory (e.g., `C:\` in Windows, `~` on Mac, Linux). Re-run the above code with different paths (though keeping the above warning in mind!), including an _absolute_ path to a place on your disk (e.g., depending on operating system, `C:\Documents\test123.txt` or `~/Documents/test123.txt`), and a _relative_ path to a sub-folder of the current working directory, e.g., `output/test123.txt` (first create such a folder if none exist yet).
+**15.26.** Re-run some of the above code with different paths (though keeping the earlier warning in mind, about losing data!), including an _absolute_ path to a place on your disk (e.g., depending on operating system, `C:\Documents\test456.txt` or `~/Documents/test456.txt`), and a _relative_ path to a sub-folder of the current working directory, e.g., `output/test789.txt` (first manually create such a folder if none exists yet).
 
-**15.21.** In PyCharm, you can right-click (or ctrl-click) on a file in the Project tab on the left, choose 'Copy path/reference' and select 'Absolute path' or 'Path from repository root'. Try this (copy, and then paste the copied path somewhere else, e.g., into a string in your python script). If your Python script is in the repository root (i.e., not in a sub-folder), then the latter corresponds to the _relative_ path from your Python script.
+**15.27.** In PyCharm, you can right-click (or ctrl-click) on a file in the Project tab on the left, choose 'Copy path/reference' and select 'Absolute path' or 'Path from repository root'. Try this (copy, and then paste the copied path somewhere else, e.g., into a string in your Python script). If your Python script is in the repository root (i.e., not in a sub-folder), then the latter corresponds also to the _relative_ path from your Python script.
 
-**15.22.** How does writing to and reading from a file in the above manner relate to other input/output methods we have so far, both in purpose and in function? Consider `input`, `print` and `import`. For instance, with regard to function, do `write` and `print` behave differently with regard to newlines? Does `write`, like `print`, allow non-string arguments? Does it allow multiple arguments?
+**15.28.** How does writing to and reading from a file, relate to other input/output methods we have already learned about so far? Consider `input`, `print` and `import`. Compare them both in terms of their intended purpose and in terms of the details of their usage. For instance, do `write` and `print` behave differently with regard to newlines? Does `write`, like `print`, allow non-string arguments? Does it allow multiple arguments?
 
-**15.23.** Do you expect the following two code snippets, when executed separately, to have the same end result? What could be reasons for preferring one over the other? (And can you predict the file's contents if the second snippet, too, were to use write mode `w` instead of `a`?)
+**15.29.** In the following code, choose appropriate modes in place of the `...`, such that -- assuming their respective files do not exist yet -- the two snippets have the same end result. What could be reasons for preferring one over the other?
 
 ```python
-with open('test123.txt', 'w') as file:
+with open('testABC.txt', ...) as file:
     for i in range(10):
         file.write(f'{i}\n')
 
 for i in range(10):
-    with open('test123.txt', 'a') as file:
+    with open('testDEF.txt', ...) as file:
         file.write(f'{i}\n')
 ```
 
 
-**15.24.** Instead of calling `read` on a file, you can also iterate over a file with a loop. Test the following on a multi-line file, and explain why the resulting printed lines all have empty lines in between.
+**15.30.** File objects also have a method `readline`, which does what its name suggests. Use it to print just the first line of a multi-line file. Can you call this method repeatedly to print line after line? (To properly test it, make sure the file you use contains multiple lines of text, like `testABC.txt` written in the previous exercise.)
+
+**15.31.** Instead of calling `read` on a file, or calling `readline` repeatedly, the more Pythonic way is to iterate directly over the file itself. Test the following on a multi-line file, and explain why the resulting printed lines all have empty lines in between. Then tweak the code to prevent this.
 
 ```python
-with open('test123.txt', 'r') as file:
+with open('testABC.txt', 'r') as file:
     for line in file:
-        print(file)
+        print(line)
 ```
 
 
-**15.25.** What happens if you duplicate the above loop, such that (within the `with`-statement) it attempts to loop over the file twice? What happens if you duplicate the entire `with`-statement (each containing the loop once)? Does this align with what you learned earlier about calling `read` multiple times?
+**15.32.** What happens if you duplicate the above loop, such that (within the `with`-statement) it attempts to loop over the file twice? What happens if you duplicate the entire `with`-statement (each containing the loop once)? Does this align with what you learned earlier about calling `read` multiple times?
 
-**15.26.** To practice, write a function that opens a file and iterates over it, and in the end prints the average line length in number of characters and number of words (using a simple tokenization function from earlier).
+**15.33.** What gets printed if you print the file itself (instead of the result of calling `read`)?
 
 - - - - - -
-**Something to keep in mind:** Unlike 'opening' a file in the way you are used to (e.g., opening a document in MS Word), opening a file in Python with `open` does not yet load the contents of the file into working memory. We have seen that calling `.read()` on an open file does the latter. Sometimes, if a file is particularly large (why then?), it is preferable to read it one line at a time, which you can do by iterating over the file itself.
+**Something to keep in mind:** The previous exercise revealed that files have an `encoding` parameter, with value `UTF-8` (8-bit Unicode Transformation Format). Each file on your disk is a series of bytes, where each byte is 8 bits (bit = binary digit, i.e, 0 or 1). This is true for text files, but also for images, movies, word documents: they are all just series of bytes. What these bytes _represent_ depends on the **encoding** used for a given file. Nowadays you typically don't need to be concerned with encodings -- until it goes wrong (e.g., reading a file results in an error or a garbage string).
 - - - - -
 
-**15.27.** Can you also use list comprehension to iterate over a file? Try this, to collect (for instance) the first character of each line in a file, to construct a list containing the separate lines of the file, and to construct a list containing the separate lines of the file where each line has been _stripped_ of its final newline character `\n`.
+**15.34.** A simple encoding you may have heard of is ASCII. ASCII represents each character by a single byte. How many distinct characters does this let us represent? Is that enough?
 
-**15.28.** In this and the next few exercises you will be writing a function `read_from_gutenberg`, that will serve as good practice and be useful for subsequent sections. It should take a path to a `.txt` file you downloaded from the Gutenberg project (https://www.gutenberg.org/) and simply return the file's text content as a single string. In the next exercises you will make this function more sophisticated.
+**15.35.** To see a simple example of 'encodings gone wrong', write some emoji to a file (e.g., 😀😃😄). Emoji (like _many_ characters) are part of the widely adopted _Unicode_ standard, but not part of the much smaller ASCII set of characters. What happens if you open this emoji file with Python, and you give `open` the additional argument `encoding='ascii'`?
 
-**15.29.** Text files from the Gutenberg project contain some meta-information (title, author, licence, etc.) that must be distinguished from the actual, original text: look in such a file for lines beginning with `*** START` and `*** END`. Enhance your `read_from_gutenberg` function so that only the original text (between the `*** START` and `*** END` lines) is returned.
+_EXERCISES BELOW STILL SUBJECT TO CHANGE!_
 
-**15.30.** Modify your `read_from_gutenberg` function so that instead of ignoring the meta-information, it parses the file-initial portion (with, e.g., title and author information) and returns it as a dictionary. More precisely, any line above `*** START` that contains a colon, should be added to the dictionary as a key-value pair. Your function will thus return both the extracted text and this dictionary.
+**15.36.** To practice, write a function that opens a file and iterates over it, and in the end prints the average line length in number of characters and number of words (using a simple tokenization function from earlier).
 
-**15.31.** One further enhancement: text files from the Gutenberg project are 'hard word-wrapped', meaning a newline character was inserted whenever a line exceeded (e.g.) 75 characters. Since these single newlines (`\n`) were not meaningful parts of the original text, we want to get rid of them (e.g., replace them by a space). However, we do not want to loose the information carried by _double_ newlines (`\n\n`), which _do_ represent a meaningful aspect of the original text, namely paragraph separations.
+**15.37.** Unlike 'opening' a file in the way you are used to (e.g., opening a document in MS Word), opening a file in Python with `open` does not yet load the contents of the file into working memory. Instead, calling `.read()` on an open file is what actually loads the content. Sometimes, it is preferable to read a file one line at a time, which as we have seen you can do by iterating over the file itself (or with `.readline()`). Can you think of a case where such line-by-line iteration is preferable to reading the whole file at once?
 
-**15.32.** Move your `read_from_gutenberg` function to the file `text_utils.py`, as we will use it in the next section too. Use this function to load a text file from the Gutenberg project, and tokenize it (whether by using split, or a method already in `text_utils.py` from earlier) to obtain the list `tokens`.
+**15.38.** Can you also use list comprehension to iterate over a file? Try this, to collect (for instance) the first character of each line in a file, to construct a list containing the separate lines of the file, and to construct a list containing the separate lines of the file where each line has been _stripped_ of its final newline character `\n`.
+
+**15.39.** In this and the next few exercises you will be writing a function `read_from_gutenberg`, that will serve as good practice and be useful for subsequent sections. It should take a path to a `.txt` file you downloaded from the Gutenberg project (https://www.gutenberg.org/) and simply return the file's text content as a single string. In the next exercises you will make this function more sophisticated.
+
+**15.40.** Text files from the Gutenberg project contain some meta-information (title, author, licence, etc.) that must be distinguished from the actual, original text: look in such a file for lines beginning with `*** START` and `*** END`. Enhance your `read_from_gutenberg` function so that only the original text (between the `*** START` and `*** END` lines) is returned.
+
+**15.41.** Modify your `read_from_gutenberg` function so that instead of ignoring the meta-information, it parses the file-initial portion (with, e.g., title and author information) and returns it as a dictionary. More precisely, any line above `*** START` that contains a colon, should be added to the dictionary as a key-value pair. Your function will thus return both the extracted text and this dictionary.
+
+**15.42.** One further enhancement: text files from the Gutenberg project are 'hard word-wrapped', meaning a newline character was inserted whenever a line exceeded (e.g.) 75 characters. Since these single newlines (`\n`) were not meaningful parts of the original text, we want to get rid of them (e.g., replace them by a space). However, we do not want to loose the information carried by _double_ newlines (`\n\n`), which _do_ represent a meaningful aspect of the original text, namely paragraph separations.
+
+**15.43.** Move your `read_from_gutenberg` function to the file `text_utils.py`, as we will use it in the next section too. Use this function to load a text file from the Gutenberg project, and tokenize it (whether by using split, or a method already in `text_utils.py` from earlier) to obtain the list `tokens`.
 
 <br>**_Unique elements (`set`)_**
 
-**15.33.** When processing texts it is often useful to get the _unique_ elements (e.g., words, bigrams, part-of-speech combinations, consonant clusters) from our data and _sort_ them (e.g., alphabetically, by occurrence count, by similarity to some search query). Python's _set_ data structure contains every element only once, hence creating a set from a list (or other collection) amounts to filtering out duplicates, leaving each unique element once. Construct a set from the `tokens` list from above by doing `set(tokens)`.
+**15.44.** When processing texts it is often useful to get the _unique_ elements (e.g., words, bigrams, part-of-speech combinations, consonant clusters) from our data and _sort_ them (e.g., alphabetically, by occurrence count, by similarity to some search query). Python's _set_ data structure contains every element only once, hence creating a set from a list (or other collection) amounts to filtering out duplicates, leaving each unique element once. Construct a set from the `tokens` list from above by doing `set(tokens)`.
 
-**15.34.** Print an overview of the methods provided by the resulting set object (with `dir`).
+**15.45.** Print an overview of the methods provided by the resulting set object (with `dir`).
 
-**15.35.** In maths/set theory, sets are written with curly braces like `{1, 2, 3}`. Does that work in Python, too? What about creating an empty set like this `{}`? (Make a prediction, but also try it and, just to make sure, check the type of the resulting object.) Can you find some (other) way to create an empty set?
+**15.46.** In maths/set theory, sets are written with curly braces like `{1, 2, 3}`. Does that work in Python, too? What about creating an empty set like this `{}`? (Make a prediction, but also try it and, just to make sure, check the type of the resulting object.) Can you find some (other) way to create an empty set?
 
-**15.36.** Can you create a set containing strings? A set containing tuples? A set containing lists? Why (not)?
+**15.47.** Can you create a set containing strings? A set containing tuples? A set containing lists? Why (not)?
 
 - - - - - -
 **Something to keep in mind:** The **set** data structure contains each element only once. Moreover, sets are significantly faster than lists when it comes to determining if an object is present in the set. (Though lists are much faster if you know the index of the object you are looking for.) The price to pay for this lookup speed is that sets can only contain objects that are **hashable**, just like a dictionary's keys.
 - - - - -
 
-**15.37.** Do you remember some objects that are, and some objects that aren't hashable?
+**15.48.** Do you remember some objects that are, and some objects that aren't hashable?
 
-**15.38.** Do sets have a 'length' (`len`)? Can you check with `in` whether a set contains a certain element? Can you iterate over a set? Can you construct one set from another using comprehension syntax? Do you expect that you can use slicing on a set, as you would with a list? Why (not)? Test your expectation.
+**15.49.** Do sets have a 'length' (`len`)? Can you check with `in` whether a set contains a certain element? Can you iterate over a set? Can you construct one set from another using comprehension syntax? Do you expect that you can use slicing on a set, as you would with a list? Why (not)? Test your expectation.
 
-**15.39.** After creating a set, one can add elements to it with the method `add`, e.g., `my_set.add(5)`. What happens if you try to add an element that is already in the set? Do sets also have an `append` method like lists? Why might this be?
+**15.50.** After creating a set, one can add elements to it with the method `add`, e.g., `my_set.add(5)`. What happens if you try to add an element that is already in the set? Do sets also have an `append` method like lists? Why might this be?
 
-**15.40.** Can you predict what happens if you construct a set not from the tokens, but from the original, un-tokenized text directly? Verify your prediction.
+**15.51.** Can you predict what happens if you construct a set not from the tokens, but from the original, un-tokenized text directly? Verify your prediction.
 
