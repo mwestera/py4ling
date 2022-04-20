@@ -1,6 +1,6 @@
 # Python for Linguists
 
-## Class 7
+## Class 8
 1. Mini-exam 7 + discussion
 2. Admin: homework time? 7 hours (some people bit behind)
 3. Homework discussion (11.15-13.8)
