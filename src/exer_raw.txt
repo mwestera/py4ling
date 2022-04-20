@@ -1184,6 +1184,7 @@ MW  Write a function that takes a list and returns a new list containing all non
 MW  Generalize the foregoing function with an integer parameter `n`, returning the list of non-overlapping n-tuples (pairs, triples, quadruples, etc.). This is likely too complex for a single-line list comprehension. Moreover, you will likely need two `range` objects, one for looping through the list, one for constructing each tuple (from index `i` to index `i + n`). Remember from the previous section that constructing a tuple using list comprehension requires an explicit `tuple(...)` expression.
 MW	Can you create a `range` with non-integer steps, e.g., 0.1? What about using a float as a starting point or end point, is that allowed? Can you think of a more indirect way to nevertheless achieve such things (e.g., float steps or start/end points) whilst still using `range`?
 MW	Define a function that takes an integer parameter `n` and uses a _single_ loop to repeatedly, `n` times, print the numbers 0, 1, 2, ..., 23 (as if `n` days pass on a 24-hour clock).
+***conversion is sloppy language.
 MW	Remember that objects can sometimes be converted from one type to another. A `range` object can be converted to a `list`, e.g., `list(range(100))`. Try this. Can you also convert a list back to a range? What happens if you try, and why might this be?
 MW	In the Python console compare `x = range(9999)` to `x = list(range(9999))` (without printing the result). Keep increasing nines and try again, e.g., `99999`, `999999`, `9999999`, and beyond (take it easy, don't crash your computer). At some point you will notice that the version `x = list(range(999...9)` gets much slower, while the version `x = range(999...9)` remains fast. Why would this be?
 MW  If you do `import sys`, you can access various operating-system-related functions in Python. One of these is the function `sys.getsizeof`. First call `help` on this function to read what it does. Then use the function to compare `range(9)` to `range(9999)`, and `list(range(9))` to `list(range(9999))`. Do your findings align with your answer to the previous exercise?
@@ -1201,7 +1202,7 @@ MW  Unlike keywords, built-ins are assigned to ordinary variables, hence these c
 MW  Built-in functions are in fact shortcuts for objects you can also find in `__builtins__`. Try printing `__builtins__`. Depending on implementation it is either of type `module` (the type of thing that results from `import`, about which we will learn later) or a dictionary. In fact, in PyCharm, `__builtins__` in the Python Console is equivalent to `__builtins__.__dict__` in a script. Do `print(dir(__builtins__))` in a script (`dir` lists the contents of a module), or `print(list(__builtins__))` in the Python console (to list the keys of the dictionary). For which of the built-ins do you already know some purpose?
 
 
-Title   Basic text processing (`split`/`join`, `strip`, `read`/`write`, `set`)
+Title   Basic text processing (`split`/`join`, `strip`, `read`/`write`)
 
 MW	Before learning how to read and write text files, it will be convenient to first learn a couple more basic string methods, that can be helpful for cleaning the data read from a file. As a warming up, look at `dir(str)`, or equivalently `dir('some_random_string')`, for a list of methods available on the string class itself. Explore at least the string methods `strip`, `swapcase`, `isalnum` and `center`; use `help` if needed (e.g., `help(str.strip)`) and illustrate how they work with your own examples.
 MW	What is the difference between the string methods `split` and `rsplit`? Illustrate with your own example.
@@ -1270,6 +1271,7 @@ MW  Code you executed further above created the file `test123.txt`. Find this fi
 
 Note    The file `test123.txt` was created in the same directory that contains the Python script, because `open` was given a **relative path**, i.e., it specified the desired file location _relative to_ the directory of the current (main) script. An **absolute path** specifies the location of a file all the way from the root of your file-system or home directory (e.g., `C:\` in Windows, `~` on Mac, Linux).
 
+MW  What might be (dis)advantages of using absolute vs. relative paths?
 MW  Re-run some of the above code with different paths (though keeping the earlier warning in mind, about losing data!), including an _absolute_ path to a place on your disk (e.g., depending on operating system, `C:\Documents\test456.txt` or `~/Documents/test456.txt`), and a _relative_ path to a sub-folder of the current working directory, e.g., `output/test789.txt` (first manually create such a folder if none exists yet).
 MW  In PyCharm, you can right-click (or ctrl-click) on a file in the Project tab on the left, choose 'Copy path/reference' and select 'Absolute path' or 'Path from repository root'. Try this (copy, and then paste the copied path somewhere else, e.g., into a string in your Python script). If your Python script is in the repository root (i.e., not in a sub-folder), then the latter corresponds also to the _relative_ path from your Python script.
 MW  How does writing to and reading from a file, relate to other input/output methods we have already learned about so far? Consider `input`, `print` and `import`. Compare them both in terms of their intended purpose and in terms of the details of their usage. For instance, do `write` and `print` behave differently with regard to newlines? Does `write`, like `print`, allow non-string arguments? Does it allow multiple arguments?
@@ -1296,23 +1298,20 @@ Note  The previous exercise revealed that files have an `encoding` parameter, wi
 MW  A simple encoding you may have heard of is ASCII. ASCII represents each character by a single byte. How many distinct characters does this let us represent? Is that enough?
 MW  To see a simple example of 'encodings gone wrong', write some emoji to a file (e.g., 😀😃😄). Emoji (like _many_ characters) are part of the widely adopted _Unicode_ standard, but not part of the much smaller ASCII set of characters. What happens if you open this emoji file with Python, and you give `open` the additional argument `encoding='ascii'`?
 
-Text    EXERCISES BELOW STILL SUBJECT TO CHANGE!
+MW  To practice, write a function that opens a file and iterates over it, and in the end writes some stats to a new file. Write at least the average number of characters per line, the average number of words per line, and the average number of characters per word (the next section will let us compute some more interesting stats; here you mainly practice reading and writing). Apply this function to a file of choice (e.g., a text file from the Gutenberg project). If your input file is (e.g.) `data/sherlock.txt`, the stats should be written to `output/sherlock_stats.txt` (manually create the `output` directory if it doesn't exist yet). The output path should be derived automatically from the input path, so you can easily apply the function to different input files.
 
-*** Maybe change the following to involve writing a file?
-MW  To practice, write a function that opens a file and iterates over it, and in the end prints the average line length in number of characters and number of words (using a simple tokenization function from earlier).
+MW  Why might it be wise (in general) to separate the raw input data files from the directory to which you write output?
+MW  Unlike 'opening' a file in the way you are probably used to (e.g., opening a document in MS Word), opening a file in Python with `open` does not yet load the contents of the file into working memory. Instead, calling `.read()` on an open file is what actually loads the content. Sometimes, it is preferable to read a file one line at a time, which as we have seen you can do by iterating over the file object itself (or with `.readline()`). Can you think of a case where such line-by-line iteration is preferable to reading the whole file at once?
+MW  Can you also use _list comprehension_ to iterate over a file? Try this, to collect: \n - a list with the first characters of each line in a file. \n - a list containing all the line lengths. \n - a list containing the separate lines of the file where each line has been _stripped_ of its final newline character `\n`. \n - a list of tokenized lines (hence a list of lists).
 
-MW  Unlike 'opening' a file in the way you are used to (e.g., opening a document in MS Word), opening a file in Python with `open` does not yet load the contents of the file into working memory. Instead, calling `.read()` on an open file is what actually loads the content. Sometimes, it is preferable to read a file one line at a time, which as we have seen you can do by iterating over the file itself (or with `.readline()`). Can you think of a case where such line-by-line iteration is preferable to reading the whole file at once?
-
-MW  Can you also use list comprehension to iterate over a file? Try this, to collect (for instance) the first character of each line in a file, to construct a list containing the separate lines of the file, and to construct a list containing the separate lines of the file where each line has been _stripped_ of its final newline character `\n`.
 MW  In this and the next few exercises you will be writing a function `read_from_gutenberg`, that will serve as good practice and be useful for subsequent sections. It should take a path to a `.txt` file you downloaded from the Gutenberg project (https://www.gutenberg.org/) and simply return the file's text content as a single string. In the next exercises you will make this function more sophisticated.
-MW  Text files from the Gutenberg project contain some meta-information (title, author, licence, etc.) that must be distinguished from the actual, original text: look in such a file for lines beginning with `*** START` and `*** END`. Enhance your `read_from_gutenberg` function so that only the original text (between the `*** START` and `*** END` lines) is returned.
+MW  Text files from the Gutenberg project contain some meta-information (title, author, licence, etc.) that must be distinguished from the actual, original text: look in such a file for lines beginning with `*** START` and `*** END` (if your Gutenberg file does not contain these, maybe download a different one!). Enhance your `read_from_gutenberg` function so that only the original text (between the `*** START` and `*** END` lines) is returned.
 MW  Modify your `read_from_gutenberg` function so that instead of ignoring the meta-information, it parses the file-initial portion (with, e.g., title and author information) and returns it as a dictionary. More precisely, any line above `*** START` that contains a colon, should be added to the dictionary as a key-value pair. Your function will thus return both the extracted text and this dictionary.
 MW  One further enhancement: text files from the Gutenberg project are 'hard word-wrapped', meaning a newline character was inserted whenever a line exceeded (e.g.) 75 characters. Since these single newlines (`\n`) were not meaningful parts of the original text, we want to get rid of them (e.g., replace them by a space). However, we do not want to loose the information carried by _double_ newlines (`\n\n`), which _do_ represent a meaningful aspect of the original text, namely paragraph separations.
 MW  Move your `read_from_gutenberg` function to the file `text_utils.py`, as we will use it in the next section too. Use this function to load a text file from the Gutenberg project, and tokenize it (whether by using split, or a method already in `text_utils.py` from earlier) to obtain the list `tokens`.
 
-***MW  `os`, exists, define a `can_write` function
 
-***If you move your entire project (including the referenced file) somewhere else, then the absolute paths will no longer work, while the relative paths keep functioning. On the other hand, if you move only your Python script (containing the path reference) somewhere else on your file system (even within the project folder), then the absolute paths will keep functioning, while the relative paths no longer work (though for changes within the project, executed in PyCharm, the latter may offer some help updating them automatically). And of course if you move the target file someplace else, independently of your Python script, then both absolute and relative paths will break.
+Title    Sorting and counting (also probabilities)
 
 
 Subtitle  Unique elements (`set`)
@@ -1330,11 +1329,6 @@ MW  After creating a set, one can add elements to it with the method `add`, e.g.
 MW  Can you predict what happens if you construct a set not from the tokens, but from the original, un-tokenized text directly? Verify your prediction.
 ***Write the vocabulary to a file
 ***Write code to obtain combined vocabularies from several files? Maybe use glob or os.dir for this?
-
-
-
-
-Title    Counting and sorting
 
 
 Subtitle    Sorting
