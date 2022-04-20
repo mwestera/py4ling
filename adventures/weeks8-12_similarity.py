@@ -2,6 +2,8 @@ from nltk.corpus import brown, stopwords
 from week67_frequencies import count_tokens
 from operator import itemgetter
 import pandas as pd
+import math
+import os
 
 """
 1. load a big-ish text corpus
@@ -12,14 +14,20 @@ import pandas as pd
     'woman' 'man'    not so similar to 'car'
 """
 
-N_TOKENS = 10
+N_TOKENS = 500
 WINDOW = 20
-
+REDO = True # Whether to recompute the cooccurrence counts if the file already exists
+SAVE_PATH = 'cooccurrences.csv'
 
 def main():
-    tokens = [tok.lower() for tok in brown.words()]
-    tokens_to_use = determine_words_we_will_use(tokens, N_TOKENS)
-    matrix = cooccurrence_matrix(tokens, tokens_to_use, WINDOW)
+
+    if REDO or not os.path.exists(SAVE_PATH):
+        tokens = [tok.lower() for tok in brown.words()]
+        tokens_to_use = determine_words_we_will_use(tokens, N_TOKENS)
+        matrix = cooccurrence_matrix(tokens, tokens_to_use, WINDOW)
+        matrix.to_csv(SAVE_PATH)
+    else:
+        matrix = pd.read_csv(SAVE_PATH)
 
     print(most_similar('young', matrix))
     print(most_similar('man', matrix))
@@ -65,16 +73,43 @@ def cooccurrence_matrix(tokens, tokens_to_use, window=3):
 
     matrix = pd.DataFrame(cooccurrence_counts).fillna(0)
 
+    # Normalize the vectors (matrix rows); dividing each vector by the magnitude (or norm, or length) is only
+    #    one of several possibilities.
+    for word in matrix.index:
+        matrix.loc[word] /= magnitude(matrix.loc[word])
+
     return matrix
 
 
+def magnitude(vector):
+    """
+    Returns magnitude (norm) of the vector, Pythagoras style.
+    """
+    return math.sqrt(sum(a**2 for a in vector))
 
 
 def most_similar(word, matrix, n=10):
     """
     Returns a list of top N words most similar to word, given a cooccurrence matrix.
     """
-    pass
+    vector1 = matrix.loc[word]
+    distances = []
+    for word2 in matrix.index:
+        if word2 == word:
+            continue
+        vector2 = matrix.loc[word2]
+        dist = distance(vector1, vector2)
+        distances.append((word2, dist))
+    distances.sort(key=itemgetter(1))
+    return distances[:n]
+
+
+def distance(vector1, vector2):
+    """
+    Euclidean distance between two vectors (as points) in space.
+    TODO: Hmmm, we could define this in terms of the magnitude.
+    """
+    return math.sqrt(sum((a-b)**2 for a, b in zip(vector1, vector2)))
 
 
 if __name__ == '__main__':
