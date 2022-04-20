@@ -28,3 +28,29 @@ def ngrams(sentence, n, as_strings=False):
     # Of course you can also achieve this without list comprehension, and without join, by using.
     # multi-line loops.
     return ngrams
+
+
+def read_from_gutenberg(path):
+    """
+    A Gutenberg Project text-file reading function, coded for exercises 15.41-15.45.
+    Returns both the text (string) and some meta-info (dictionary) extracted from the file.
+    """
+    meta_info = {}
+    lines = []
+    with open(path, 'r') as infile:
+        main_content = False
+        for line in infile:
+            if line.startswith('*** END OF'):
+                break
+            if main_content:
+                lines.append(line)
+            elif ':' in line:
+                key, value = line.split(':')
+                key = key.strip()
+                value = value.strip()
+                meta_info[key] = value
+            if line.startswith('*** START OF'):
+                main_content = True
+    text = ''.join(lines)
+    text = text.replace('\n\n', '<NEWLINE>').replace('\n', ' ').replace('<NEWLINE>', '\n')
+    return text, meta_info
