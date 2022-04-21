@@ -167,14 +167,14 @@ with open('testABC.txt', 'r') as file:
 
 **15.38.** Why might it be wise (in general) to separate the raw input data files from the directory to which you write output?
 
-**15.39.** Unlike 'opening' a file in the way you are probably used to (e.g., opening a document in MS Word), opening a file in Python with `open` does not yet load the contents of the file into working memory. Instead, calling `.read()` on an open file is what actually loads the content. Sometimes, it is preferable to read a file one line at a time, which as we have seen you can do by iterating over the file object itself (or with `.readline()`). Can you think of a case where such line-by-line iteration is preferable to reading the whole file at once?
+**15.39.** Unlike 'opening' a file in the way you are probably used to (e.g., opening a document in MS Word), opening a file in Python with `open` does not yet load the contents of the file into working memory. Instead, calling `.read()` on an open file is what actually loads the content. Sometimes, it is preferable to read a file one line at a time (which as we have seen can be done by iterating directly over the file object, or with `.readline()`). Can you think of a case where such line-by-line iteration might be preferable to reading the whole file at once?
 
-**15.40.** Can you also use _list comprehension_ to iterate over a file? Try this, to collect: 
+**15.40.** Can you also use _list comprehension_ to iterate over a file? Try this, in order to create (each with a single line within a `with`-block): 
  - a list with the first characters of each line in a file. 
  - a list containing all the line lengths. 
  - a list containing the separate lines of the file where each line has been _stripped_ of its final newline character `\n`. 
  - a list of tokenized lines (hence a list of lists). 
- a list of all lines that begin with a vowel.
+ - a list of all lines that begin with a vowel.
 
 <br>**_Mini-adventure: Reading `.txt` files from the Gutenberg Project_**
 
