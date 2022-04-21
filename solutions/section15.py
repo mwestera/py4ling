@@ -392,10 +392,15 @@ with open(gutenberg_path, 'r') as file:
 with open(gutenberg_path, 'r') as file:
     tokenized_lines = [text_utils.tokenize(l) for l in file]
 
+with open(gutenberg_path, 'r') as file:
+    vowely_lines = [l for l in file if l[0] in 'AEOUIaoeui']
+
 print(first_chars)
 print(line_lengths)
-print(stripped_lines)
-print(tokenized_lines)
+print(stripped_lines[:100]) # print just a sample
+print(tokenized_lines[:100])
+print(vowely_lines[:100])
+print()
 
 # 15.41-15.45
 # The read_from_gutenberg function has been moved to text_utils.py

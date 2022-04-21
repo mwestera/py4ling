@@ -60,7 +60,7 @@ worse_names = '''#*T0DD#*
 
 <br>**_Reading and writing files_**
 
-**15.13.** Without searching the web, try to gather and formulate your intuitions: What is file? What is the difference between, and relation between, long-term storage (e.g., your harddisk, or the cloud) and working memory (RAM)? What is a folder (or directory)? What is a path (such as, depending on your operating system, `C:\Documents\semantics_report.pdf` or `~\Downloads\Alice_in_wonderland.txt`)? What might be the difference between an _absolute_ and a _relative_ path?
+**15.13.** Without searching the web, try to gather and formulate your intuitions: What is a file? What is the difference between, and relation between, long-term storage (e.g., your hard-disk, or the cloud) and working memory (RAM)? What is a folder (or directory)? What is a path (such as, depending on your operating system, `C:\Documents\semantics_report.pdf` or `~\Downloads\Alice_in_wonderland.txt`)? What might be the difference between an _absolute_ and a _relative_ path?
 
 - - - - - -
 **Something to keep in mind:** WARNING: Before executing any code that involves opening a file, _always_ assume the worst: that the referenced file, if it exists, will be destroyed/overwritten. Make sure you do not loose valuable data in case this happens. Some things we will learn -- using a context manager, opening a file as 'read-only' where possible, using relative paths -- and in general clean code help decrease the chance of unintended changes to your files.
@@ -173,7 +173,8 @@ with open('testABC.txt', 'r') as file:
  - a list with the first characters of each line in a file. 
  - a list containing all the line lengths. 
  - a list containing the separate lines of the file where each line has been _stripped_ of its final newline character `\n`. 
- - a list of tokenized lines (hence a list of lists).
+ - a list of tokenized lines (hence a list of lists). 
+ a list of all lines that begin with a vowel.
 
 **15.41.** In this and the next few exercises you will be writing a function `read_from_gutenberg`, that will serve as good practice and be useful for subsequent sections. It should take a path to a `.txt` file you downloaded from the Gutenberg project (https://www.gutenberg.org/) and simply return the file's text content as a single string. In the next exercises you will make this function more sophisticated.
 
@@ -183,5 +184,5 @@ with open('testABC.txt', 'r') as file:
 
 **15.44.** One further enhancement: text files from the Gutenberg project are 'hard word-wrapped', meaning a newline character was inserted whenever a line exceeded (e.g.) 75 characters. Since these single newlines (`\n`) were not meaningful parts of the original text, we want to get rid of them (e.g., replace them by a space). However, we do not want to loose the information carried by _double_ newlines (`\n\n`), which _do_ represent a meaningful aspect of the original text, namely paragraph separations.
 
-**15.45.** Move your `read_from_gutenberg` function to the file `text_utils.py`, as we will use it in the next section too. Use this function to load a text file from the Gutenberg project, and tokenize it (whether by using split, or a method already in `text_utils.py` from earlier) to obtain the list `tokens`.
+**15.45.** Move your `read_from_gutenberg` function to the file `text_utils.py`, as we will use it in the next section.
 
