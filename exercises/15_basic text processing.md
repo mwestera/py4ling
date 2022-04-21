@@ -176,7 +176,9 @@ with open('testABC.txt', 'r') as file:
  - a list of tokenized lines (hence a list of lists). 
  a list of all lines that begin with a vowel.
 
-**15.41.** In this and the next few exercises you will be writing a function `read_from_gutenberg`, that will serve as good practice and be useful for subsequent sections. It should take a path to a `.txt` file you downloaded from the Gutenberg project (https://www.gutenberg.org/) and simply return the file's text content as a single string. In the next exercises you will make this function more sophisticated.
+<br>**_Mini-adventure: Reading `.txt` files from the Gutenberg Project_**
+
+**15.41.** In this and the next few exercises you will be writing a function `read_from_gutenberg`. Not _super_ adventurous, but it will serve as good practice and be useful for subsequent sections! It should take a path to a `.txt` file you downloaded from the Gutenberg project (https://www.gutenberg.org/) and simply return the file's text content as a single string. In the next exercises you will make this function more sophisticated.
 
 **15.42.** Text files from the Gutenberg project contain some meta-information (title, author, licence, etc.) that must be distinguished from the actual, original text: look in such a file for lines beginning with `*** START` and `*** END` (if your Gutenberg file does not contain these, maybe download a different one!). Enhance your `read_from_gutenberg` function so that only the original text (between the `*** START` and `*** END` lines) is returned.
 
