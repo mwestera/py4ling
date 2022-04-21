@@ -17,12 +17,15 @@ def tokenize(sentence):
     return tokens
 
 
-def ngrams(sentence, n, as_strings=False):
+def ngrams(sentence, n, as_strings=False, word_tokenize=True):
     """
     Returns a list of n-grams of the sentence, each ngram either a list (default) or a string.
     """
-    tokens = tokenize(sentence)
-    ngrams = [tokens[i:i+n] for i in range(len(tokens) - (n - 1))]
+    if word_tokenize:    # Changed to also work on character level, for section 16
+        tokens = tokenize(sentence)
+    else:
+        tokens = list(sentence)  # use the characters as tokens
+    ngrams = [tuple(tokens[i:i+n]) for i in range(len(tokens) - (n - 1))]   # Changed to return tuples, in section 16
     if as_strings:
         ngrams = [' '.join(ngram) for ngram in ngrams]  # change requested by client, from 11.12
     # Of course you can also achieve this without list comprehension, and without join, by using.
