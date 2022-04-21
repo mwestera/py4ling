@@ -152,6 +152,8 @@ counter = collections.Counter(['a', 'a', 'b', 'c', 'a', 'a', 'b', 'c', 'c', 'c',
 
 <br>**_Mini-adventure 2: Language generation with an _n_-gram-based language model_**
 
+_Consider doing the remainder of the homework first, before having a go at this adventure!_
+
 **16.45.** Think of a way in which we can automatically generate text by, repeatedly, randomly sampling the next word given previous words, on the basis of _n_-gram probabilities estimated from a text corpus. While a pretty basic approach to language generation, currently even the largest, state-of-the-art deep learning language models are still a direct generalization of this simple idea.
 
 **16.46.** If you haven't already, write a function that turns a `Counter` object into a dictionary of (estimated) probabilities.

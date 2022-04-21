@@ -1401,6 +1401,9 @@ MW  Generalize the foregoing to be able to find not only word-level collocations
 
 
 Subtitle    Mini-adventure 2: Language generation with an _n_-gram-based language model
+
+Text    Consider doing the remainder of the homework first, before having a go at this adventure!
+
 MW  Think of a way in which we can automatically generate text by, repeatedly, randomly sampling the next word given previous words, on the basis of _n_-gram probabilities estimated from a text corpus. While a pretty basic approach to language generation, currently even the largest, state-of-the-art deep learning language models are still a direct generalization of this simple idea.
 MW  If you haven't already, write a function that turns a `Counter` object into a dictionary of (estimated) probabilities.
 MW  Write a function that takes a starting word `prompt`, a dictionary of single token probabilities and a dictionary of bigram probabilities. It should return a random next word that could reasonably follow the `prompt` in a sentence (e.g., if the `prompt` is a noun like _cat_, the next word could be a verb like _sleeps_), by probabilistically sampling a word, for instance as follows (ignore the following suggestion if you like a puzzle!): \n - Find a list of all bi-grams whose first word matches with the `prompt` (e.g., _cat sleeps_, _cat chased_, etc.). \n - If some `prompt`-matching bi-grams are found, use `random.choices` to choose a random bi-gram from this list; you should provide `random.choices` with the optional argument `weights`, which should be a list of the probabilities of the bi-grams to sample from. The function should then return the _second_ word of the selected bi-gram (e.g., _sleeps_). \n - If no `prompt`-matching bi-grams are found, just ignore the bi-grams and instead sample a random word based on the _single_ token probabilities (this will be very random, but it's a last resort).
