@@ -12,7 +12,7 @@ Goals:
     Zipf's law
 """
 
-path_to_textfile = 'data/pg67352.txt'   # free plaintext book from Project Gutenberg, https://www.gutenberg.org/
+path_to_textfile = 'data/gutenberg/congressman_pg67352.txt'  # free plaintext book from Project Gutenberg, https://www.gutenberg.org/
 
 def main():
     text = read_data(path_to_textfile)
