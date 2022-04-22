@@ -12,7 +12,7 @@
 |   | ~~13 Apr~~ | 	_No class due to Humanities Career Event_ |                     | 13.9-13.35 (dictionary advanced) /                           |
 |9. | 20 Apr | 	-                                         | 	(cont.)            | 	14 (skip 'n jumping loops) + revise all previous mini-exams |
 |  | ~~27 Apr~~ | 	_No class (holiday)_	                     | 	                   | 15 (text processing), 16 until 16.15 (sets)                  |
-|10. | 4 May | 	NLP pipeline 	                            | (cont.)             | 16 remainder (sorting and counting), 17 (pattern matching)   |
+|10. | 4 May | 	NLP pipeline 	                            | (cont.)             | 16 .16-end (sorting and counting), 17 (pattern matching)     |
 |11. | 11 May | 	Machine learning	                         | **Classification**  | 18 (syntax), 19 (clearer code)                               |
 |12. | 18 May | Deep learning                              | (cont.)             | 20 (tabular data), 21 (logistic regression)                  |
 |    |30 May 14.45u  | 	**Exam**                                  |                     |
