@@ -196,7 +196,7 @@ def contextualize_matches(matches):
 
 **17.43.** Define a regular expression containing a capture group, that lets you retrieve all vowel sequences (single vowels or multiple consecutive vowels) that are preceded by a consonant. Use the capture group to specifically print only the vowel part of each match.
 
-**17.44.** What happens if your regular expression contains no round parentheses (i.e., no capture groups defined), and on a given match you call `match.group(1)`? What about `match.group(0)`? Explain the latter in terms of the notion of 'default value'.
+**17.44.** What happens if your regular expression contains no round parentheses (i.e., no capture groups defined), and on a given match you call `match.group(1)`? What about `match.group(0)`? Explain the relation to `match.group()` in terms of the notion of 'default value'.
 
 **17.45.** Does the `span` method of a `Match` object likewise take an integer argument? Does it do what you would expect?
 
