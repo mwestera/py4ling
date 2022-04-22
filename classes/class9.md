@@ -6,7 +6,7 @@
 3. Homework discussion (13.9-13.35 and section 14)
 --- break
 4. Adventure continued: Similarity
-5. Homework for next time (in *two* weeks time again): sections 15, 16, 17.
+5. Homework for next time (in *two* weeks time again): sections 15, 16, 17 until 17.37.
 
 ------
 
