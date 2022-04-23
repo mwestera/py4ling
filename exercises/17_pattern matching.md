@@ -126,13 +126,13 @@ print(regex1 == regex3, regex2 == regex3)
  - `".+"` 
  - `...`
 
-**17.27.** Since the backslash `\` is a special character for the regular expression parser, defining a regular expression that matches an actual, literal backslash requires escaping the backslash, i.e., `\\`. Verify your understanding, by explaining why even in a _raw_ string, you need a double backslash to match a literal backslash. And given that `\` is a special character also for the Python interpreter, how many backslashes would you need to enter in a _non-_raw string, in order to define a regular expression that matches a single, literal backslash?
+**17.27.** Since the backslash `\` is a special character for the regular expression parser, defining a regular expression that matches an actual, literal backslash requires escaping the backslash, i.e., `\\`. Verify your understanding, by explaining why even in a _raw_ string, you need a double backslash to match a literal backslash. And given that `\` is a special character also for the Python interpreter, how many backslashes would you need to enter in a _non-raw_ string, in order to define a regular expression that matches a single, literal backslash?
 
 **17.28.** Let us combine the power of regular expressions with some of the things we learned before. In a text of your choice (e.g., a book from the Gutenberg project), find all vowel clusters (single vowels or sequences thereof) and sort them by frequency, printing a top-20 of most frequent vowel clusters.
 
 **17.29.** Do the same, but now for word-initial _consonant_ clusters, and (separately) for word-final consonant clusters. (Advice: define consonant by simply listing them manually, since defining consonant as 'anything alphabetical except a vowel' within a regular expression is tricky, requiring some `re` constructs that we have not covered yet.)
 
-**17.30.** Think of an imperfect-but-good-enough way of detecting adverbs with a regular expression. What are the most common adverbs in a text of your choice?
+**17.30.** Think of an imperfect-but-good-enough way of detecting English adverbs with a regular expression. What are the most common adverbs in a text of your choice?
 
 **17.31.** The module `re` provides functions `re.sub` (short for 'substitute') and `re.split`, which are analogous to the string methods `replace` and `split`, but take a regular expression to replace or split on (instead of a literal string). Use these functions to, separately: 
  - replace all vowels in a string by `a`; 
