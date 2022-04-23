@@ -219,7 +219,7 @@ def contextualize_matches(matches):
 
 **17.52.** Let's take another look at a text of your choice (e.g., from the Gutenberg Project). What are the most frequently reduplicated words?
 
-**17.53.** Compare the following two regular expressions, intended as simple sentence tokenizers, and verify your understanding of the difference by reading in the Python documentation how `re.split` is supposed to handle capture groups (e.g., `help(re.split)`). Can you conceive of a scenario (e.g., research or application) for which the second sentence tokenizer might be more convenient than the first? 
+**17.53.** Compare the following two regular expressions, intended for a simple sentence tokenizer using `re.split`, and verify your understanding of the difference by reading in the Python documentation how `re.split` is supposed to handle capture groups (e.g., `help(re.split)`). Can you conceive of a scenario (e.g., research or application) for which the second sentence tokenizer might be more convenient than the first? 
  - `[.!?]+` 
  - `([.!?]+)`
 
