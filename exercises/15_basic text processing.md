@@ -60,7 +60,7 @@ worse_names = '''#*T0DD#*
 
 <br>**_Reading and writing files_**
 
-**15.13.** Without searching the web, try to gather and formulate your intuitions: What is a file? What is the difference between, and relation between, long-term storage (e.g., your hard-disk, or the cloud) and working memory (RAM)? What is a folder (or directory)? What is a path (such as, depending on your operating system, `C:\Documents\semantics_report.pdf` or `~\Downloads\Alice_in_wonderland.txt`)? What might be the difference between an _absolute_ and a _relative_ path?
+**15.13.** Without searching the web, try to gather and formulate your intuitions: What is a file? What is the difference between, and relation between, long-term storage (e.g., your hard-disk, or the cloud) and working memory (RAM)? What is a folder (or directory)? What is a path (such as, depending on your operating system, `C:\Documents\semantics_report.pdf` or `~/Downloads/Alice_in_wonderland.txt`)? What might be the difference between an _absolute_ and a _relative_ path?
 
 - - - - - -
 **Something to keep in mind:** WARNING: Before executing any code that involves opening a file, _always_ assume the worst: that the referenced file, if it exists, will be destroyed/overwritten. Make sure you do not loose valuable data in case this happens. Some things we will learn -- using a context manager, opening a file as 'read-only' where possible, using relative paths -- and in general clean code help decrease the chance of unintended changes to your files.
