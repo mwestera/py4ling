@@ -1238,7 +1238,7 @@ MW  Define a simple word-tokenizer function that uses `split` on spaces and `str
 
 Subtitle    Reading and writing files
 
-MW  Without searching the web, try to gather and formulate your intuitions: What is a file? What is the difference between, and relation between, long-term storage (e.g., your hard-disk, or the cloud) and working memory (RAM)? What is a folder (or directory)? What is a path (such as, depending on your operating system, `C:\Documents\semantics_report.pdf` or `~\Downloads\Alice_in_wonderland.txt`)? What might be the difference between an _absolute_ and a _relative_ path?
+MW  Without searching the web, try to gather and formulate your intuitions: What is a file? What is the difference between, and relation between, long-term storage (e.g., your hard-disk, or the cloud) and working memory (RAM)? What is a folder (or directory)? What is a path (such as, depending on your operating system, `C:\Documents\semantics_report.pdf` or `~/Downloads/Alice_in_wonderland.txt`)? What might be the difference between an _absolute_ and a _relative_ path?
 
 Note    WARNING: Before executing any code that involves opening a file, _always_ assume the worst: that the referenced file, if it exists, will be destroyed/overwritten. Make sure you do not loose valuable data in case this happens. Some things we will learn -- using a context manager, opening a file as 'read-only' where possible, using relative paths -- and in general clean code help decrease the chance of unintended changes to your files.
 
@@ -1482,6 +1482,7 @@ MW  Download a text on the Gutenberg project that, incorporated in the story, co
 MW  Building on the foregoing, write a function that extracts all 'dialogues' from a text, where a dialogue is a series of sufficiently close, consecutive quotations. Use the `span` method of the retrieved `Match` objects to decide whether two quotations are close enough to belong to 'the same dialogue', or whether they are better understood as constituting separate dialogues.
 MW  Write your corpus of extracted dialogues to a file, using a sensible format (so that, say, a dialogue researcher could easily read in the data with Python again).
 MW  Please consider sharing your code for this mini-adventure in the 'code review' course forum!
+***Merge the next with two exercises ago.
 MW  With a big enough corpus of literature, do you think the resulting corpus could be used as a window on actual human dialogue? Why (not), or in which way(s)?
 
 
