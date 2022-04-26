@@ -35,7 +35,7 @@
 
 **16.13.** Suppose our purpose is to compare the **lexical diversity** of books (as on Gutenberg) vs. some other textual medium (e.g. tweets, or news media). Think of (or try to recall from an adventure) a way to compute the lexical diversity of the text, and implement this. Formulate a hypothesis about the comparative lexical diversity of different media (no need to actually test your hypothesis, though of course feel free to).
 
-**16.14.** A conceptual question about lexical diversity: do you think verbal inflection ought to be standardized before computing lexical diversity, e.g., treating _walk_, _walked_ and _walks_ as the same entry? If not, can you think of some other purpose (research or applied) for which verbal inflection should probably be standardized? Can you think (in outline) of an algorithm to achieve this? (In Section 17 we will encounter two common approaches: _stemming_ and _lemmatization_.)
+**16.14.** A conceptual question about lexical diversity: do you think verbal inflection ought to be standardized before computing lexical diversity, e.g., treating _walk_, _walked_ and _walks_ as the same entry? If not, can you think of some other purpose (research or applied) for which verbal inflection should probably be standardized? Can you think (in outline) of an algorithm to achieve this? (In Section 18 we will encounter two common approaches: _stemming_ and _lemmatization_.)
 
 **16.15.** Can you predict what happens if you construct a set not from the tokenized text (`tokens`), but from the original, un-tokenized text directly? Roughly how many elements do you expect the resulting set to have? Only test this after formulating an explicit prediction.
 
