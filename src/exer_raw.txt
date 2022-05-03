@@ -1332,7 +1332,7 @@ MW  Recall that `+` is a shortcut for addition-like methods provided by classes 
 MW  Part of cleaning up a vocabulary is to standardize capitalization. Simply lower-casing all tokens before constructing the vocabulary (or lower-casing the vocabulary entries afterwards) is not quite satisfactory, since some words _must_ be capitalized. Define a function to standardize capitalization in a smarter way, i.e, that respects the fact that some words should not be lower-cased. Define this as a function that operates on a tokenized text (i.e., prior to constructing the vocabulary with `set`); can you think of a reason why that is the better place to do it?
 MW  Write code to output the vocabulary you obtained from the Gutenberg text to a new file (in a suitable place and with a suitable file name), with one word per line. Does the resulting file contain empty lines? Why? What might be a good way to fix this?
 MW  Suppose our purpose is to compare the **lexical diversity** of books (as on Gutenberg) vs. some other textual medium (e.g. tweets, or news media). Think of (or try to recall from an adventure) a way to compute the lexical diversity of the text, and implement this. Formulate a hypothesis about the comparative lexical diversity of different media (no need to actually test your hypothesis, though of course feel free to).
-MW  A conceptual question about lexical diversity: do you think verbal inflection ought to be standardized before computing lexical diversity, e.g., treating _walk_, _walked_ and _walks_ as the same entry? If not, can you think of some other purpose (research or applied) for which verbal inflection should probably be standardized? Can you think (in outline) of an algorithm to achieve this? (In Section 17 we will encounter two common approaches: _stemming_ and _lemmatization_.)
+MW  A conceptual question about lexical diversity: do you think verbal inflection ought to be standardized before computing lexical diversity, e.g., treating _walk_, _walked_ and _walks_ as the same entry? If not, can you think of some other purpose (research or applied) for which verbal inflection should probably be standardized? Can you think (in outline) of an algorithm to achieve this? (In Section 18 we will encounter two common approaches: _stemming_ and _lemmatization_.)
 MW  Can you predict what happens if you construct a set not from the tokenized text (`tokens`), but from the original, un-tokenized text directly? Roughly how many elements do you expect the resulting set to have? Only test this after formulating an explicit prediction.
 
 Subtitle    Sorting and counting
@@ -1521,42 +1521,135 @@ MW  Could the regular expression `(h[aeio])\1+` be used to detect grammatically 
 MW  Can you predict what `(\b\w+\b)\s\1` will match? Test it on `example_string` (again, `finditer` is advised, given the way `findall` implicitly handles capture groups). To check your understanding of the 'greedy' nature of regular expression matching (see earlier), can you predict the number of matches it will have on the string `'test test test'`?
 MW  Let's take another look at a text of your choice (e.g., from the Gutenberg Project). What are the most frequently reduplicated words?
 
-MW  Compare the following two regular expressions, intended as simple sentence tokenizers, and verify your understanding of the difference by reading in the Python documentation how `re.split` is supposed to handle capture groups (e.g., `help(re.split)`). Can you conceive of a scenario (e.g., research or application) for which the second sentence tokenizer might be more convenient than the first? \n - `[.!?]+` \n - `([.!?]+)`
+MW  Compare the following two regular expressions, intended for a simple sentence tokenizer using `re.split`, and verify your understanding of the difference by reading in the Python documentation how `re.split` is supposed to handle capture groups (e.g., `help(re.split)`). Can you conceive of a scenario (e.g., research or application) for which the second sentence tokenizer might be more convenient than the first? \n - `[.!?]+` \n - `([.!?]+)`
+***Put these in text_utils:
 MW  Write a program that extracts _questions_ from a text, automatically categorizes them based on the question-word (e.g., who, what, where), if any, and feeds these categorizations into a `Counter`. (Make sure to view the actual data and, if needed, clean up your text or the extracted questions prior to categorization.) Which types of questions are the most frequent in a text of your choice? How might this depend on genre (within literature, but also compared to, e.g., dialogue, twitter, fake news vs. real news...)?
 
 
 Title   Advanced text processing
 
-***Compare this to SentTokenize of NTLK, Textblob, Spacy?  TextBlob NLTK word tokenizer PunktSentenceTokenizer uses regex, says so in the doc. The senttokenizer uses regex too, but less transparently.
+MW  The first step for text processing is typically tokenization. Use web search to compile your own list of possible Python approaches to **tokenization**. Summarize your findings. (What were your search queries?)
+MW  Chances are you found the **spaCy** library, which we will use in the exercises of this section. From the documentation, extract an overview of the main functionalities offered by spaCy.
+MW  Which languages does spaCy (claim to) support? Would it be fair to complain that the field of Natural Language Processing (or Artificial Intelligence more generally) does not currently benefit everyone equally (consider arguments for and against the validity of this complaint)?
+MW  What is meant by a 'pipeline' in natural language processing in general, and spaCy in particular? What is the role of a `Doc` object in spaCy?
 
-Note    There are many libraries for text processing. NLTK is a very general but not the most user-friendly or particularly up-to-date.
-MW  import textblob check its main documentation page.
-MW
+Note  A pivotal programmers' skill is translating your own problems into those which other people have likely had to solve before you. Concretely, this often means finding a relevant library and learning to use it, by browsing documentation, looking at the library's source code, and searching forums such as StackOverflow. This will also be necessary for the exercises in this section.
 
-***stopwords, nltk, textblob, spacy --> explain import
-	***Maybe search as a theme, then use pattern-based (re), fuzzy (diflib) and meaning-based (embeddings)?
-***Tokenizer (+ Set, Counter), senttokenizer
-***Recursion, dependency tree traversal; though maybe also sentence generation AGAIN.
-***Bit of machine learning?
+MW  Use spaCy to process a number of example strings (for a spaCy-supported language of choice), and find a way to inspect its sentence segmentation. Can you construct examples that _trick_ spaCy into a faulty sentence segmentation (recall from the previous section what kinds of examples can trick the simple approach of splitting on punctuation)?
+MW  Find a way to inspect spaCy's word tokenization for a given string. Can you construct example strings that trick spaCy into a faulty word tokenization?
+MW  The spaCy word tokenizer is likely better than our own attempt in `text_utils.py`, but how much better? Can you think of a way to assess the quality of a word tokenizer _quantitatively_, by computing some kind of numerical score? Would this score be genre-dependent? Write down a possible approach, step-by-step (no programming required).
+
+***Tokenization is not ideal for introducing precision and recall: MW  One way to assess the quality of a word tokenizer is at the word-level: how well do the 'tokens' it identifies correspond to actual tokens in the text (according to, say, a human expert)? We can do this in two directions, called _recall_ and _precision_: \n - **Recall:** What proportion of _actual_ tokens is identified as such by the tokenizer; \n - **Precision:** What proportion of _identified_ tokens corresponds to an actual token in the text?
+***MW  Another way to assess the quality of word tokenizer is at the character level: what proportion of word-separating character positions does it identify as such (recall), and what proportion of identified characters is indeed a word-separating character position (precision)?
+
+***This doesn't work:  MW  Can you think of a word tokenizer that would achieve 100\% recall (but dramatically low precision)? And 100\% precision (but dramatically low recall)?
+
+MW  How does the spaCy tokenizer work, anyway? Have a look here for the basics: https://spacy.io/usage/linguistic-features#tokenization. Explain in your own words how it identifies the token _N.Y._ in the example, _She said: "Let's go to N.Y.!"_. (For a more detailed understanding, click on "Algorithm details: How spaCy's tokenizer works" and scroll down to the 11-step summary.)
+MW  The spaCy **source code** is freely available. Have a look at https://github.com/explosion/spaCy/blob/master/spacy/lang/en/tokenizer_exceptions.py, and scroll through it. Try to understand, if not the exact functioning, at least the relevance of the various portions of code it contains, and appreciate the amount of detail that goes into a library like spaCy, even for something as (seemingly) elementary as tokenization (and for just one language). (Perhaps interesting to note: in some places spaCy relies on regular expressions, e.g., here: https://github.com/explosion/spaCy/blob/master/spacy/lang/en/punctuation.py).
+MW  Write code to access, say, the third token of a spaCy `Doc`.
+MW  Write code to access, say, the third _sentence_ of a spaCy `Doc`. Since `Doc.sents` returns a generator, you need to collect its elements in a `list` before you can access them by index.
+
+***Too hard: MW  Although spaCy is highly optimized, applying spaCy again and again to the same text is a waste of time and electricity. Find a way to save a spaCy-analyzed `Doc` to a file, and another function to read it from that file. (When consulting the spaCy documentation about this, note that there is a distinction between saving (or 'serializing') a spaCy _model_ vs. saving a `Doc` object.)
+***Too hard: MW  Implement a function that takes a path to a text to be analyzed, determines the path to use for saving the `doc` to a file, checks if a file exists with `os.path.exists` (import the `os` module for this). If it exists, load the spaCy-analyzed `doc` from this file; if it does not exist, read the text to be analyzed, apply spacy to it, and save the result to disk for next time. Either way, return the resulting `doc` object.
 
 
-***Also cool: https://github.com/jenojp/negspacy
+Subtitle  Named entities, parts of speech, dependencies
+
+MW  Write a function `print_tokens` that takes a spacy-processed document as input, and prints all its tokens, one per line, each accompanied by its _lemma_ (i.e., standardized, inflectionless form), _part of speech_, _dependency_ and _head_, and its _named entity_ label. For instance, for the sentence 'Bob thinks Mary likes him', it should print (among other tokens) `Bob <Bob> (PROPN, nsubj of thinks) [PERSON]` and `likes <like> (VERB, ccomp of thinks) []`. Use this function to inspect a number of simple sentences.
+MW  Write a function that takes a spaCy-processed document as input, and returns a `Counter` of all **parts of speech**. In a text of your choice, what are the most common parts of speech?
+MW  Write a function that takes a spaCy `Doc` object as input, and returns a Counter of all **named entity** types in the document. In a text of your choice, what are the most common named entity types? Do you expect this to differ between genres?
+
+MW  Read the spaCy documentation about **dependency parses** (https://spacy.io/usage/linguistic-features#dependency-parse). Dependency structure is a framework for syntax that tends to be a bit friendlier toward cross-linguistic generalization and computational applications than _constituency structure_ (the type of syntax you are likely familiar with). Describe in your own words how dependency structure relates to (and differs from) constituency structure.
+MW  As a warming-up with dependency parses, use your `print_tokens` function from earlier to inspect the dependency structure of various simple syntactic structures.
+MW  The root of the dependency tree for a given sentence (or other constituent, e.g., a noun phrase) is accessible with `.root`. Use it to print the root (typically the main verb) of an example sentence. Note that this requires that you access a _sentence_ in the `Doc`, using the `.sents` attribute. Why is there no `.root` attribute on a `Doc` object?
+MW  Because of the foregoing, you may find it convenient (for testing some code on a single sentence) to have a function `spacy_sent` that takes a single sentence (as a string), applies spaCy to it, and returns spaCy's analysis of that single sentence directly (instead of the `doc` containing it). Define such a function.
+
+Note    In general when programming, but especially when learning to use a new library, it is crucial to keep in mind **what type of object are you working with?** A string? A spacy `Doc`? A spacy `Span`, such as a sentence? A single token? And also: **what type of object do you _need_ to solve the task?** Different objects offer different methods. Don't hold back on inserting `print(type(...))` statements frequently (during development and debugging) to check what you are dealing with.
+
+MW  Write a function `get_verb_frame` that takes a single spaCy-processed sentence as input and returns a tuple of the main verb with its direct `nsubj` and `dobj` descendants, if present (this is a simplification of all possible verb frames, of course). Note that for sentences with multiple verbs, e.g., _John noticed that Mary was sad._, only the arguments of the main verb should be returned.
+MW  Consider the function below, and note that it calls _itself_; it is a **recursive definition**. For a simple example sentence, if you apply the function to the sentence's main verb, can you predict the order in which the sentence's tokens get printed? Test your prediction and verify your understanding. How come this function calling itself does not result in an infinite loop?\n```
+def print_dependency_tree(node):
+    print(f'{node.dep_}: {node.text}')
+    for child in node.children:
+        print_dependency_tree(child)
+```
+MW  For increased readability, modify the above function in such a way that each child node is indented (i.e., prefixed with whitespace) one level further than its parent.
+
+MW  What are _noun chunks_ in spaCy? Iterate over the `noun_chunks` of a (sufficiently diverse) document to understand. Are pronouns noun chunks? Proper names? Compounds like 'Sherlock Holmes'? Quantifiers? How many chunks are there in 'John's brother's sister's mother'? Can you iterate over the tokens of a single noun chunk?
+MW  Noun chunks, even single-word chunks, lack any part of speech or dependency information (e.g., `chunk.pos_` or `chunk.dep_` don't work). Do you see why? But how, then, can we check whether, e.g., a noun chunk is a grammatical subject? (Hint: Noun chunks, or any span of tokens for that matter, do have a `.root` attribute...)
+MW  For some spaCy-supported language, find out _by considering only pronouns_ whether women occur more or less frequently than men in a text of your choice.
+MW  In the same text, again by considering only pronouns, do women occur more often (than one would expect based on overall frequency) as objects than as subjects, compared to men?
+MW  (No programming required.) What would be needed to extend the preceding gender analysis to take also proper names into account? And what about common nouns, in phrases such as 'a fireman' and 'the queen'?
+
+Note  If you want to spend another hour or two on spaCy, consider learning about **rule-based matching** (https://spacy.io/usage/rule-based-matching). The documentation mentions it is 'similar to regular expressions'; can you see how? Matching is not necessary for the exercises in this section (just like plain loops and ifs can in principle achieve what regular expressions do), but in the long run it can make a computational linguist's life easier.
+
+***Needs some work:
+***MW  With the help of the documentation about 'matching' (https://spacy.io/usage/rule-based-matching), find all noun phrases consisting of a determiner, adjective and common noun.
+***MW  Similarly, find all cases where a verb directly precedes its subject.
+***MW  The aforementioned documentation mentions that matching works 'similar to regular expressions'. What does this similarity consist in? What are differences? Could you generally also use plain regular expressions to do what spaCy's matching achieves?
+
+***Too difficult: MW  In the previous section you coded a way to extract reported speech (in quotation marks) from a text. Define a function that, given a spaCy-processed text, returns not just what is said but also who did the saying, i.e., tuples of quotation plus a noun phrase that references the speaker (if any).
+***Requires the previous: MW  In a relevant text of your choice (containing reported speech with quotation marks), are there more male or female speakers? Do male or female speakers say more (i.e., more words) in a given utterance?
+
+MW  For a text of a (spaCy-supported) language of your choice, write a program to determine which aspectual structure is more common: progressive ('be <verb>+ing' in English) or perfect ('have <verb>+ed').
+MW  If you haven't already, check the spaCy documentation about **morphology** (https://spacy.io/usage/linguistic-features#morphology) and enrich your `print_tokens` function from earlier, to print also the `morph` feature of each token. Use it to inspect some progressive and perfect example sentences. Can you use `morph` to improve your solution to the previous exercise?
+***Too hard, and meaningless: MW  A slight elaboration on the previous exercise: Do certain verbs occur disproportionally in one structure rather than the other?
+
+MW  Write a function `get_path_to_root` that takes a spaCy-processed sentence (not a full `doc`, which does not have a _root_) and a token from that sentence, and returns the dependency path from that token back to the sentence's root. It should return the path as a list of tokens, the first being the start token and the last being the root. This function will likely be useful for the mini-adventure below.
+
+MW  Write a function that takes a spaCy-processed `Doc` as input and returns all _embedded clauses_ (e.g., the italicized parts of 'John knows _that Mary is old_', 'John wonders _if Mary likes him_'). As before, first apply `print_tokens` to a couple of relevant examples, to know what you need to be looking for. (Another tip: for a given token `tok`, use `list(tok.subtree)` to obtain the subtree headed by that token.) Do the results of your function include reported speech (e.g. '_I'm not happy_ he said')? Infinitival complements (e.g., 'I love _to go running with my boyfriend_')?
+
+***Too hard: P4L Write a program that converts active sentences to passive sentences, in a language of choice. For English this means changing the verbal morphology and adjusting word order as required. Quantitatively assess the accuracy of your program.
+
+***Too hard; probably requires wordnet. MW  From a text of your choice, extract a list of verbs that never have a person as subject, and verbs that (almost) always have a person as subject. Note that 'named entity' annotations are typically available for _noun chunks_, not for individual tokens.
+
+Note    This section gives you only a very brief look into spaCy, to get you started. In case you want to learn more, besides the documentation, be sure to check also the free, online spaCy course: https://course.spacy.io/ .
+
+Subtitle    Mini-adventure: Question classification
+
+Text  The goal of this mini-adventure is to create a computational window on the types of questions people ask. Questions are a window into our soul, but are also often weaponized for rhetorical gain. Although we will only be implementing the basic framework and applying it to a simple text, it could be very interesting, in future work, to compare the use of questions across genres, e.g., in genuine vs. disinformation tweets, in left-wing vs. right-wing media, in sarcastic vs. serious comments, or in political debates vs. the news.
+
+***will be in text_utils next year.
+
+***Nah. You can use your regular-expressions-based approach from the previous section, or use spaCy's sentence segmentation; note that regular expressions are _much_ simpler, hence much faster (noticably so on a large text).
+***will be in text_utils next year.
+MW  In Section 17 you used regular expressions to extract _questions_ from a string (namely: sentences ending in a question mark), and you categorized these questions by their **wh-word** (if any). Your solution likely had some shortcomings (no offense), so let's try to use spaCy to improve it. Start with an auxiliary function `extract_wh_word` that takes a spaCy analysis for a given question, and loops through its tokens to find the question's wh-word (if any). Some complexities:\n - The wh-word is not necessarily the first token in a sentence (e.g., 'And what product did you buy?', 'And you bought what?', 'You went where?'). \n - Conversely, not every wh-word makes for a wh-question (e.g., 'What John did was bad?', 'Did you like what you bought?', 'Did you see who called?'); these do _not_ count as wh-words (for our purposes). \n - For an extra challenge, try to handle multiple-wh questions ('Who bought what?'), representing their category by a _tuple_ of wh-words.\n\n As a starting point, compile a list of challenging questions (e.g., the examples above) and use spaCy and `print_tokens` to inspect their linguistic features, to hopefully come up with plausible rules for detecting genuine wh-words (i.e., ones that make it a wh-question, see above). (Hint 1: Your earlier function `get_path_to_root` may be useful here. Hint 2: spaCy itself can make mistakes, just accept this as a source of error and don't spend too much effort on trying to correct or bypass spaCy.)
+MW  Write another auxiliary function, this time for categorizing **non-wh-questions** in a meaningful way. In particular: \n - Distinguish _interrogative_ non-wh-questions (e.g., 'Did you run?') from so-called _rising declaratives_ (declarative syntax but used as a question, typically indicated by rising intonation, e.g., 'You arrived yesterday?'). \n - Depending on your source text, you may also encounter many _elliptical questions_, where, e.g., the auxiliary is omitted ('You arrive yesterday?', the tenselessness indicating missing auxiliary 'Did...') or even the main verb (e.g., 'That guy?', meaning 'Is that guy the famous artist you mentioned?'). Assign such verb-elliptical, non-wh-questions to a separate category.
+MW  Combine both auxiliary functions into one that takes a question (as a string) and returns its category (or categories), represented as a (tuple of) short string(s) (e.g., the question's wh-word(s) `.lemma_`, or a label like 'DECL' for rising declaratives, etc.).
+MW  Apply your categorization function to questions extracted from a text (in a spaCy-supported language of choice), and manually go through the assigned categories. Refine your system where needed (and possible), and in the end inspect a random sample to assess the **accuracy** of your system: What proportion of questions is correctly categorized? Which of your categories is the most heterogeneous, hence, could benefit from a further subdivision?
+
+Note   Whenever you automate part of your linguistic analysis, you must assess its quality. This is typically done by comparing the system's outputs to an expert-annotated **gold standard**. _Accuracy_, or the proportion of responses that are correct, is one metric for quantifying quality. Other common metrics, that we will see in a later section, are _precision_ and _recall_.
+
+MW  _(Optional)_ Count the categories assigned to the questions you extracted from a text, and create a _barplot_ of the counts, one bar for each question category. A suitable web query could be 'Python barplot from Counter'.
+MW  _(Optional)_ Different wh-words can be used to ask the same type of question, e.g., 'How come', 'Why' and 'For what reason' can all ask for a purpose, and would ideally be given the same category. Conversely, the same wh-word can be used to ask very different types of question, e.g., 'How' in 'How come' vs. 'How many', which should arguably be assigned to distinct categories. Improving your categorization to take this into account would be a substantial but interesting exercise.
+MW  _(Optional)_ No further programming, but a brainstorm exercise: How might we collect and categorize so-called 'indirect questions' too, such as _I wonder who failed syntax_, which can be used to 'indirectly' pose the question _Who failed syntax?_. Do you think this could be reliably done? What are some difficulties you anticipate? (You could use your results from exercise 18.26 as data for exploring this issue.)
+
+***Annotation-evaluation cycle. There is typically not a single evaluation metric that is the 'best'; rather, different metrics can reveal different strengths and weaknesses, and how to balance these depends on the task at hand. Note Scipy/Sklearn.
+
+***Construct a set of examples to explore (i) whether a plain regular expression could suffice, (ii) if not, whether POS help and are perhaps even sufficient; (iii) whether dependency structures are needed to reliably draw the distinctions.
+
+***MW  Propose a meaningful sub-classification of non-wh questions, for instance based on the auxiliary verb, based on a categorization of the main verb, or based on the 'named entities' in the question. For instance, 'Are you going to Amsterdam?' is about a place, whereas 'Do you know Beth?' is about an individual, although both are also about the person addressed by _you_. ***Maybe generalize this to 'topics' somehow? Identifying the underlying question?
+
+
+***MW  Evaluate the performance of your classification algorithm on text from a different genre, e.g., tweets.
+
+
+***Update, not sentence segmentation. MW  Write random sample of 100 pairs-of-sentences to a text file. (Make sure the text file cannot be easily overwritten, or you loose all your data!) Then look at the text file and manually indicate, for each pair, whether the tokenization is correct. Is this recall or precision?
+
+
+***Recursion, dependency tree traversal
+***MW  Tree traversal algorithms are ways of visiting all nodes in a tree. Depth-first search and breadth-first search.
+***MW  Write three functions: preorder, postorder, inorder
+
 
 ***Note	pipeline of reading, modifying and printing; preprocessing, data structures
 
 ***iteration vs lists for big text input etc., fits here! also generator expressions and yield:  https://stackoverflow.com/questions/231767/what-does-the-yield-keyword-do   including this fun example: def f123():      yield 1;    yield 2;   yield 3;    for item in f123():     print item
 
-P4L Write a program that converts active sentences in English to passive sentences. This means changing the verbal morphology and adjusting word order as required.
 
-***OMG yes this: https://spacy.io/usage/rule-based-matching
-
-
+*** Token vectors? Sentence vectors? Word order. https://spacy.io/usage/linguistic-features#vectors-similarity
 ***gensim here?**
 
-Subtitle    Optional appendix: character encodings
-
-***file encodings? also related: str.casefold
-***https://www.w3resource.com/python-exercises/file/index.php
 
 
 
@@ -1722,6 +1815,8 @@ my_list: List[List[int]] = []
 mydict: Dict[str, bool]: {}
 ```
 
+***Testing?**
+
 
 
 Title   Tabular data (`csv`, `pandas`, machine learning)
@@ -1773,6 +1868,11 @@ Title    Data from the web
 
 Title	Project management (`import`, `main`, `__name__`, testing, git)
 
+Subtitle    Setting up a project in PyCharm and on github
+***Add explanation about PyCharm setup.
+
+
+Subtitle    A bit more about `import`, `__main__` and `__name__`
 MW	We have already seen some uses of the `import` keyword (e.g., `import random` to be able to use `random.randrange(1, 100)`). To understand how `import` works, create two files, `file_a.py` and `file_b.py`. In one, write `print('Hello from file_a.py!')`, in the other, `print('Hello from file_b.py!')`. To test, run `file_a.py`, and then run `file_b.py` separately.
 MW	Now, at the top of `file_a.py`, add `import file_b`. Run `file_a.py` again and see what happens. Try to understand where the different printouts come from.
 MW	In `file_b.py` define the function `print_spam` that prints the string _Here's some spam from file_b.py!_), but do not call this function in `file_b.py` itself. Instead, call it in `file_a.py`: since it imports `file_b.py`, you can call the function on the `file_b` module: `file_b.print_spam()`. Try this. Do any variables defined in `file_b.py` also become available via `import` into `file_a.py`, or only functions?
