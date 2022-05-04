@@ -10,12 +10,21 @@ import gensim.downloader as api
 import random
 
 """
+Here's the plan:
 1. load a big-ish text corpus
 2. represent each word by some sort of mathematical object representative of the contexts in which it occurs
     compute a cooccurrence matrix ~ high-dimensional space
 3. given these representations, how similar are two words?
     computing the distance between the words vector representations gi en the cooccurrence matrix
-    'woman' 'man'    not so similar to 'car'
+    'woman' 'man'    not so similar to 'car
+4. Now that we have an idea of the underlying mechanics, implement the same but via popular library gensim.
+5. (Improvised) Implement the Semantle game.
+
+Some things left to improve/explore:
+- add dimensionality reduction to the manual implementation
+- make Semantle work also with our own manual implementation
+- use different/larger dataset to train word vectors to see the effect
+- add proper docstrings :$
 """
 
 N_TOKENS = 500
@@ -25,6 +34,7 @@ SAVE_PATH = 'cooccurrences.pkl'
 USE_GENSIM = True
 CUSTOM_WORD2VEC = False # only if USE_GENSIM; if False, uses Google's model.
 PLAY_SEMANTLE_AFTERWARDS = True # only if USE_GENSIM
+SEMANTLE_OPEN = False   # Set to True for Semantle to reveal the target word beforehand.
 
 def main():
     if USE_GENSIM:
@@ -43,7 +53,7 @@ def manual_variant():
     else:
         matrix = pd.read_csv(SAVE_PATH, index_col=0)
 
-    # wv = dimensionality_reduction(matrix)     # Not done yet
+    # wv = dimensionality_reduction(matrix)     # Not done yet; see class notes
     wv = matrix
 
     for word in ['young', 'man', 'woman', 'person', 'car', 'love', 'hand']:
@@ -59,8 +69,11 @@ def gensim_variant():
     for word in ['young', 'man', 'woman', 'person', 'car', 'love', 'hand']:
         print(word, wv.most_similar(word))
 
+    # Example of analogical reasoning, which Word2Vec is famous for (e.g., king is to man as queen is to woman):
     print(wv.most_similar('king'))
     print(wv.most_similar(positive=['king', 'woman'], negative=['man']))    # king - man + woman
+
+    # Just to try if this makes a difference:
     print(wv.most_similar(positive=['king', 'woman', 'woman', 'woman'], negative=['man']))    # king - man + woman
 
     if PLAY_SEMANTLE_AFTERWARDS:
@@ -87,7 +100,8 @@ def semantle(wv):
         secret_word = random.choice(wv.index_to_key)
         if secret_word == secret_word.lower():
             break
-    print(secret_word)
+    if SEMANTLE_OPEN:
+        print(secret_word)
     n_attempts = 0
     while True:
         guess = input('Guess!').lower()
