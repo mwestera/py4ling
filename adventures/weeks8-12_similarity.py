@@ -4,6 +4,8 @@ from operator import itemgetter
 import pandas as pd
 import math
 import os
+import gensim
+import gensim.downloader as api
 
 """
 1. load a big-ish text corpus
@@ -32,6 +34,22 @@ def main():
     for word in ['young', 'man', 'woman', 'person', 'car', 'love', 'hand']:
         print(word, most_similar(word, matrix))
 
+## Added for class 10:
+# def main_gensim():
+#     if REDO or not os.path.exists(SAVE_PATH):
+#         model = gensim.models.Word2Vec(sentences=brown.sents())
+#         model.save(SAVE_PATH)
+#     else:
+#         model = gensim.models.Word2Vec.load(SAVE_PATH)
+#
+#     wv = model.wv
+#
+#     # wv = api.load('word2vec-google-news-300')  # 1.6 GB!
+#
+#     for word in ['young', 'man', 'woman', 'person', 'car', 'love', 'hand']:
+#         print(word, wv.most_similar(word))
+#
+#     # TODO: analogical reasoning
 
 def determine_words_we_will_use(tokens, nwords=None):
     """
