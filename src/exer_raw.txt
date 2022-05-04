@@ -1276,7 +1276,7 @@ MW  What might be (dis)advantages of using absolute vs. relative paths?
 MW  Re-run some of the above code with different paths (though keeping the earlier warning in mind, about losing data!), including an _absolute_ path to a place on your disk (e.g., depending on operating system, `C:\Documents\test456.txt` or `~/Documents/test456.txt`), and a _relative_ path to a sub-folder of the current working directory, e.g., `output/test789.txt` (first manually create such a folder if none exists yet).
 MW  In PyCharm, you can right-click (or ctrl-click) on a file in the Project tab on the left, choose 'Copy path/reference' and select 'Absolute path' or 'Path from repository root'. Try this (copy, and then paste the copied path somewhere else, e.g., into a string in your Python script). If your Python script is in the repository root (i.e., not in a sub-folder), then the latter corresponds also to the _relative_ path from your Python script.
 MW  How does writing to and reading from a file, relate to other input/output methods we have already learned about so far? Consider `input`, `print` and `import`. Compare them both in terms of their intended purpose and in terms of the details of their usage. For instance, do `write` and `print` behave differently with regard to newlines? Does `write`, like `print`, allow non-string arguments? Does it allow multiple arguments?
-MW  In the following code, choose appropriate modes in place of the `...`, such that -- assuming their respective files do not exist yet -- the two snippets have the same end result. What could be reasons for preferring one over the other?\n```
+MW  In the following code, choose appropriate modes in place of the `...`, such that their respective files (assuming they do not exist yet) end up having the exact same content. What could be reasons for preferring one over the other?\n```
 with open('testABC.txt', ...) as file:
     for i in range(10):
         file.write(f'{i}\n')
@@ -1452,7 +1452,7 @@ MW  Define a new regular expression that matches all definite articles (_the_) i
 
 Note   Defining a regular expression involves two steps: first the Python interpreter parses your string definition (turning a piece of your code into a string object), and then the regular expression parser of the `re` module interprets that string object as a regular expression definition. Using **raw strings** like `r'abc'` makes the first of these two steps as simple as possible (i.e., it tells Python to keep the backslashes in place), hence the definition of regular expressions more direct.
 
-MW  Predict the lengths (according to `len`) of the following strings and raw strings, keeping in mind that a special character like a newline counts as 1 character. (For additional insight also consider printing them.) \n - `'ta\ta\ta'` \n - `'ta\\ta\\ta'` \n - `r'ta\ta\ta'` \n - `r'ta\\ta\\ta'`
+MW  Predict the lengths (according to `len`) of the following strings and raw strings, keeping in mind that a special character like a tab (defined by `\t`) counts as 1 character. (For additional insight also consider printing them.) \n - `'ta\ta\ta'` \n - `'ta\\ta\\ta'` \n - `r'ta\ta\ta'` \n - `r'ta\\ta\\ta'`
 MW  The strings (raw or plain) you use for defining regular expressions are ordinary Python strings, with the usual string methods. Concatenate the expression for matching indefinites with the expression for matching definites, with the regular expression operator `|` in between. Before testing it, explain in ordinary English what kinds of substrings the resulting composite expression will match.
 
 MW  Looking back at previous examples, explain whether `findall` returns _all_ substrings that match a given regular expression, or only a specific subset. Do you understand why this (default) matching procedure for regular expressions is called **greedy**? (Consider, for instance, the regular expressions `a+` and `aaa`, and how many matches each yields on the string `aaaaaaa`.)
@@ -1621,7 +1621,7 @@ MW  Write another auxiliary function, this time for categorizing **non-wh-questi
 MW  Combine both auxiliary functions into one that takes a question (as a string) and returns its category (or categories), represented as a (tuple of) short string(s) (e.g., the question's wh-word(s) `.lemma_`, or a label like 'DECL' for rising declaratives, etc.).
 MW  Apply your categorization function to questions extracted from a text (in a spaCy-supported language of choice), and manually go through the assigned categories. Refine your system where needed (and possible), and in the end inspect a random sample to assess the **accuracy** of your system: What proportion of questions is correctly categorized? Which of your categories is the most heterogeneous, hence, could benefit from a further subdivision?
 
-Note   Whenever you automate part of your linguistic analysis, you must assess its quality. This is typically done by comparing the system's outputs to an expert-annotated **gold standard**. _Accuracy_, or the proportion of responses that are correct, is one metric for quantifying quality. Other common metrics, that we will see in a later section, are _precision_ and _recall_.
+Note   Whenever you automate part of your linguistic analysis, you must assess its quality. This is typically done by comparing the system's outputs to an expert-annotated **gold standard**. _Accuracy_, or the proportion of responses that are correct, is one metric for quantifying quality. Other common metrics are per-category _precision_ (% of responses of a category X that are correct) and _recall_ (% of actual category X items that are detected).
 
 MW  _(Optional)_ Count the categories assigned to the questions you extracted from a text, and create a _barplot_ of the counts, one bar for each question category. A suitable web query could be 'Python barplot from Counter'.
 MW  _(Optional)_ Different wh-words can be used to ask the same type of question, e.g., 'How come', 'Why' and 'For what reason' can all ask for a purpose, and would ideally be given the same category. Conversely, the same wh-word can be used to ask very different types of question, e.g., 'How' in 'How come' vs. 'How many', which should arguably be assigned to distinct categories. Improving your categorization to take this into account would be a substantial but interesting exercise.
@@ -1822,6 +1822,7 @@ mydict: Dict[str, bool]: {}
 ***Testing?**
 
 
+***Version management with git?**
 
 Title   Tabular data (`csv`, `pandas`, machine learning)
 

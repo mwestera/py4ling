@@ -107,7 +107,7 @@ _Questions are a window into our soul, but are also often weaponized for rhetori
 **18.35.** Apply your categorization function to questions extracted from a text (in a spaCy-supported language of choice), and manually go through the assigned categories. Refine your system where needed (and possible), and in the end inspect a random sample to assess the **accuracy** of your system: What proportion of questions is correctly categorized? Which of your categories is the most heterogeneous, hence, could benefit from a further subdivision?
 
 - - - - - -
-**Something to keep in mind:** Whenever you automate part of your linguistic analysis, you must assess its quality. This is typically done by comparing the system's outputs to an expert-annotated **gold standard**. _Accuracy_, or the proportion of responses that are correct, is one metric for quantifying quality. Other common metrics, that we will see in a later section, are _precision_ and _recall_.
+**Something to keep in mind:** Whenever you automate part of your linguistic analysis, you must assess its quality. This is typically done by comparing the system's outputs to an expert-annotated **gold standard**. _Accuracy_, or the proportion of responses that are correct, is one metric for quantifying quality. Other common metrics are per-category _precision_ (% of responses of a category X that are correct) and _recall_ (% of actual category X items that are detected).
 - - - - -
 
 **18.36.** _(Optional)_ Count the categories assigned to the questions you extracted from a text, and create a _barplot_ of the counts, one bar for each question category. A suitable web query could be 'Python barplot from Counter'.
