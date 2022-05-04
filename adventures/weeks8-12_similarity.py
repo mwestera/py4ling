@@ -29,9 +29,8 @@ def main():
     else:
         matrix = pd.read_csv(SAVE_PATH)
 
-    print(most_similar('young', matrix))
-    print(most_similar('man', matrix))
-    print(most_similar('woman', matrix))
+    for word in ['young', 'man', 'woman', 'person', 'car', 'love', 'hand']:
+        print(word, most_similar(word, matrix))
 
 
 def determine_words_we_will_use(tokens, nwords=None):
