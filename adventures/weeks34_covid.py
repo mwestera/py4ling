@@ -59,7 +59,7 @@ def extract_sentiment(text):
     """
     Returns the sentiment float [-1, 1] of our text (tweet) according to textblob.
     """
-    blobbed_text = textblob.TextBlob(text)
+    blobbed_text = textblob.TextBlob(text)  # Not ideal: Trained on movie reviews, likely very bad on tweets.
     return blobbed_text.sentiment.polarity
 
 
