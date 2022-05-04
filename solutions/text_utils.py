@@ -43,6 +43,9 @@ def read_from_gutenberg(path):
     with open(path, 'r') as infile:
         main_content = False
         for line in infile:
+            if line.startswith('*** START OF'):
+                main_content = True
+                continue
             if line.startswith('*** END OF'):
                 break
             if main_content:
@@ -52,8 +55,7 @@ def read_from_gutenberg(path):
                 key = key.strip()
                 value = value.strip()
                 meta_info[key] = value
-            if line.startswith('*** START OF'):
-                main_content = True
+
     text = ''.join(lines)
     text = text.replace('\n\n', '<NEWLINE>').replace('\n', ' ').replace('<NEWLINE>', '\n')
     return text, meta_info
