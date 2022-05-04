@@ -125,6 +125,8 @@ print_tokens(nlp('John sees Mary.'))
 print_tokens(nlp('John snores loudly.'))
 print_tokens(nlp('The donkey walks in the green field.'))
 
+# Make sure to have a go at drawing the dependency trees based on the printed info!
+
 # 18.17
 print('18.17')
 print(list(nlp('John snores loudly.').sents)[0].root)
@@ -169,9 +171,12 @@ for sent in nlp(test_sentences).sents:
 
 
 # 18.20 & 18.21
-def print_dependency_tree(node, indent=''):
-    print(indent, f'{node.dep_}: {node.text}')
-    for child in node.children:
+print('18.20 & 18.21')
+
+def print_dependency_tree(token, indent=''):
+    # the indent parameter was added for 18.21
+    print(indent, f'{token.dep_}: {token.text}')
+    for child in token.children:
         print_dependency_tree(child, indent + '  ')
 
 example_sentences = 'John saw Mary. John sleeps very noisily. Mary knows that John snores.'
@@ -182,7 +187,8 @@ for sent in doc.sents:
     print('\nSentence:', sent.text)
     print_dependency_tree(sent.root)
 
-# There is no infinite loop because the recursion stops for any leaf node (i.e., that has no children).
+# There is no infinite loop because the recursion automatically stops for any leaf node:
+# this is because for a node that has no 'children', the body of the for-loop will not be reached.
 
 # 18.22
 print('18.22')
@@ -323,7 +329,11 @@ for tok in gutenberg_doc:
 
 
 # 18.31
-print('18.31')
+# Up to you. The mini-adventure begins here. Consider putting this in its own file, separate from the other
+# exercises.
+
+# 18.32
+print('18.32')
 
 challenge_questions = [
     'And what product did you buy?',   # det of product, dobj of buy (= root)
@@ -368,8 +378,8 @@ def extract_wh_word(sentence):
 for question in challenge_questions:
     print(question, extract_wh_word(spacy_sent(question)))
 
-# 18.32
-print('18.32')
+# 18.33
+print('18.33')
 
 challenge_questions_nonwh = [
     'Did you run?',
@@ -383,8 +393,8 @@ def non_wh_question_type(sentence):
     ... # Up to you!
     return ()
 
-# 18.33
-print('18.33')
+# 18.34
+print('18.34')
 def categorize_question(question):
     sentence = spacy_sent(question)
     wh_words = extract_wh_word(sentence)
@@ -396,8 +406,8 @@ def categorize_question(question):
 for question in challenge_questions:
     print(question, categorize_question(question))
 
-# 18.34
-print('18.34')
+# 18.35
+print('18.35')
 
 # Code from 17.54
 text_slightly_cleaned = text.replace('\n', '.')
@@ -411,17 +421,18 @@ for question, category in random.sample(categorized_questions, k=10):
 
 # Inspecting the accuracy is left to you.
 
-# 18.35
+# 18.36
+print('18.36')
 counts = collections.Counter([category for _, category in categorized_questions])
 print(counts)
 # Plotting is left to you! It's a good exercise to search and adapt solutions from the web.
 
-# 18.36
+# 18.37
 # Up to you! This might require changing extract_wh_word to extract entire phrases (such as
 # 'how come' or 'for what reason', not just single words). So a first step would be to check how
 # spaCy analyzes such constructions, to see if you can distill a suitable rule.
 
-# 18.37
+# 18.38
 # There are probably some key constructions we could detect that are _almost always_ used
 # to ask indirect questions (e.g., I'm wondering whether...) but for _most_ potential indirect
 # questions, probably only context and pragmatics can tell us as to whether it was really used to
