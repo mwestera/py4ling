@@ -67,7 +67,7 @@ def print_dependency_tree(token):
 
 **18.23.** Noun chunks, even single-word chunks, lack any part of speech or dependency information (e.g., `chunk.pos_` or `chunk.dep_` don't work). Do you understand why? But noun chunks (or any span of tokens for that matter) do have a `.root` attribute. Can you use this to check whether, e.g., a noun chunk is a grammatical subject?
 
-**18.24.** For some spaCy-supported language, find out _by considering only pronouns_ whether women occur more or less frequently than men in a text of your choice.
+**18.24.** For some spaCy-supported language, find out _by considering only pronouns_ whether women are referenced more or less frequently than men in a text of your choice. (For which types of text might this be a societally relevant inquiry?)
 
 **18.25.** In the same text, again by considering only pronouns, do women occur more often (than one would expect based on overall frequency) as objects than as subjects, compared to men?
 
