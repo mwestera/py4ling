@@ -111,7 +111,7 @@ def semantle(wv):
             break
         try:
             similarity = wv.similarity(secret_word, guess)
-        except:
+        except KeyError:
             print('Word not found.')
             continue
         print('   ', similarity)
