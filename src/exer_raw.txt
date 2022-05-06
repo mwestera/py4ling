@@ -559,6 +559,7 @@ MW  Use `range` to iterate over indices of the list `words`, in a way that lets 
 
 Subtitle    Further practice with lists and loops
 
+***Maybe redo the following, some remark about efficiency?
 MW	The code below implements a simple tokenizer, that takes a text and returns a list of words. (Later we will learn more convenient methods for this, but the code below illustrates a useful pattern.) Try to understand how the function works and apply it to a number of sentences. Can you improve the tokenizer to ensure that punctuation marks are treated as separate tokens? For example, `tokenize('Hello, world!')` should return `['Hello', ',', 'world', '!']`. Subsequently, can you think of some other shortcomings and possible fixes?\n```
 def tokenize(sentence):
     tokens = ['']
@@ -597,7 +598,9 @@ for city in cities:
 MW  Use nested loops and if-statements to print all pairs of cities where the first city name starts with a vowel and the second with a consonant. Looking at the city names, can you predict how many lines will be printed?
 MW  Write a function `chain` that takes a list of lists, and chains all lists into a single list. For example, chaining `[[1, 2], [3, 4, 5], [6, 7]]` will result in `[1, 2, 3, 4, 5, 6, 7]`.
 
-MW  Remember your random sentence generator from before? Use the same lists of words as before (determiners, nouns, intransitive verbs, transitive verbs), but now, instead of returning one random sentence, write a function that *prints* _all possible sentences_, one after the other. This will require many nested loops.
+***Remark about itertools.chain, verify that it does the same, with some early lesson about finding adequate built-ins and PEP20?
+
+MW  Remember your random sentence generator from before? Use the same lists of words as before (determiners, nouns, intransitive verbs, transitive verbs), but now, instead of returning one random sentence, write a function that *prints* _all possible sentences_, one after the other. This will require deeply nested loops.
 MW  If your sentence generator had actually implemented a full human grammar, would the previous function ever terminate? (Should it?)
 TP3	The four compass points can be abbreviated by single-letter strings as `'N'`, `'E'`, `'S'`, and `'W'`. Write a function `turn_clockwise` that takes one of these four compass point strings as an argument, and returns the next compass point in the clockwise direction.
 MW	Explain the difference between `type(turn_clockwise)` and `type(turn_clockwise('N'))`.
@@ -1659,7 +1662,7 @@ MW  _(Optional)_ No further programming, but a brainstorm exercise: How might we
 
 Title   More useful built-ins (`zip`, `enumerate`, `any`, `all`, `sum`)
 
-***Move this section prior to Class 9, i.e., after section 14 (together with the last portion of 14, about range). Consider splitting off the any/all/sum/len part to an earlier boolean logic section (also about generators?).
+***Move this section prior to Class 9, i.e., after section 14 (together with the last portion of 14, about range). Consider splitting off the any/all/sum/len part to an earlier boolean logic section (also about generators?), right after list comprehension (section 8, loops)? Though it makes some exercises (odd/even) in section 14 too easy...
 
 Subtitle    Counting and combining (`zip`, `enumerate`), or: avoiding unnecessary indexing
 
@@ -1745,18 +1748,18 @@ MW  With the help of the built-ins and techniques from this section, reimplement
 
 Title   Writing safer code
 
-MW	The PyCharm editor is smart enough to warn you of violations of 'Python style', adherence to which will enhance the readability of your code (in addition to docstrings and self-documenting code). The style guides are kept in the eighth _Python Enhancement Proposal_, PEP8 (https://www.python.org/dev/peps/pep-0008/). Have a look at it, and go through some of your previous code to make it PEP8-compliant if needed.
+***Reframe this whole section as being about documentation; treat type hints as a type of documentation (which, after all, it is). PyCharm and testing (along with imports?) in a different section.
+
+MW	A Python 'style guide' is kept in the eighth _Python Enhancement Proposal_, PEP8 (https://www.python.org/dev/peps/pep-0008/). Have a look at it! List some relevant guidelines that you were already familiar with, and some that you were unaware of.
+MW  Does the PyCharm editor warn you of violations of Python style? Construct some code examples to test/demonstrate this.
 
 *** Note	Initially created and long-term maintained by Guido van Rossum, Python is a very open, community-driven programming language. It has come to be the way it is with the help of **Python Enhancement Proposals** or PEPs (https://www.python.org/dev/peps/). **PEP8** is Python's style guide (https://www.python.org/dev/peps/pep-0008/).
 
+Note  Adherence to the Python styleguide **PEP8** is not a goal in and of itself (...unless you write Python as an art form), but serves primarily to increase the **safety** of your code: it increases the verifiability and likelihood that your code is actually computing what you think it does.
+
+MW  Reflect on the importance of writing 'safe' code in the above sense, for developing applications as well as code used for research, and considering both individual projects and collaborative work. Is code safety less important for academic research than for production-ready code in a tech company? For group projects compared to individual projects?
 MW	Virtually every aspect of the Python language has been purposefully designed, even though we may not always understand the purpose. Should you find yourself frustrated with Python, just enter `import this` in the interpreter and feel your calm returning. The result is an 'easter egg' based on PEP20, that captures some of Python's design principles in poetic form.
-
-
-Note  Unless you write Python purely as an art form, style is probably not a goal in and of itself. Style, as well as the considerations in the remainder of this section (e.g., about documenting your code, naming your variables, using appropriate built-in functions...), increase the **safety** of your code. Adherence to these guidelines serves primarily to increase the likelihood and verifiability that your code is indeed computing what you think it does.
-
-MW  Reflect on the importance of writing 'safe' code in the above sense, for developing applications as well as code used for research, and considering both individual projects and collaborative work. Is code safety less important for research than for production code? For group projects compared to individual projects?
-
-MW  From memory, make a list of the Python keywords and built-ins that you have learned about in this course so far. In line with PEP20 (the Zen of Python), there is usually one preferred way of doing something. Becoming better at writing more readable hence safer Python code, is in large part, a matter of learning those ways.
+MW  From memory, make a list of the Python keywords and built-ins that you have learned about in this course so far. In line with PEP20, there is usually one preferred way of doing something. Becoming better at writing more readable (hence safer) Python code is, in large part, a matter of learning those ways.
 
 
 Subtitle    Comments vs. self-documenting code
@@ -1897,12 +1900,10 @@ print([s for i, s in enumerate(python) if not p[i]])	# these failed the exam
 ***MW	Continuing from before, what do you expect is the result of `names_inv[names[3]]`? And what about `names[names_inv[names[3]]]`? And `names_inv[names[names_inv[names[3]]]]`? Test your expectations!
 ***MW	How robust is your previous program? What happens if the original list of names contained the same name twice, and you try to construct its inverse? Explain what goes wrong.
 
+Subtitle  Better function documentation with type hints
 
-Subtitle  Other vital ways to increase the safety of your code
 
-Text  A number of vital topics for safe coding did not quite fit in the scope of this course. These are **version management**, **testing**, and **type hints**.
-
-MW  ***not sure if include type hints:\n```
+MW  Yes include type hints:\n```
 x: int = 1
 x: str = 'Johnny'
 ```
@@ -1914,61 +1915,8 @@ my_list: List[List[int]] = []
 mydict: Dict[str, bool]: {}
 ```
 
-MW ***Testing?**
-MW ***Testing?**
-MW ***Testing?**
-
-MW ***Version management with git?**
-MW ***Version management with git?**
-MW ***Version management with git?**
-
-
-
-Title   Tabular data (`csv`, `pandas`, machine learning)
-
-***Installation of non-base libraries.**
-***https://www.w3schools.com/python/pandas/pandas_exercises.asp
-***https://www.w3resource.com/python-exercises/pandas/index.php
-
-
-***Bit of web scraping too?   https://www.w3resource.com/python-exercises/web-scraping/index.php
-
-
-
-***Use actual csv file.
-MW	Suppose we have a `.csv` file (comma-separated values) with student names, their grades for two assignments and an exam, and some feedback. It has lines like `John,5,3,7,Well done John!` and `Mary,6,3,8,You learned a lot this year.`. Write a function that takes a list of such lines (assuming we already have them available as strings) and turns them into a dictionary that maps each student name to an inner dictionary containing their grades. For instance, the (outer) dictionary would map `'John'` to the dictionary `{'assignment1': 5, 'assignment2': 3, 'exam': 4}`.
-MW	To the (inner) dictionaries for each student, add a key `'average'` with as value the average of that student's grades, where the assignments count for 25% each and the exam 50%.
-MW	How robust is your function? What if a student has a double name like `Anna Beth`? What if a student has a missing grade, like `Sue,1,,5,4,3,6`? Improve your function if necessary. Also provide it with a boolean argument `missing_as_zero`: if set to `True`, missing grades are treated as zeros before computing the average; if set to `False`, missing grades are ignored when computing the average (so the remaining grades make up the full 100%).
-
-
-***Old stuff from counting section:
-MW  Write a function that takes a dictionary (or Counter) of word counts and a path for the desired output file, and writes all words with their counts to the file. Each line should have a word and its count, separated by a comma. The typical extension for this type of file is `.csv` (do you know what it stands for?).
-MW  Extend your function with an additional boolean parameter `sort_by_count`, with default value False. When True, the words should be written to the file in order of decreasing count (i.e., most frequent first); when False (default), the words should be written instead in alphabetical order.
-MW  Now write the inverse type of function, that takes a path to such a `.csv` file with word counts, and reads it line by line to construct a Python dictionary from it. (In a later section we will be working more with .csv-type data, using the library `pandas`.)
-MW  Generalize the function for writing counts to a file by adding an additional parameter `ngram_range`, that has the tuple `(1, 1)` as a default value meaning it counts only 1-grams (individual words). Passing, e.g., the pair `(1, 3)` as an argument should instead result in a file containing all 1-gram, 2-gram and 3-gram frequencies; and `(3, 3)` should result in a file contain only tri-gram frequencies. (This is unlike Python's built-in `range`, which, recall, _excludes_ the upper bound, but it aligns with the way n-grams are handled in the popular machine learning library `sklearn` (SciKit-Learn).) The resulting `.csv` should still have only two columns; represent n-grams simply by space-separated words (e.g., the line `the lazy cat,123` should represent that the tri-gram _the lazy cat_ occurs 123 times. If necessary, generalize your inverse function from above, i.e., that reads the counts back from a `.csv` file, to handle n-gram counts correctly.
-
-
-
-Title  Logistic regression (also bag-of-words, tf-idf; `sklearn`)
-***Count vectorizer
-
-
-MW	Did you remember to add docstrings to all your function definitions? Is your code as self-documenting as possible?
-MW	Did you sufficiently chunk your code, adhering to the SLAP (Single Level of Abstraction Principle) and DRY (Don't Repeat Yourself) principles?
-MW	Now that you know how to read text files, you can improve your anti-profanity echo-machine from before -- that repeats your input unless it is a profanity, and quits after five profanities -- by using a more extensive list of profanities, e.g., googling "list of curse words .txt" will get you to the list used by google: `https://code.google.com/archive/p/badwordslist/downloads`. Place this file on your computer in your current project's main directory, and write a program to read this file, store all profanities in a list or set data structure (which one makes more sense?), and use this to increase the vocabulary of your echo machine.
-
-
-
-
-
-
-Title    Data from the web
-
-***crawling html
-***tweets?
-***graphs: social network structure?
-
-
+Subtitle  Doctests as a way of documentation, after all? Meh... It's easier than pytest etc...
+MW ***Not sure.
 
 
 Title	Project management (`import`, `main`, `__name__`, testing, git)
@@ -2059,6 +2007,68 @@ Subtitle    Version management
 
 Subtitle    Testing
 Note	Test, test, test! Untested code is useless. Tested code _might_ be useful.
+
+
+Title   Where next?
+
+MW  First of all, now would be the _perfect_ time to read the official **Python tutorial** (https://docs.python.org/3/tutorial/), which provides an excellent, detailed but readable overview of everything you have learned, and some things you haven't learned yet. Although it's called a 'tutorial', it is not very well-suited to people with no programming experience -- but it makes for the _perfect_ recap at the end of this course!
+
+MW  The book **Humanities Data Analysis: Case Studies with Python** (https://www.humanitiesdataanalysis.org/) is a perfect continuation of this course; virtually a 'Python for Linguists part II'. It is aimed at students and researchers in the humanities (primarily working with textual data) who are already familiar with the Python programming language. The case studies are _very_ interesting and diverse (cookbooks, naming and gender data, historical text stylometry, geographical data, readership trends), and introduce you to widely used libraries such as `pandas` for tabular data, `matplotlib` for plotting and `sklearn` for statistical analysis.
+
+MW  Any of the central libraries for data analysis, linguistics and natural language processing (`pandas`; `matplotlib` and `seaborn`; `sklearn`; `spacy`) have their own documentation, as well as tons of examples and tutorials provided by the community. The Python ecosystem is enormous. It will be worthwhile to read a summary of each of these libraries (such as '10 minutes to pandas', https://pandas.pydata.org/docs/user_guide/10min.html), just so you know where to look if you ever need something. However, try not to get stuck in 'tutorial hell', as you will never know all there is to know. Instead, move on to the next point as soon as possible.
+
+MW  The present course has taught you enough Python for you to **start your own small projects and learn more by doing**, searching the web as required. Depending on your interest, this could involve:\n - Finding _existing datasets_ in a domain you find interesting, and exploring the data with Python -- and of course not all linguistic data is text: there are Python libraries for dealing with audio and images as well. \n - Finding a study in _experimental linguistics_ that comes with published experimental results, and in Python try to reproduce their statistical analyses, or go beyond them by programming a theoretically informed 'human participant simulator' that can reproduce the raw data. \n - Taking an approach from _theoretical linguistics_ to try to implement some of its components computationally, or integrate it with an existing computational approach (e.g., the integration of distributional and formal semantics is a hot topic).
+
+MW  A huge and important topic in natural language processing, for both applications and research, is **deep learning** with artificial neural networks. Core libraries to familiarize yourself with are `transformers` (https://huggingface.co/docs/transformers/quicktour) and `pytorch` (https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html). While it is fairly easy nowadays to run existing examples for training and testing a neural network model (e.g., this example about audio classification: https://huggingface.co/docs/transformers/tasks/audio_classification), taking it into new directions will require, besides Python, a basic understanding of the underlying maths. Leiden University offers a bachelor course on this topic, using Python (https://studiegids.universiteitleiden.nl/courses/109780/natural-language-processing).
+
+
+Title   Tabular data (`csv`, `pandas`, machine learning)
+
+***Installation of non-base libraries.**
+***https://www.w3schools.com/python/pandas/pandas_exercises.asp
+***https://www.w3resource.com/python-exercises/pandas/index.php
+
+
+***Bit of web scraping too?   https://www.w3resource.com/python-exercises/web-scraping/index.php
+
+
+
+***Use actual csv file.
+MW	Suppose we have a `.csv` file (comma-separated values) with student names, their grades for two assignments and an exam, and some feedback. It has lines like `John,5,3,7,Well done John!` and `Mary,6,3,8,You learned a lot this year.`. Write a function that takes a list of such lines (assuming we already have them available as strings) and turns them into a dictionary that maps each student name to an inner dictionary containing their grades. For instance, the (outer) dictionary would map `'John'` to the dictionary `{'assignment1': 5, 'assignment2': 3, 'exam': 4}`.
+MW	To the (inner) dictionaries for each student, add a key `'average'` with as value the average of that student's grades, where the assignments count for 25% each and the exam 50%.
+MW	How robust is your function? What if a student has a double name like `Anna Beth`? What if a student has a missing grade, like `Sue,1,,5,4,3,6`? Improve your function if necessary. Also provide it with a boolean argument `missing_as_zero`: if set to `True`, missing grades are treated as zeros before computing the average; if set to `False`, missing grades are ignored when computing the average (so the remaining grades make up the full 100%).
+
+
+***Old stuff from counting section:
+MW  Write a function that takes a dictionary (or Counter) of word counts and a path for the desired output file, and writes all words with their counts to the file. Each line should have a word and its count, separated by a comma. The typical extension for this type of file is `.csv` (do you know what it stands for?).
+MW  Extend your function with an additional boolean parameter `sort_by_count`, with default value False. When True, the words should be written to the file in order of decreasing count (i.e., most frequent first); when False (default), the words should be written instead in alphabetical order.
+MW  Now write the inverse type of function, that takes a path to such a `.csv` file with word counts, and reads it line by line to construct a Python dictionary from it. (In a later section we will be working more with .csv-type data, using the library `pandas`.)
+MW  Generalize the function for writing counts to a file by adding an additional parameter `ngram_range`, that has the tuple `(1, 1)` as a default value meaning it counts only 1-grams (individual words). Passing, e.g., the pair `(1, 3)` as an argument should instead result in a file containing all 1-gram, 2-gram and 3-gram frequencies; and `(3, 3)` should result in a file contain only tri-gram frequencies. (This is unlike Python's built-in `range`, which, recall, _excludes_ the upper bound, but it aligns with the way n-grams are handled in the popular machine learning library `sklearn` (SciKit-Learn).) The resulting `.csv` should still have only two columns; represent n-grams simply by space-separated words (e.g., the line `the lazy cat,123` should represent that the tri-gram _the lazy cat_ occurs 123 times. If necessary, generalize your inverse function from above, i.e., that reads the counts back from a `.csv` file, to handle n-gram counts correctly.
+
+
+
+Title  Logistic regression (also bag-of-words, tf-idf; `sklearn`)
+***Count vectorizer
+
+
+MW	Did you remember to add docstrings to all your function definitions? Is your code as self-documenting as possible?
+MW	Did you sufficiently chunk your code, adhering to the SLAP (Single Level of Abstraction Principle) and DRY (Don't Repeat Yourself) principles?
+MW	Now that you know how to read text files, you can improve your anti-profanity echo-machine from before -- that repeats your input unless it is a profanity, and quits after five profanities -- by using a more extensive list of profanities, e.g., googling "list of curse words .txt" will get you to the list used by google: `https://code.google.com/archive/p/badwordslist/downloads`. Place this file on your computer in your current project's main directory, and write a program to read this file, store all profanities in a list or set data structure (which one makes more sense?), and use this to increase the vocabulary of your echo machine.
+
+
+
+
+
+
+Title    Data from the web
+
+***crawling html
+***tweets?
+***graphs: social network structure?
+
+
+
+
 
 
 
