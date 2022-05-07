@@ -1746,7 +1746,7 @@ MW  With the help of the built-ins and techniques from this section, reimplement
 
 
 
-Title   Writing safer code
+Title   Clearer code
 
 ***Reframe this whole section as being about documentation; treat type hints as a type of documentation (which, after all, it is). PyCharm and testing (along with imports?) in a different section.
 
@@ -1900,7 +1900,94 @@ print([s for i, s in enumerate(python) if not p[i]])	# these failed the exam
 ***MW	Continuing from before, what do you expect is the result of `names_inv[names[3]]`? And what about `names[names_inv[names[3]]]`? And `names_inv[names[names_inv[names[3]]]]`? Test your expectations!
 ***MW	How robust is your previous program? What happens if the original list of names contained the same name twice, and you try to construct its inverse? Explain what goes wrong.
 
-Subtitle  Better function documentation with type hints
+
+Subtitle  _[Optional]_ Better function documentation (`doctest`)
+
+MW  Making your code more self-documenting is good, but some parts still benefit from explicit documentation, in particular functions. Can you think of some reasons why including 'docstrings' in your function definitions is generally advised? Can't you make a function self-documenting by choosing an appropriate name?
+***The following should already have been practiced more by now, i.e., for the mini-adventures.
+MW  The following exercises will be easier and more transparent if you first organize your file (if you don't already follow this common practice) such that no functions are _called_ (only _defined_) except if the file is run as a standalone ('main') script (so not if it is imported elsewhere). That is, put any function calls inside a `def main(): ...` function, and at the bottom of your file add the following idiom, to call this function only if the file is run as the 'main' script:\n```
+if __name__ == '__main__':
+    main()
+```
+MW  Back to documentation: a code example says more than a thousand words, so including those in your documentation can be very useful. Figure out what the following function does (easy example to start with), and add code examples to its docstring that illustrate it. Each example should consist of a piece of Python code (calling the function it is meant to illustrate) with its result.\n```
+
+***Simpler example.
+
+```
+MW  There is a standard notation for examples in docstrings: prefix the Python code (typically a function call) with `>>>`, and write the result on the next line. See for instance the examples in the `re.split` documentation (https://docs.python.org/3/library/re.html#re.split). Format your docstring examples for `flatten` in accordance with this standard notation.
+MW  Previously, `ctrl/cmd+shift+F10` or `right-click -> run` (or something else, depending on your operating system) would run the current file as a stand-alone 'main' script. This changes when PyCharm notices any `>>>`-prefixed examples in your code: doing the same will then _test those examples_. Make sure this works: in place of the usual 'run' window you should see a 'Doctests' overview, which should say (among other things) that `flatten` passed your test examples. (Make sure this works before you continue.)
+MW  If instead you want to run your file as before, as a _main script_, the easiest way is to scroll down to the `if __name__ == '__main__': ...` portion, and there (inside that clause) do `right-click --> run`. (Either way, note that `ctrl+F10` simply re-executes whatever the previous run was.) Verify that you are able to tell PyCharm how to run your file, and know how to switch between the two ways: as a main script, or to test the docstring examples.
+MW  Copy the following function to your code. It claims to square a number, and as you will see it passes the `doctest`, but _perhaps_ it contains a bug after all (pretend the function is too complex to easily spot it). Add additional code examples to the docstring and verify that running `doctest` now lets you detect the bug.\n```
+def squared(n):
+    """
+    Takes a number and returns its square (i.e., power of 2).
+    >>> squared(2)
+    4
+    """
+    return n*2
+```
+MW  Likewise, copy the following code to your script, and run `doctest`. Does it fail any tests? Judging from the function's plain English description, are the examples wrong or is the function badly implemented?\n```
+def alpha_substrings(text):
+    """
+    Return the purely alphabetical substrings of a text.
+    >>> alpha_substrings('')
+    []
+    >>> alpha_substrings('abc 123 def ghi')
+    ['abc', 'def', 'ghi']
+    >>> alpha_substrings('abc123 def ghi')
+    ['abc', 'def', 'ghi']
+    >>> alpha_substrings('Hello, my name is Sue.')
+    ['Hello', 'my', 'name', 'is', 'Sue']
+    """
+    return re.findall('\b[a-z]+\b')
+```
+MW  Improve the function `alpha_substrings` -- the function itself and/or the examples -- so the examples pass the `doctest`.
+MW  ***UPDATE, maybe turn into a Note: The `doctest` library is designed to solve the problem of 'lying examples' illustrated above. Read enough of the documentation (https://docs.python.org/3/library/doctest.html) to be able to explain in your own words how it aims to do so.
+MW  What happens if you don't use the standard syntax for docstring examples, e.g., accidentally use only two `>>` or none at all; have an empty line in between the function call and the result, change the indentation... Does `doctest` still check them? (Revert these changes to make sure everything works again before continuing.)
+MW  Besides code examples in the documentation, what is some other Python-related place where you've encountered the `>>>` prefix? From your understanding of `doctest` (and, e.g., its documentation), is this commonality coincidental?
+MW  Figure out what the following function does, and add informative examples to its docstring. Verify that they pass the `doctest` evaluation.\n```
+def flatten(some_list):
+    """
+    Returns a flattened version of the list.
+    """
+    result = []
+    for element in some_list:
+        if isinstance(element, list):
+            result.extend(flatten(element))
+        else:
+            result.append(element)
+    return result
+```
+MW  Since PyCharm's testing support is built on an ordinary Python module (in this case `doctest`), you can also 'manually' invoke this module, within your code file. At the bottom of your file, in your `if __name__ == '__main__': ...` clause, add the following code (best prior to the `main()` call). Verify that the testing now takes place also every time you run the file as the main script.\n```
+import doctest
+doctest.testmod(verbose=True)
+```
+MW  In the foregoing code, what does the `verbose=True` argument do? Run the code without it to see the difference (and check the documentation, or `help(doctest.testmod)`, for an explanation). Then add this option back for the next exercise(s).
+MW  What do you expect will happen if your `doctest.testmod` call is not placed at the bottom of the file, but, say, at the top, or in between the existing function definitions? Test this.
+MW  For the remaining exercises, decide whether you will rely on an explicit call to `doctest.testmod` as above (i.e., tests executed each time you run the script as main script), or on PyCharm's convenient `doctest` support (in which case, remove the explicit call from your script). Reflect on the advantages/disadvantages of either approach.
+MW  The following function passes the test (verify this), but in fact it contains multiple bugs (assuming the plain English description correctly captures what the function is _supposed_ to do). Add relevant doctests that reveal these bugs (correct them if you like).\n```
+def dashify(s):
+    """Replace all spaces by dashes.
+    >>> dashify('abc def ghi')
+    'abc-def-ghi '
+    """
+    return '-'.join(s.split())
+```
+MW  Reflect on how doctests can give you a false sense of security, and formulate recommendations for the kinds of code examples that should be included.
+
+***Expand the following; maybe with comment about other, more powerful testing libraries like `pytest`?
+Note	Test, test, test! Untested code is useless. Tested code _might_ be useful.
+
+***Too abstract; no proper introduction to modules etc. yet. MW  Why do you think it is customary (as in the official documentation's main example) to run the doctest automatically when, and only when, the file is run as the main script?
+
+MW  Explain what purpose(s) the `doctest` library (and PyCharm's support for it) serves, and summarize roughly how it works.
+
+Subtitle  _[Optional]_ Even better function documentation: type hints
+
+
+Note  Python offers tools that check whether what a function is _claimed_ to do (in its documentation) corresponds to what the function actually does, thus increasing the safety of your code (neutralizing, to some extent, the risk that 'comments can lie' mentioned earlier in this section). Two tools covered here are **type hints**, and **doctests** (which is only one of several testing suites, some more powerful/flexible).
+
+MW  Explain in your own words what type hints are, what doctests are, and what purpose each serves.
 
 
 MW  Yes include type hints:\n```
@@ -1915,8 +2002,6 @@ my_list: List[List[int]] = []
 mydict: Dict[str, bool]: {}
 ```
 
-Subtitle  Doctests as a way of documentation, after all? Meh... It's easier than pytest etc...
-MW ***Not sure.
 
 
 Title	Project management (`import`, `main`, `__name__`, testing, git)
@@ -2005,8 +2090,6 @@ MW  In the previous block of exercises we learned how to read text files. What h
 Subtitle    Version management
 ***Version management (`git`)   easy in PyCharm.
 
-Subtitle    Testing
-Note	Test, test, test! Untested code is useless. Tested code _might_ be useful.
 
 
 Title   Where next?
@@ -2020,6 +2103,9 @@ MW  Any of the central libraries for data analysis, linguistics and natural lang
 MW  The present course has taught you enough Python for you to **start your own small projects and learn more by doing**, searching the web as required. Depending on your interest, this could involve:\n - Finding _existing datasets_ in a domain you find interesting, and exploring the data with Python -- and of course not all linguistic data is text: there are Python libraries for dealing with audio and images as well. \n - Finding a study in _experimental linguistics_ that comes with published experimental results, and in Python try to reproduce their statistical analyses, or go beyond them by programming a theoretically informed 'human participant simulator' that can reproduce the raw data. \n - Taking an approach from _theoretical linguistics_ to try to implement some of its components computationally, or integrate it with an existing computational approach (e.g., the integration of distributional and formal semantics is a hot topic).
 
 MW  A huge and important topic in natural language processing, for both applications and research, is **deep learning** with artificial neural networks. Core libraries to familiarize yourself with are `transformers` (https://huggingface.co/docs/transformers/quicktour) and `pytorch` (https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html). While it is fairly easy nowadays to run existing examples for training and testing a neural network model (e.g., this example about audio classification: https://huggingface.co/docs/transformers/tasks/audio_classification), taking it into new directions will require, besides Python, a basic understanding of the underlying maths. Leiden University offers a bachelor course on this topic, using Python (https://studiegids.universiteitleiden.nl/courses/109780/natural-language-processing).
+
+***Expand the following.
+MW  A more practical skill to aquire (not _just_ for code projects!) would certainly be version management with `git`.
 
 
 Title   Tabular data (`csv`, `pandas`, machine learning)
