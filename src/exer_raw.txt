@@ -1660,50 +1660,49 @@ MW  _(Optional)_ No further programming, but a brainstorm exercise: How might we
 *** Token vectors? Sentence vectors? Word order. https://spacy.io/usage/linguistic-features#vectors-similarity
 ***gensim here?**
 
-Title   More useful built-ins (`zip`, `enumerate`, `any`, `all`, `sum`)
+
+Title   Additional useful built-ins (`zip`, `enumerate`, `any`, `all`, `sum`)
 
 ***Move this section prior to Class 9, i.e., after section 14 (together with the last portion of 14, about range). Consider splitting off the any/all/sum/len part to an earlier boolean logic section (also about generators?), right after list comprehension (section 8, loops)? Though it makes some exercises (odd/even) in section 14 too easy...
 
-Subtitle    Counting and combining (`zip`, `enumerate`), or: avoiding unnecessary indexing
 
-***Update the narrative a bit, away from safety, now that it is its own section.
+Subtitle    Avoiding indices; combining lists with `zip`
 
 MW In general, Python programmers are a bit weary of using unnecessary indices to access list elements. Streamline the following code by getting rid of `range`, `len` and the index `i`:\n```
 names = ['John', 'Sue', 'Bob', 'Chris']
-for i in range(len(l)):
+for i in range(len(names)):
     print(names[i])
 ```
-MW  Would your improved version still work if we decided that `names` should be a set instead of a list? What about the original version? This points to another reason for avoiding indices where possible (besides streamlining the code): if what a piece of code should do is iteration, then that code should work for any object that is iterable, not only those that happen to support indexing. Explain how this may relate to (i) safety, (ii) readability and (iii) reusability of code.
-MW  Another reason to avoid indices is that they are a potential source of error (`IndexError: list index out of range`). Indexing has us worry about things like: Is the upper bound of a `range`-like object exclusive or inclusive (different libraries vary in this regard)? Should we loop until the length of the list, or the length minus 1? And if we loop over consecutive _pairs_ of elements (e.g., bigrams in a tokenized text), should we loop until length minus 1, or even minus 2? -- Even though you can probably answer these questions (let that be the exercise here), the problem is that it increases cognitive load while reading or writing code.
+MW  Besides the streamlined version of the above code being simpler, another reason for avoiding indices where possible is the following. If what a piece of code should do is iteration, then that code should work for any object that is iterable, not only those that happen to support indexing. Give a code example to illustrate the superiority of your streamlined version in this regard.
+MW  Can you think of another (possibly subjective) reason to avoid indices where possible?
 MW  Suppose we have two lists. Write a function to combine every element from one list, with each corresponding element from another, and print the resulting pairs one after the other. Without peeking at the next exercise (resist!), you will probably have to use an index and `range`.
 MW	Do you see the resemblance between your preceding function, and a zipper (of the type used in clothes)? That is why an analogous built-in function is called `zip`. Call `help` on this function and find a way to use it to solve the preceding exercise, instead of your custom-made function.
 MW	What is the difference between `for a in zip(...):` and `for a, b in zip(...):`?
-MW	What do you think will happen if `zip` is provided with two lists of unequal length? Test your expectation. What if you apply `zip` to three or more lists?
+MW	What do you think will happen if `zip` is provided with two lists of unequal length? Test your expectation.
+MW  What type of object does a `zip` call on its own (i.e., outside of a for-loop context) return?
 
-Note  Use `zip` to combine elements, each from a different iterable (e.g., list), into tuples. As with several functions we encountered earlier (e.g., a dictionary's `.keys`, `.values` and `.items`; spaCy's `.sents`), the `zip` function does not return its tuples in a list, but rather returns a special type of object that generates such tuples 'on the fly' as you iterate over it. (As usual, you can also collect these tuples into a list directly with `list(zip(...))`.)
+Note  Use `zip` to combine elements, each from a different iterable (e.g., list), into tuples. As with several functions we encountered earlier (e.g., a dictionary's `.keys`, `.values` and `.items`; spaCy's `.sents`), the `zip` function does not return its tuples in a list, but rather returns a type of object that will only generate such tuples 'on the fly' as you iterate over it.
 
-MW	What do you expect will happen if you wrap a `zip`-call inside a `dict(...)`? Test your expectation.
+MW  As usual with iterator-type objects, you can also directly collect the generated tuples into a list, with `list(zip(...))`. Try this. What do you expect will happen if you wrap a `zip`-call inside a `dict(...)`? Test your expectation.
+MW  Can `zip` also be applied to three or more lists? (Non-serious: can you think of an application for this type of zipper in a piece of clothing?)
 MW	Suppose we have a list of place names and a list of their respective inhabitant counts. Write code to create a dictionary from place names to inhabitant counts.
 MW  Predict what happens if `zip` is given the same list twice, e.g., `zip(names, names)`? What if it is given the same list twice, but once without the first element: `zip(names, names[1:])`?
 MW  Predict the outcomes of the following, given some string `s = 'abcdef'`, and then test your predictions:\n - `list(zip(s, s[:-1]))` \n - `list(zip(s[1:], s))` \n - `list(zip(s[:-1], s))` \n - `list(zip(s, s[::-1]))` \n - `list(zip(s, s[1:], s[2:]))`
 MW  With a single `zip`-command like the foregoing examples, and given the same string `s = 'abcdef'`, construct the following list: `[('a', 'b'), ('c', 'd'), ('e', 'f')]`.
-MW	Suppose we have two lists of strings, `names1` and `names2`. You can create pairs of names with `name_pairs = list(zip(names1, names2))`. Does the following code achieve the same? As usual, make a prediction before trying it out.\n```
-name_pairs = []
-for name1 in names1:
-    for name2 in names2:
-        name_pairs.append((name1, name2))
+MW	Suppose we have two equal-length lists, `l1` and `l2`. Does `result = list(zip(l1, l2))` achieve the same as the following code? As usual, make a prediction before trying it out.\n```
+result = []
+for e1 in l1:
+    for e2 in l2:
+        result.append((l1, l2))
 ```
-MW  Even if you do want indices, there is often a way to get them without the pesky `range(len(...))`. The built-in function `enumerate` iterates over elements while counting them, returning the count-element pairs. Assuming you still have a list `names` defined, try the following:\n```
+
+Subtitle    Counting elements with `enumerate`
+MW  While Python progammers are weary of indexing (remember the reasons why?), sometimes it's simply necessary. Fortunately, there is often a way to get indices without the pesky `range(len(...))`. The built-in function `enumerate` iterates over elements while counting them, returning the count-element pairs. Assuming you still have a list `names` defined, try the following:\n```
 for i, name in enumerate(names):
     print(i, name)
 ```
-MW	What happens if, in the above code, you forget the `i` and do `for name in enumerate(names): ...` instead? And what happens if, conversely, you do include the `i` but forget the `enumerate`, that is, `for i, name in names`?
-MW  The count-element pairs you get from `enumerate` may superficially resemble the key-value pairs you get from `dict.items()`, but there is an important difference, pertaining to whether the counts/keys are part of the original datastructure. Explain what this difference is, and how the following two examples each illustrate this:\n```
-# Illustration 1:
-for i, char in enumerate(['a', 'b', 'c', 'd', 'e'][::-1]):
-    print(i, char)
-
-# Illustration 2:
+MW	What happens if, in the above code, you forget the `i` and do `for name in enumerate(names): ...` instead (if relevant: adapt the `print` statement to avoid it causing a NameError)? And what happens if, conversely, you do include the `i` but forget the `enumerate`, that is, `for i, name in names: ...`?
+MW  The count-element pairs you get from `enumerate` may superficially resemble the key-value pairs you get from `dict.items()`, but there are differences too. Explain how the following illustrates one such difference:\n```
 for i, char in enumerate({'a', 'b', 'c', 'd', 'e'}):
     print(i, char)
 ```
@@ -1722,7 +1721,7 @@ for x, y in enumerate(my_dict.items()):
 
 MW  Do you expect any of the following yield an error? Why? Test your expectations. \n - `list(range(10))` \n - `list(10)` \n - `enumerate(10)` \n - `enumerate(range(10))` \n - `range(enumerate(10))` \n - `enumerate(list(range(10))`
 MW  Predict, and then test and make sure you understand, the outcomes of the following statements:\n - `list(enumerate('abcd'))` \n - `list(zip(range(4), 'abcd'))` \n - `list(enumerate(range(5)))` \n - `list(zip(range(5), range(10)))`  \n - `list(zip(range(10), range(5)))` \n - `list(enumerate(enumerate(enumerate(range(5)))))`  \n - `list(zip(range(5)))`
-MW  Implement two different approaches to collecting bi-grams from a list of tokens, the first using `zip` and no index variable, the second using `enumerate` and an index (or count) variable (but not `range(len(...))`. Now do the same for _tri_-grams. Which approach would be easier to generalize to _n_-grams for higher _n_?
+***Kinda tricky, bit artificial: MW  Implement two different approaches to collecting bi-grams from a list of tokens, the first using `zip` and no index variable, the second using `enumerate` and an index (or count) variable (but not `range(len(...))`. Now do the same for _tri_-grams. Which approach would be easier to generalize to _n_-grams for higher _n_?
 
 ***Too artificial. MW  When iterating over list indices, it is very standard to use variables `i` and `j`. But more informative variable names are often preferable if the body of the for-loop is substantial, especially when multiple index variables are around (e.g., in nested loops). Can you explain why? Improve the code below by changing index variable names, but also by avoiding the need for the first index (currently `i`) inside the inner loop altogether\n```list_of_lists = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] for i in range(len(list_of_lists)): for j in range(len(list_of_lists[i])):     ...  # do stuff     print(list_of_lists[i][j])     ...  # do more stuff ```
 
@@ -1732,18 +1731,16 @@ Subtitle    Quantifiers (`any`, `all`, `sum`; also `len` revisited)
 ***Move this section to a separate boolean section in future?
 
 MW  The built-in functions `all` and `any` take an iterable (such as a list) and return a boolean value, representing if all/any of the iterable's elements evaluate to `True`. What do you think the following expressions evaluate to? Test your predictions.\n - `all([True, True, True])` \n - `any([True, True, True])` \n - `all([True, False, True])` \n - `any([True, False, True])` \n - `all([False, False, False])` \n - `any([False, False, False])` \n - `any([])` \n - `all([])`
-MW  Assuming `booleans = [True, False, True]`, predict what the following equivalences evaluate to, then test your predictions:\n - `any(booleans) == not all(not b for b in booleans)` \n - `not any(booleans) == all(not b for b in booleans)`
+MW  Assuming `booleans = [True, False, True]`, predict what the following equivalences evaluate to, then test your predictions:  \n - `not any(booleans) == all(not b for b in booleans)` \n - `any(booleans) == (not all(not b for b in booleans))`
 MW  Assuming we have a list of strings assigned to `words`, what does `any(len(word) >= 3 for word in words)` check for? Write a similar one-liner that checks whether _all_ words are less than 10 characters long, and another that checks where _any_ words starts with a vowel.
 MW  Write three more one-liners, that check (respectively) whether none, some, and all of the words contain the letter 't'.
-MW  Another built-in function is `sum`, which does what you would expect: it takes an iterable and returns the sum of all elements. Use this to compute the sum of a list of numbers, in a single line. Does `sum` also work on a list of strings (after all, 'abc' + 'def' is fine, too)? Does it work on a list of booleans?
-MW  Since in a numerical context, boolean `True` evaluates to `1` (and `False` to `0`), you can use `sum` to effectively _count_ the number of `True` booleans in a list. Use this to write an expression that counts the number of words that have a length of at least 3.
-MW  An alternative way to count how many elements meet a certain condition is to use list comprehension with `if` to keep only the elements that meet the condition (we learned about this before), and then apply `len` to the result. Use this to provide an alternative solution to the previous exercise (i.e., to count the number of words that have a length of at least 3). Which solution do you find more readable?
+MW  Another built-in function is `sum`, which does what you would expect: it takes an iterable and returns the sum of all elements. Use this to compute the sum of a list of numbers, in a single line. Does `sum` also work on a list of strings (after all, `'abc' + 'def'` is fine, too)? Does it work on a list of booleans?
+MW  Explore and explain how one could use `sum` to, basically, _count_ the number of `True` booleans in a list. Use this to write an expression that counts the number of words that have a length of at least 3, and another expression that tests whether there are at least 3 words that end with a vowel.
+MW  An alternative way to count how many elements meet a certain condition uses `len`: first use list comprehension with `if` to keep only the elements that meet the condition (we learned about such 'filtering' before), and then apply `len` to the result. Use this to provide alternative solutions to the previous exercise. Which solution do you find more readable?
 MW  Describe, at an intuitive level, the two approaches we just explored for counting how many elements meet a certain condition (i.e., using `sum` vs. using `len`). How does each work?
-MW  A technical detail: Provide code examples that show that, whereas `sum`, `any` and `all` can take any iterable, including a 'generator' object that produces elements on the fly (as produced by comprehension syntax _without_ the brackets around it), `len` requires an object that has a length, such as a list or set (so when using comprehension syntax, the brackets are needed).
-MW  Assuming we have a list of strings assigned to `words`, try to describe in plain English what the following lines compute. First make a prediction, then test and verify your understanding. Are there expressions among them that are equivalent? \n - `any(w[0].lower() in 'aeiou' for w in words)` \n - `all(w[0].lower() in 'aeiou' for w in words)` \n - `not any(w[0].lower() in 'aeiou' for w in words)` \n - `all(w[0].lower() not in 'aeiou' for w in words)` \n - `sum(w[0].lower() in 'aeiou' for w in words) >= 2` \n - `len([w for w in words if w[0].lower() in 'aeiou']) >= 2` \n - `not any(w[0].lower() not in 'aeiou' for w in words)` \n\n Of course, the more involved the comprehension syntax and the boolean check, the less readable these one-liners become -- but in general, knowing these techniques can greatly improve the readability of your code.
-MW  With the help of the built-ins and techniques from this section, reimplement some functions from section 14 (there, recall, used to practice `break` and `continue`), in particular `has_any_odd`, `has_only_odd`, `has_three_odd` and `has_at_most_n_vowels`.
-
-
+MW  A technical detail: You may have found out 'the hard way', that whereas `sum`, `any` and `all` can take any iterable, including a 'generator' object that produces elements on the fly (as produced by comprehension syntax _without_ the brackets around it), `len` requires an object that has a length, such as a list or set (so the brackets are needed). Create an example to show this if you haven't already, and try to find this difference in the documentation.
+MW  Assuming we have a list of strings assigned to `words`, try to describe in plain English what the following lines compute. First make a prediction, then test and verify your understanding. (You can of course change `words` to include a variety of relevant strings!) Are there expressions among the following that are equivalent? \n - `any(w[0].lower() in 'aeiou' for w in words)` \n - `all(w[0].lower() in 'aeiou' for w in words)` \n - `not any(w[0].lower() in 'aeiou' for w in words)` \n - `all(w[0].lower() not in 'aeiou' for w in words)` \n - `sum(w[0].lower() in 'aeiou' for w in words) >= 2` \n - `len([w for w in words if w[0].lower() in 'aeiou']) >= 2` \n - `not any(w[0].lower() not in 'aeiou' for w in words)` \n\n Of course, the more involved the comprehension syntax and the boolean check, the less readable these one-liners become -- but in general, knowing these techniques can greatly improve the readability of your code.
+MW  With the help of the built-ins and techniques from this section, reimplement some functions from section 14 (there, recall, used to practice `break` and `continue`), in particular `has_any_odd`, `has_only_odd`, `has_three_odd` and `has_at_most_n_vowels`. (Sorry for the 'dry' exercises in this section!)
 
 
 Title   Clearer code
@@ -1942,7 +1939,8 @@ def alpha_substrings(text):
     return re.findall('\b[a-z]+\b')
 ```
 MW  Improve the function `alpha_substrings` -- the function itself and/or the examples -- so the examples pass the `doctest`.
-MW  ***UPDATE, maybe turn into a Note: The `doctest` library is designed to solve the problem of 'lying examples' illustrated above. Read enough of the documentation (https://docs.python.org/3/library/doctest.html) to be able to explain in your own words how it aims to do so.
+MW  ***UPDATE, maybe turn into a Note: The `doctest` library is designed to solve the problem of 'lying examples' illustrated above. Read enough of the documentation (https://docs.python.org/3/library/doctest.html) to be able to explain in your own words how it aims to do so. (***comment about other, more powerful testing libraries like `pytest`?)
+MW  *** `.__doc__` field.
 MW  What happens if you don't use the standard syntax for docstring examples, e.g., accidentally use only two `>>` or none at all; have an empty line in between the function call and the result, change the indentation... Does `doctest` still check them? (Revert these changes to make sure everything works again before continuing.)
 MW  Besides code examples in the documentation, what is some other Python-related place where you've encountered the `>>>` prefix? From your understanding of `doctest` (and, e.g., its documentation), is this commonality coincidental?
 MW  Figure out what the following function does, and add informative examples to its docstring. Verify that they pass the `doctest` evaluation.\n```
@@ -1975,12 +1973,13 @@ def dashify(s):
 ```
 MW  Reflect on how doctests can give you a false sense of security, and formulate recommendations for the kinds of code examples that should be included.
 
-***Expand the following; maybe with comment about other, more powerful testing libraries like `pytest`?
 Note	Test, test, test! Untested code is useless. Tested code _might_ be useful.
+
 
 ***Too abstract; no proper introduction to modules etc. yet. MW  Why do you think it is customary (as in the official documentation's main example) to run the doctest automatically when, and only when, the file is run as the main script?
 
-MW  Explain what purpose(s) the `doctest` library (and PyCharm's support for it) serves, and summarize roughly how it works.
+MW  Explain what purpose(s) the `doctest` library (and PyCharm's support for it) serves, and summarize roughly how it works. Is `doctest` a way of verifying that one's documentation is up to date, or that the code works correctly (or both/neither)?
+
 
 Subtitle  _[Optional]_ Even better function documentation: type hints
 
