@@ -14,6 +14,6 @@
 |  | ~~27 Apr~~ | 	_No class (holiday)_	                     | 	                   | 15 (text processing), 16.1-16.15 (sets)                         |
 |10. | 4 May | 	NLP pipeline 	                            | (cont.)             | 16.16-end (sorting and counting), 17.1-17.37 (pattern matching) |
 |11. | 11 May | 	Machine learning	                         | **Classification**  | 17.38-end, 18-18.30 (advanced text processing)                  |
-|12. | 18 May | Machine learning                           | (cont.)             | 18.31-38 (adventure), 19 (clearer code), revision               |
+|12. | 18 May | Machine learning                           | (cont.)             | 18.31-38 (adventure), 19 (more builtins), 20 (clearer code)     |
 |    |30 May 14.45u  | 	**Exam**                                  |                     |
 
