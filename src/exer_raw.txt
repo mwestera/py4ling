@@ -1037,6 +1037,8 @@ MW  Naturally, a shortcoming of word-by-word translation is that any word order 
 
 Title	Jumping out and skipping through loops (`break`, `while`, `continue`, `range`)
 
+***Maybe explicitly explain guard clauses too? Reduce nested if/elses and compound conditions, to if X, return, if Y return, to get rid of the elses.
+
 MW  We have seen before that `return` can be used (inside a function) to escape a loop when some condition has been met, causing the rest of the elements looped over to be skipped. Escaping a loop early is an important programming pattern to acquire, as it often results in cleaner and more efficient code. As a warming up, review your own solutions to the exercises of section 8 that involved this pattern.
 MW  What is wrong with the following function? Can you fix it? **Note:** In this and the following exercises, for the sake of practicing the main topics of this section, stick to the multi-line loop structure (e.g., don't use list comprehension, `sum`, or `any` and `all`, about which we will learn in a later section).\n```
 def has_any_odd(numbers):   # Note: The docstring is a lie.
@@ -1743,7 +1745,7 @@ MW  Assuming we have a list of strings assigned to `words`, try to describe in p
 MW  With the help of the built-ins and techniques from this section, reimplement some functions from section 14 (there, recall, used to practice `break` and `continue`), in particular `has_any_odd`, `has_only_odd`, `has_three_odd` and `has_at_most_n_vowels`. (Sorry for the 'dry' exercises in this section!)
 
 
-Title   Clearer code
+Title   Self-documenting code
 
 ***Reframe this whole section as being about documentation; treat type hints as a type of documentation (which, after all, it is). PyCharm and testing (along with imports?) in a different section.
 
@@ -1752,16 +1754,12 @@ MW  Does the PyCharm editor warn you of violations of Python style? Construct so
 
 *** Note	Initially created and long-term maintained by Guido van Rossum, Python is a very open, community-driven programming language. It has come to be the way it is with the help of **Python Enhancement Proposals** or PEPs (https://www.python.org/dev/peps/). **PEP8** is Python's style guide (https://www.python.org/dev/peps/pep-0008/).
 
-Note  Adherence to the Python styleguide **PEP8** is not a goal in and of itself (...unless you write Python as an art form), but serves primarily to increase the **safety** of your code: it increases the verifiability and likelihood that your code is actually computing what you think it does.
+Note  Adherence to the Python styleguide **PEP8** is not a goal in and of itself (...unless you write Python as an art form), but serves primarily to increase the **clarity** and thereby also **safety** of your code: it increases the verifiability (and likelihood) that your code is actually computing what you think it does.
 
-MW  Reflect on the importance of writing 'safe' code in the above sense, for developing applications as well as code used for research, and considering both individual projects and collaborative work. Is code safety less important for academic research than for production-ready code in a tech company? For group projects compared to individual projects?
+MW  Reflect on the importance of writing clear and safe code, comparing developing applications as well as research, individual as well as collaborative work.
 MW	Virtually every aspect of the Python language has been purposefully designed, even though we may not always understand the purpose. Should you find yourself frustrated with Python, just enter `import this` in the interpreter and feel your calm returning. The result is an 'easter egg' based on PEP20, that captures some of Python's design principles in poetic form.
 MW  From memory, make a list of the Python keywords and built-ins that you have learned about in this course so far. In line with PEP20, there is usually one preferred way of doing something. Becoming better at writing more readable (hence safer) Python code is, in large part, a matter of learning those ways.
-
-
-Subtitle    Comments vs. self-documenting code
-
-MW	So far you have been documenting your code with hashtag-comments (ignored by the Python interpreter) and with triple-quotation-marked strings. What do you think is the purpose of each? What are differences?
+MW	So far you have been documenting your code with hashtag-comments (ignored by the Python interpreter) and with triple-quotation-marked strings. What do you believe is the purpose of each? What are differences?
 MW  Will the following two lists end up being equivalent? Why (not)?\n```
 some_list1 = [
     'abc',
@@ -1779,7 +1777,7 @@ some_list2 = [
     'jkl'
     ]
 ```
-MW  Initially unfamiliar with the Python syntax, it is natural to frequently add plain English translations as comments, as in the example below. Can you find these kinds of comments in your own code from earlier sections? As you become more and more familiar with Python, these kinds of comments will gradually become unnecessary. Redundant comment should be avoided, as they merely create visual clutter.\n```
+MW  When you were still unfamiliar with the Python syntax, you may have frequently added plain English translations as comments, as in the example below. Check whether you can find this type of comments in your own code from earlier sections.\n```
 my_dict = {}   # create an empty dictionary
 my_number = 5432   # assign integer to variable
 ```
@@ -1795,16 +1793,22 @@ my_dict = {'a': 15, 'b': 20, 'c': 25}
 for x in my_dict.items():
     print(x)
 ```
-MW  A comment can _become_ false, even if it was initially correct, because comments are easily overlooked when changing the code. Anticipate what could go wrong in the example below, if at some point in the future we change our minds and want to compute the average length over `tokens` (i.e., occurrences) instead of `vocabulary`.\n```
-tokens = text.split()
+MW  Comments are easily overlooked (cf. their default color in the editor), so even if initially correct, they can easily _become_ false when modifying the code. Illustrate this, by modifying the following code for our client, who just called in to clarify what they need is the average length over token _occurrences_, not unique tokens.\n```
+import re
+text = 'Imagine this is some kind of text. Could be a lot longer.'
+# Tokenize by finding all alphanumeric characters in between word boundaries:
+tokens = re.findall(r'\b\w+\b', text)
+# Print the vocabulary size:
 vocabulary = set(tokens)
-# Compute the average length of tokens in the vocabulary
-average_length = sum([len(tok) for tok in vocabulary]) / len(vocabulary)
+print(len(vocabulary))
+# Print the average token length of the text:
+average_length = sum([len(tok) for tok in tokens]) / len(tokens)
+print(average_length)
 ```
 MW  It is clear that redundant comments (and certainly lying comments) ought to be avoided. But surprisingly often, comments can be _made_ redundant by choosing more transparent variable names. Can you change the variable name in the following snippet, so the comment can be deleted?\n```
-d = {}  # will contain mapping from student names to their IDs
+d = {}  # will map place names to their inhabitant counts
 ```
-MW	By renaming variables, make the following code more self-documenting, and remove any comments thereby made redundant:\n```
+MW	By renaming variables, make the following code more self-documenting, and remove any comments thereby made redundant (you can make other code improvements too):\n```
 mapping = {'John': '098124', 'Sue': '657317', 'Bob': '135809'}  # mapping from student names to their IDs
 mapping2 = {a: b for b, a in mapping.items()}	# construct the inverse mapping
 
@@ -1813,17 +1817,17 @@ x = '657317'    # this is the student ID that I need to know the name for
 if x in mapping2:
     print(new_mapping[x])	# print the student's name
 ```
-MW	For the same reason that variable names (when well-chosen) can be self-documenting, _auxiliary_ variables can increase code clarity. Improve the following code by assigning the computed value to a (meaningfully named) variable first, instead of printing it directly. Make other improvements too (including, but not limited to, using `math.PI`).\n```
+MW	For the same reason that variable names (when well-chosen) can be self-documenting, _auxiliary_ variables can increase code clarity. Improve the following code by assigning the computed value to a (meaningfully named) variable first, instead of printing it directly. Make other improvements too (including, but not limited to, using `math.pi`).\n```
 c = [7, 4, 5, 8, 6, 9, 5]   # these are circle radii
 for r in c:
     print(3.1415 * r**2)
 ```
-MW  Just like auxiliary _variables_, auxiliary _functions_ too can make code more self-documenting. Define a function for computing the thing that gets printed in the previous example. Do you see why, if you give the function a transparent name, the auxiliary variable from before is no longer necessary (i.e., you can call the function directly inside the print statement)?
-MW  The foregoing examples show that _brevity_ is not the point, _readability_ is: The original code was shorter than either the auxiliary variable variant (1 extra line), or the auxiliary function variant (extra lines to define the function). Earlier exercises showed this too, as self-documenting variable names tend to be longer than uninformative `x` or `y`. Relate this to one of the first statements in the aforementioned PEP8 style guide: _code is read much more often than it is written_.
+MW  Just like auxiliary _variables_, auxiliary _functions_ too can make code more self-documenting. Define a function for computing the thing that gets printed in the previous example. Having made this change, do you feel you still need the auxiliary variable introduced in the previous exercise, or can you call the function directly inside the print statement?
+MW  The foregoing examples show that _brevity_ is not the point, _readability_ is: The original code was shorter than either the auxiliary variable variant (1 extra line), or the auxiliary function variant (extra lines to define the function). Likewise, self-documenting variable names tend to be longer than uninformative `x` or `y`. Can you think of reasons why brevity as such is not the point?
 
-Note	You can often greatly improve the clarity of your code (and render comments redundant) by making it more **self-documenting**, with the help of adequately named variables and functions. Using abbreviations in your names rarely improves the readability of your code, and often harms it. As another rule of thumb, the greater the distance between variable assignment and variable use (or function definition and function call), the longer (i.e., more informative) its name should be.
+Note   Adequately named variables and functions make your code (more) **self-documenting** (why is that a good thing again?). As a rule of thumb, the greater the distance between variable assignment and variable use (or function definition and function call), the longer (i.e., more informative) its name should be.
 
-MW  Can you give a possible motivation for the latter rule of thumb? Looking back at some of the exercise solutions for previous sections, did we generally follow this rule? In which circumstances might uninformative variable names such as `x` be acceptable?
+MW  Can you give a possible motivation for the above rule of thumb? Looking back at some of the exercise solutions for previous sections, did we generally follow this rule? In which circumstances might uninformative variable names such as `x` be acceptable?
 ***Hard to find a good example. MW  However tempting, avoid using _abbreviations_ in your variable names unless they are absolutely standard jargon (which abbreviations rarely are). Do you recognize the following function from an earlier exercise section?\n
 MW	Also bad for code safety are so called **magic numbers**, i.e., seemingly arbitary numbers that occur in the middle of the code. In some cases, magic numbers can be derived from existing objects instead of manually entered. Use this to improve the following code (and explain why it is an improvement):\n```
 project_topics = ['sentiment analysis', 'zipf\'s law', 'collocations', 'distributional semantics']
@@ -1831,21 +1835,23 @@ students = ['Alf', 'Beth', 'Gemma', 'Dale', 'Ebba', 'Zod', 'Ethan', 'Philip']
 team_size = 8 / 4
 print(f'{team_size} students will work together on each project')
 ```
-MW  Sometimes a magic number cannot be 'derived' as in the preceding exercise, but instead it represents some type of configuration setting, to be chosen prior to running the script. This is illustrated below. Can you make this more self-documenting, and delete the comment?\n```
+MW  Sometimes a magic number cannot be 'derived' as in the preceding exercise, but instead it represents some type of configuration setting, to be chosen prior to running the script. This is illustrated below. First of all, can you make this more self-documenting?\n```
 with open('some_existing_file.txt', 'r') as file:
     text = file.read()
 
-text = text[:500]   # while debugging, consider only first 500 characters.
+text = text[:500]   # consider only first 500 characters just to test!
 ```
-MW  Configuration settings are best stored in (conventionally) all-caps variables at the top of your file (or, better yet, in a separate 'config file', or turned into 'command line arguments' -- techniques outside the scope of this course). Improve the above code in this way. This serves to separate the _core program_ from the customizable _settings_ with which to run it. Can you explain why such separation might be a good idea? Improve the foregoing example further, so that choosing the value `False` (instead of a number like `500`) will result in the entire text being used.
-MW  For one of the exercises above, you wrote a function for computing the area of a circle. Do you feel it contains magic numbers? Could it be improved? (Note: not every number is necessarily a 'magic number' in the problematic sense, of course.)
+MW  It is often a good idea to separate the _core program_ from the customizable _settings_ with which to run it (like the number above). Try to give several reasons, from different angles, on why such separation might be a good idea. Can you think of ways to achieve this?
+MW  Implement one of the ways you came up with for the above example. Improve the usability of the example further, so that choosing the value like `False` or `0` or `None` (instead of a number like `500`) will result in the entire text being used.
+MW  A number is 'magical' if, roughly, it hides the intent of the programmer in choosing that number (https://en.wikipedia.org/wiki/Magic_number_(programming)). Can you relate this to the concept of self-documenting code? Do you feel your earlier function for computing the area of a circle contains magic numbers?
 
 *** Not super important. MW	Variables with meaningful names inevitably carry the implication that they will be subsequently used. If this is not the case, i.e., for variables that will not be reused, the underscore `_` is conventionally used, as below. Go through your code to see if any variables could be replaced by `_` to make the code more readable:\n```for _ in range(10): print("Hurrah!")```
 ***Not super relevant. MW  A bit of an aside, but try executing something simple in the Python console that returns a value, like `38 * -2`, and then, on the next prompt, simply enter the underscore variable `_` and execute it. What special behavior does this show the underscore variable has in the interpreter? Does `_` work the same way in a Python script?
 ***Boring: MW	If you have been adding `#`-comments to your code, go through any of your previous code and see if such comments can be rendered unnecessary by making the code self-documenting (if it isn't already).
 
 
-MW  Besides adequate variable and function names, another way to make your code more self-documenting is to use appropriate _data structures_. Make the following code more self-documenting (and more safe) by using a dictionary instead of two lists (among other things):\n```
+MW  Just like adequate variable and function names, the data structures used can (and should, where possible) communicate their purpose. Which Python data structures do you know by now? What are their purposes?
+MW  Make the following code more self-documenting (and more safe) by (with code) representing the data in a more suitable data structure before executing the query. Additional improvements are possible too. \n```
 # Names of students and the corresponding (!) student IDs.
 # Warning, if you change one list make sure you change the other!
 names = ['John', 'Sue', 'Bob', 'Chris']
@@ -1853,12 +1859,12 @@ ids = ['124987', '098513', '098122', '198732']
 
 # find the student ID of Bob:
 id = names.index("Bob")
-x = ids[index_of_bob]
+x = ids[id]
 
 print(x)
 ```
-MW  Make the following code more self-documenting (and safer, and in some ways much shorter), by choosing better data structures (among other modifications):\n```
-# student records consist of the fields name, age, student_id and major:
+MW  Do the same for the following code (explain what is less than ideal, then improve it):\n```
+# student records consist of the fields name, age, id and major:
 students = [
     ['John', 22, '1249871', 'linguistics'],
     ['Mary', 24, '4198712', 'psychology'],
@@ -1866,18 +1872,15 @@ students = [
 ]
 
 for x in students:
-    if x[0] == 'Bob':   # name was in the first column, hence 0
-        print(x[2])  # student id is in the third column, hence 2
-        break
+    if x[0] == 'Bob':
+        print(x[2])
 ```
 ***Improve the following as a function for add_keep_unique or something?
-***Set datastructure not yet introduced...
 MW  Make the following code more self-documenting (and again, more safe):\n```
-unique_numbers = [1,6,3,2,5,7,9]    # warning: must contain every number only once!
+unique_numbers = [1,6,3,2,5,7,9]
 
-new_number = 8
-if new_number not in unique_numbers:    # to ensure each number remains unique
-    unique_numbers.append(new_number)
+if 8 not in unique_numbers:    # check to ensure numbers remain unique
+    unique_numbers.append(8)
 ```
 
 MW	Make the following code as clear and self-documenting as possible, taking into account all of the above considerations, about Python style, comments, variable names, auxiliary variables and functions, magic numbers, and appropriate datastructures (and the remarks about avoiding indexing, in section 19). You may have to change quite a bit!\n```
@@ -1886,9 +1889,13 @@ pts = [80, 60, 43, 75, 27, 92, 94]  # points they earned for the exam
 total = 100
 g = [10 * i/95 for i in pts]   # only 95 because 5 points were bonus
 p = [i > 5.5 for i in g]
-# now print the results in terms of pass/fail, followed by the number of failing students
-print(p)
-print(len([q for q in p if not q]))
+# now print the results, followed by the number of failing students
+print(list(zip(python, g)))
+nf = 0
+for b in p:
+    if b:
+        nf += 1
+print(nf)
 print([s for i, s in enumerate(python) if not p[i]])	# these failed the exam
 ```
 
@@ -1896,13 +1903,16 @@ print([s for i, s in enumerate(python) if not p[i]])	# these failed the exam
 ***Not relevant anymore; done something similar before. MW	Use the list `names` used earlier above, and create an empty dictionary `names_inv`. Now use `enumerate` to loop through all index-name pairs of the list `names`, and assign these to the dictionary `names_inv` by using names as keys and the corresponding list indices as values. Explain why `names_inv` is a suitable name.
 ***MW	Continuing from before, what do you expect is the result of `names_inv[names[3]]`? And what about `names[names_inv[names[3]]]`? And `names_inv[names[names_inv[names[3]]]]`? Test your expectations!
 ***MW	How robust is your previous program? What happens if the original list of names contained the same name twice, and you try to construct its inverse? Explain what goes wrong.
+MW  Review one of the mini-adventures for which you implemented a (partial) solution, and where possible improve your code to make it more self-documenting.
 
 
-Subtitle  _[Optional]_ Better function documentation (`doctest`)
+Title  Testing your code (`doctest`, type hints)
+
+***Maybe something about reproducibility?
 
 MW  Making your code more self-documenting is good, but some parts still benefit from explicit documentation, in particular functions. Can you think of some reasons why including 'docstrings' in your function definitions is generally advised? Can't you make a function self-documenting by choosing an appropriate name?
 ***The following should already have been practiced more by now, i.e., for the mini-adventures.
-MW  The following exercises will be easier and more transparent if you first organize your file (if you don't already follow this common practice) such that no functions are _called_ (only _defined_) except if the file is run as a standalone ('main') script (so not if it is imported elsewhere). That is, put any function calls inside a `def main(): ...` function, and at the bottom of your file add the following idiom, to call this function only if the file is run as the 'main' script:\n```
+MW  The following exercises will be easier and more transparent if you organize your file (if you don't already follow this common practice) such that no functions are _called_ (only _defined_) except if the file is run as a standalone ('main') script (so not if it is imported elsewhere). That is, put any function calls inside a `def main(): ...` function, and at the bottom of your file add the following idiom, to call this function only if the file is run as the 'main' script:\n```
 if __name__ == '__main__':
     main()
 ```
@@ -1982,7 +1992,6 @@ MW  Explain what purpose(s) the `doctest` library (and PyCharm's support for it)
 
 
 Subtitle  _[Optional]_ Even better function documentation: type hints
-
 
 Note  Python offers tools that check whether what a function is _claimed_ to do (in its documentation) corresponds to what the function actually does, thus increasing the safety of your code (neutralizing, to some extent, the risk that 'comments can lie' mentioned earlier in this section). Two tools covered here are **type hints**, and **doctests** (which is only one of several testing suites, some more powerful/flexible).
 
