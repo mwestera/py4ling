@@ -2,7 +2,7 @@
 
 ## Class 11
 1. Mini-exam 10 + discussion
-2. Admin: homework time? (## hours)
+2. Admin: homework time? (okay-ish, hard to get spacy to run)
 3. Homework discussion: Sec 17.38-end (regex), 18-18.30 (spacy)
 
 --- break ---
@@ -23,25 +23,4 @@ https://en.wikipedia.org/wiki/Natural_language_processing
   - Supervised
   - Unsupervised
   - Reinforcement learning
-
-### Training
-- Gradient descent
-- Loss function 
-- Backpropagation
-- Training, validation, testing
-
-### Inputs
-- Pre-computed features (feature engineering)
-- 'Raw' inputs (feature learning/Representation learning)
-
-### Regression (next week's adventure)
-
-...
-
-### Why "Regression?"
-
-![galtonregression.png](slides/galtonregression.png)
-
-From _Francis Galton (1886). Regression toward mediocrity in heriditary stature._
-
-![galtonquote.png](slides/galtonquote.png)
+  
