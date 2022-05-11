@@ -40,8 +40,8 @@ https://en.wikipedia.org/wiki/Natural_language_processing
 
 ### Why "Regression?"
 
-![galtonregression.png](galtonregression.png)
+![galtonregression.png](slides/galtonregression.png)
 
 From _Francis Galton (1886). Regression toward mediocrity in heriditary stature._
 
-![galtonquote.png](galtonquote.png)
+![galtonquote.png](slides/galtonquote.png)
