@@ -1910,7 +1910,9 @@ MW  Review one of the mini-adventures for which you implemented a (partial) solu
 
 Title   Where next?
 
-MW  First of all, now would be the _perfect_ time to read the official **Python tutorial** (https://docs.python.org/3/tutorial/), which provides an excellent, detailed but readable overview of everything you have learned, and some things you haven't learned yet. Although it's called a 'tutorial', it is not very well-suited to people with no programming experience -- but it makes for the _perfect_ recap at the end of this course!
+MW  First of all, **download this repository**, or at least the exercises folder, to your computer. I'm not sure how long these exercises will be available here, and in any case, at some point they will be updated -- sections split and merged and exercises reordered -- after which the numbering in your notes and solutions will no longer correspond to the files in this repository.
+
+MW  Now would be the _perfect_ time to read the official **Python tutorial** (https://docs.python.org/3/tutorial/), which provides an excellent, detailed but readable overview of everything you have learned, and some things you haven't learned yet. Although it's called a 'tutorial', it is not very well-suited to people with no programming experience -- but it makes for the _perfect_ recap at the end of this course!
 
 MW  The book **Humanities Data Analysis: Case Studies with Python** (https://www.humanitiesdataanalysis.org/) is a perfect continuation of this course; virtually a 'Python for Linguists part II'. It is aimed at students and researchers in the humanities (primarily working with textual data) who are already familiar with the Python programming language. The case studies are _very_ interesting and diverse (cookbooks, naming and gender data, historical text stylometry, geographical data, readership trends), and introduce you to widely used libraries such as `pandas` for tabular data, `matplotlib` for plotting and `sklearn` for statistical analysis.
 
