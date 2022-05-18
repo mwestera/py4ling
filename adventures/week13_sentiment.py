@@ -8,7 +8,7 @@ import wordcloud
 import matplotlib.pyplot as plt
 
 path_to_data = 'data/sentiment/sentiment.csv'
-NROWS = 1000
+NROWS = None
 
 
 def main():
@@ -19,7 +19,8 @@ def main():
 
     data_train, data_test = train_test_split(data)
 
-    model_with_manual_features(data_train, data_test, ['n_pos', 'n_neg'])
+    # model_with_manual_features(data_train, data_test, ['n_pos', 'n_neg'])
+    # feature engineering
 
     illustrate_countvectorizer()
     model_with_countvectorizer(data_train, data_test)
@@ -97,14 +98,14 @@ def feature_analysis(model, feature_names):
     print(word_importances[:30])
 
     print("MOST POSITIVE COEFS:")
-    print(word_importances[-30:])
+    print(word_importances[-1:-30:-1])
 
-    # weights = dict(zip(feature_names, -1 * coefficients))
-    # w = wordcloud.WordCloud(width=800, height=600, mode='RGBA', background_color='white', max_words=2000).fit_words(
-    #     weights)
-    # plt.imshow(w)
-    # plt.axis("off")
-    # plt.show()
+    weights = dict(zip(feature_names, -1 * coefficients))
+    w = wordcloud.WordCloud(width=800, height=600, mode='RGBA', background_color='white', max_words=2000).fit_words(
+        weights)
+    plt.imshow(w)
+    plt.axis("off")
+    plt.show()
 
 
 
